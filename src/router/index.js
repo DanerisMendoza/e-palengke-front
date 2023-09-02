@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/views/windows/Login.vue'
+import Requirement from '@/views/windows/Requirement.vue'
 
 Vue.use(VueRouter)
 
@@ -13,6 +14,11 @@ const routes = [
         path: '/Login',
         name: 'Login',
         component: Login
+    },
+    {
+        path: '/Requirement',
+        name: 'Requirement',
+        component: Requirement
     },
 ]
 
