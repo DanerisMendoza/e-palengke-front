@@ -2,21 +2,22 @@ import requirement from '@/api/modules/requirements/index'
 
 export default {
     state: {
-    
+        REQUIREMENTS: []
     },
     
     getters: {
-
+        REQUIREMENTS:(state) => state.REQUIREMENTS,
     },
 
     mutations: {
-
+        REQUIREMENTS:(state, data)=>{state.REQUIREMENTS = data},
     },
 
     actions: {
-        getRequirements(){
+        getRequirements({commit}){
             return new Promise((resolve,reject)=>{
             requirement.getRequirements().then((response)=>{
+                commit('REQUIREMENTS', response.data)
                 resolve(response.data)
               }).catch((error)=>{
                   reject(error)
