@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+    <div>
         <v-data-table
             :headers="headers"
             :items="REQUIREMENTS"
@@ -26,9 +26,8 @@
             </td>
           </tr>
         </template>
-
         </v-data-table>
-    </v-app>
+    </div>
 </template>
 <script>
 
@@ -52,18 +51,14 @@ export default {
 	  },
 
     methods: {
-    // Implement CRUD action methods here
     viewItem(item) {
-      // Logic for viewing a requirement
+    
     },
     editItem(item) {
-      // Logic for editing a requirement
       this.$store.commit("SELECTED_REQUIREMENT",item)
-      this.$store.commit("REQUIREMENT_DIALOG",true)
-      console.log(item)
     },
     deleteItem(item) {
-      // Logic for deleting a requirement
+    
     },
   },
 

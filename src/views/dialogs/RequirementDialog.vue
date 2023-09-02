@@ -1,11 +1,51 @@
 <template>
-    <!-- <v-container fluid> -->
-        <v-dialog v-model="dialog">
+    <v-container fluid>
+        <v-dialog v-model="dialog" persistent fullscreen>
             <v-card>
-                <h1>aaa</h1>
+                <v-row>
+                    <v-col>
+                        <v-btn text icon class="float-right" @click="closeDialog()">
+                            <v-icon>mdi-close-circle</v-icon>
+                        </v-btn>
+                    </v-col>
+                </v-row>
+                    
+                <v-row>
+                    <v-col cols="6">
+                        <h1> {{ SELECTED_REQUIREMENT.name }}</h1>
+                    </v-col>
+                </v-row>
+
+                <v-row>
+                    <v-col cols="7">
+                        <v-btn class="float-right" @click="addNewRequirement()">
+                            add new requirement-details
+                        </v-btn>
+                    </v-col>
+                </v-row>
+                    
+                <v-row>
+                    <v-col cols="12">
+                        <v-data-table
+                        :headers="headers"
+                        :items="SELECTED_REQUIREMENT.requirementDetails"
+                        >
+                        <template v-slot:item="{ item }">
+                            <tr>
+                                <td style="text-align: center;">{{ item.name }}</td>
+                                <td style="text-align: center;"> 
+                                    <!-- <v-icon @click="viewItem(item)" class="mr-2">mdi-eye</v-icon> -->
+                                    <v-icon @click="editItem(item)">mdi-pencil</v-icon>
+                                    <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
+                                </td>
+                            </tr>
+                        </template>
+                    </v-data-table>
+                    </v-col>
+                </v-row>
             </v-card>
         </v-dialog>
-    <!-- </v-container> -->
+    </v-container>
 </template>
 
 <script>
@@ -13,16 +53,34 @@
     export default{
         data(){
             return {
-                dialog:true
+                dialog:true,
+                headers: [
+                    { text: "name", align: "center", value: "name", sortable: false },
+                    { text: 'Actions', align: "center", value: 'actions', sortable: false },
+                ],
             } 
         },
-        mounted(){
-            console.log('aaa')
+        methods: {
+            closeDialog(){
+                this.$store.commit("SELECTED_REQUIREMENT",null)
+            },
+            addNewRequirement(){
+
+            },  
+            editItem(item){
+                this.$store.commit("SELECTED_REQUIREMENT_DETAIL",item)
+            },  
+            deleteItem(item){
+
+            },  
         },
         computed: {
             ...mapGetters([
                 'SELECTED_REQUIREMENT',
             ])
+        },
+        mounted(){
+            console.log(this.SELECTED_REQUIREMENT)
         },
     }
 </script>

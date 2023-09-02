@@ -4,26 +4,25 @@ export default {
     state: {
         REQUIREMENTS: [],
         SELECTED_REQUIREMENT: null,
-        REQUIREMENT_DIALOG: false
+        SELECTED_REQUIREMENT_DETAIL: null,
     },
     
     getters: {
         REQUIREMENTS:(state) => state.REQUIREMENTS,
         SELECTED_REQUIREMENT:(state) => state.SELECTED_REQUIREMENT,
-        REQUIREMENT_DIALOG:(state) => state.REQUIREMENT_DIALOG,
+        SELECTED_REQUIREMENT_DETAIL:(state) => state.SELECTED_REQUIREMENT_DETAIL,
     },
 
     mutations: {
         REQUIREMENTS:(state, data)=>{state.REQUIREMENTS = data},
         SELECTED_REQUIREMENT:(state, data)=>{state.SELECTED_REQUIREMENT = data},
-        REQUIREMENT_DIALOG:(state, data)=>{state.REQUIREMENT_DIALOG = data},
+        SELECTED_REQUIREMENT_DETAIL:(state, data)=>{state.SELECTED_REQUIREMENT_DETAIL = data},
     },
 
     actions: {
         getRequirements({commit}){
             return new Promise((resolve,reject)=>{
             requirement.getRequirements().then((response)=>{
-                console.log(response.data)
                 commit('REQUIREMENTS', response.data)
                 resolve(response.data)
               }).catch((error)=>{
