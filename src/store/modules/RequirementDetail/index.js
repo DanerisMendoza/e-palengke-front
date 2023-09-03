@@ -28,10 +28,21 @@ export default {
                 RequirementDetail.GET_REQUIREMENT_DETAIL_BY_ID(payload).then((response)=>{
                 commit('REQUIREMENT_DETAILS', response.data)
                 resolve(response.data)
+            }).catch((error)=>{
+                  reject(error)
+                });
+            })
+        },
+        
+        DELETE_REQUIREMENT_DETAIL_BY_ID({commit}, payload){
+            return new Promise((resolve,reject)=>{
+                RequirementDetail.DELETE_REQUIREMENT_DETAIL_BY_ID(payload).then((response)=>{
+                resolve(response.data)
               }).catch((error)=>{
                   reject(error)
               });
             })
         },
+        
     }
 }

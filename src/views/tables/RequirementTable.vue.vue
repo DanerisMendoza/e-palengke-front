@@ -22,7 +22,7 @@
             <td style="text-align: center;"> 
               <!-- <v-icon @click="viewItem(item)" class="mr-2">mdi-eye</v-icon> -->
               <v-icon @click="editItem(item)">mdi-pencil</v-icon>
-              <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
+              <!-- <v-icon @click="deleteItem(item)">mdi-delete</v-icon> -->
             </td>
           </tr>
         </template>

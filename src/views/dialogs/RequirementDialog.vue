@@ -58,7 +58,6 @@
                     { text: "name", align: "center", value: "name", sortable: false },
                     { text: 'Actions', align: "center", value: 'actions', sortable: false },
                 ],
-                requirementDetails: [],
             } 
         },
         methods: {
@@ -67,14 +66,18 @@
             },
             addNewRequirement(){
                 this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'ADD')
-                console.log(this.SELECTED_REQUIREMENT)
             },  
             editItem(item){
                 this.$store.commit("SELECTED_REQUIREMENT_DETAIL",item)
                 this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'UPDATE')
             },  
             deleteItem(item){
-                
+                this.$store.dispatch("DELETE_REQUIREMENT_DETAIL_BY_ID",item.id).then((response)=>{
+                    if(response == 'success'){
+                        this.$store.dispatch("GET_REQUIREMENTS")
+                        this.$store.dispatch("GET_REQUIREMENT_DETAIL_BY_ID",this.SELECTED_REQUIREMENT.id)
+                    }
+                })
             },  
         },
         computed: {

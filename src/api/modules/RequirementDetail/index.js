@@ -1,7 +1,7 @@
 import api from '@/api/index'
 
 export default {
-    getRequirementDetail(){
+    GET_REQUIREMENT_DETAIL(){
         return api.get('api/RequirementDetail');
     },
     GET_REQUIREMENT_DETAIL_BY_ID(params){
@@ -10,10 +10,10 @@ export default {
     STORE_REQUIREMENT_DETAIL(params){
         return api.post('api/RequirementDetail',params);
     },
-    updateRequirementDetailById(params){
+    UPDATE_REQUIREMENT_DETAIL_BY_ID(params){
         return api.put(`api/RequirementDetail/${params.id}`,params.request);
     },
-    deleteRequirementDetailById(params){
+    DELETE_REQUIREMENT_DETAIL_BY_ID(params){
         return api.delete(`api/RequirementDetail/${params}`);
     }
 }
