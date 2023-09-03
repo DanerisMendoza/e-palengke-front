@@ -28,7 +28,7 @@
                     <v-col cols="12">
                         <v-data-table
                         :headers="headers"
-                        :items="SELECTED_REQUIREMENT.requirementDetails"
+                        :items="REQUIREMENT_DETAILS"
                         >
                         <template v-slot:item="{ item }">
                             <tr>
@@ -58,6 +58,7 @@
                     { text: "name", align: "center", value: "name", sortable: false },
                     { text: 'Actions', align: "center", value: 'actions', sortable: false },
                 ],
+                requirementDetails: [],
             } 
         },
         methods: {
@@ -66,22 +67,24 @@
             },
             addNewRequirement(){
                 this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'ADD')
+                console.log(this.SELECTED_REQUIREMENT)
             },  
             editItem(item){
                 this.$store.commit("SELECTED_REQUIREMENT_DETAIL",item)
                 this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'UPDATE')
             },  
             deleteItem(item){
-
+                
             },  
         },
         computed: {
             ...mapGetters([
                 'SELECTED_REQUIREMENT',
+                'REQUIREMENT_DETAILS',
             ])
         },
         mounted(){
-            console.log(this.SELECTED_REQUIREMENT)
+            this.$store.dispatch("getRequirementDetailtById",this.SELECTED_REQUIREMENT.id)
         },
     }
 </script>

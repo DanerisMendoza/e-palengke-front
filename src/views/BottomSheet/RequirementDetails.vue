@@ -37,11 +37,21 @@ import { mapGetters } from 'vuex';
                 this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",null)
             },
             submit(){
-
+                if(this.REQUIREMENT_DETAIL_BOTTOMSHEET === 'ADD'){
+                    const payload={requirement_id: this.SELECTED_REQUIREMENT.id, name: this.name}
+                    console.log(payload)
+                    this.$store.dispatch("storeRequirementDetail",payload).then((response)=>{
+                        if(response == 'success'){
+                            this.$store.dispatch("getRequirements")
+                            this.$store.dispatch("getRequirementDetailtById",this.SELECTED_REQUIREMENT.id)
+                        }
+                    })
+                }
             },
         },
         computed: {
         ...mapGetters([
+            'SELECTED_REQUIREMENT',
             'REQUIREMENT_DETAIL_BOTTOMSHEET',
         ])
 	  },
