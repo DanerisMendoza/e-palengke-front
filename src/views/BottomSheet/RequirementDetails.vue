@@ -39,8 +39,21 @@ import { mapGetters } from 'vuex';
             submit(){
                 if(this.REQUIREMENT_DETAIL_BOTTOMSHEET === 'ADD'){
                     const payload={requirement_id: this.SELECTED_REQUIREMENT.id, name: this.name}
-                    console.log(payload)
                     this.$store.dispatch("STORE_REQUIREMENT_DETAIL",payload).then((response)=>{
+                        if(response == 'success'){
+                            this.$store.dispatch("GET_REQUIREMENTS")
+                            this.$store.dispatch("GET_REQUIREMENT_DETAIL_BY_ID",this.SELECTED_REQUIREMENT.id)
+                        }
+                    })
+                }
+                else if (this.REQUIREMENT_DETAIL_BOTTOMSHEET === 'UPDATE') {
+                    const payload = {
+                        request:{
+                            name: this.name
+                        },
+                        id:this.SELECTED_REQUIREMENT_DETAIL.id
+                    }
+                    this.$store.dispatch("UPDATE_REQUIREMENT_DETAIL_BY_ID",payload).then((response)=>{
                         if(response == 'success'){
                             this.$store.dispatch("GET_REQUIREMENTS")
                             this.$store.dispatch("GET_REQUIREMENT_DETAIL_BY_ID",this.SELECTED_REQUIREMENT.id)
@@ -50,10 +63,16 @@ import { mapGetters } from 'vuex';
             },
         },
         computed: {
-        ...mapGetters([
-            'SELECTED_REQUIREMENT',
-            'REQUIREMENT_DETAIL_BOTTOMSHEET',
-        ])
-	  },
+            ...mapGetters([
+                'SELECTED_REQUIREMENT',
+                'SELECTED_REQUIREMENT_DETAIL',
+                'REQUIREMENT_DETAIL_BOTTOMSHEET',
+            ]),
+	    },
+        mounted(){
+            if(this.REQUIREMENT_DETAIL_BOTTOMSHEET === 'UPDATE'){
+                this.name = this.SELECTED_REQUIREMENT_DETAIL.name
+            }
+        }
     }
 </script>

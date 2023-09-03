@@ -43,6 +43,16 @@ export default {
               });
             })
         },
+
+        UPDATE_REQUIREMENT_DETAIL_BY_ID({commit}, payload){
+            return new Promise((resolve,reject)=>{
+                RequirementDetail.UPDATE_REQUIREMENT_DETAIL_BY_ID(payload).then((response)=>{
+                resolve(response.data)
+              }).catch((error)=>{
+                  reject(error)
+              });
+            })
+        },
         
     }
 }
