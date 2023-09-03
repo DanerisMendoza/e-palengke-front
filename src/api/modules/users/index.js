@@ -1,7 +1,7 @@
 import api from '@/api/index'
 
 export default {
-    login(params){
+    LOGIN(params){
         return api.post('api/loginUser',params);
     },
     // saveUser(params,config){

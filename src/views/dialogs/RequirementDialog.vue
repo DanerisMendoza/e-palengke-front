@@ -84,7 +84,7 @@
             ])
         },
         mounted(){
-            this.$store.dispatch("getRequirementDetailtById",this.SELECTED_REQUIREMENT.id)
+            this.$store.dispatch("GET_REQUIREMENT_DETAIL_BY_ID",this.SELECTED_REQUIREMENT.id)
         },
     }
 </script>

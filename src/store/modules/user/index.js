@@ -14,9 +14,9 @@ export default {
     },
 
     actions: {
-        login({commit}, payload){
+        LOGIN({commit}, payload){
             return new Promise((resolve,reject)=>{
-            user.login(payload).then((response)=>{
+            user.LOGIN(payload).then((response)=>{
                 resolve(response.data)
               }).catch((error)=>{
                   reject(error)

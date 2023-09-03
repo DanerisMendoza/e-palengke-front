@@ -63,11 +63,11 @@ export default {
   },
 
     mounted(){
-        this.$store.dispatch("getRequirements")
-        // this.$store.dispatch("getRequirementById",1).then((response) => {
+        this.$store.dispatch("GET_REQUIREMENTS")
+        // this.$store.dispatch("GET_REQUIREMENTS_BY_ID",1).then((response) => {
         //   console.log(response);
         // });
-        // this.$store.dispatch("getRequirementById",1).then((response) => {
+        // this.$store.dispatch("GET_REQUIREMENTS_BY_ID",1).then((response) => {
         //   console.log(response);
         // });
         // const payload = {
@@ -79,13 +79,13 @@ export default {
         // const payload = {
         //     name: 'agent'
         // }
-        // this.$store.dispatch("createRequirement",payload).then((response) => {
+        // this.$store.dispatch("CREATE_REQUIREMENT",payload).then((response) => {
         //   console.log(response);
         // });
-        // this.$store.dispatch("deleteRequirementById",3).then((response) => {
+        // this.$store.dispatch("DELETE_REQUIREMENT_BY_ID",3).then((response) => {
         //   console.log(response);
         // });
-        // this.$store.dispatch("updateRequirementById",payload).then((response) => {
+        // this.$store.dispatch("UPDATE_REQUIREMENT_BY_ID",payload).then((response) => {
         //   console.log(response);
         // });
     }

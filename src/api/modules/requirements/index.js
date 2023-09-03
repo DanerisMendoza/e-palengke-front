@@ -1,19 +1,19 @@
 import api from '@/api/index'
 
 export default {
-    getRequirements(){
+    GET_REQUIREMENTS(){
         return api.get('api/requirements');
     },
-    getRequirementById(params){
+    GET_REQUIREMENTS_BY_ID(params){
         return api.get(`api/requirements/${params}`);
     },
-    createRequirement(params){
+    CREATE_REQUIREMENT(params){
         return api.post('api/requirements',params);
     },
-    updateRequirementById(params){
+    UPDATE_REQUIREMENT_BY_ID(params){
         return api.put(`api/requirements/${params.id}`,params.request);
     },
-    deleteRequirementById(params){
+    DELETE_REQUIREMENT_BY_ID(params){
         return api.delete(`api/requirements/${params}`);
     }
 }

@@ -38,7 +38,7 @@
           username: this.username,
           password: this.password,
         };
-        this.$store.dispatch("login", payload).then((response) => {
+        this.$store.dispatch("LOGIN", payload).then((response) => {
           console.log(response);
           // this.$swal.fire({
           //   icon: "success",

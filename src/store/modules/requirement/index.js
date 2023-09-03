@@ -23,9 +23,9 @@ export default {
     },
 
     actions: {
-        getRequirements({commit}){
+        GET_REQUIREMENTS({commit}){
             return new Promise((resolve,reject)=>{
-            requirement.getRequirements().then((response)=>{
+            requirement.GET_REQUIREMENTS().then((response)=>{
                 commit('REQUIREMENTS', response.data)
                 resolve(response.data)
               }).catch((error)=>{
@@ -33,9 +33,9 @@ export default {
               });
             })
         },
-        getRequirementById({commit}, payload){
+        GET_REQUIREMENTS_BY_ID({commit}, payload){
             return new Promise((resolve,reject)=>{
-            requirement.getRequirementById(payload).then((response)=>{
+            requirement.GET_REQUIREMENTS_BY_ID(payload).then((response)=>{
                 resolve(response.data)
               }).catch((error)=>{
                   reject(error)
@@ -43,9 +43,9 @@ export default {
             })
         },
         
-        createRequirement({commit}, payload){
+        CREATE_REQUIREMENT({commit}, payload){
             return new Promise((resolve,reject)=>{
-            requirement.createRequirement(payload).then((response)=>{
+            requirement.CREATE_REQUIREMENT(payload).then((response)=>{
                 resolve(response.data)
               }).catch((error)=>{
                   reject(error)
@@ -53,9 +53,9 @@ export default {
             })
         },
 
-        updateRequirementById({commit}, payload){
+        UPDATE_REQUIREMENT_BY_ID({commit}, payload){
             return new Promise((resolve,reject)=>{
-            requirement.updateRequirementById(payload).then((response)=>{
+            requirement.UPDATE_REQUIREMENT_BY_ID(payload).then((response)=>{
                 resolve(response.data)
               }).catch((error)=>{
                   reject(error)
@@ -63,9 +63,9 @@ export default {
             })
         },
 
-        deleteRequirementById({commit}, payload){
+        DELETE_REQUIREMENT_BY_ID({commit}, payload){
             return new Promise((resolve,reject)=>{
-            requirement.deleteRequirementById(payload).then((response)=>{
+            requirement.DELETE_REQUIREMENT_BY_ID(payload).then((response)=>{
                 resolve(response.data)
               }).catch((error)=>{
                   reject(error)

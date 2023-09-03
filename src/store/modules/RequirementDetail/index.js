@@ -14,18 +14,18 @@ export default {
     },
 
     actions: {
-        storeRequirementDetail({commit}, payload){
+        STORE_REQUIREMENT_DETAIL({commit}, payload){
             return new Promise((resolve,reject)=>{
-                RequirementDetail.storeRequirementDetail(payload).then((response)=>{
+                RequirementDetail.STORE_REQUIREMENT_DETAIL(payload).then((response)=>{
                 resolve(response.data)
               }).catch((error)=>{
                   reject(error)
               });
             })
         },
-        getRequirementDetailtById({commit}, payload){
+        GET_REQUIREMENT_DETAIL_BY_ID({commit}, payload){
             return new Promise((resolve,reject)=>{
-                RequirementDetail.getRequirementDetailtById(payload).then((response)=>{
+                RequirementDetail.GET_REQUIREMENT_DETAIL_BY_ID(payload).then((response)=>{
                 commit('REQUIREMENT_DETAILS', response.data)
                 resolve(response.data)
               }).catch((error)=>{

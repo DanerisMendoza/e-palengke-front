@@ -40,10 +40,10 @@ import { mapGetters } from 'vuex';
                 if(this.REQUIREMENT_DETAIL_BOTTOMSHEET === 'ADD'){
                     const payload={requirement_id: this.SELECTED_REQUIREMENT.id, name: this.name}
                     console.log(payload)
-                    this.$store.dispatch("storeRequirementDetail",payload).then((response)=>{
+                    this.$store.dispatch("STORE_REQUIREMENT_DETAIL",payload).then((response)=>{
                         if(response == 'success'){
-                            this.$store.dispatch("getRequirements")
-                            this.$store.dispatch("getRequirementDetailtById",this.SELECTED_REQUIREMENT.id)
+                            this.$store.dispatch("GET_REQUIREMENTS")
+                            this.$store.dispatch("GET_REQUIREMENT_DETAIL_BY_ID",this.SELECTED_REQUIREMENT.id)
                         }
                     })
                 }
