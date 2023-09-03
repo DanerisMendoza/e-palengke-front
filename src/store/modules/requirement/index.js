@@ -5,18 +5,21 @@ export default {
         REQUIREMENTS: [],
         SELECTED_REQUIREMENT: null,
         SELECTED_REQUIREMENT_DETAIL: null,
+        REQUIREMENT_DETAIL_BOTTOMSHEET: null,
     },
     
     getters: {
         REQUIREMENTS:(state) => state.REQUIREMENTS,
         SELECTED_REQUIREMENT:(state) => state.SELECTED_REQUIREMENT,
         SELECTED_REQUIREMENT_DETAIL:(state) => state.SELECTED_REQUIREMENT_DETAIL,
+        REQUIREMENT_DETAIL_BOTTOMSHEET:(state) => state.REQUIREMENT_DETAIL_BOTTOMSHEET,
     },
 
     mutations: {
         REQUIREMENTS:(state, data)=>{state.REQUIREMENTS = data},
         SELECTED_REQUIREMENT:(state, data)=>{state.SELECTED_REQUIREMENT = data},
         SELECTED_REQUIREMENT_DETAIL:(state, data)=>{state.SELECTED_REQUIREMENT_DETAIL = data},
+        REQUIREMENT_DETAIL_BOTTOMSHEET:(state, data)=>{state.REQUIREMENT_DETAIL_BOTTOMSHEET = data},
     },
 
     actions: {

@@ -65,10 +65,11 @@
                 this.$store.commit("SELECTED_REQUIREMENT",null)
             },
             addNewRequirement(){
-
+                this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'ADD')
             },  
             editItem(item){
                 this.$store.commit("SELECTED_REQUIREMENT_DETAIL",item)
+                this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'UPDATE')
             },  
             deleteItem(item){
 

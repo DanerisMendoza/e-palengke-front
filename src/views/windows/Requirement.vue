@@ -2,13 +2,13 @@
     <v-container>
         <h1>Requirement Window</h1>
         <RequirementDialog v-if="SELECTED_REQUIREMENT !== null"/>
-        <RequirementDetails v-if="SELECTED_REQUIREMENT_DETAIL !== null"/>
+        <RequirementDetails v-if="REQUIREMENT_DETAIL_BOTTOMSHEET !== null"/>
         <RequirementTable/>
     </v-container>
 </template>
 <script>
     import { mapGetters } from 'vuex';
-    import RequirementTable from '../tables/Requirement.vue';
+    import RequirementTable from '../tables/RequirementTable.vue';
     import RequirementDialog from '../dialogs/RequirementDialog.vue';
     import RequirementDetails from '../BottomSheet/RequirementDetails.vue';
     export default{
@@ -16,7 +16,8 @@
         computed: {
             ...mapGetters([
                 'SELECTED_REQUIREMENT',
-                'SELECTED_REQUIREMENT_DETAIL'
+                'SELECTED_REQUIREMENT_DETAIL',
+                'REQUIREMENT_DETAIL_BOTTOMSHEET'
             ])
         },
         // watch: {
