@@ -20,12 +20,5 @@
                 'REQUIREMENT_DETAIL_BOTTOMSHEET'
             ])
         },
-        // watch: {
-        //     SELECTED_REQUIREMENT: {
-        //         handler(val) {
-        //             console.log(val)
-        //         },
-        //     },
-        // }
     }
 </script>
