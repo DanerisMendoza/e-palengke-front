@@ -55,7 +55,8 @@ export default{
         "SELECTED_REQUIREMENT",
         "STORE_TYPE_DETAIL",
         "APPLICANT_CREDENTIALS",
-        "MARKER_LAT_LNG"
+        "MARKER_LAT_LNG",
+        "REQUIREMENTS"
       ]),
 
       computedRole(){
@@ -80,7 +81,6 @@ export default{
 
     methods:{
         submit(){
-            // console.log(this.APPLICANT_CREDENTIALS)
             let isCredentialComplete = this.APPLICANT_CREDENTIALS.length === 0 ? false : true 
             this.APPLICANT_CREDENTIALS.forEach(item => {
                 if (!item.hasOwnProperty('value')) {
@@ -100,21 +100,22 @@ export default{
             }
             if(this.SELECTED_REQUIREMENT === 1){
                 const data = new FormData();
-                // data.append("form", JSON.stringify(this.form));
                 if (this.APPLICANT_CREDENTIALS.length > 0) {
                     for (let i = 0; i < this.APPLICANT_CREDENTIALS.length; i++) {
                         data.append("files[]", this.APPLICANT_CREDENTIALS[i].value);
                         console.log(this.APPLICANT_CREDENTIALS[i].value)
                     }
                 }
+                data.append("applicantCredential",JSON.stringify( this.APPLICANT_CREDENTIALS));
+                data.append("storeName",this.storeName);
+                data.append("storeType",JSON.stringify(this.selected_store_type_detail));
+                data.append("user_role_name",this.REQUIREMENTS.filter(item => item.id === this.SELECTED_REQUIREMENT)[0].name);
+                data.append("requirement_id",this.SELECTED_REQUIREMENT);
+                data.append("status","application-pending");
+                data.append("user_id",2);
+                data.append("latitude",this.MARKER_LAT_LNG[0]);
+                data.append("longitude",this.MARKER_LAT_LNG[1]);
 
-
-                // const data = {
-                //     applicantCredential: this.APPLICANT_CREDENTIALS,
-                //     storeName: this.storeName,
-                //     storeType: this.selected_store_type_detail,
-                //     user_id: 2
-                // }
                 const config = {
                     headers: {
                         "content-type": "multipart/form-data",
@@ -126,7 +127,6 @@ export default{
                     config: config,
                 };
 
-                // console.log(payload)
                 this.$store.dispatch("SUBMIT_APPLICANT_CREDENTIAL",payload)  
             }
         },
