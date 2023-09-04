@@ -39,7 +39,7 @@
         </v-row>
         <v-row v-if="SELECTED_REQUIREMENT!==null">
             <v-col cols="12">
-                <v-btn class="float-right" @click="submit">Submit</v-btn>
+                <v-btn class="float-right" @click="showSubmitConfirmation">Submit</v-btn>
             </v-col>
         </v-row>
         <!-- Error message for incomplete requirements -->
@@ -89,6 +89,22 @@ export default{
       },
 
     methods:{
+        showSubmitConfirmation() {
+        this.$swal.fire({
+          title: 'Submit Confirmation',
+          text: 'Are you sure you want to submit?',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, submit',
+          cancelButtonText: 'No, cancel',
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            // Handle the submission logic here, e.g., call the `submit` method
+            this.submit();
+          }
+        });
+    },
         submit(){
             let isCredentialComplete = this.APPLICANT_CREDENTIALS.length === 0 ? false : true 
             this.APPLICANT_CREDENTIALS.forEach(item => {
@@ -144,10 +160,17 @@ export default{
                     params: data,
                     config: config,
                 };
-
-            this.$store.dispatch("SUBMIT_APPLICANT_CREDENTIAL",payload)  
-
-        },
+                
+            this.$store.dispatch("SUBMIT_APPLICANT_CREDENTIAL",payload) 
+            this.selected_store_type_detail = null;
+            this.storeName = null;
+            this.$swal.fire({
+            title: 'Submission Successful',
+            text: 'Your application has been submitted successfully!',
+            icon: 'success',
+        });
+            
+    },
         gps(){
             if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(
