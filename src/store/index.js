@@ -6,6 +6,7 @@ import RequirementDetail from '@/store/modules/RequirementDetail'
 import map from '@/store/modules/map'
 import StoreTypeDetail from '@/store/modules/StoreTypeDetail'
 import UserRole from '@/store/modules/UserRole'
+import ApplicantCredential from '@/store/modules/ApplicantCredential'
 
 Vue.use(Vuex)
 
@@ -19,5 +20,6 @@ export default new Vuex.Store({
     map,
     StoreTypeDetail,
     UserRole,
+    ApplicantCredential,
   }
 })

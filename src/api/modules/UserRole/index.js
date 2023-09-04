@@ -16,7 +16,4 @@ export default {
     DELETE_USER_ROLE_BY_ID(params){
         return api.delete(`api/UserRole/${params}`);
     },
-    SUBMIT_APPLICANT_CREDENTIAL(params,config){
-        return api.post('api/SubmitApplicantCrendential',params,config.headers);
-    }
 }
