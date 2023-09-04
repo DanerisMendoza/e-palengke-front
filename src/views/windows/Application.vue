@@ -8,9 +8,9 @@
         </v-row>
         <v-row>
             <v-col cols="6">
-                <h1>{{ computedRole }}</h1>
+                <h1 :class="{ 'incomplete-requirement': isRequirementsIncomplete }">{{ computedRole }}</h1>
             </v-col>
-            <v-col cols="6">
+        <v-col cols="6">
                 <v-btn v-if="SELECTED_REQUIREMENT!==null" @click="gps" class="float-right">GPS</v-btn>
             </v-col>
         </v-row>
@@ -39,8 +39,14 @@
         </v-row>
         <v-row v-if="SELECTED_REQUIREMENT!==null">
             <v-col cols="12">
-                <v-btn class="float-right" @click="submit">submit</v-btn>
+                <v-btn class="float-right" @click="submit">Submit</v-btn>
             </v-col>
+        </v-row>
+        <!-- Error message for incomplete requirements -->
+        <v-row v-if="isRequirementsIncomplete" class="incomplete-requirement">
+            <v-col cols="12">
+        <p>Please complete all requirements before submitting.</p>
+         </v-col>
         </v-row>
     </v-container>
 </template>
@@ -61,7 +67,10 @@ export default{
 
       computedRole(){
         if(this.SELECTED_REQUIREMENT === null){
-            return ""
+            return "";
+        }
+        else if (this.SELECTED_REQUIREMENT === 1) {
+        return !this.storeName || !this.selected_store_type_detail || this.selected_store_type_detail.length === 0;
         }
         else if(this.SELECTED_REQUIREMENT === 1){
             return "SELECT YOUR MARKET LOCATION"
@@ -91,14 +100,21 @@ export default{
                 }
             });
             if(!isCredentialComplete){
-                alert("Please Complete Credential");
-                return
+                this.$swal.fire({
+                    icon: 'error',
+                    title: 'Incomplete Credential',
+                    text: 'Please complete all requirements before submitting.',
+                    });
+                    return;
             }
             if(this.MARKER_LAT_LNG === null){
-                alert("Please Select Location");
-                return
+                this.$swal.fire({
+                    icon: 'warning',
+                    title: 'Location Not Selected',
+                    text: 'Please select your location before submitting.',
+                    });
+                    return;
             }
-
             const data = new FormData();
                 if (this.APPLICANT_CREDENTIALS.length > 0) {
                     for (let i = 0; i < this.APPLICANT_CREDENTIALS.length; i++) {
@@ -173,3 +189,12 @@ export default{
     }
 }
 </script>
+
+<style>
+.incomplete-requirement {
+  background-color: #FFC0CB;
+  padding: 10px;
+  border: 1px solid #FF0000;
+  margin-bottom: 10px;
+}
+</style>
