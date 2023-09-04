@@ -98,25 +98,27 @@ export default{
                 alert("Please Select Location");
                 return
             }
-            if(this.SELECTED_REQUIREMENT === 1){
-                const data = new FormData();
+
+            const data = new FormData();
                 if (this.APPLICANT_CREDENTIALS.length > 0) {
                     for (let i = 0; i < this.APPLICANT_CREDENTIALS.length; i++) {
                         data.append("files[]", this.APPLICANT_CREDENTIALS[i].value);
                         console.log(this.APPLICANT_CREDENTIALS[i].value)
                     }
                 }
-                data.append("applicantCredential",JSON.stringify( this.APPLICANT_CREDENTIALS));
+            data.append("applicantCredential",JSON.stringify( this.APPLICANT_CREDENTIALS));
+            data.append("user_role_name",this.REQUIREMENTS.filter(item => item.id === this.SELECTED_REQUIREMENT)[0].name);
+            data.append("requirement_id",this.SELECTED_REQUIREMENT);
+            data.append("latitude",this.MARKER_LAT_LNG[0]);
+            data.append("longitude",this.MARKER_LAT_LNG[1]);
+            data.append("user_id",2);
+            data.append("status","application-pending");
+
+            if(this.SELECTED_REQUIREMENT === 1){
                 data.append("storeName",this.storeName);
                 data.append("storeType",JSON.stringify(this.selected_store_type_detail));
-                data.append("user_role_name",this.REQUIREMENTS.filter(item => item.id === this.SELECTED_REQUIREMENT)[0].name);
-                data.append("requirement_id",this.SELECTED_REQUIREMENT);
-                data.append("status","application-pending");
-                data.append("user_id",2);
-                data.append("latitude",this.MARKER_LAT_LNG[0]);
-                data.append("longitude",this.MARKER_LAT_LNG[1]);
-
-                const config = {
+            }
+            const config = {
                     headers: {
                         "content-type": "multipart/form-data",
                     },
@@ -127,8 +129,8 @@ export default{
                     config: config,
                 };
 
-                this.$store.dispatch("SUBMIT_APPLICANT_CREDENTIAL",payload)  
-            }
+            this.$store.dispatch("SUBMIT_APPLICANT_CREDENTIAL",payload)  
+
         },
         gps(){
             if ('geolocation' in navigator) {
