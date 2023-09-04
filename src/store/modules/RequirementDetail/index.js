@@ -3,14 +3,17 @@ import RequirementDetail from '@/api/modules/RequirementDetail/index'
 export default {
     state: {
         REQUIREMENT_DETAILS: [],
+        APPLICANT_CREDENTIALS: [],
     },
     
     getters: {
         REQUIREMENT_DETAILS:(state) => state.REQUIREMENT_DETAILS,
+        APPLICANT_CREDENTIALS:(state) => state.APPLICANT_CREDENTIALS,
     },
 
     mutations: {
         REQUIREMENT_DETAILS:(state, data)=>{state.REQUIREMENT_DETAILS = data},
+        APPLICANT_CREDENTIALS:(state, data)=>{state.APPLICANT_CREDENTIALS = data},
     },
 
     actions: {

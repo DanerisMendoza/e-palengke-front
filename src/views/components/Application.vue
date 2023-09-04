@@ -38,13 +38,14 @@
         this.$store.dispatch("GET_REQUIREMENT_DETAIL_BY_ID", item).then((response) => {
           this.requirement_details = response;
           this.$store.commit("SELECTED_REQUIREMENT", item)
-          console.log(item)
+          // console.log(item)
         });
       },
       handleFileChange(index) {
         // console.log(`File ${index + 1} (${this.requirement_details[index].name}):`, this.requirement_details[index].value);
         // Do something with the selected file
-        console.log(this.requirement_details)
+        // console.log(this.requirement_details)
+        this.$store.commit("APPLICANT_CREDENTIALS", this.requirement_details)
       },
     },
     mounted() {

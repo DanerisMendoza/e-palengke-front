@@ -14,7 +14,7 @@
             <l-marker
                 v-if="MARKER_LAT_LNG!==null"
                 :lat-lng="MARKER_LAT_LNG"
-                :icon="customerMarker"
+                :icon="computedMarker"
             ></l-marker>
             <l-circle
             v-if="MARKER_LAT_LNG!==null"
@@ -33,7 +33,8 @@
   import { LMap, LTileLayer, LMarker, LIcon, LCircle,LTooltip, LPopup  } from 'vue2-leaflet';
   import 'leaflet/dist/leaflet.css';
   import { mapGetters } from 'vuex';
-  import customerMarker from '@/assets/markers/customerMarker.png';
+  import tambayMarker from '@/assets/markers/customerMarker.png';
+  import sellerMarker from '@/assets/markers/sellerMarker2.png';
 
   export default {
     methods: {
@@ -51,8 +52,15 @@
             center: [14.653341002411047,120.99472379571777],
             zoom: 7,
             circleRadius: 80,
-            customerMarker: L.icon({
-                iconUrl: customerMarker,
+            tambayMarker: L.icon({
+                iconUrl: tambayMarker,
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                tooltipAnchor: [16, -28],
+            }),
+            sellerMarker: L.icon({
+                iconUrl: sellerMarker,
                 iconSize: [25, 41],
                 iconAnchor: [12, 41],
                 popupAnchor: [1, -34],
@@ -62,8 +70,8 @@
       },
   
     mounted() {
-        console.log(this.CENTER)
-        console.log(this.ZOOM)
+        // console.log(this.CENTER)
+        // console.log(this.ZOOM)
     },
   
     computed: {
@@ -72,7 +80,17 @@
         "ZOOM",
         "CIRCLE_RADIUS",
         "MARKER_LAT_LNG",
+        "SELECTED_REQUIREMENT"
       ]),
+      
+      computedMarker(){
+        if(this.SELECTED_REQUIREMENT === 1){
+            return this.sellerMarker
+        }
+        else if(this.SELECTED_REQUIREMENT === 2){
+            return this.tambayMarker
+        }
+      }
     },
 
     watch: {
