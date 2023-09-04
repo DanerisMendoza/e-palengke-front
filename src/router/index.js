@@ -4,6 +4,8 @@ import Login from '@/views/windows/Login.vue'
 import Requirement from '@/views/windows/Requirement.vue'
 import Application from '@/views/windows/Application.vue'
 
+import Map from '@/views/components/Map.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -25,6 +27,11 @@ const routes = [
         path: '/Application',
         name: 'Application',
         component: Application
+    },
+    {
+        path: '/Map',
+        name: 'Map',
+        component: Map
     },
 ]
 
