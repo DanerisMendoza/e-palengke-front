@@ -40,11 +40,11 @@
         };
         this.$store.dispatch("LOGIN", payload).then((response) => {
           console.log(response);
-          // this.$swal.fire({
-          //   icon: "success",
-          //   title: "Success!",
-          //   text: "Operation completed successfully.",
-          // });
+           this.$swal.fire({
+             icon: "success",
+             title: "Success!",
+             text: "Operation completed successfully.",
+           });
         });
       },
       registration() {

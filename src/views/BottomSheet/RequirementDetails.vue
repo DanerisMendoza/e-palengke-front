@@ -20,7 +20,7 @@
             </v-sheet>
         </v-form>
     </v-bottom-sheet>
-</template>
+</template> 
 
 <script>
 import { mapGetters } from 'vuex';
@@ -41,20 +41,40 @@ import { mapGetters } from 'vuex';
                     const payload={requirement_id: this.SELECTED_REQUIREMENT.id, name: this.name}
                     this.$store.dispatch("STORE_REQUIREMENT_DETAIL",payload).then((response)=>{
                         if(response == 'success'){
+                            this.$swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'Added Successfully.',
+                            
+                            })
+                            .then(() => {
+                                this.$store.commit("SELECTED_REQUIREMENT_DETAIL",null)
+                                this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",null)
+                            })
                             this.$store.dispatch("GET_REQUIREMENTS")
                             this.$store.dispatch("GET_REQUIREMENT_DETAIL_BY_ID",this.SELECTED_REQUIREMENT.id)
                         }
-                    })
+                    });
                 }
                 else if (this.REQUIREMENT_DETAIL_BOTTOMSHEET === 'UPDATE') {
                     const payload = {
                         request:{
                             name: this.name
+                           
                         },
                         id:this.SELECTED_REQUIREMENT_DETAIL.id
                     }
                     this.$store.dispatch("UPDATE_REQUIREMENT_DETAIL_BY_ID",payload).then((response)=>{
                         if(response == 'success'){
+                            this.$swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'Updated Successfully!.',
+                            })
+                            .then(() => {
+                                this.$store.commit("SELECTED_REQUIREMENT_DETAIL",null)
+                                this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",null)
+                            });
                             this.$store.dispatch("GET_REQUIREMENTS")
                             this.$store.dispatch("GET_REQUIREMENT_DETAIL_BY_ID",this.SELECTED_REQUIREMENT.id)
                         }
@@ -62,6 +82,7 @@ import { mapGetters } from 'vuex';
                 }
             },
         },
+        
         computed: {
             ...mapGetters([
                 'SELECTED_REQUIREMENT',
@@ -69,10 +90,34 @@ import { mapGetters } from 'vuex';
                 'REQUIREMENT_DETAIL_BOTTOMSHEET',
             ]),
 	    },
-        mounted(){
-            if(this.REQUIREMENT_DETAIL_BOTTOMSHEET === 'UPDATE'){
-                this.name = this.SELECTED_REQUIREMENT_DETAIL.name
+
+        mounted() {
+            if (this.REQUIREMENT_DETAIL_BOTTOMSHEET === 'UPDATE') {
+                // this.$swal
+                // .fire({
+                //     icon: 'info',
+                //     title: 'Update Requirement',
+                //     text: 'Are you sure you want to update?',
+                //     showCancelButton: true,
+                //     confirmButtonText: 'Yes, update it!',
+                //     cancelButtonText: 'No, cancel',
+                // })
+                // .then((result) => {
+                //     if (result.isConfirmed) {
+                //     this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'UPDATE');
+                //     } else {
+                //         this.$swal.fire({
+                //          icon: 'info',
+                //          title: 'Action Cancelled',
+                //          text: 'You cancelled the update operation.',
+                //         })
+                //     }
+                // });
+                this.name = this.SELECTED_REQUIREMENT_DETAIL.name;
             }
-        }
+        },
+
     }
+    
+
 </script>

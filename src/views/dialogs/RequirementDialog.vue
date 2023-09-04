@@ -64,21 +64,77 @@
             closeDialog(){
                 this.$store.commit("SELECTED_REQUIREMENT",null)
             },
-            addNewRequirement(){
-                this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'ADD')
-            },  
-            editItem(item){
-                this.$store.commit("SELECTED_REQUIREMENT_DETAIL",item)
-                this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'UPDATE')
-            },  
-            deleteItem(item){
-                this.$store.dispatch("DELETE_REQUIREMENT_DETAIL_BY_ID",item.id).then((response)=>{
-                    if(response == 'success'){
-                        this.$store.dispatch("GET_REQUIREMENTS")
-                        this.$store.dispatch("GET_REQUIREMENT_DETAIL_BY_ID",this.SELECTED_REQUIREMENT.id)
+            addNewRequirement() {
+                this.$swal
+                    .fire({
+                    icon: 'info',
+                    title: 'Add New Requirement',
+                    text: 'Are you sure you want to add a new requirement?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, add it',
+                    cancelButtonText: 'No, cancel',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'ADD')
                     }
-                })
-            },  
+                    });
+                },   
+        
+
+            editItem(item) {
+                this.$swal
+                    .fire({
+                    icon: 'info',
+                    title: 'Update Requirement',
+                    text: 'Are you sure you want to update this requirement?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, update it',
+                    cancelButtonText: 'No, cancel',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    })
+                    .then((result) => {
+                    if (result.isConfirmed) {
+                        this.performUpdate(item);
+                    }
+                    });
+                },
+
+                performUpdate(item) {
+                this.$store.commit("SELECTED_REQUIREMENT_DETAIL", item);
+                this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET", 'UPDATE');
+                },
+                
+            deleteItem(item) {
+                this.$swal
+                    .fire({
+                    icon: 'warning',
+                    title: 'Delete Item',
+                    text: 'Are you sure you want to delete this item?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it',
+                    cancelButtonText: 'No, cancel',
+                    confirmButtonColor: '#d33',
+                    })
+                    .then((result) => {
+                    if (result.isConfirmed) {
+                        this.$store.dispatch("DELETE_REQUIREMENT_DETAIL_BY_ID", item.id).then((response) => {
+                        if (response === 'success') {
+                            this.$swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'Item Deleted Successfully.',
+                            });
+                            this.$store.dispatch("GET_REQUIREMENTS");
+                            this.$store.dispatch("GET_REQUIREMENT_DETAIL_BY_ID", this.SELECTED_REQUIREMENT.id);
+                        }
+                        });
+                    }
+                    });
+                }
         },
         computed: {
             ...mapGetters([
