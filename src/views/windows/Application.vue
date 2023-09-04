@@ -67,7 +67,7 @@ export default{
             return "SELECT YOUR MARKET LOCATION"
         }
         else if(this.SELECTED_REQUIREMENT === 2){
-            return "SELECT YOUR TAMBAY LOCATION"
+            return "SELECT YOUR DELIVERY LOCATION"
         }
       }
     },
