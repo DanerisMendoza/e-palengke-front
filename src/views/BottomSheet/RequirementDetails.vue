@@ -61,6 +61,11 @@ import { mapGetters } from 'vuex';
                         if (result.isConfirmed) {
                         this.$store.dispatch("STORE_REQUIREMENT_DETAIL", payload).then((response) => {
                             if (response === 'success') {
+                            this.$swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'Adding Requirement Successfully!.',
+                        });
                             this.$store.commit("SELECTED_REQUIREMENT_DETAIL", null);
                             this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET", null);
                             this.$store.dispatch("GET_REQUIREMENTS");
