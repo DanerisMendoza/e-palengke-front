@@ -15,5 +15,8 @@ export default {
     },
     DELETE_APPLICANT_CREDENTIAL_BY_ID(params){
         return api.delete(`api/ApplicantCrendential/${params}`);
+    },
+    SUBMIT_APPLICANT_CREDENTIAL(params,config){
+        return api.post('api/SubmitApplicantCrendential',params,config.headers);
     }
 }
