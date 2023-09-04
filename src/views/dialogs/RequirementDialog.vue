@@ -64,51 +64,18 @@
             closeDialog(){
                 this.$store.commit("SELECTED_REQUIREMENT",null)
             },
-            addNewRequirement() {
-                this.$swal
-                    .fire({
-                    icon: 'info',
-                    title: 'Add New Requirement',
-                    text: 'Are you sure you want to add a new requirement?',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, add it',
-                    cancelButtonText: 'No, cancel',
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    })
-                .then((result) => {
-                    if (result.isConfirmed) {
-                        this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'ADD')
-                    }
-                    });
-                },   
+            addNewRequirement(){
+                this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'ADD')
+                
+            },  
         
 
-            editItem(item) {
-                this.$swal
-                    .fire({
-                    icon: 'info',
-                    title: 'Update Requirement',
-                    text: 'Are you sure you want to update this requirement?',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, update it',
-                    cancelButtonText: 'No, cancel',
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    })
-                    .then((result) => {
-                    if (result.isConfirmed) {
-                        this.performUpdate(item);
-                    }
-                    });
-                },
-
-                performUpdate(item) {
-                this.$store.commit("SELECTED_REQUIREMENT_DETAIL", item);
-                this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET", 'UPDATE');
-                },
+            editItem(item){
+                this.$store.commit("SELECTED_REQUIREMENT_DETAIL",item)
+                this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'UPDATE')
+            },  
                 
-            deleteItem(item) {
+            deleteItem(item){
                 this.$swal
                     .fire({
                     icon: 'warning',
@@ -135,6 +102,7 @@
                     }
                     });
                 }
+ 
         },
         computed: {
             ...mapGetters([
