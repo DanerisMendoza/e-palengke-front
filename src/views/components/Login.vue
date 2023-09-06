@@ -39,6 +39,7 @@
           password: this.password,
         };
         this.$store.dispatch("LOGIN", payload).then((response) => {
+          localStorage.setItem("e-palengke-token",response.access_token);
           console.log(response);
            this.$swal.fire({
              icon: "success",
