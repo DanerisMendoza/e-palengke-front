@@ -1,5 +1,6 @@
 <template>
     <v-container>
+        <SideMenuBar/>
         <h1>Application Window</h1>
         <v-row>
             <v-col cols="12">
@@ -54,8 +55,10 @@
     import { mapGetters } from 'vuex';
     import Application from '../components/Application.vue';
     import MAP_COMPONENT from '../components/Map.vue';
+    import SideMenuBar from  '@/views/components/SideMenuBar.vue'
+
 export default{
-    components: { Application,MAP_COMPONENT},
+    components: { Application,MAP_COMPONENT,SideMenuBar},
     computed: {
       ...mapGetters([
         "SELECTED_REQUIREMENT",

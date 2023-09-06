@@ -23,6 +23,7 @@
   </template>
   
   <script>
+  import { mapGetters } from 'vuex';
   export default {
     data() {
       return {
@@ -32,6 +33,14 @@
         user_id: null,
       };
     },
+
+    computed: {
+      ...mapGetters([
+        "SIDE_NAV",
+      ]),
+    },
+  
+
     methods: {
       login() {
         const payload = {
@@ -39,17 +48,19 @@
           password: this.password,
         };
         this.$store.dispatch("LOGIN", payload).then((response) => {
-          localStorage.setItem("e-palengke-token",response.access_token);
-          console.log(response);
-           this.$swal.fire({
-             icon: "success",
-             title: "Success!",
-             text: "Operation completed successfully.",
-           });
+          if(response.message === 'success'){
+            localStorage.setItem("e-palengke-token",response.token);
+            this.$store.dispatch('GetSideNav').then((response) =>{
+              this.$router.push(response[0].name);
+            })
+          }
+          else{
+            console.log("credential incorrect!")
+          }
         });
       },
       registration() {
-        //   this.$router.push('/userRegistration');
+          this.$router.push('/Registration');
       },
     },
   };
