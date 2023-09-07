@@ -17,6 +17,17 @@ export default {
     },
 
     actions: {
+        GET_REQUIREMENT_DETAILS({commit}){
+            return new Promise((resolve,reject)=>{
+            RequirementDetail.GET_REQUIREMENT_DETAIL().then((response)=>{
+                commit('REQUIREMENT_DETAILS', response.data)
+                resolve(response.data)
+              }).catch((error)=>{
+                  reject(error)
+              });
+            })
+        },
+
         STORE_REQUIREMENT_DETAIL({commit}, payload){
             return new Promise((resolve,reject)=>{
                 RequirementDetail.STORE_REQUIREMENT_DETAIL(payload).then((response)=>{

@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <v-container>
         <br><br>
         <h1>Requirement Window</h1>
@@ -22,4 +22,4 @@
             ])
         },
     }
-</script>
+</script> -->

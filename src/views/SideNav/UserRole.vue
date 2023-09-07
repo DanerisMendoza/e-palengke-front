@@ -2,24 +2,19 @@
     <v-container>
         <br><br>
         <h1>USER_ROLE</h1>
-        <RequirementDialog v-if="SELECTED_REQUIREMENT !== null"/>
-        <RequirementDetails v-if="REQUIREMENT_DETAIL_BOTTOMSHEET !== null"/>
+        <UserRoleDialog v-if="SELECTED_ROLE !== null"/>
         <UserRoleTable/>
     </v-container>
 </template>
 <script>
     import { mapGetters } from 'vuex';
-    import RequirementTable from '../tables/RequirementTable.vue';
-    import UserRoleTable from '../tables/UserRoleTable.vue';
-    import RequirementDialog from '../dialogs/RequirementDialog.vue';
-    import RequirementDetails from '../BottomSheet/RequirementDetails.vue';
+    import UserRoleTable from '@/views/Tables/UserRole';
+    import UserRoleDialog from '@/views/Dialogs/UserRole';
     export default{
-        components: { RequirementTable,RequirementDialog,RequirementDetails,UserRoleTable},
+        components: { UserRoleDialog,UserRoleTable},
         computed: {
             ...mapGetters([
-                'SELECTED_REQUIREMENT',
-                'SELECTED_REQUIREMENT_DETAIL',
-                'REQUIREMENT_DETAIL_BOTTOMSHEET'
+                'SELECTED_ROLE',
             ])
         },
     }

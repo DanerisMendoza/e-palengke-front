@@ -8,6 +8,10 @@ export default {
         return api.get('api/GetSideNav');
     },
 
+    GetAllSideNav(){
+        return api.get('api/GetAllSideNav');
+    },
+
     Register(params){
         return api.post('api/Register',params);
     },

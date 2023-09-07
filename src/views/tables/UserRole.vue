@@ -67,6 +67,7 @@ export default {
     },
     editItem(item) {
       this.$store.commit("SELECTED_ROLE",item)
+      console.log(item)
     },
     deleteItem(item) {
     
@@ -74,9 +75,7 @@ export default {
   },
 
     mounted(){
-        this.$store.dispatch("GET_USER_ROLE").then((response)=>{
-          console.log(response)
-        })
+        this.$store.dispatch("GET_USER_ROLE")
         // this.$store.dispatch("GET_REQUIREMENTS")
         // this.$store.dispatch("GET_REQUIREMENTS_BY_ID",1).then((response) => {
         //   console.log(response);

@@ -3,14 +3,17 @@ import user from '@/api/modules/users/index'
 export default {
     state: {
       SIDE_NAV: [],
+      ALL_SIDE_NAV: []
     },
     
     getters: {
       SIDE_NAV:(state) => state.SIDE_NAV,
+      ALL_SIDE_NAV:(state) => state.ALL_SIDE_NAV,
     },
 
     mutations: {
       SIDE_NAV:(state, data)=>{state.SIDE_NAV = data},
+      ALL_SIDE_NAV:(state, data)=>{state.ALL_SIDE_NAV = data},
     },
 
     actions: {
@@ -27,6 +30,16 @@ export default {
             return new Promise((resolve,reject)=>{
             user.GetSideNav().then((response)=>{
                 commit('SIDE_NAV', response.data)
+                resolve(response.data)
+              }).catch((error)=>{
+                  reject(error)
+              });
+            })
+          },
+        GetAllSideNav({commit}){
+            return new Promise((resolve,reject)=>{
+            user.GetAllSideNav().then((response)=>{
+                commit('ALL_SIDE_NAV', response.data)
                 resolve(response.data)
               }).catch((error)=>{
                   reject(error)
