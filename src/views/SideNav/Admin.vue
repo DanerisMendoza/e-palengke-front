@@ -1,12 +1,13 @@
 <template>
-    <v-app>
-        <SideMenuBar/>
-    </v-app>
+    <v-container>
+        <br><br>
+        <h1>Admin Window</h1>
+    </v-container>
 </template>
 
 <script>
-    import SideMenuBar from  '@/views/components/SideMenuBar.vue'
+
     export default{
-        components: { SideMenuBar}
+  
     }
 </script>

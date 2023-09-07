@@ -1,5 +1,5 @@
 <template>
-    <div>
+	<v-container fluid class=" ma-0 pa-0">
         <v-data-table
             :headers="headers"
             :items="REQUIREMENTS"
@@ -27,7 +27,7 @@
           </tr>
         </template>
         </v-data-table>
-    </div>
+  </v-container>
 </template>
 <script>
 

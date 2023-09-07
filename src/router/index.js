@@ -19,27 +19,104 @@ const routes = [
   {
     path: '/Login',
     name: 'Login',
-    component: Login
+    component: Login,
+    meta: {
+      showSideMenuBar: false, // Set to false to hide the SideMenuBar for the login page
+    },
+    beforeEnter: (to, from, next) => {
+      const shouldShowSideMenuBar = to.meta.showSideMenuBar !== false;
+      Vue.prototype.$showSideMenuBar = shouldShowSideMenuBar;
+      user.authenticated().then((response)=>{
+        const shouldShowSideMenuBar = to.meta.showSideMenuBar !== false;
+        Vue.prototype.$showSideMenuBar = shouldShowSideMenuBar;
+        next({ name: response.data[0].name });
+      }).catch((error)=>{
+        next();
+      });
+    },
   },
   {
     path: '/Requirement',
     name: 'Requirement',
-    component: Requirement
+    component: Requirement,
+    meta: {
+      showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
+    },
+    beforeEnter: (to, from, next) => {
+      user.authenticated().then((response)=>{
+        const shouldShowSideMenuBar = to.meta.showSideMenuBar !== false;
+        Vue.prototype.$showSideMenuBar = shouldShowSideMenuBar;
+        const hasPermission = response.data.some(permission => permission.name === to.name);
+        if (hasPermission) {
+          next();
+        } else {
+          next({ name: response.data[0].name });
+        }
+      }).catch((error)=>{
+        next({ name: 'Login' });
+      });
+    },
   },
   {
     path: '/Application',
     name: 'Application',
-    component: Application
+    component: Application,
+    meta: {
+      showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
+    },
+    beforeEnter: (to, from, next) => {
+      user.authenticated().then((response)=>{
+        const shouldShowSideMenuBar = to.meta.showSideMenuBar !== false;
+        Vue.prototype.$showSideMenuBar = shouldShowSideMenuBar;
+        const hasPermission = response.data.some(permission => permission.name === to.name);
+        if (hasPermission) {
+          next();
+        } else {
+          next({ name: response.data[0].name });
+        }
+      }).catch((error)=>{
+        next({ name: 'Login' });
+      });
+    },
   },
   {
     path: '/Registration',
     name: 'Registration',
-    component: Registration
+    component: Registration,
+    meta: {
+      showSideMenuBar: false, // Set to false to hide the SideMenuBar for the login page
+    },
+    beforeEnter: (to, from, next) => {
+      const shouldShowSideMenuBar = to.meta.showSideMenuBar !== false;
+      Vue.prototype.$showSideMenuBar = shouldShowSideMenuBar;
+      user.authenticated().then((response)=>{
+        next({ name: response.data[0].name });
+      }).catch((error)=>{
+        next();
+      });
+    },
   },
   {
     path: '/EndUser',
     name: 'EndUser',
-    component: EndUser
+    component: EndUser,
+    meta: {
+      showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
+    },
+    beforeEnter: (to, from, next) => {
+      user.authenticated().then((response)=>{
+        const shouldShowSideMenuBar = to.meta.showSideMenuBar !== false;
+        Vue.prototype.$showSideMenuBar = shouldShowSideMenuBar;
+        const hasPermission = response.data.some(permission => permission.name === to.name);
+        if (hasPermission) {
+          next();
+        } else {
+          next({ name: response.data[0].name });
+        }
+      }).catch((error)=>{
+        next({ name: 'Login' });
+      });
+    },
   },
   {
     path: '/Map',
@@ -49,7 +126,24 @@ const routes = [
   {
     path: '/Admin',
     name: 'Admin',
-    component: Admin
+    component: Admin,
+    meta: {
+      showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
+    },
+    beforeEnter: (to, from, next) => {
+      user.authenticated().then((response)=>{
+        const shouldShowSideMenuBar = to.meta.showSideMenuBar !== false;
+        Vue.prototype.$showSideMenuBar = shouldShowSideMenuBar;
+        const hasPermission = response.data.some(permission => permission.name === to.name);
+        if (hasPermission) {
+          next();
+        } else {
+          next({ name: response.data[0].name });
+        }
+      }).catch((error)=>{
+        next({ name: 'Login' });
+      });
+    },
   }
 ];
 
@@ -57,41 +151,5 @@ const router = new VueRouter({
   routes,
   mode: 'history'
 });
-
-router.beforeEach(async (to, from, next) => {
-  // Check if the user is already authenticated
-  try {
-    const response = await user.authenticated();
-    
-    // If authenticated, and the user is trying to access the 'Login' route, redirect to the homepage
-    if (to.name === 'Login') {
-      next({ name: response.data[0].name }); 
-    } else {
-      const hasPermission = response.data.some(permission => permission.name === to.name);
-      if (hasPermission) {
-        next();
-      } else {
-        next({ name: response.data[0].name }); 
-      }
-    }
-  } catch (error) {
-    // If not authenticated, check if the user is trying to access the 'Login' route
-    if (to.name !== 'Login') {
-      try {
-        await user.authenticated().then((response) => {
-          console.log(response);
-          next();
-        });
-      } catch (error) {
-        console.error('Authentication error:', error);
-        next({ name: 'Login' });
-      }
-    } else {
-      // If the user is not authenticated and is trying to access the 'Login' route, allow access
-      next();
-    }
-  }
-});
-
 
 export default router;

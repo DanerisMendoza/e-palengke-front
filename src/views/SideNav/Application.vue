@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <SideMenuBar/>
+        <br><br>
         <h1>Application Window</h1>
         <v-row>
             <v-col cols="12">
