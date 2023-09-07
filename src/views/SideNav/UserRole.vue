@@ -8,8 +8,8 @@
 </template>
 <script>
     import { mapGetters } from 'vuex';
-    import UserRoleTable from '@/views/Tables/UserRole';
-    import UserRoleDialog from '@/views/Dialogs/UserRole';
+    import UserRoleTable from '@/views/Tables/UserRoleTable';
+    import UserRoleDialog from '@/views/Dialogs/UserRoleDialog';
     export default{
         components: { UserRoleDialog,UserRoleTable},
         computed: {

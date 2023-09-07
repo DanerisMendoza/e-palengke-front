@@ -72,12 +72,30 @@
         methods: {
             closeDialog(){
                 this.$store.commit("SELECTED_ROLE",null)
+                this.selected_sidenav = null
+                this.selected_requirement = null
+            },
+
+            async GET_REQUIREMENT_DETAILS(){
+                await this.$store.dispatch("GET_REQUIREMENT_DETAILS")
+            },
+         
+            async GetAllSideNav(){
+                await this.$store.dispatch("GetAllSideNav")
             },
         
         
             update(){
-                // this.$store.commit("SELECTED_REQUIREMENT_DETAIL",item)
-                // this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'UPDATE')
+                const payload = {
+                    id: this.SELECTED_ROLE.id,
+                    selected_sidenav: this.selected_sidenav,
+                    selected_requirement: this.selected_requirement,
+                }
+              this.$store.dispatch("UPDATE_USER_ROLE_BY_ID",payload).then((response)=>{
+                if(response == 'success'){
+                    this.$store.dispatch("GET_USER_ROLE")
+                }
+              })
             },  
                 
         },
@@ -88,15 +106,30 @@
                 'REQUIREMENT_DETAILS'
             ])
         },
+
+        watch: {
+            // SELECTED_ROLE: {
+            //     handler(val) {
+            //         this.selected_requirement = (this.SELECTED_ROLE.RequirementDetails.map((item)=>{
+            //             return item.requirement_id
+            //         }))
+            //         this.selected_sidenav = (this.SELECTED_ROLE.Accesses.map((item)=>{
+            //             return item.sidenav_id
+            //         }));
+            //     },
+            // }
+        },
+        
         mounted(){
-            this.$store.dispatch("GET_REQUIREMENT_DETAILS").then(()=>{
+            console.log(this.SELECTED_ROLE)
+            this.GET_REQUIREMENT_DETAILS().then(()=>{
                 this.selected_requirement = (this.SELECTED_ROLE.RequirementDetails.map((item)=>{
-                    return item.requirement_id
-                }))
+                        return item.requirement_details_id
+                    }))
             })
-            this.$store.dispatch("GetAllSideNav").then(()=>{
+            this.GetAllSideNav().then(()=>{
                 this.selected_sidenav = (this.SELECTED_ROLE.Accesses.map((item)=>{
-                    return item.sidenav_id
+                        return item.sidenav_id
                 }));
             })
         },

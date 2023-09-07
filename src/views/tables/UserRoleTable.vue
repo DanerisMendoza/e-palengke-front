@@ -66,8 +66,8 @@ export default {
     
     },
     editItem(item) {
+      // console.log(item)
       this.$store.commit("SELECTED_ROLE",item)
-      console.log(item)
     },
     deleteItem(item) {
     

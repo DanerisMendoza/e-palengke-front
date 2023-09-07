@@ -11,7 +11,7 @@ export default {
         return api.post('api/UserRole',params);
     },
     UPDATE_USER_ROLE_BY_ID(params){
-        return api.put(`api/UserRole/${params.id}`,params.request);
+        return api.put(`api/UserRole/${params.id}`,params);
     },
     DELETE_USER_ROLE_BY_ID(params){
         return api.delete(`api/UserRole/${params}`);

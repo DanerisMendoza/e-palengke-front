@@ -27,5 +27,14 @@ export default {
               });
             })
         },
+        UPDATE_USER_ROLE_BY_ID({commit},payload){
+            return new Promise((resolve,reject)=>{
+            UserRole.UPDATE_USER_ROLE_BY_ID(payload).then((response)=>{
+                resolve(response.data)
+              }).catch((error)=>{
+                  reject(error)
+              });
+            })
+        },
     }
 }
