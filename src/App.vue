@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <template v-if="$showSideMenuBar">
+    <template v-if="$route.meta.showSideMenuBar">
       <SideMenuBar />
     </template>
     <router-view/>
