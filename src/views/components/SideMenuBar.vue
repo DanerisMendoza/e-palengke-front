@@ -68,9 +68,10 @@ export default {
     submitLogout() {
       this.$store.dispatch('Logout').then((response) =>{
         if(response === 'success'){
-          this.$router.push('/Login');
           localStorage.removeItem("token");
           this.$store.commit('SIDE_NAV',null)
+          this.$store.commit('USER_DETAILS',null)
+          this.$router.push('/Login');
         }
       })
     },

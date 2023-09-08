@@ -144,8 +144,8 @@ export default{
             data.append("applicantCredential",JSON.stringify( this.APPLICANT_CREDENTIALS));
             data.append("latitude",this.MARKER_LAT_LNG[0]);
             data.append("longitude",this.MARKER_LAT_LNG[1]);
-            data.append("user_id",2);
             data.append("status","application-pending");
+            data.append("user_role_deitals_id",this.SELECTED_USER_ROLE_DETAILS);
 
             if(this.SELECTED_USER_ROLE_DETAILS === 3){
                 data.append("storeName",this.storeName);

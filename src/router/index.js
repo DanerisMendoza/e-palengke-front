@@ -7,6 +7,8 @@ import Registration from '@/views/SideNav/Registration.vue';
 import EndUser from '@/views/SideNav/EndUser.vue';
 import Admin from '@/views/SideNav/Admin.vue';
 import UserRole from '@/views/SideNav/UserRole.vue';
+import Delivery from '@/views/SideNav/Delivery.vue';
+import Store from '@/views/SideNav/Store.vue';
 import Map from '@/views/components/Map.vue';
 import user from '@/api/modules/users/index'
 
@@ -123,6 +125,50 @@ const routes = [
     path: '/EndUser',
     name: 'EndUser',
     component: EndUser,
+    meta: {
+      showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
+    },
+    beforeEnter: (to, from, next) => {
+      user.authenticated().then((response)=>{
+        const shouldShowSideMenuBar = to.meta.showSideMenuBar !== false;
+        Vue.prototype.$showSideMenuBar = shouldShowSideMenuBar;
+        const hasPermission = response.data.some(permission => permission.name === to.name);
+        if (hasPermission) {
+          next();
+        } else {
+          next({ name: response.data[0].name });
+        }
+      }).catch((error)=>{
+        next({ name: 'Login' });
+      });
+    },
+  },
+  {
+    path: '/Delivery',
+    name: 'Delivery',
+    component: Delivery,
+    meta: {
+      showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
+    },
+    beforeEnter: (to, from, next) => {
+      user.authenticated().then((response)=>{
+        const shouldShowSideMenuBar = to.meta.showSideMenuBar !== false;
+        Vue.prototype.$showSideMenuBar = shouldShowSideMenuBar;
+        const hasPermission = response.data.some(permission => permission.name === to.name);
+        if (hasPermission) {
+          next();
+        } else {
+          next({ name: response.data[0].name });
+        }
+      }).catch((error)=>{
+        next({ name: 'Login' });
+      });
+    },
+  },
+  {
+    path: '/Store',
+    name: 'Store',
+    component: Store,
     meta: {
       showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
     },
