@@ -70,7 +70,7 @@ export default {
         if(response === 'success'){
           localStorage.removeItem("token");
           this.$store.commit('SIDE_NAV',null)
-          this.$store.commit('USER_DETAILS',null)
+          this.$store.commit('USER_DETAILS',{name:null})
           this.$router.push('/Login');
         }
       })
