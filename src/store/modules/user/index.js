@@ -3,23 +3,27 @@ import user from '@/api/modules/users/index'
 export default {
     state: {
       SIDE_NAV: [],
-      ALL_SIDE_NAV: []
+      ALL_SIDE_NAV: [],
+      USER_DETAILS: {name:null}
     },
     
     getters: {
       SIDE_NAV:(state) => state.SIDE_NAV,
       ALL_SIDE_NAV:(state) => state.ALL_SIDE_NAV,
+      USER_DETAILS:(state) => state.USER_DETAILS,
     },
 
     mutations: {
       SIDE_NAV:(state, data)=>{state.SIDE_NAV = data},
       ALL_SIDE_NAV:(state, data)=>{state.ALL_SIDE_NAV = data},
+      USER_DETAILS:(state, data)=>{state.USER_DETAILS = data},
     },
 
     actions: {
-      authenticate(){
+      GetUserDetails({commit}){
             return new Promise((resolve,reject)=>{
-            user.authenticate().then((response)=>{
+            user.GetUserDetails().then((response)=>{
+                commit('USER_DETAILS', response.data)
                 resolve(response.data)
               }).catch((error)=>{
                   reject(error)

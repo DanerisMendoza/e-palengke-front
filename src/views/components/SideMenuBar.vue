@@ -29,6 +29,7 @@
     </v-navigation-drawer>
 
     <v-app-bar color="#1976d2ff" app outlined class="ma-0 pa-0 w-100">
+      Name: {{USER_DETAILS.name }}
       <div class="ml-auto p-2">
         <v-menu offset-y :close-on-click="closeOnClick">
           <template v-slot:activator="{ on, attrs }">
@@ -77,15 +78,20 @@ export default {
     navigateToRoute(routeName, id) {
       this.$router.push({ name: routeName, params: { id } });
     },
+
    
   },
   computed: {
     ...mapGetters([
-      'SIDE_NAV'
+      'SIDE_NAV',
+      'USER_DETAILS'
     ])
   },
 
   mounted() {
+    this.$store.dispatch('GetUserDetails').then(()=>{
+      console.log(this.USER_DETAILS)
+    })
     this.$store.dispatch('GetSideNav')
   },
 }

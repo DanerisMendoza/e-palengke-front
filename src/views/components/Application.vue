@@ -41,7 +41,6 @@
     },
     methods: {
       handleUserRoleChange(item) {
-        console.log(item)
         this.$store.dispatch("GET_REQUIREMENT_DETAIL_BY_USER_ROLE_DETAILS_ID", item).then((response) => {
           this.user_role_details = response;
           this.$store.commit("SELECTED_USER_ROLE_DETAILS", item)
@@ -56,7 +55,6 @@
     },
     mounted() {
       this.$store.dispatch("GET_USER_ROLE_DETAILS").then((response) => {
-        console.log(response)
         this.user_role = response.filter((item)=>{
           return item.id != 1 && item.id !=2
         });
