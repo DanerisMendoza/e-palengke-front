@@ -161,14 +161,17 @@ export default{
                     params: data,
                     config: config,
                 };
-            this.$store.dispatch("SUBMIT_APPLICANT_CREDENTIAL",payload) 
-            // this.selected_store_type_detail = null;
-            // this.storeName = null;
-            // this.$swal.fire({
-            // title: 'Submission Successful',
-            // text: 'Your application has been submitted successfully!',
-            // icon: 'success',
-            // });
+            this.$store.dispatch("SUBMIT_APPLICANT_CREDENTIAL",payload).then(()=>{
+                if(this.SELECTED_USER_ROLE_DETAILS === 3){
+                    this.selected_store_type_detail = null;
+                    this.storeName = null;
+                }
+                this.$swal.fire({
+                title: 'Submission Successful',
+                text: 'Your application has been submitted successfully!',
+                icon: 'success',
+                });
+            }) 
             
     },
         gps(){
