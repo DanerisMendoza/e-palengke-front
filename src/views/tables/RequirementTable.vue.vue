@@ -2,27 +2,15 @@
 	<v-container fluid class=" ma-0 pa-0">
         <v-data-table
             :headers="headers"
-            :items="REQUIREMENTS"
+            :items="REQUIREMENT_DETAILS"
         >
-
         <template v-slot:item="{ item }">
           <tr>
             <td style="text-align: center;">{{ item.name }}</td>
-            <td style="text-align: center;">
-              <v-chip class='mr-1' v-for="(requirementDetail, i) in item.requirementDetails" :key="i">
-                <v-row class="d-flex justify-center align-center pr-3">
-                  <v-col cols="12">
-                    <div class="text d-flex justify-center ml-3">
-                      {{ requirementDetail.name }}
-                    </div>
-                  </v-col>
-                </v-row>
-              </v-chip> 
-            </td>
             <td style="text-align: center;"> 
               <!-- <v-icon @click="viewItem(item)" class="mr-2">mdi-eye</v-icon> -->
               <v-icon @click="editItem(item)">mdi-pencil</v-icon>
-              <!-- <v-icon @click="deleteItem(item)">mdi-delete</v-icon> -->
+              <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
             </td>
           </tr>
         </template>
@@ -37,7 +25,6 @@ export default {
     data(){
       return {
         headers: [
-          { text: "name", align: "center", value: "name", sortable: false },
           { text: "requirement-details", align: "center", sortable: false },
           { text: 'Actions', align: "center", value: 'actions', sortable: false },
         ],
@@ -47,6 +34,8 @@ export default {
     computed: {
       ...mapGetters([
         'REQUIREMENTS',
+        'REQUIREMENT_DETAILS',
+        'SELECTED_REQUIREMENT_DETAILS'
       ])
 	  },
 
@@ -55,7 +44,8 @@ export default {
     
     },
     editItem(item) {
-      this.$store.commit("SELECTED_REQUIREMENT",item)
+      this.$store.commit("SELECTED_REQUIREMENT_DETAILS",item)
+      console.log(this.SELECTED_REQUIREMENT_DETAILS)
     },
     deleteItem(item) {
     
@@ -63,7 +53,10 @@ export default {
   },
 
     mounted(){
-        this.$store.dispatch("GET_REQUIREMENTS")
+        this.$store.dispatch("GET_REQUIREMENT_DETAILS").then(()=>{
+          console.log(this.REQUIREMENT_DETAILS)
+        })
+        // this.$store.dispatch("GET_REQUIREMENTS")
         // this.$store.dispatch("GET_REQUIREMENTS_BY_ID",1).then((response) => {
         //   console.log(response);
         // });

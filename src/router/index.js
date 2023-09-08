@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Login from '@/views/SideNav/Login.vue';
-import Requirement from '@/views/SideNav/Requirement.vue';
+import RequirementDetail from '@/views/SideNav/RequirementDetail.vue';
 import Application from '@/views/SideNav/Application.vue';
 import Registration from '@/views/SideNav/Registration.vue';
 import EndUser from '@/views/SideNav/EndUser.vue';
@@ -59,9 +59,9 @@ const routes = [
     },
   },
   {
-    path: '/Requirement',
-    name: 'Requirement',
-    component: Requirement,
+    path: '/RequirementDetail',
+    name: 'RequirementDetail',
+    component: RequirementDetail,
     meta: {
       showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
     },

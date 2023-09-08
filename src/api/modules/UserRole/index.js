@@ -1,6 +1,9 @@
 import api from '@/api/index'
 
 export default {
+    GetUserRoleWithAccessessAndRequirements(){
+        return api.get('api/Get_UserRole_With_Accessess_And_Requirements');
+    },
     GET_USER_ROLE(){
         return api.get('api/UserRole');
     },

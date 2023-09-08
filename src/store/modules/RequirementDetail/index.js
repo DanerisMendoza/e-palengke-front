@@ -4,16 +4,19 @@ export default {
     state: {
         REQUIREMENT_DETAILS: [],
         APPLICANT_CREDENTIALS: [],
+        SELECTED_REQUIREMENT_DETAILS: null,
     },
     
     getters: {
         REQUIREMENT_DETAILS:(state) => state.REQUIREMENT_DETAILS,
         APPLICANT_CREDENTIALS:(state) => state.APPLICANT_CREDENTIALS,
+        SELECTED_REQUIREMENT_DETAILS:(state) => state.SELECTED_REQUIREMENT_DETAILS,
     },
 
     mutations: {
         REQUIREMENT_DETAILS:(state, data)=>{state.REQUIREMENT_DETAILS = data},
         APPLICANT_CREDENTIALS:(state, data)=>{state.APPLICANT_CREDENTIALS = data},
+        SELECTED_REQUIREMENT_DETAILS:(state, data)=>{state.SELECTED_REQUIREMENT_DETAILS = data},
     },
 
     actions: {
@@ -41,6 +44,17 @@ export default {
             return new Promise((resolve,reject)=>{
                 RequirementDetail.GET_REQUIREMENT_DETAIL_BY_ID(payload).then((response)=>{
                 commit('REQUIREMENT_DETAILS', response.data)
+                resolve(response.data)
+            }).catch((error)=>{
+                  reject(error)
+                });
+            })
+        },
+  
+        GET_REQUIREMENT_DETAIL_BY_USER_ROLE_DETAILS_ID({commit}, payload){
+            return new Promise((resolve,reject)=>{
+                RequirementDetail.GET_REQUIREMENT_DETAIL_BY_USER_ROLE_DETAILS_ID(payload).then((response)=>{
+                // commit('REQUIREMENT_DETAILS', response.data)
                 resolve(response.data)
             }).catch((error)=>{
                   reject(error)

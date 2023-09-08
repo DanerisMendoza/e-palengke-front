@@ -93,7 +93,7 @@
                 }
               this.$store.dispatch("UPDATE_USER_ROLE_BY_ID",payload).then((response)=>{
                 if(response == 'success'){
-                    this.$store.dispatch("GET_USER_ROLE")
+                    this.$store.dispatch("GetUserRoleWithAccessessAndRequirements")
                 }
               })
             },  

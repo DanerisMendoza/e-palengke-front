@@ -80,14 +80,15 @@
         "ZOOM",
         "CIRCLE_RADIUS",
         "MARKER_LAT_LNG",
-        "SELECTED_REQUIREMENT"
+        "SELECTED_REQUIREMENT",
+        "SELECTED_USER_ROLE_DETAILS"
       ]),
       
       computedMarker(){
-        if(this.SELECTED_REQUIREMENT === 1){
+        if(this.SELECTED_USER_ROLE_DETAILS === 3){
             return this.sellerMarker
         }
-        else if(this.SELECTED_REQUIREMENT === 2){
+        else if(this.SELECTED_USER_ROLE_DETAILS === 4){
             return this.tambayMarker
         }
       }

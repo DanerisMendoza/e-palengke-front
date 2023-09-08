@@ -17,6 +17,16 @@ export default {
     },
 
     actions: {
+        GetUserRoleWithAccessessAndRequirements({commit}){
+            return new Promise((resolve,reject)=>{
+            UserRole.GetUserRoleWithAccessessAndRequirements().then((response)=>{
+                commit('USER_ROLES', response.data)
+                resolve(response.data)
+              }).catch((error)=>{
+                  reject(error)
+              });
+            })
+        },
         GET_USER_ROLE({commit}){
             return new Promise((resolve,reject)=>{
             UserRole.GET_USER_ROLE().then((response)=>{

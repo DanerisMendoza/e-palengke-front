@@ -14,7 +14,7 @@ export default {
     },
 
     actions: {
-        GET_REQUIREMENT_DETAIL({commit}){
+        GET_STORE_TYPE_DETAIL({commit}){
             return new Promise((resolve,reject)=>{
                 StoreTypeDetail.GET_STORE_TYPE_DETAIL().then((response)=>{
                 commit('STORE_TYPE_DETAIL', response.data)

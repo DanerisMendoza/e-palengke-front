@@ -9,18 +9,18 @@
         </v-row>
         <v-row>
             <v-col cols="6">
-                <h1 :class="{ 'incomplete-requirement': isRequirementsIncomplete }">{{ computedRole }}</h1>
+                <!-- <h1 :class="{ 'incomplete-requirement': isRequirementsIncomplete }">{{ computedRole }}</h1> -->
             </v-col>
         <v-col cols="6">
-                <v-btn v-if="SELECTED_REQUIREMENT!==null" @click="gps" class="float-right">GPS</v-btn>
+                <v-btn v-if="SELECTED_USER_ROLE_DETAILS!==null" @click="gps" class="float-right">GPS</v-btn>
             </v-col>
         </v-row>
         <v-row>
             <v-col cols="12">
-                <MAP_COMPONENT v-if="SELECTED_REQUIREMENT!==null"/>
+                <MAP_COMPONENT v-if="SELECTED_USER_ROLE_DETAILS!==null"/>
             </v-col>
         </v-row>
-        <v-row v-if="SELECTED_REQUIREMENT === 1">
+        <v-row v-if="SELECTED_USER_ROLE_DETAILS === 3">
             <v-col cols="6" class="mt-2">
                 <v-text-field v-model="storeName" label="Enter Your Store Name:"></v-text-field>
             </v-col>
@@ -38,17 +38,17 @@
                 ></v-autocomplete>
             </v-col>
         </v-row>
-        <v-row v-if="SELECTED_REQUIREMENT!==null">
+        <v-row v-if="SELECTED_USER_ROLE_DETAILS!==null">
             <v-col cols="12">
                 <v-btn class="float-right" @click="showSubmitConfirmation">Submit</v-btn>
             </v-col>
         </v-row>
         <!-- Error message for incomplete requirements -->
-        <v-row v-if="isRequirementsIncomplete" class="incomplete-requirement">
+        <!-- <v-row v-if="isRequirementsIncomplete" class="incomplete-requirement">
             <v-col cols="12">
         <p>Please complete all requirements before submitting.</p>
          </v-col>
-        </v-row>
+        </v-row> -->
     </v-container>
 </template>
 <script>
@@ -65,20 +65,21 @@ export default{
         "STORE_TYPE_DETAIL",
         "APPLICANT_CREDENTIALS",
         "MARKER_LAT_LNG",
-        "REQUIREMENTS"
+        "REQUIREMENTS",
+        "SELECTED_USER_ROLE_DETAILS"
       ]),
 
       computedRole(){
-        if(this.SELECTED_REQUIREMENT === null){
+        if(this.SELECTED_USER_ROLE_DETAILS === null){
             return "";
         }
-        else if (this.SELECTED_REQUIREMENT === 1) {
-        return !this.storeName || !this.selected_store_type_detail || this.selected_store_type_detail.length === 0;
+        else if (this.SELECTED_USER_ROLE_DETAILS === 2) {
+            return !this.storeName || !this.selected_store_type_detail || this.selected_store_type_detail.length === 0;
         }
-        else if(this.SELECTED_REQUIREMENT === 1){
+        else if(this.SELECTED_USER_ROLE_DETAILS === 2){
             return "SELECT YOUR MARKET LOCATION"
         }
-        else if(this.SELECTED_REQUIREMENT === 2){
+        else if(this.SELECTED_USER_ROLE_DETAILS === 3){
             return "SELECT YOUR DELIVERY LOCATION"
         }
       }
@@ -201,10 +202,10 @@ export default{
     },
 
     watch: {
-        SELECTED_REQUIREMENT: {
+        SELECTED_USER_ROLE_DETAILS: {
             handler(val) {
-                if(val === 1){
-                    this.$store.dispatch("GET_REQUIREMENT_DETAIL")  
+                if(val === 3){
+                    this.$store.dispatch("GET_STORE_TYPE_DETAIL")  
                 }
             },
         }

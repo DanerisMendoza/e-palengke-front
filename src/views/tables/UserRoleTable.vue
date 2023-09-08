@@ -75,32 +75,7 @@ export default {
   },
 
     mounted(){
-        this.$store.dispatch("GET_USER_ROLE")
-        // this.$store.dispatch("GET_REQUIREMENTS")
-        // this.$store.dispatch("GET_REQUIREMENTS_BY_ID",1).then((response) => {
-        //   console.log(response);
-        // });
-        // this.$store.dispatch("GET_REQUIREMENTS_BY_ID",1).then((response) => {
-        //   console.log(response);
-        // });
-        // const payload = {
-        //     request:{
-        //         name: 'agent2'
-        //     },
-        //     id:4
-        // }
-        // const payload = {
-        //     name: 'agent'
-        // }
-        // this.$store.dispatch("CREATE_REQUIREMENT",payload).then((response) => {
-        //   console.log(response);
-        // });
-        // this.$store.dispatch("DELETE_REQUIREMENT_BY_ID",3).then((response) => {
-        //   console.log(response);
-        // });
-        // this.$store.dispatch("UPDATE_REQUIREMENT_BY_ID",payload).then((response) => {
-        //   console.log(response);
-        // });
+        this.$store.dispatch("GetUserRoleWithAccessessAndRequirements")
     }
 }
 </script>
