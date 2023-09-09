@@ -12,7 +12,7 @@ import Applicants from '@/views/SideNav/Applicants.vue';
 import Store from '@/views/SideNav/Store.vue';
 import Map from '@/views/components/Map.vue';
 import user from '@/api/modules/users/index'
-
+import Product from '@/views/SideNav/Product.vue';
 Vue.use(VueRouter);
 
 const routes = [
@@ -219,6 +219,29 @@ const routes = [
     path: '/Applicants',
     name: 'Applicants',
     component: Applicants,
+    meta: {
+      showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
+    },
+    beforeEnter: (to, from, next) => {
+      user.authenticated().then((response)=>{
+        const shouldShowSideMenuBar = to.meta.showSideMenuBar !== false;
+        Vue.prototype.$showSideMenuBar = shouldShowSideMenuBar;
+        const hasPermission = response.data.some(permission => permission.name === to.name);
+        if (hasPermission) {
+          next();
+        } else {
+          next({ name: response.data[0].name });
+        }
+      }).catch((error)=>{
+        next({ name: 'Login' });
+      });
+    },
+  },
+
+  {
+    path: '/Product',
+    name: 'Product',
+    component: Product,
     meta: {
       showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
     },
