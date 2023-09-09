@@ -4,23 +4,37 @@ export default {
     state: {
         USER_ROLES: [],
         SELECTED_ROLE: null,
+        APPLICANTS: [],
     },
     
     getters: {
         USER_ROLES:(state) => state.USER_ROLES,
         SELECTED_ROLE:(state) => state.SELECTED_ROLE,
+        APPLICANTS:(state) => state.APPLICANTS,
     },
 
     mutations: {
         USER_ROLES:(state, data)=>{state.USER_ROLES = data},
         SELECTED_ROLE:(state, data)=>{state.SELECTED_ROLE = data},
+        APPLICANTS:(state, data)=>{state.APPLICANTS = data},
     },
 
     actions: {
-        GetUserRoleWithAccessessAndRequirements({commit}){
+        
+        GET_USER_ROLE_WITH_ACCESSESS_AND_REQUIREMENTS({commit}){
             return new Promise((resolve,reject)=>{
-            UserRole.GetUserRoleWithAccessessAndRequirements().then((response)=>{
+            UserRole.GET_USER_ROLE_WITH_ACCESSESS_AND_REQUIREMENTS().then((response)=>{
                 commit('USER_ROLES', response.data)
+                resolve(response.data)
+              }).catch((error)=>{
+                  reject(error)
+              });
+            })
+        },
+        GET_APPLICANTS({commit}){
+            return new Promise((resolve,reject)=>{
+            UserRole.GetApplicants().then((response)=>{
+                commit('APPLICANTS', response.data)
                 resolve(response.data)
               }).catch((error)=>{
                   reject(error)

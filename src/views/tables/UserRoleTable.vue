@@ -75,7 +75,7 @@ export default {
   },
 
     mounted(){
-        this.$store.dispatch("GetUserRoleWithAccessessAndRequirements")
+        this.$store.dispatch("GET_USER_ROLE_WITH_ACCESSESS_AND_REQUIREMENTS")
     }
 }
 </script>
