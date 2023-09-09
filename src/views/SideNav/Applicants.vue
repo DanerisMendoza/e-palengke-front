@@ -1,22 +1,21 @@
 <template>
     <v-container>
-        <br><br>
         <h1>Applicants Window</h1>
+        <Applicants/>
+        <ApplicantsCredentialDialog v-if="this.SELECTED_CREDENTIAL!==null"/>
     </v-container>
 </template>
 
 <script>
+    import Applicants from '../Tables/Applicants.vue';
+    import ApplicantsCredentialDialog from '../Dialogs/ApplicantsCredentialDialog.vue';
     import { mapGetters } from 'vuex';
     export default{
+        components: { Applicants,ApplicantsCredentialDialog},
         computed: {
             ...mapGetters([
-                "APPLICANTS",
-            ]),
+                'SELECTED_CREDENTIAL',
+            ])
         },
-        mounted(){
-            this.$store.dispatch('GET_APPLICANTS').then((response)=>{
-                console.log(this.APPLICANTS)
-            })
-        }
     }
 </script>
