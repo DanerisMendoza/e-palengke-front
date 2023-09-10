@@ -37,6 +37,7 @@
     computed: {
       ...mapGetters([
         "USER_ROLE_DETAILS",
+        "USER_DETAILS",
       ]),
     },
     methods: {
@@ -55,9 +56,16 @@
     },
     mounted() {
       this.$store.dispatch("GET_USER_ROLE_DETAILS").then((response) => {
+        const activatedUserRole = this.USER_DETAILS.user_role_ids.filter((item)=>{
+          return item.status == 'active'
+        })
         this.user_role = response.filter((item)=>{
-          return item.id != 1 && item.id !=2
+          return (item.id != 1 && item.id !=2)
         });
+        this.user_role = this.user_role.filter(item => {
+          return !activatedUserRole.some(userRole => userRole.id === item.id);
+        });
+
       });
     },
   };
