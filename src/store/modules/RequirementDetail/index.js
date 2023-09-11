@@ -34,6 +34,7 @@ export default {
         STORE_REQUIREMENT_DETAIL({commit}, payload){
             return new Promise((resolve,reject)=>{
                 RequirementDetail.STORE_REQUIREMENT_DETAIL(payload).then((response)=>{
+                // commit('SELECTED_REQUIREMENT', response.data)
                 resolve(response.data)
               }).catch((error)=>{
                   reject(error)
@@ -65,6 +66,7 @@ export default {
         DELETE_REQUIREMENT_DETAIL_BY_ID({commit}, payload){
             return new Promise((resolve,reject)=>{
                 RequirementDetail.DELETE_REQUIREMENT_DETAIL_BY_ID(payload).then((response)=>{
+                    commit('SELECTED_REQUIREMENT_DETAILS', response.data)
                 resolve(response.data)
               }).catch((error)=>{
                   reject(error)

@@ -1,5 +1,12 @@
 <template>
 	<v-container fluid class=" ma-0 pa-0">
+    <v-row>
+                    <v-col cols="7">
+                        <v-btn class="float-right" @click="addNewRequirement()">
+                            add new requirement
+                        </v-btn>
+                    </v-col>
+                </v-row>
         <v-data-table
             :headers="headers"
             :items="REQUIREMENT_DETAILS"
@@ -13,6 +20,7 @@
               <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
             </td>
           </tr>
+          
         </template>
         </v-data-table>
   </v-container>
@@ -44,11 +52,41 @@ export default {
     
     },
     editItem(item) {
-      this.$store.commit("SELECTED_REQUIREMENT_DETAILS",item)
-      console.log(this.SELECTED_REQUIREMENT_DETAILS)
-    },
-    deleteItem(item) {
+      this.$store.commit("SELECTED_REQUIREMENT_DETAILS", item);
+      this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET", 'UPDATE');
+      console.log('Edit button clicked'); 
     
+  },
+    addNewRequirement() {
+      this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'ADD')
+    },
+    
+    deleteItem(item) {
+      this.$swal
+        .fire({
+          icon: 'warning',
+          title: 'Delete Item',
+          text: 'Are you sure you want to delete this item?',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, delete it',
+          cancelButtonText: 'No, cancel',
+          confirmButtonColor: '#d33',
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$store.dispatch("DELETE_REQUIREMENT_DETAIL_BY_ID", item.id).then((response) => {
+              if (response === 'success') {
+                this.$swal.fire({
+                  icon: 'success',
+                  title: 'Success!',
+                  text: 'Item Deleted Successfully.',
+                });
+                this.$store.dispatch("GET_REQUIREMENTS");
+                this.$store.dispatch("GET_REQUIREMENT_DETAILS", this.SELECTED_REQUIREMENT_DETAILS.id);
+              }
+            });
+          }
+        });  
     },
   },
 
