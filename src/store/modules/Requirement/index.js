@@ -36,7 +36,8 @@ export default {
         GET_REQUIREMENTS_BY_ID({commit}, payload){
             return new Promise((resolve,reject)=>{
             requirement.GET_REQUIREMENTS_BY_ID(payload).then((response)=>{
-                resolve(response.data)
+                commit('REQUIREMENTS', response.data)
+                resolve(response)
               }).catch((error)=>{
                   reject(error)
               });
@@ -46,7 +47,8 @@ export default {
         CREATE_REQUIREMENT({commit}, payload){
             return new Promise((resolve,reject)=>{
             requirement.CREATE_REQUIREMENT(payload).then((response)=>{
-                resolve(response.data)
+                commit('SELECTED_REQUIREMENT', response.data)
+                resolve(response)
               }).catch((error)=>{
                   reject(error)
               });

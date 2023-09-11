@@ -19,7 +19,7 @@
                 <v-row>
                     <v-col cols="7">
                         <v-btn class="float-right" @click="addNewRequirement()">
-                            add new requirement-details
+                            add new requirement
                         </v-btn>
                     </v-col>
                 </v-row>
@@ -35,6 +35,7 @@
                                 <td style="text-align: center;">{{ item.name }}</td>
                                 <td style="text-align: center;"> 
                                     <!-- <v-icon @click="viewItem(item)" class="mr-2">mdi-eye</v-icon> -->
+                                    <!-- <v-icon @click="addNewRequirement(item)">mdi-pencil</v-icon> -->
                                     <v-icon @click="editItem(item)">mdi-pencil</v-icon>
                                     <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
                                 </td>
@@ -55,26 +56,23 @@
             return {
                 dialog:true,
                 headers: [
-                    { text: "name", align: "center", value: "name", sortable: false },
+                    { text: "Name", align: "center", value: "name", sortable: false },
                     { text: 'Actions', align: "center", value: 'actions', sortable: false },
                 ],
+                editedItem: null,
             } 
         },
         methods: {
             closeDialog(){
                 this.$store.commit("SELECTED_REQUIREMENT",null)
             },
-            addNewRequirement(){
-                this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'ADD')
-                
-            },  
+            
         
-
             editItem(item){
                 this.$store.commit("SELECTED_REQUIREMENT_DETAIL",item)
                 this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'UPDATE')
             },  
-                
+            
             deleteItem(item){
                 this.$swal
                     .fire({
