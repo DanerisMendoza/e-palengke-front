@@ -9,9 +9,6 @@
         </v-row>
         <v-row>
             <v-col cols="6">
-                <!-- <h1 :class="{ 'incomplete-requirement': isRequirementsIncomplete }">{{ computedRole }}</h1> -->
-            </v-col>
-        <v-col cols="6">
                 <v-btn v-if="SELECTED_USER_ROLE_DETAILS!==null" @click="gps" class="float-right">GPS</v-btn>
             </v-col>
         </v-row>
@@ -43,12 +40,6 @@
                 <v-btn class="float-right" @click="showSubmitConfirmation">Submit</v-btn>
             </v-col>
         </v-row>
-        <!-- Error message for incomplete requirements -->
-        <!-- <v-row v-if="isRequirementsIncomplete" class="incomplete-requirement">
-            <v-col cols="12">
-        <p>Please complete all requirements before submitting.</p>
-         </v-col>
-        </v-row> -->
     </v-container>
 </template>
 <script>
@@ -66,7 +57,8 @@ export default{
         "APPLICANT_CREDENTIALS",
         "MARKER_LAT_LNG",
         "REQUIREMENTS",
-        "SELECTED_USER_ROLE_DETAILS"
+        "SELECTED_USER_ROLE_DETAILS",
+        "USER_DETAILS",
       ]),
 
       computedRole(){
@@ -166,6 +158,8 @@ export default{
                     this.selected_store_type_detail = null;
                     this.storeName = null;
                 }
+                this.$store.commit("SELECTED_ROLE_CLEAR", true)
+                this.$store.dispatch('GET_MY_APPLICANTS',this.USER_DETAILS.user_id)
                 this.$swal.fire({
                 title: 'Submission Successful',
                 text: 'Your application has been submitted successfully!',
