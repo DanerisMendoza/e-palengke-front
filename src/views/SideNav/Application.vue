@@ -131,14 +131,27 @@ export default{
                 this.$swal.fire({
                     icon: 'warning',
                     title: 'Location Not Selected',
-                    text: 'Please select your location before submitting.',
+                    text: 'Please select your location.',
                     });
                     return;
             }
+            if (this.SELECTED_REQUIREMENT === 1) {
+            if (!this.storeName || !this.selected_store_type_detail || this.selected_store_type_detail.length === 0) {
+                this.$swal.fire({
+                icon: 'error',
+                title: 'Incomplete Information',
+                text: 'Please complete the requirements before you submit.',
+                });
+                return;
+            }
+        }
             const data = new FormData();
                 if (this.APPLICANT_CREDENTIALS.length > 0) {
                     for (let i = 0; i < this.APPLICANT_CREDENTIALS.length; i++) {
                         data.append("files[]", this.APPLICANT_CREDENTIALS[i].value);
+                        console.log(this.APPLICANT_CREDENTIALS[i].value)
+                        //clear the attached image
+                        this.APPLICANT_CREDENTIALS[i].value = null;
                     }
                 }
             data.append("applicantCredential",JSON.stringify( this.APPLICANT_CREDENTIALS));
@@ -215,12 +228,3 @@ export default{
     }
 }
 </script>
-
-<style>
-.incomplete-requirement {
-  background-color: #FFC0CB;
-  padding: 10px;
-  border: 1px solid #FF0000;
-  margin-bottom: 10px;
-}
-</style>

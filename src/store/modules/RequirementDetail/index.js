@@ -5,18 +5,21 @@ export default {
         REQUIREMENT_DETAILS: [],
         APPLICANT_CREDENTIALS: [],
         SELECTED_REQUIREMENT_DETAILS: null,
+        REQUIREMENT_DETAIL_DIALOG: null,
     },
     
     getters: {
         REQUIREMENT_DETAILS:(state) => state.REQUIREMENT_DETAILS,
         APPLICANT_CREDENTIALS:(state) => state.APPLICANT_CREDENTIALS,
         SELECTED_REQUIREMENT_DETAILS:(state) => state.SELECTED_REQUIREMENT_DETAILS,
+        REQUIREMENT_DETAIL_DIALOG:(state) => state.REQUIREMENT_DETAIL_DIALOG,
     },
 
     mutations: {
         REQUIREMENT_DETAILS:(state, data)=>{state.REQUIREMENT_DETAILS = data},
         APPLICANT_CREDENTIALS:(state, data)=>{state.APPLICANT_CREDENTIALS = data},
         SELECTED_REQUIREMENT_DETAILS:(state, data)=>{state.SELECTED_REQUIREMENT_DETAILS = data},
+        REQUIREMENT_DETAIL_DIALOG:(state, data)=>{state.REQUIREMENT_DETAIL_DIALOG = data},
     },
 
     actions: {
