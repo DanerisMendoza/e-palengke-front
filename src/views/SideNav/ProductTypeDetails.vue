@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <br><br>
-        <h1>DELIVERY PAGE</h1>
+        <h1>PRODUCT TYPE DETAILS PAGE</h1>
     </v-container>
 </template>
 

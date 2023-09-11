@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <br><br>
-        <h1>Application Window</h1>
+        <h1>APPLICATION PAGE</h1>
         <v-row>
             <v-col cols="12">
                 <Application/>

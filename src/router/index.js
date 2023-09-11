@@ -4,7 +4,7 @@ import Login from '@/views/SideNav/Login.vue';
 import RequirementDetail from '@/views/SideNav/RequirementDetail.vue';
 import Application from '@/views/SideNav/Application.vue';
 import Registration from '@/views/SideNav/Registration.vue';
-import EndUser from '@/views/SideNav/EndUser.vue';
+import HOME from '@/views/SideNav/Home.vue';
 import Admin from '@/views/SideNav/Admin.vue';
 import UserRole from '@/views/SideNav/UserRole.vue';
 import Delivery from '@/views/SideNav/Delivery.vue';
@@ -12,7 +12,10 @@ import Applicants from '@/views/SideNav/Applicants.vue';
 import Store from '@/views/SideNav/Store.vue';
 import Map from '@/views/components/Map.vue';
 import user from '@/api/modules/users/index'
-import Product from '@/views/SideNav/Product.vue';
+import ProductTypeDetails from '@/views/SideNav/ProductTypeDetails.vue';
+import INVENTORY from '@/views/SideNav/Inventory.vue';
+import PROFILE from '@/views/SideNav/Profile.vue';
+import StoreTypeDetails from '@/views/SideNav/StoreTypeDetails.vue';
 Vue.use(VueRouter);
 
 const routes = [
@@ -40,8 +43,8 @@ const routes = [
     },
   },
   {
-    path: '/UserRole',
-    name: 'UserRole',
+    path: '/USER ROLE',
+    name: 'USER ROLE',
     component: UserRole,
     meta: {
       showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
@@ -62,8 +65,8 @@ const routes = [
     },
   },
   {
-    path: '/RequirementDetail',
-    name: 'RequirementDetail',
+    path: '/REQUIREMENT DETAILS',
+    name: 'REQUIREMENT DETAILS',
     component: RequirementDetail,
     meta: {
       showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
@@ -84,8 +87,8 @@ const routes = [
     },
   },
   {
-    path: '/Application',
-    name: 'Application',
+    path: '/APPLICATION',
+    name: 'APPLICATION',
     component: Application,
     meta: {
       showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
@@ -123,9 +126,9 @@ const routes = [
     },
   },
   {
-    path: '/EndUser',
-    name: 'EndUser',
-    component: EndUser,
+    path: '/HOME',
+    name: 'HOME',
+    component: HOME,
     meta: {
       showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
     },
@@ -145,8 +148,8 @@ const routes = [
     },
   },
   {
-    path: '/Delivery',
-    name: 'Delivery',
+    path: '/DELIVERY',
+    name: 'DELIVERY',
     component: Delivery,
     meta: {
       showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
@@ -167,8 +170,8 @@ const routes = [
     },
   },
   {
-    path: '/Store',
-    name: 'Store',
+    path: '/STORE',
+    name: 'STORE',
     component: Store,
     meta: {
       showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
@@ -194,8 +197,8 @@ const routes = [
     component: Map
   },
   {
-    path: '/Admin',
-    name: 'Admin',
+    path: '/ADMIN',
+    name: 'ADMIN',
     component: Admin,
     meta: {
       showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
@@ -216,8 +219,8 @@ const routes = [
     },
   },
   {
-    path: '/Applicants',
-    name: 'Applicants',
+    path: '/APPLICANTS',
+    name: 'APPLICANTS',
     component: Applicants,
     meta: {
       showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
@@ -239,9 +242,75 @@ const routes = [
   },
 
   {
-    path: '/Product',
-    name: 'Product',
-    component: Product,
+    path: '/PRODUCT TYPE DETAILS',
+    name: 'PRODUCT TYPE DETAILS',
+    component: ProductTypeDetails,
+    meta: {
+      showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
+    },
+    beforeEnter: (to, from, next) => {
+      user.authenticated().then((response)=>{
+        const shouldShowSideMenuBar = to.meta.showSideMenuBar !== false;
+        Vue.prototype.$showSideMenuBar = shouldShowSideMenuBar;
+        const hasPermission = response.data.some(permission => permission.name === to.name);
+        if (hasPermission) {
+          next();
+        } else {
+          next({ name: response.data[0].name });
+        }
+      }).catch((error)=>{
+        next({ name: 'Login' });
+      });
+    },
+  },
+  {
+    path: '/INVENTORY',
+    name: 'INVENTORY',
+    component: INVENTORY,
+    meta: {
+      showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
+    },
+    beforeEnter: (to, from, next) => {
+      user.authenticated().then((response)=>{
+        const shouldShowSideMenuBar = to.meta.showSideMenuBar !== false;
+        Vue.prototype.$showSideMenuBar = shouldShowSideMenuBar;
+        const hasPermission = response.data.some(permission => permission.name === to.name);
+        if (hasPermission) {
+          next();
+        } else {
+          next({ name: response.data[0].name });
+        }
+      }).catch((error)=>{
+        next({ name: 'Login' });
+      });
+    },
+  },
+  {
+    path: '/PROFILE',
+    name: 'PROFILE',
+    component: PROFILE,
+    meta: {
+      showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
+    },
+    beforeEnter: (to, from, next) => {
+      user.authenticated().then((response)=>{
+        const shouldShowSideMenuBar = to.meta.showSideMenuBar !== false;
+        Vue.prototype.$showSideMenuBar = shouldShowSideMenuBar;
+        const hasPermission = response.data.some(permission => permission.name === to.name);
+        if (hasPermission) {
+          next();
+        } else {
+          next({ name: response.data[0].name });
+        }
+      }).catch((error)=>{
+        next({ name: 'Login' });
+      });
+    },
+  },
+  {
+    path: '/STORE TYPE DETAILS',
+    name: 'STORE TYPE DETAILS',
+    component: StoreTypeDetails,
     meta: {
       showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
     },
