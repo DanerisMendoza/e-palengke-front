@@ -128,11 +128,11 @@ export default{
                     return;
             }
             const data = new FormData();
-                if (this.APPLICANT_CREDENTIALS.length > 0) {
-                    for (let i = 0; i < this.APPLICANT_CREDENTIALS.length; i++) {
-                        data.append("files[]", this.APPLICANT_CREDENTIALS[i].value);
-                    }
+            if (this.APPLICANT_CREDENTIALS.length > 0) {
+                for (let i = 0; i < this.APPLICANT_CREDENTIALS.length; i++) {
+                    data.append("files[]", this.APPLICANT_CREDENTIALS[i].value);
                 }
+            }
             data.append("applicantCredential",JSON.stringify( this.APPLICANT_CREDENTIALS));
             data.append("latitude",this.MARKER_LAT_LNG[0]);
             data.append("longitude",this.MARKER_LAT_LNG[1]);
@@ -144,15 +144,15 @@ export default{
                 data.append("storeType",JSON.stringify(this.selected_store_type_detail));
             }
             const config = {
-                    headers: {
-                        "content-type": "multipart/form-data",
-                    },
-                };
+                headers: {
+                    "content-type": "multipart/form-data",
+                },
+            };
 
-                const payload = {
-                    params: data,
-                    config: config,
-                };
+            const payload = {
+                params: data,
+                config: config,
+            };
             this.$store.dispatch("SUBMIT_APPLICANT_CREDENTIAL",payload).then(()=>{
                 if(this.SELECTED_USER_ROLE_DETAILS === 3){
                     this.selected_store_type_detail = null;

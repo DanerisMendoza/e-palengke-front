@@ -16,16 +16,32 @@
           <v-text-field v-model="formData.email" label="Email" :rules="rules.required"></v-text-field>
           <v-text-field v-model="formData.username" label="Username" :rules="rules.required"></v-text-field>
         <v-text-field v-model="formData.password" label="Password" type="password" :rules="rules.required"></v-text-field>
-        <!-- Add more Vuetify form fields for other data as needed -->
-        <v-btn type="submit" color="primary" :loading="loadSubmit">Register</v-btn>
+        <v-file-input
+          v-for="(item, index) in user_role_details"
+          :rules="rules.required"
+          :key="index"
+          :label="item.name"
+          v-model="item.value"
+          accept="image/*"  
+        ></v-file-input>
+        <v-row>
+          <v-col cols="12">
+            <v-btn @click="gps" class="float-right">GPS</v-btn>
+          </v-col>
+        </v-row>
+        <MapComp/>
+        <v-btn type="submit" color="primary" :loading="loadSubmit">SUBMIT</v-btn>
       </v-form>
     </v-container>
   </template>
   
   <script>
+  import MapComp from '../components/Map.vue';
   export default {
+    components: { MapComp},
     data() {
       return {
+        user_role_details: [],
         loadSubmit: false,
         name:{
           firstName: null,
@@ -70,7 +86,26 @@
         if (this.$refs.myForm.validate()) {
           this.loadSubmit = true;
           this.formData.name = this.name.firstName +" "+this.name.middleName+" "+this.name.lastName
-          this.$store.dispatch("Register", this.formData).then((response)=>{
+          const data = new FormData();
+          
+          if (this.user_role_details.length > 0) {
+              for (let i = 0; i < this.user_role_details.length; i++) {
+                  data.append("files[]", this.user_role_details[i].value);
+              }
+          }
+          data.append("applicantCredential",JSON.stringify( this.user_role_details));
+          data.append("form",JSON.stringify(this.formData));
+          const config = {
+                headers: {
+                    "content-type": "multipart/form-data",
+                },
+            };
+          const payload = {
+              params: data,
+              config: config,
+          };
+
+          this.$store.dispatch("Register", payload).then((response)=>{
             if(response === 'success'){
               this.loadSubmit = false;
               alert('success')
@@ -78,12 +113,44 @@
             }
           })
         }
-        // Send a POST request with formData to your registration API
-        // You can use Axios or another HTTP library for this
-        // Include the user_id field if applicable
-        // Handle success and error cases accordingly
+      },
+      handleUserRoleChange(item) {
+        this.$store.dispatch("GET_REQUIREMENT_DETAIL_BY_USER_ROLE_DETAILS_ID", item).then((response) => {
+          this.user_role_details = response;
+          this.$store.commit("SELECTED_USER_ROLE_DETAILS", "customerRegistration")
+        });
+      },
+      gps(){
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+        (position) => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            this.$store.commit("MARKER_LAT_LNG",[0,0])  
+            this.$store.commit("CENTER",[0,0])  
+            this.$store.commit("MARKER_LAT_LNG",[latitude,longitude])  
+            this.$store.commit("CENTER",[latitude,longitude])  
+            this.$store.commit("ZOOM",19)  
+            this.$store.commit("SELECTED_USER_ROLE_DETAILS","customerStore")  
+        },
+        (error) => {
+            if (error.code === 1) {
+                console.log('User denied geolocation access.'); // User chose "Block"
+            } else {
+                console.error('Error getting coordinates:', error);
+            }
+        }
+        );
+      } 
+      else {
+          console.error('Geolocation is not supported in this browser.');
+        }
       },
     },
+    mounted(){
+      this.handleUserRoleChange(2)
+      this.gps()
+    }
   };
   </script>
   

@@ -12,8 +12,8 @@ export default {
         return api.get('api/GetAllSideNav');
     },
 
-    Register(params){
-        return api.post('api/Register',params);
+    Register(params,config){
+        return api.post('api/Register',params,config.headers);
     },
 
     LOGIN(params){

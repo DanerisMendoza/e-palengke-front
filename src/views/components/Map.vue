@@ -51,7 +51,7 @@
           return {
             center: [14.653341002411047,120.99472379571777],
             zoom: 7,
-            circleRadius: 80,
+            circleRadius: 50*3,
             tambayMarker: L.icon({
                 iconUrl: tambayMarker,
                 iconSize: [25, 41],
@@ -91,17 +91,29 @@
         else if(this.SELECTED_USER_ROLE_DETAILS === 4){
             return this.tambayMarker
         }
+        else if(this.SELECTED_USER_ROLE_DETAILS === "customerStore"){
+            return this.tambayMarker
+        }
+        else if(this.SELECTED_USER_ROLE_DETAILS === "customerRegistration"){
+            return this.tambayMarker
+        }
       }
     },
 
     watch: {
         MARKER_LAT_LNG: {
-            handler(val) {
-                // console.log(val)
-                this.center = this.CENTER;
-                this.zoom = this.ZOOM;
-                this.$refs.map.mapObject.setView(this.center, this.zoom);
-            },
+          handler(val) {
+            // console.log(val)
+            this.center = this.CENTER;
+            this.zoom = this.ZOOM;
+            this.$refs.map.mapObject.setView(this.center, this.zoom);
+          },
+        },
+
+        CIRCLE_RADIUS: {
+          handler(val) {
+            this.circleRadius = val*3
+          },
         }
     },
   
