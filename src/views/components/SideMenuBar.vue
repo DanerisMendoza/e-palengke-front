@@ -12,7 +12,12 @@
           @click="navigateToRoute(side_nav.name, side_nav.id)"
         >
           <v-list-item-content>
-            {{ side_nav.name }}
+            <router-link
+              :to="{ name: side_nav.name, params: { id: side_nav.id } }"
+              class="white--text side_nav_link"
+            >
+              {{ side_nav.name }}
+            </router-link>
           </v-list-item-content>
         </v-list-item>
         <v-list-item @click="submitLogout()">
@@ -67,4 +72,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.side_nav_link {
+  text-decoration: none;
+}
+</style>
