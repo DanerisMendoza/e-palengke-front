@@ -1,7 +1,6 @@
 <template>
     <v-container>
-        <br><br>
-        <h1>APPLICANT PAGE</h1>
+        <h1>APPLICANTS</h1>
         <Applicants/>
         <ApplicantsCredentialDialog v-if="this.SELECTED_CREDENTIAL!==null"/>
     </v-container>
