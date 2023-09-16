@@ -24,6 +24,15 @@ export default {
                 });
             })
         },
+        DELETE_STORE_TYPE_DETAIL_BY_ID({commit},payload){
+            return new Promise((resolve,reject)=>{
+                StoreTypeDetail.DELETE_STORE_TYPE_DETAIL_BY_ID(payload).then((response)=>{
+                resolve(response.data)
+            }).catch((error)=>{
+                  reject(error)
+                });
+            })
+        },
         
         
     }

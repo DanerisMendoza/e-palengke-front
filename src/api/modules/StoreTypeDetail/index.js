@@ -10,10 +10,10 @@ export default {
     STORE_STORE_TYPE_DETAIL(params){
         return api.post('api/StoreTypeDetail',params);
     },
-    UPDATE_REQUIREMENT_DETAIL_BY_ID(params){
+    UPDATE_STORE_TYPE_DETAIL_BY_ID(params){
         return api.put(`api/StoreTypeDetail/${params.id}`,params.request);
     },
-    DELETE_REQUIREMENT_DETAIL_BY_ID(params){
+    DELETE_STORE_TYPE_DETAIL_BY_ID(params){
         return api.delete(`api/StoreTypeDetail/${params}`);
     }
 }
