@@ -1,19 +1,16 @@
 <template>
   <v-app>
-    <v-navigation-drawer
-      app
-      dark
-      v-model="drawer"
-      v-if="$route.meta.showSideMenuBar"
-    >
-      <SideMenuBar />
-    </v-navigation-drawer>
-    <v-app-bar app dark>
-      <v-btn @click="toggleSidebar">
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      </v-btn>
-      Name: {{ USER_DETAILS.name }}
-    </v-app-bar>
+    <template v-if="$route.meta.showSideMenuBar">
+      <v-navigation-drawer app dark v-model="drawer">
+        <SideMenuBar />
+      </v-navigation-drawer>
+      <v-app-bar app dark>
+        <v-btn @click="toggleSidebar">
+          <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        </v-btn>
+        Name: {{ USER_DETAILS.name }}
+      </v-app-bar>
+    </template>
     <v-main>
       <router-view v-if="routerViewVisible" />
     </v-main>
