@@ -43,7 +43,7 @@ const routes = [
     },
   },
   {
-    path: '/USER ROLE',
+    path: '/USER%20ROLE',
     name: 'USER ROLE',
     component: UserRole,
     meta: {
@@ -65,7 +65,7 @@ const routes = [
     },
   },
   {
-    path: '/REQUIREMENT DETAILS',
+    path: '/REQUIREMENT%20DETAILS',
     name: 'REQUIREMENT DETAILS',
     component: RequirementDetail,
     meta: {
@@ -242,7 +242,7 @@ const routes = [
   },
 
   {
-    path: '/PRODUCT TYPE DETAILS',
+    path: '/PRODUCT%20TYPE%20DETAILS',
     name: 'PRODUCT TYPE DETAILS',
     component: ProductTypeDetails,
     meta: {
@@ -308,7 +308,7 @@ const routes = [
     },
   },
   {
-    path: '/STORE TYPE DETAILS',
+    path: '/STORE%20TYPE%20DETAILS',
     name: 'STORE TYPE DETAILS',
     component: StoreTypeDetails,
     meta: {
