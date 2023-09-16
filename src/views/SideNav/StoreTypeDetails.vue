@@ -1,6 +1,5 @@
 <template>
     <v-container>
-        <br><br>
         <h1>STORE TYPE DETAILS PAGE</h1>
         <StoreTypeDetailTable/>
     </v-container>

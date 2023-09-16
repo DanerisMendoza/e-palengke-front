@@ -1,7 +1,5 @@
 <template>
     <div>
-        <br><br>
-        <h1>table</h1>
         <v-data-table
             :headers="headers"
             :items="STORE_TYPE_DETAIL"

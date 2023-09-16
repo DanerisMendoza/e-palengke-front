@@ -1,6 +1,5 @@
 <template>
     <v-container>
-        <br><br>
         <v-data-table
             :headers="headers"
             :items="APPLICANTS"
