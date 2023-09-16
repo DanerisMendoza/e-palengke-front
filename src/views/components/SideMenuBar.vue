@@ -1,27 +1,25 @@
 <template>
   <div>
-    <v-navigation-drawer app dark>
-      <v-app-bar>
-        <h1>E-Palengke</h1>
-      </v-app-bar>
+    <v-app-bar>
+      <h1>E-Palengke</h1>
+    </v-app-bar>
 
+    <v-list v-model="drawer" :mini-variant="isMobile">
       <v-list>
-        <v-list>
-          <v-list-item
-            v-for="side_nav in SIDE_NAV"
-            :key="side_nav.id"
-            @click="navigateToRoute(side_nav.name, side_nav.id)"
-          >
-            <v-list-item-content>
-              {{ side_nav.name }}
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item @click="submitLogout()">
-            <v-list-item-title> LOGOUT </v-list-item-title>
-          </v-list-item>
-        </v-list>
+        <v-list-item
+          v-for="side_nav in SIDE_NAV"
+          :key="side_nav.id"
+          @click="navigateToRoute(side_nav.name, side_nav.id)"
+        >
+          <v-list-item-content>
+            {{ side_nav.name }}
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item @click="submitLogout()">
+          <v-list-item-title> LOGOUT </v-list-item-title>
+        </v-list-item>
       </v-list>
-    </v-navigation-drawer>
+    </v-list>
   </div>
 </template>
 
@@ -32,9 +30,10 @@ export default {
     return {};
   },
   data: () => ({
-    drawer: null,
     closeOnClick: false,
     selectedItem: 1,
+    drawer: true,
+    drawer: !this.isMobile,
   }),
   methods: {
     submitLogout() {
@@ -54,6 +53,9 @@ export default {
   },
   computed: {
     ...mapGetters(["SIDE_NAV", "USER_DETAILS"]),
+    isMobile() {
+      return this.$vuetify.breakpoint.smAndDown; // Hide the sidebar on small screens
+    },
   },
 
   mounted() {
