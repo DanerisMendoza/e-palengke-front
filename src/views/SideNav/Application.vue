@@ -53,6 +53,7 @@ export default{
     computed: {
       ...mapGetters([
         "SELECTED_REQUIREMENT",
+        "PRODUCT_TYPE_DETAIL",
         "STORE_TYPE_DETAIL",
         "APPLICANT_CREDENTIALS",
         "MARKER_LAT_LNG",

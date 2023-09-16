@@ -5,6 +5,7 @@ import Requirement from '@/store/modules/Requirement'
 import RequirementDetail from '@/store/modules/RequirementDetail'
 import Map from '@/store/modules/Map'
 import StoreTypeDetail from '@/store/modules/StoreTypeDetail'
+import ProductTypeDetail from '@/store/modules/ProductTypeDetail'
 import UserRole from '@/store/modules/UserRole'
 import UserRoleDetail from '@/store/modules/UserRoleDetail'
 import ApplicantCredential from '@/store/modules/ApplicantCredential'
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     RequirementDetail,
     Map,
     StoreTypeDetail,
+    ProductTypeDetail,
     UserRole,
     ApplicantCredential,
     UserRoleDetail,
