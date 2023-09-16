@@ -5,7 +5,7 @@ export default {
         ZOOM: 7,
         CENTER: [14.653341002411047,120.99472379571777],
         MARKER_LAT_LNG:  null,
-        CIRCLE_RADIUS: 90,
+        CIRCLE_RADIUS: 50,
     },
     
     getters: {

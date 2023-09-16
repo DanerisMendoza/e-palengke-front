@@ -54,6 +54,9 @@
               this.$router.push(response[0].name);
             })
           }
+          else if(response.message === 'not active'){
+            console.log("account not active!")
+          }
           else{
             console.log("credential incorrect!")
           }

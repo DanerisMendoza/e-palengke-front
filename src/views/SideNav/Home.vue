@@ -1,7 +1,7 @@
 <template>
      <v-container>
         <br><br>
-        <h1>END USER PAGE</h1>
+        <h1>HOME PAGE</h1>
     </v-container>
 </template>
 

@@ -1,6 +1,12 @@
 import api from '@/api/index'
 
 export default {
+    ApproveUserRole(params){
+        return api.patch(`api/ApproveUserRole/${params}`);
+    },
+    DissaproveUserRole(params){
+        return api.patch(`api/DissaproveUserRole/${params}`);
+    },
     GET_USER_ROLE_WITH_ACCESSESS_AND_REQUIREMENTS(){
         return api.get('api/Get_UserRole_With_Accessess_And_Requirements');
     },

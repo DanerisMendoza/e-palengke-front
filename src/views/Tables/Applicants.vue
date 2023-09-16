@@ -1,17 +1,31 @@
 <template>
     <v-container>
         <br><br>
-        <h1>Applicants Window</h1>
         <v-data-table
             :headers="headers"
             :items="APPLICANTS"
         >
         
         <!-- Add a custom render function for the "Actions" column -->
-        <template v-slot:item.actions="{ item }">
-            <v-btn text @click="view(item.user_role_id)">
-            <v-icon>mdi-file-multiple</v-icon>
-        </v-btn>
+        <template v-slot:item="{ item }">
+            <tr>
+                <td style="text-align: center;">{{item.applicant_name}}</td>
+                <td style="text-align: center;">{{item.status}}</td>
+                <td style="text-align: center;">{{item.user_role_name}}</td>
+                <td style="text-align: center;">{{item.gender}}</td>
+                <td style="text-align: center;">{{item.age}}</td>
+                <td style="text-align: center;">
+                    <v-btn text @click="view(item.user_role_id)">
+                        <v-icon>mdi-file-multiple</v-icon>
+                    </v-btn>
+                    <v-btn v-if="item.status==='pending'" text @click="dissaprove(item.user_role_id)">
+                        <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                    <v-btn v-if="item.status==='pending'" text @click="approve(item.user_role_id)">
+                        <v-icon>mdi-check</v-icon>
+                    </v-btn>
+                </td>
+            </tr>
         </template>
 
         </v-data-table>
@@ -38,6 +52,16 @@
             view(item){
                this.$store.commit('SELECTED_CREDENTIAL',item)
             },
+            approve(item){
+                this.$store.dispatch('APPROVE_USER_ROLE',item).then(()=>{
+                    this.$store.dispatch('GET_APPLICANTS')
+                })
+            },
+            dissaprove(item){
+                this.$store.dispatch('DISAPPROVE_USER_ROLE',item).then(()=>{
+                    this.$store.dispatch('GET_APPLICANTS')
+                })
+            }
         },
 
         computed: {

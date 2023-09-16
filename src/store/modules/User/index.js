@@ -70,8 +70,8 @@ export default {
           },
         Register({commit}, payload){
           return new Promise((resolve,reject)=>{
-          user.Register(payload).then((response)=>{
-              resolve(response.data)
+          user.Register(payload.params,payload.config).then((response)=>{
+            resolve(response.data)
             }).catch((error)=>{
                 reject(error)
             });

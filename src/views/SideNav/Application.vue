@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <br><br>
-        <h1>Application Window</h1>
+        <h1>APPLICATION PAGE</h1>
         <v-row>
             <v-col cols="12">
                 <Application/>
@@ -9,9 +9,6 @@
         </v-row>
         <v-row>
             <v-col cols="6">
-                <!-- <h1 :class="{ 'incomplete-requirement': isRequirementsIncomplete }">{{ computedRole }}</h1> -->
-            </v-col>
-        <v-col cols="6">
                 <v-btn v-if="SELECTED_USER_ROLE_DETAILS!==null" @click="gps" class="float-right">GPS</v-btn>
             </v-col>
         </v-row>
@@ -43,12 +40,6 @@
                 <v-btn class="float-right" @click="showSubmitConfirmation">Submit</v-btn>
             </v-col>
         </v-row>
-        <!-- Error message for incomplete requirements -->
-        <!-- <v-row v-if="isRequirementsIncomplete" class="incomplete-requirement">
-            <v-col cols="12">
-        <p>Please complete all requirements before submitting.</p>
-         </v-col>
-        </v-row> -->
     </v-container>
 </template>
 <script>
@@ -66,7 +57,8 @@ export default{
         "APPLICANT_CREDENTIALS",
         "MARKER_LAT_LNG",
         "REQUIREMENTS",
-        "SELECTED_USER_ROLE_DETAILS"
+        "SELECTED_USER_ROLE_DETAILS",
+        "USER_DETAILS",
       ]),
 
       computedRole(){
@@ -146,14 +138,11 @@ export default{
             }
         }
             const data = new FormData();
-                if (this.APPLICANT_CREDENTIALS.length > 0) {
-                    for (let i = 0; i < this.APPLICANT_CREDENTIALS.length; i++) {
-                        data.append("files[]", this.APPLICANT_CREDENTIALS[i].value);
-                        console.log(this.APPLICANT_CREDENTIALS[i].value)
-                        //clear the attached image
-                        this.APPLICANT_CREDENTIALS[i].value = null;
-                    }
+            if (this.APPLICANT_CREDENTIALS.length > 0) {
+                for (let i = 0; i < this.APPLICANT_CREDENTIALS.length; i++) {
+                    data.append("files[]", this.APPLICANT_CREDENTIALS[i].value);
                 }
+            }
             data.append("applicantCredential",JSON.stringify( this.APPLICANT_CREDENTIALS));
             data.append("latitude",this.MARKER_LAT_LNG[0]);
             data.append("longitude",this.MARKER_LAT_LNG[1]);
@@ -165,20 +154,22 @@ export default{
                 data.append("storeType",JSON.stringify(this.selected_store_type_detail));
             }
             const config = {
-                    headers: {
-                        "content-type": "multipart/form-data",
-                    },
-                };
+                headers: {
+                    "content-type": "multipart/form-data",
+                },
+            };
 
-                const payload = {
-                    params: data,
-                    config: config,
-                };
+            const payload = {
+                params: data,
+                config: config,
+            };
             this.$store.dispatch("SUBMIT_APPLICANT_CREDENTIAL",payload).then(()=>{
                 if(this.SELECTED_USER_ROLE_DETAILS === 3){
                     this.selected_store_type_detail = null;
                     this.storeName = null;
                 }
+                this.$store.commit("SELECTED_ROLE_CLEAR", true)
+                this.$store.dispatch('GET_MY_APPLICANTS',this.USER_DETAILS.user_id)
                 this.$swal.fire({
                 title: 'Submission Successful',
                 text: 'Your application has been submitted successfully!',

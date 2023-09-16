@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <br><br>
-        <h1>Requirement Window</h1>
+        <h1>REQUIREMENT DETAILS PAGE</h1>
         
         <RequirementDialog v-if="REQUIREMENT_DETAIL_DIALOG !== null"/>
         

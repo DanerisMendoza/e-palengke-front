@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <br><br>
-        <h1>USER_ROLE</h1>
+        <h1>USER ROLE PAGE</h1>
         <UserRoleDialog v-if="SELECTED_ROLE !== null"/>
         <UserRoleTable/>
     </v-container>
