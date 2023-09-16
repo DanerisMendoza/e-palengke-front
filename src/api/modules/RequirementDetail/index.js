@@ -11,7 +11,7 @@ export default {
         return api.get(`api/GET_REQUIREMENT_DETAIL_BY_USER_ROLE_DETAILS_ID/${params}`);
     },
     STORE_REQUIREMENT_DETAIL(params){
-        debugger
+        // debugger
         return api.post('api/RequirementDetail',params);
     },
     UPDATE_REQUIREMENT_DETAIL_BY_ID(params){

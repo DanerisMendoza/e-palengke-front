@@ -43,7 +43,8 @@ export default {
       ...mapGetters([
         'REQUIREMENTS',
         'REQUIREMENT_DETAILS',
-        'SELECTED_REQUIREMENT_DETAILS'
+        'SELECTED_REQUIREMENT_DETAILS',
+        'REQUIREMENT_DETAIL_DIALOG'
       ])
 	  },
 
@@ -53,14 +54,14 @@ export default {
     },
     editItem(item) {
       this.$store.commit("SELECTED_REQUIREMENT_DETAILS", item);
-      this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET", 'UPDATE');
-      console.log('Edit button clicked'); 
-    
+      this.$store.commit("REQUIREMENT_DETAIL_DIALOG", 'UPDATE');
+      console.log(this.REQUIREMENT_DETAIL_DIALOG)
+
   },
     addNewRequirement() {
-      this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",'ADD')
+      this.$store.commit("REQUIREMENT_DETAIL_DIALOG",'ADD')
+      console.log(this.REQUIREMENT_DETAIL_DIALOG)
     },
-    
     deleteItem(item) {
       this.$swal
         .fire({
