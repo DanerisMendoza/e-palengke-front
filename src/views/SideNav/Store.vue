@@ -1,6 +1,5 @@
 <template>
     <v-container>
-        <br><br>
         <h1>STORE PAGE</h1>
         <v-row>
             <v-col cols="12">
@@ -55,6 +54,16 @@
                     console.error('Geolocation is not supported in this browser.');
                 }
             },
+            registeredLocation(){
+                const latitude = this.USER_DETAILS.latitude
+                const longitude = this.USER_DETAILS.longitude
+                this.$store.commit("MARKER_LAT_LNG",[0,0])  
+                this.$store.commit("CENTER",[0,0])  
+                this.$store.commit("MARKER_LAT_LNG",[latitude,longitude])  
+                this.$store.commit("CENTER",[latitude,longitude])  
+                this.$store.commit("ZOOM",19)  
+                this.$store.commit("SELECTED_USER_ROLE_DETAILS","customerStore")  
+            }
         },
 
         computed: {
@@ -64,7 +73,10 @@
             "CIRCLE_RADIUS",
             "MARKER_LAT_LNG",
             "SELECTED_REQUIREMENT",
-            "SELECTED_USER_ROLE_DETAILS"
+            "SELECTED_USER_ROLE_DETAILS",
+            "STORES",
+            "STORES_LAT_LNG",
+            "USER_DETAILS",
         ]),
         
         },
@@ -78,7 +90,15 @@
         },
         
         mounted(){
-            this.gps()
+            this.$store.dispatch('GetActiveStore').then((response)=>{
+                console.log(response)
+                const latLngArr = response.map((item)=>{
+                    return [item.latitude,item.longitude]
+                })
+                this.$store.commit('STORES_LAT_LNG',latLngArr)
+            })
+            // this.gps()
+            this.registeredLocation()
         }
     }
 </script>

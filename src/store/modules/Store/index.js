@@ -1,27 +1,30 @@
-import StoreTypeDetail from '@/api/modules/StoreTypeDetail/index'
+import Store from '@/api/modules/Store/index'
 
 export default {
     state: {
-        STORE: [],
+        STORES: [],
+        STORES_LAT_LNG: [],
     },
     
     getters: {
-        STORE:(state) => state.STORE,
+        STORES:(state) => state.STORES,
+        STORES_LAT_LNG:(state) => state.STORES_LAT_LNG,
     },
 
     mutations: {
-        STORE:(state, data)=>{state.STORE = data},
+        STORES:(state, data)=>{state.STORES = data},
+        STORES_LAT_LNG:(state, data)=>{state.STORES_LAT_LNG = data},
     },
 
     actions: {
-        GET_STORE({commit}){
+        GetActiveStore({commit}){
             return new Promise((resolve,reject)=>{
-                StoreTypeDetail.GET_STORE_TYPE_DETAIL().then((response)=>{
-                commit('STORE', response.data)
+            Store.GetActiveStore().then((response)=>{
+                commit('STORES', response.data)
                 resolve(response.data)
-            }).catch((error)=>{
+              }).catch((error)=>{
                   reject(error)
-                });
+              });
             })
         },
     }

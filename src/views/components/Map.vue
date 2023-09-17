@@ -16,6 +16,18 @@
                 :lat-lng="MARKER_LAT_LNG"
                 :icon="computedMarker"
             ></l-marker>
+            <l-marker
+            v-if="SELECTED_USER_ROLE_DETAILS === 'customerStore'"
+            v-for="(item, index) in markersInsideCircle"
+            :key="index"
+            :lat-lng="item"
+            :icon="sellerMarker"
+            @click="go(item)"
+            ref="markers"
+          >
+          <l-popup  :content="getTooltipContent(item)"></l-popup>
+          <!-- <l-tooltip :content="getTooltipContent(item)"></l-tooltip> -->
+          </l-marker>
             <l-circle
             v-if="MARKER_LAT_LNG!==null"
             :lat-lng="MARKER_LAT_LNG"
@@ -33,8 +45,9 @@
   import { LMap, LTileLayer, LMarker, LIcon, LCircle,LTooltip, LPopup  } from 'vue2-leaflet';
   import 'leaflet/dist/leaflet.css';
   import { mapGetters } from 'vuex';
-  import tambayMarker from '@/assets/markers/customerMarker.png';
+  import personMarker from '@/assets/markers/customerMarker.png';
   import sellerMarker from '@/assets/markers/sellerMarker2.png';
+  import deliveryMarker from '@/assets/markers/deliveryMarker2.png';
 
   export default {
     methods: {
@@ -44,7 +57,22 @@
             this.$store.commit("CENTER",[0,0])  
             this.$store.commit("MARKER_LAT_LNG",[lat,lng])  
             this.$store.commit("CENTER",[lat,lng])  
-        }
+            this.$store.commit("ZOOM",19)  
+        },
+        go(){
+
+        },
+        getTooltipContent(item) {
+          console.log(item)
+          const matchingBranch = this.STORES.find((branch) => {
+            return branch.latitude === item[0] && branch.longitude === item[1];
+          });
+          return `
+            <div>
+            <center><strong style='color:#eb8f34;'>${matchingBranch.name}</strong></center><br>
+            </div>
+          `;
+        },
     },
   
     data() {
@@ -52,8 +80,8 @@
             center: [14.653341002411047,120.99472379571777],
             zoom: 7,
             circleRadius: 50*3,
-            tambayMarker: L.icon({
-                iconUrl: tambayMarker,
+            personMarker: L.icon({
+                iconUrl: personMarker,
                 iconSize: [25, 41],
                 iconAnchor: [12, 41],
                 popupAnchor: [1, -34],
@@ -66,12 +94,20 @@
                 popupAnchor: [1, -34],
                 tooltipAnchor: [16, -28],
             }),
+            deliveryMarker: L.icon({
+                iconUrl: deliveryMarker,
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                tooltipAnchor: [16, -28],
+            }),
           };
       },
   
     mounted() {
         // console.log(this.CENTER)
         // console.log(this.ZOOM)
+     
     },
   
     computed: {
@@ -81,7 +117,9 @@
         "CIRCLE_RADIUS",
         "MARKER_LAT_LNG",
         "SELECTED_REQUIREMENT",
-        "SELECTED_USER_ROLE_DETAILS"
+        "SELECTED_USER_ROLE_DETAILS",
+        "STORES_LAT_LNG",
+        "STORES",
       ]),
       
       computedMarker(){
@@ -89,15 +127,22 @@
             return this.sellerMarker
         }
         else if(this.SELECTED_USER_ROLE_DETAILS === 4){
-            return this.tambayMarker
+            return this.deliveryMarker
         }
         else if(this.SELECTED_USER_ROLE_DETAILS === "customerStore"){
-            return this.tambayMarker
+            return this.personMarker
         }
         else if(this.SELECTED_USER_ROLE_DETAILS === "customerRegistration"){
-            return this.tambayMarker
+            return this.personMarker
         }
-      }
+      },
+
+      markersInsideCircle() {
+        return this.STORES_LAT_LNG.filter(marker => {
+          const distance = L.latLng(marker).distanceTo(L.latLng(this.MARKER_LAT_LNG));
+          return distance <= this.circleRadius;
+        });
+      },
     },
 
     watch: {
@@ -113,6 +158,11 @@
         CIRCLE_RADIUS: {
           handler(val) {
             this.circleRadius = val*3
+          },
+        },
+        STORES_LAT_LNG: {
+          handler(val) {
+            console.log(this.STORES_LAT_LNG)
           },
         }
     },
@@ -133,6 +183,8 @@
   .map-container {
     position: relative;
     z-index: 1;
+    border: 1px solid #000; /* Add your desired border styles here */
+    border-radius: 10px; /* Optional: Add border radius */
   }
   .l-tooltip-content {
     white-space: pre-line; /* Allow line breaks using \n */
