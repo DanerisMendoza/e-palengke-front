@@ -1,8 +1,15 @@
 <template>
   <v-app>
     <template v-if="$route.meta.showSideMenuBar">
-      <SideMenuBar />
-      <v-app-bar app dark> Toggle | Name: {{ USER_DETAILS.name }} </v-app-bar>
+      <v-navigation-drawer app dark v-model="drawer">
+        <SideMenuBar />
+      </v-navigation-drawer>
+      <v-app-bar app dark>
+        <v-btn @click="toggleSidebar">
+          <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        </v-btn>
+        Name: {{ USER_DETAILS.name }}
+      </v-app-bar>
     </template>
     <v-main>
       <router-view v-if="routerViewVisible" />
@@ -19,6 +26,7 @@ export default {
   components: { SideMenuBar },
   data: () => ({
     routerViewVisible: false,
+    drawer: true,
   }),
   async created() {
     // Simulate a delay of 1 second (adjust as needed)
@@ -29,6 +37,11 @@ export default {
   },
   computed: {
     ...mapGetters(["SIDE_NAV", "USER_DETAILS"]),
+  },
+  methods: {
+    toggleSidebar() {
+      this.drawer = !this.drawer;
+    },
   },
 };
 </script>
