@@ -5,6 +5,7 @@
         <v-row>
             <v-col cols="12">
                 <Application/>
+                <ApplicantsCredentialDialog v-if="this.SELECTED_CREDENTIAL!==null"/>
             </v-col>
         </v-row>
         <v-row>
@@ -47,11 +48,14 @@
     import Application from '../components/Application.vue';
     import MAP_COMPONENT from '../components/Map.vue';
     import SideMenuBar from  '@/views/components/SideMenuBar.vue'
+    // import ApplicationTable from '../Tables/ApplicationTable.vue';
+    import ApplicantsCredentialDialog from '../Dialogs/ApplicantsCredentialDialog.vue';
 
 export default{
-    components: { Application,MAP_COMPONENT,SideMenuBar},
+    components: { Application,MAP_COMPONENT,SideMenuBar,ApplicantsCredentialDialog,},
     computed: {
       ...mapGetters([
+        "SELECTED_CREDENTIAL",
         "SELECTED_REQUIREMENT",
         "PRODUCT_TYPE_DETAIL",
         "STORE_TYPE_DETAIL",
