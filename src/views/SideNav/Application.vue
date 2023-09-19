@@ -8,7 +8,8 @@
             </v-col>
         </v-row>
         <v-row>
-            <v-col cols="6">
+            <v-col cols="12">
+                <v-btn v-if="SELECTED_USER_ROLE_DETAILS!==null" @click="home" class="float-right">HOME</v-btn>
                 <v-btn v-if="SELECTED_USER_ROLE_DETAILS!==null" @click="gps" class="float-right">GPS</v-btn>
             </v-col>
         </v-row>
@@ -102,6 +103,15 @@ export default{
           }
         });
     },
+        home(){
+            const latitude = this.USER_DETAILS.latitude
+            const longitude = this.USER_DETAILS.longitude
+            this.$store.commit("MARKER_LAT_LNG",[0,0])  
+            this.$store.commit("CENTER",[0,0])  
+            this.$store.commit("MARKER_LAT_LNG",[latitude,longitude])  
+            this.$store.commit("CENTER",[latitude,longitude])  
+            this.$store.commit("ZOOM",19)  
+        },
         submit(){
             let isCredentialComplete = this.APPLICANT_CREDENTIALS.length === 0 ? false : true 
             this.APPLICANT_CREDENTIALS.forEach(item => {
