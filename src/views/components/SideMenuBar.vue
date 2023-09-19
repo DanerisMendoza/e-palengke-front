@@ -32,14 +32,14 @@
 import { mapGetters } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      closeOnClick: false,
+      selectedItem: 1,
+      drawer: true,
+      drawer: !this.isMobile,
+    };
   },
-  data: () => ({
-    closeOnClick: false,
-    selectedItem: 1,
-    drawer: true,
-    drawer: !this.isMobile,
-  }),
+ 
   methods: {
     submitLogout() {
       this.$store.dispatch("Logout").then((response) => {
