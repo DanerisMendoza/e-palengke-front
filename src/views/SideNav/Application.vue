@@ -1,6 +1,5 @@
 <template>
     <v-container>
-        <br><br>
         <h1>APPLICATION PAGE</h1>
         <v-row>
             <v-col cols="12">

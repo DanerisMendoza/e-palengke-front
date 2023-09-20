@@ -2,12 +2,20 @@
     <v-container>
         <h1>STORE PAGE</h1>
         <v-row>
-            <v-col cols="12">
-                <MAP_COMPONENT/>
+            <v-col cols="1" class="ml-5">
+                <v-btn @click="home" class="float-right">HOME</v-btn>
             </v-col>
         </v-row>
         <v-row>
-            <v-col cols="12">
+            <v-col cols="6">
+                <MAP_COMPONENT/>
+            </v-col>
+            <v-col cols="6">
+                <ProductTable/>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col cols="6">
                 <v-slider
                     v-model="circleRadius"
                     thumb-label="always"
@@ -19,16 +27,26 @@
 
 <script>
     import MAP_COMPONENT from '../components/Map.vue';
+    import ProductTable from '../Tables/ProductTable.vue';
     import { mapGetters } from 'vuex';
 
     export default{
-        components: { MAP_COMPONENT},
+        components: { MAP_COMPONENT,ProductTable},
         data(){
             return {
                 circleRadius: 50
             }
         },  
         methods:{
+            home(){
+                const latitude = this.USER_DETAILS.latitude
+                const longitude = this.USER_DETAILS.longitude
+                this.$store.commit("MARKER_LAT_LNG",[0,0])  
+                this.$store.commit("CENTER",[0,0])  
+                this.$store.commit("MARKER_LAT_LNG",[latitude,longitude])  
+                this.$store.commit("CENTER",[latitude,longitude])  
+                this.$store.commit("ZOOM",19)  
+            },
             gps(){
                 if ('geolocation' in navigator) {
                 navigator.geolocation.getCurrentPosition(
@@ -98,6 +116,7 @@
                 this.$store.commit('STORES_LAT_LNG',latLngArr)
             })
             // this.gps()
+            this.$store.commit('PRODUCT_TABLE_VIEWER','STORE')
             this.registeredLocation()
         }
     }

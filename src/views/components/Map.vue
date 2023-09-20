@@ -26,7 +26,6 @@
             ref="markers"
           >
           <l-popup  :content="getTooltipContent(item)"></l-popup>
-          <!-- <l-tooltip :content="getTooltipContent(item)"></l-tooltip> -->
           </l-marker>
             <l-circle
             v-if="MARKER_LAT_LNG!==null"
@@ -59,19 +58,25 @@
             this.$store.commit("CENTER",[lat,lng])  
             this.$store.commit("ZOOM",19)  
         },
-        go(){
-
-        },
-        getTooltipContent(item) {
-          console.log(item)
+        go(item){
           const matchingBranch = this.STORES.find((branch) => {
             return branch.latitude === item[0] && branch.longitude === item[1];
           });
-          return `
+          this.$store.commit('SELECTED_STORE',matchingBranch)
+        },
+        getTooltipContent(item) {
+          const matchingBranch = this.STORES.find((branch) => {
+            return branch.latitude === item[0] && branch.longitude === item[1];
+          });
+          let details = `
             <div>
             <center><strong style='color:#eb8f34;'>${matchingBranch.name}</strong></center><br>
-            </div>
           `;
+          for(let i=0; i<matchingBranch.store_type_details.length;i++){
+            details+=`<center><style='color:#eb8f34;'>${matchingBranch.store_type_details[i].name}</center>`;
+          }
+          details += `</div>`
+          return details
         },
     },
   
@@ -105,7 +110,7 @@
       },
   
     mounted() {
-        // console.log(this.CENTER)
+        // console.log(this.STORES)
         // console.log(this.ZOOM)
      
     },
@@ -162,7 +167,7 @@
         },
         STORES_LAT_LNG: {
           handler(val) {
-            console.log(this.STORES_LAT_LNG)
+            // console.log(this.STORES_LAT_LNG)
           },
         }
     },
