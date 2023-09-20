@@ -73,6 +73,7 @@
                 if (response == 'success') {
                   alert('success')
                   this.$store.commit("PRODUCT_DIALOG",null)
+                  this.$store.dispatch('GET_PRODUCT_BY_ID',this.form.store_id)
                 }
               })
             }

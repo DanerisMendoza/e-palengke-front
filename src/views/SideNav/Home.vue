@@ -1,6 +1,5 @@
 <template>
      <v-container>
-        <br><br>
         <h1>HOME PAGE</h1>
     </v-container>
 </template>

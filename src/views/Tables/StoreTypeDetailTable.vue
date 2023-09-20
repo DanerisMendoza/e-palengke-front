@@ -26,8 +26,6 @@
     export default{
         data(){
             return {
-                isRaining: false,
-
                 headers: [
                     { text: "name", value:'name', align: "center",  sortable: false },
                     { text: 'Actions', align: "center", value: 'actions', sortable: false },
