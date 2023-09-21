@@ -12,14 +12,15 @@
             <v-col cols="6">
                 <ProductTable/>
             </v-col>
-        </v-row>
-        <v-row>
-            <v-col cols="6">
-                <v-slider
-                    v-model="circleRadius"
-                    thumb-label="always"
-                ></v-slider>
-            </v-col>
+            <v-row>
+                <v-col cols="6">
+                    <v-slider
+                        v-model="circleRadius"
+                        thumb-label="always"
+                        class="mt-3"
+                    ></v-slider>
+                </v-col>
+            </v-row>
         </v-row>
     </v-container>
 </template>

@@ -16,6 +16,8 @@ import ProductTypeDetails from '@/views/SideNav/ProductTypeDetails.vue';
 import INVENTORY from '@/views/SideNav/Inventory.vue';
 import PROFILE from '@/views/SideNav/Profile.vue';
 import StoreTypeDetails from '@/views/SideNav/StoreTypeDetails.vue';
+import TOPUP from '@/views/SideNav/Topup.vue';
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -311,6 +313,28 @@ const routes = [
     path: '/STORE%20TYPE%20DETAILS',
     name: 'STORE TYPE DETAILS',
     component: StoreTypeDetails,
+    meta: {
+      showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
+    },
+    beforeEnter: (to, from, next) => {
+      user.authenticated().then((response)=>{
+        const shouldShowSideMenuBar = to.meta.showSideMenuBar !== false;
+        Vue.prototype.$showSideMenuBar = shouldShowSideMenuBar;
+        const hasPermission = response.data.some(permission => permission.name === to.name);
+        if (hasPermission) {
+          next();
+        } else {
+          next({ name: response.data[0].name });
+        }
+      }).catch((error)=>{
+        next({ name: 'Login' });
+      });
+    },
+  },
+  {
+    path: '/TOPUP',
+    name: 'TOPUP',
+    component: TOPUP,
     meta: {
       showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
     },
