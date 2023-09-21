@@ -1,6 +1,5 @@
 <template>
     <v-container>
-        <h1>STORE PAGE</h1>
         <v-row>
             <v-col cols="1" class="ml-5">
                 <v-btn @click="home" class="float-right">HOME</v-btn>
@@ -13,14 +12,15 @@
             <v-col cols="6">
                 <ProductTable/>
             </v-col>
-        </v-row>
-        <v-row>
-            <v-col cols="6">
-                <v-slider
-                    v-model="circleRadius"
-                    thumb-label="always"
-                ></v-slider>
-            </v-col>
+            <v-row>
+                <v-col cols="6">
+                    <v-slider
+                        v-model="circleRadius"
+                        thumb-label="always"
+                        class="mt-3"
+                    ></v-slider>
+                </v-col>
+            </v-row>
         </v-row>
     </v-container>
 </template>
@@ -46,6 +46,7 @@
                 this.$store.commit("MARKER_LAT_LNG",[latitude,longitude])  
                 this.$store.commit("CENTER",[latitude,longitude])  
                 this.$store.commit("ZOOM",19)  
+                this.$store.commit("SELECTED_USER_ROLE_DETAILS","customerStore")  
             },
             gps(){
                 if ('geolocation' in navigator) {
@@ -107,7 +108,7 @@
             }
         },
         
-        mounted(){
+        created(){
             this.$store.dispatch('GetActiveStore').then((response)=>{
                 console.log(response)
                 const latLngArr = response.map((item)=>{
@@ -115,8 +116,10 @@
                 })
                 this.$store.commit('STORES_LAT_LNG',latLngArr)
             })
-            // this.gps()
             this.$store.commit('PRODUCT_TABLE_VIEWER','STORE')
+            this.$store.commit("PRODUCT", [])
+        },
+        mounted(){
             this.registeredLocation()
         }
     }

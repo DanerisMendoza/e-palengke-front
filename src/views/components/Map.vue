@@ -71,11 +71,17 @@
           let details = `
             <div>
             <center><strong style='color:#eb8f34;'>${matchingBranch.name}</strong></center><br>
+            <center><style='color:#eb8f34;'>
           `;
           for(let i=0; i<matchingBranch.store_type_details.length;i++){
-            details+=`<center><style='color:#eb8f34;'>${matchingBranch.store_type_details[i].name}</center>`;
+            if(i == matchingBranch.store_type_details.length-1){
+              details+=`${matchingBranch.store_type_details[i].name}`;
+            }
+            else{
+              details+=`${matchingBranch.store_type_details[i].name},`;
+            }
           }
-          details += `</div>`
+          details += `</center></div>`
           return details
         },
     },

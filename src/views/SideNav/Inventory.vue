@@ -23,7 +23,7 @@
                 this.$store.commit('PRODUCT_DIALOG','ADD')
             }
         },
-        mounted(){
+        created(){
             this.$store.commit('PRODUCT_TABLE_VIEWER','INVENTORY')
         }
     }

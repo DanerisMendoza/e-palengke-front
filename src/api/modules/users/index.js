@@ -40,4 +40,7 @@ export default {
     DELETE_USER_BY_ID(params){
         return api.delete(`api/User/${params}`);
     },
+    UpdateUserBalance(params){
+        return api.post('api/UpdateUserBalance',params);
+    },
 }

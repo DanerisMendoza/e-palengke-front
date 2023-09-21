@@ -75,9 +75,12 @@
             handler(val) {
                 if(val === true){
                   this.user_role_details = [];
-                  this.user_role = [];
+                  this.selected_user_role = null
                   this.$store.commit("SELECTED_USER_ROLE_DETAILS", null)
                   this.$store.commit("SELECTED_ROLE_CLEAR", false)
+                  this.$store.dispatch("GetUserDetails").then((response)=>{
+                    this.getUserRoleDetails()
+                  })
                 }
             },
         }
@@ -92,27 +95,32 @@
       handleFileChange() {
         this.$store.commit("APPLICANT_CREDENTIALS", this.user_role_details)
       },
+      getUserRoleDetails(){
+        this.$store.dispatch("GET_USER_ROLE_DETAILS").then((response) => {
+          const activatedUserRole = this.USER_DETAILS.user_role_ids.filter((item)=>{
+            return item.status == 'active'
+          })
+          const pendingUserRole = this.USER_DETAILS.user_role_ids.filter((item)=>{
+            return item.status == 'pending'
+          })
+          this.user_role = response.filter((item)=>{
+            return (item.id != 1 && item.id !=2)
+          });
+          this.user_role = this.user_role.filter(item => {
+            return !activatedUserRole.some(userRole => userRole.id === item.id);
+          });
+          this.user_role = this.user_role.filter(item => {
+            return !pendingUserRole.some(userRole => userRole.id === item.id);
+          });
+        });
+      }
+    },
+    created(){
+      this.$store.commit("SELECTED_USER_ROLE_DETAILS", null)
     },
     mounted() {
       this.$store.dispatch('GET_MY_APPLICANTS',this.USER_DETAILS.user_id)
-      this.$store.dispatch("GET_USER_ROLE_DETAILS").then((response) => {
-        const activatedUserRole = this.USER_DETAILS.user_role_ids.filter((item)=>{
-          return item.status == 'active'
-        })
-        const pendingUserRole = this.USER_DETAILS.user_role_ids.filter((item)=>{
-          return item.status == 'pending'
-        })
-        this.user_role = response.filter((item)=>{
-          return (item.id != 1 && item.id !=2)
-        });
-        this.user_role = this.user_role.filter(item => {
-          return !activatedUserRole.some(userRole => userRole.id === item.id);
-        });
-        this.user_role = this.user_role.filter(item => {
-          return !pendingUserRole.some(userRole => userRole.id === item.id);
-        });
-        console.log(this.user_role)
-      });
+      this.getUserRoleDetails()
     },
   };
   </script>

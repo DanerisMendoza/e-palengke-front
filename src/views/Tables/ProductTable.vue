@@ -37,7 +37,7 @@
     },
     methods: {
       getStoreId() {
-        return (this.store_id = this.USER_DETAILS.user_role_ids.find((item) => item.id === 3)?.store_id);
+        return (this.store_id = this.USER_DETAILS.user_role_ids.find((item) => item.id === 3 && item.status === 'active')?.store_id);
       },
       editItem(item) {
       
@@ -58,12 +58,14 @@
             },
         }
     },
-    async mounted() {
+    async created() {
+      this.$store.commit("PRODUCT", []);
       if(this.PRODUCT_TABLE_VIEWER === 'INVENTORY'){
         await this.getStoreId();
         this.$store.dispatch("GET_PRODUCT_BY_ID", this.store_id);
       }
     },
+    
   };
   </script>
   

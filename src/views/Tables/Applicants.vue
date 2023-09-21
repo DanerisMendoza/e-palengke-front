@@ -4,8 +4,6 @@
             :headers="headers"
             :items="APPLICANTS"
         >
-        
-        <!-- Add a custom render function for the "Actions" column -->
         <template v-slot:item="{ item }">
             <tr>
                 <td style="text-align: center;">{{item.applicant_name}}</td>
@@ -70,9 +68,7 @@
         },
 
         mounted(){
-            this.$store.dispatch('GET_APPLICANTS').then((response)=>{
-                // console.log(this.APPLICANTS)
-            })
+            this.$store.dispatch('GET_APPLICANTS')
         }
     }
 </script>
