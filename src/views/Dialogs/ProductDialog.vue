@@ -71,7 +71,13 @@
 
               this.$store.dispatch("STORE_PRODUCT",payload).then((response)=>{
                 if (response == 'success') {
-                  alert('success')
+                  this.$swal.fire({
+                      icon: 'success', // Set the success icon
+                      title: 'Success', // Title of the alert
+                      text: 'Operation was successful!', // Text message
+                      showConfirmButton: false, // Remove the "OK" button
+                      timer: 1000 // Auto-close the alert after 1.5 seconds (adjust as needed)
+                  });
                   this.$store.commit("PRODUCT_DIALOG",null)
                   this.$store.dispatch('GET_PRODUCT_BY_ID',this.form.store_id)
                 }
