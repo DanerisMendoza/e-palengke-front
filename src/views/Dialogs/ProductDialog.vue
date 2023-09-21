@@ -88,7 +88,7 @@
         },
         mounted(){
           this.form.store_id = this.USER_DETAILS.user_role_ids.filter((item)=>{
-            return item.id == 3
+            return item.id === 3 && item.status === 'active'
           })[0].store_id
         },
     }

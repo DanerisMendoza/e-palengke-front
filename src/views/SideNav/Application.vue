@@ -137,8 +137,7 @@ export default{
                     });
                     return;
             }
-            if (this.SELECTED_REQUIREMENT === 1) {
-            if (!this.storeName || !this.selected_store_type_detail || this.selected_store_type_detail.length === 0) {
+            if (this.SELECTED_USER_ROLE_DETAILS === 2 && (!this.storeName || !this.selected_store_type_detail || this.selected_store_type_detail.length === 0)) {
                 this.$swal.fire({
                 icon: 'error',
                 title: 'Incomplete Information',
@@ -146,7 +145,6 @@ export default{
                 });
                 return;
             }
-        }
             const data = new FormData();
             if (this.APPLICANT_CREDENTIALS.length > 0) {
                 for (let i = 0; i < this.APPLICANT_CREDENTIALS.length; i++) {
@@ -173,13 +171,14 @@ export default{
                 params: data,
                 config: config,
             };
-            this.$store.dispatch("SUBMIT_APPLICANT_CREDENTIAL",payload).then(()=>{
+            this.$store.dispatch("SUBMIT_APPLICANT_CREDENTIAL",payload).then((response)=>{
+                console.log(response)
                 if(this.SELECTED_USER_ROLE_DETAILS === 3){
                     this.selected_store_type_detail = null;
                     this.storeName = null;
                 }
-                this.$store.commit("SELECTED_ROLE_CLEAR", true)
                 this.$store.dispatch('GET_MY_APPLICANTS',this.USER_DETAILS.user_id)
+                this.$store.commit("SELECTED_ROLE_CLEAR", true)
                 this.$swal.fire({
                 title: 'Submission Successful',
                 text: 'Your application has been submitted successfully!',
