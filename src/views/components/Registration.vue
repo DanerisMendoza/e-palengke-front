@@ -11,9 +11,9 @@
           required
           ></v-select>
           <v-text-field v-model="formData.age" label="Age" type="number" :rules="rules.required"></v-text-field>
-          <v-text-field v-model="formData.phone_number" label="Phone Number" :rules="rules.required"></v-text-field>
+          <v-text-field v-model="formData.phone_number" label="Phone Number" :rules="rules.contact"></v-text-field>
           <v-text-field v-model="formData.address" label="Address" :rules="rules.required"></v-text-field>
-          <v-text-field v-model="formData.email" label="Email" :rules="rules.required"></v-text-field>
+          <v-text-field v-model="formData.email" label="Email" :rules="rules.email"  ></v-text-field>
           <v-text-field v-model="formData.username" label="Username" :rules="rules.required"></v-text-field>
         <v-text-field v-model="formData.password" label="Password" type="password" :rules="rules.required"></v-text-field>
         <v-file-input
@@ -37,6 +37,7 @@
   
   <script>
   import MapComp from '../components/Map.vue';
+  import { mapGetters } from 'vuex';
   export default {
     components: { MapComp},
     data() {
@@ -60,7 +61,6 @@
           confirm_password: null,
           latitude: null,
           longitude: null,
-          // Add more fields here as needed
         },
         genders: ['Male', 'Female', 'Other'], // Gender options
         rules: {
@@ -77,6 +77,9 @@
             (v) =>
               (v !== null && v !== undefined && v.length >= 11) ||
               "Min 11 characters",
+            (v) =>
+              (v !== null && v !== undefined && v.length <= 11) ||
+              "Max 11 characters",
           ],
         },
       };
@@ -86,6 +89,8 @@
         if (this.$refs.myForm.validate()) {
           this.loadSubmit = true;
           this.formData.name = this.name.firstName +" "+this.name.middleName+" "+this.name.lastName
+          this.formData.latitude = this.MARKER_LAT_LNG[0]
+          this.formData.longitude = this.MARKER_LAT_LNG[1]
           const data = new FormData();
           
           if (this.user_role_details.length > 0) {
@@ -108,7 +113,13 @@
           this.$store.dispatch("Register", payload).then((response)=>{
             if(response === 'success'){
               this.loadSubmit = false;
-              alert('success')
+              this.$swal.fire({
+                  icon: 'success', // Set the success icon
+                  title: 'Success', // Title of the alert
+                  text: 'Operation was successful!', // Text message
+                  showConfirmButton: false, // Remove the "OK" button
+                  timer: 1000 // Auto-close the alert after 1.5 seconds (adjust as needed)
+              });
               this.$router.push('/Login');
             }
           })
@@ -146,6 +157,11 @@
           console.error('Geolocation is not supported in this browser.');
         }
       },
+    },
+    computed: {
+      ...mapGetters([
+        "MARKER_LAT_LNG",
+      ]),
     },
     mounted(){
       this.handleUserRoleChange(2)
