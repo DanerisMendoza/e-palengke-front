@@ -1,6 +1,5 @@
 <template>
     <v-container>
-        <h1>USER ROLE</h1>
         <UserRoleDialog v-if="SELECTED_ROLE !== null"/>
         <UserRoleTable/>
     </v-container>

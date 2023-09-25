@@ -1,11 +1,11 @@
 <template>
     <v-container>
-        <v-row class="ml-5">
-            <v-col cols="4" >
+        <v-row class="ml-3" >
+            <v-col cols="2">
                 <v-btn @click="home">
                     <v-icon >mdi-home</v-icon>
                 </v-btn>
-                <v-btn @click="viewCart">
+                <v-btn @click="viewCart" class="ml-2">
                     <v-icon >mdi-cart</v-icon>
                 </v-btn>
             </v-col>
@@ -13,7 +13,7 @@
         <CartDialog v-if="CART"/>
         <v-row>
             <v-col cols="6">
-                <MAP_COMPONENT/>
+                <MAP_COMPONENT />
             </v-col>
             <v-col cols="6">
                 <ProductTable/>
