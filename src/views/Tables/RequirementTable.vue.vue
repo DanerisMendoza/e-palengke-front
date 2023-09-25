@@ -1,21 +1,22 @@
 <template>
-  <v-container fluid class=" ma-0 pa-0">
+  <v-container>
     <v-row>
-      <v-col cols="7">
-        <v-btn class="float-right" @click="addNewRequirement()">
-          add new requirement
+      <v-col>
+        <v-btn @click="addNewRequirement()" color="black" dark>
+          ADD NEW REQUIREMENT
         </v-btn>
       </v-col>
     </v-row>
+
     <v-row>
-      <v-col cols="12">
-        <v-card>
+      <v-col>
+        <v-card elevation="0">
           <v-data-table :headers="headers" :items="REQUIREMENT_DETAILS">
             <template v-slot:item="{ item }">
               <tr>
-                <td style="text-align: center;">{{ item.name }}</td>
-                <td style="text-align: center;">
-                  <!-- <v-icon @click="viewItem(item)" class="mr-2">mdi-eye</v-icon> -->
+                <td style="text-align: center">{{ item.name }}</td>
+                <td style="text-align: center">
+                  <!-- <v-icon @click="viewItem(item)">mdi-eye</v-icon> -->
                   <v-icon @click="editItem(item)">mdi-pencil</v-icon>
                   <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
                 </td>
@@ -28,66 +29,67 @@
   </v-container>
 </template>
 <script>
-
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
   data() {
     return {
       headers: [
-        { text: "requirement-details", align: "center", sortable: false },
-        { text: 'Actions', align: "center", value: 'actions', sortable: false },
+        { text: "Requirement Details", align: "center", sortable: false },
+        { text: "Actions", align: "center", value: "actions", sortable: false },
       ],
-    }
+    };
   },
 
   computed: {
     ...mapGetters([
-      'REQUIREMENTS',
-      'REQUIREMENT_DETAILS',
-      'SELECTED_REQUIREMENT_DETAILS',
-      'REQUIREMENT_DETAIL_DIALOG'
-    ])
+      "REQUIREMENTS",
+      "REQUIREMENT_DETAILS",
+      "SELECTED_REQUIREMENT_DETAILS",
+      "REQUIREMENT_DETAIL_DIALOG",
+    ]),
   },
 
   methods: {
-    viewItem(item) {
-
-    },
+    viewItem(item) {},
     editItem(item) {
       this.$store.commit("SELECTED_REQUIREMENT_DETAILS", item);
-      this.$store.commit("REQUIREMENT_DETAIL_DIALOG", 'UPDATE');
-      console.log(this.REQUIREMENT_DETAIL_DIALOG)
-
+      this.$store.commit("REQUIREMENT_DETAIL_DIALOG", "UPDATE");
+      console.log(this.REQUIREMENT_DETAIL_DIALOG);
     },
     addNewRequirement() {
-      this.$store.commit("REQUIREMENT_DETAIL_DIALOG", 'ADD')
-      console.log(this.REQUIREMENT_DETAIL_DIALOG)
+      this.$store.commit("REQUIREMENT_DETAIL_DIALOG", "ADD");
+      console.log(this.REQUIREMENT_DETAIL_DIALOG);
     },
     deleteItem(item) {
       this.$swal
         .fire({
-          icon: 'warning',
-          title: 'Delete Item',
-          text: 'Are you sure you want to delete this item?',
+          icon: "warning",
+          title: "Delete Item",
+          text: "Are you sure you want to delete this item?",
           showCancelButton: true,
-          confirmButtonText: 'Yes, delete it',
-          cancelButtonText: 'No, cancel',
-          confirmButtonColor: '#d33',
+          confirmButtonText: "Yes, delete it",
+          cancelButtonText: "No, cancel",
+          confirmButtonColor: "#d33",
         })
         .then((result) => {
           if (result.isConfirmed) {
-            this.$store.dispatch("DELETE_REQUIREMENT_DETAIL_BY_ID", item.id).then((response) => {
-              if (response === 'success') {
-                this.$swal.fire({
-                  icon: 'success',
-                  title: 'Success!',
-                  text: 'Item Deleted Successfully.',
-                });
-                this.$store.dispatch("GET_REQUIREMENTS");
-                this.$store.dispatch("GET_REQUIREMENT_DETAILS", this.SELECTED_REQUIREMENT_DETAILS.id);
-              }
-            });
+            this.$store
+              .dispatch("DELETE_REQUIREMENT_DETAIL_BY_ID", item.id)
+              .then((response) => {
+                if (response === "success") {
+                  this.$swal.fire({
+                    icon: "success",
+                    title: "Success!",
+                    text: "Item Deleted Successfully.",
+                  });
+                  this.$store.dispatch("GET_REQUIREMENTS");
+                  this.$store.dispatch(
+                    "GET_REQUIREMENT_DETAILS",
+                    this.SELECTED_REQUIREMENT_DETAILS.id
+                  );
+                }
+              });
           }
         });
     },
@@ -95,8 +97,8 @@ export default {
 
   mounted() {
     this.$store.dispatch("GET_REQUIREMENT_DETAILS").then(() => {
-      console.log(this.REQUIREMENT_DETAILS)
-    })
+      console.log(this.REQUIREMENT_DETAILS);
+    });
     // this.$store.dispatch("GET_REQUIREMENTS")
     // this.$store.dispatch("GET_REQUIREMENTS_BY_ID",1).then((response) => {
     //   console.log(response);
@@ -122,6 +124,6 @@ export default {
     // this.$store.dispatch("UPDATE_REQUIREMENT_BY_ID",payload).then((response) => {
     //   console.log(response);
     // });
-  }
-}
+  },
+};
 </script>

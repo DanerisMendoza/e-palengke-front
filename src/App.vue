@@ -9,19 +9,21 @@
       >
         <SideMenuBar />
       </v-navigation-drawer>
-    </template>
-    <v-main>
       <v-container>
         <v-app-bar
           app
           dark
           :style="{ backgroundColor: sidebarBackgroundColor }"
+          elevation="0"
         >
           <v-btn @click="toggleSidebar" elevation="0" color="black">
             <v-icon>mdi-menu</v-icon>
           </v-btn>
+          Name: {{ USER_DETAILS.name }}
         </v-app-bar>
       </v-container>
+    </template>
+    <v-main>
       <router-view v-if="routerViewVisible" />
     </v-main>
   </v-app>
@@ -56,3 +58,9 @@ export default {
   },
 };
 </script>
+
+<style>
+* {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+</style>

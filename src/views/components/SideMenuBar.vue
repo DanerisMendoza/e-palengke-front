@@ -20,10 +20,6 @@
           {{ side_nav.name }}
         </v-list-item>
       </v-list-content>
-    </v-list>
-
-    <v-list>
-      <v-divider></v-divider>
       <v-list-item @click="submitLogout()"> LOGOUT </v-list-item>
     </v-list>
   </div>
@@ -75,7 +71,7 @@ export default {
 </script>
 
 <style scoped>
-.epalengke-title{
+.epalengke-title {
   margin: 5px 0 5px;
 }
 </style>
