@@ -1,24 +1,23 @@
 <template>
     <v-container>
+      <v-card>
       <v-data-table
             :headers="headers"
             :items="MY_APPLICATION"
         >
-        
-        <!-- Add a custom render function for the "Actions" column -->
-        <template v-slot:item="{ item }">
+          <template v-slot:item="{ item }">
             <tr>
                 <td style="text-align: center;">{{item.name}}</td>
                 <td style="text-align: center;">{{item.status}}</td>
                 <td style="text-align: center;">
-                    <v-btn text @click="view(item.user_role_id)">
-                        <v-icon>mdi-file-multiple</v-icon>
-                    </v-btn>
+                  <v-btn text @click="view(item.user_role_id)">
+                    <v-icon>mdi-file-multiple</v-icon>
+                  </v-btn>
                 </td>
-            </tr>
-        </template>
-
-        </v-data-table>
+              </tr>
+            </template>
+          </v-data-table>
+        </v-card>
 
       <!-- Autocomplete component -->
       <v-autocomplete

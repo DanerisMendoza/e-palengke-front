@@ -1,6 +1,5 @@
 <template>
     <v-container>
-        <h1>INVENTORY PAGE</h1>
         <v-btn @click="addNewProduct">Add New Product</v-btn>
         <ProductDialog v-if="PRODUCT_DIALOG !== null" />
         <ProductTable/>

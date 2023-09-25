@@ -1,13 +1,19 @@
 <template>
     <v-container>
-        <v-row>
-            <v-col cols="1" class="ml-5">
-                <v-btn @click="home" class="float-right">HOME</v-btn>
+        <v-row class="ml-3" >
+            <v-col cols="2">
+                <v-btn @click="home">
+                    <v-icon >mdi-home</v-icon>
+                </v-btn>
+                <v-btn @click="viewCart" class="ml-2">
+                    <v-icon >mdi-cart</v-icon>
+                </v-btn>
             </v-col>
         </v-row>
+        <CartDialog v-if="CART"/>
         <v-row>
             <v-col cols="6">
-                <MAP_COMPONENT/>
+                <MAP_COMPONENT />
             </v-col>
             <v-col cols="6">
                 <ProductTable/>
@@ -28,19 +34,23 @@
 <script>
     import MAP_COMPONENT from '../components/Map.vue';
     import ProductTable from '../Tables/ProductTable.vue';
+    import CartDialog from '../Dialogs/CartDialog.vue';
     import { mapGetters } from 'vuex';
 
     export default{
-        components: { MAP_COMPONENT,ProductTable},
+        components: { MAP_COMPONENT,ProductTable,CartDialog},
         data(){
             return {
                 circleRadius: 50
             }
         },  
         methods:{
+            viewCart(){
+                this.$store.commit('CART',true)
+            },
             home(){
-                const latitude = this.USER_DETAILS.latitude
-                const longitude = this.USER_DETAILS.longitude
+                const latitude = this.USER_DETAILS.customer_locations.latitude
+                const longitude = this.USER_DETAILS.customer_locations.longitude
                 this.$store.commit("MARKER_LAT_LNG",[0,0])  
                 this.$store.commit("CENTER",[0,0])  
                 this.$store.commit("MARKER_LAT_LNG",[latitude,longitude])  
@@ -74,8 +84,8 @@
                 }
             },
             registeredLocation(){
-                const latitude = this.USER_DETAILS.latitude
-                const longitude = this.USER_DETAILS.longitude
+                const latitude = this.USER_DETAILS.customer_locations.latitude
+                const longitude = this.USER_DETAILS.customer_locations.longitude
                 this.$store.commit("MARKER_LAT_LNG",[0,0])  
                 this.$store.commit("CENTER",[0,0])  
                 this.$store.commit("MARKER_LAT_LNG",[latitude,longitude])  
@@ -96,6 +106,7 @@
             "STORES",
             "STORES_LAT_LNG",
             "USER_DETAILS",
+            "CART"
         ]),
         
         },

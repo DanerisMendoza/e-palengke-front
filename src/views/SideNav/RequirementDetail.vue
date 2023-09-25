@@ -1,9 +1,6 @@
 <template>
     <v-container>
-        <h1>REQUIREMENT DETAILS</h1>
-        
         <RequirementDialog v-if="REQUIREMENT_DETAIL_DIALOG !== null"/>
-        
         <RequirementTable/>
     </v-container>
 </template>

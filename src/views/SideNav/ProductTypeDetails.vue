@@ -1,6 +1,5 @@
 <template>
     <v-container>
-        <h1>PRODUCT TYPE DETAILS</h1>
         <ProductTypeDetailTable/>
     </v-container>
 </template>
