@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row> 
       <v-col>
-        <v-btn @click="addNewRequirement()" color="black" dark>
+        <v-btn @click="addNewRequirement()" color="primary">
           ADD NEW REQUIREMENT
         </v-btn>
       </v-col>
@@ -14,8 +14,8 @@
           <v-data-table :headers="headers" :items="REQUIREMENT_DETAILS">
             <template v-slot:item="{ item }">
               <tr>
-                <td style="text-align: center">{{ item.name }}</td>
-                <td style="text-align: center">
+                <td>{{ item.name }}</td>
+                <td>
                   <!-- <v-icon @click="viewItem(item)">mdi-eye</v-icon> -->
                   <v-icon @click="editItem(item)">mdi-pencil</v-icon>
                   <v-icon @click="deleteItem(item)">mdi-delete</v-icon>

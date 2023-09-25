@@ -1,35 +1,27 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-dialog v-model="dialog" persistent max-width="500px">
-        <v-card>
-          <v-row>
-            <v-col cols="11">
-              <v-card-title>
-                <span class="text-h5">Add New Requirement</span>
-              </v-card-title>
-            </v-col>
-            <v-col cols="1">
-              <v-btn text icon class="float-right" @click="closeDialog()">
-                <v-icon>mdi-close</v-icon>
+      <template>
+        <v-dialog v-model="dialog" max-width="500px">
+          <v-card>
+            <v-card-title>Requirement Details</v-card-title>
+            <v-card-text>
+              <v-text-field
+                label="Enter New Requirement"
+                v-model="name"
+              ></v-text-field>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn color="primary" text @click="closeDialog()">
+                CLOSE
               </v-btn>
-            </v-col>
-          </v-row>
-
-          <v-card-text>
-            <v-text-field
-              label="Enter New Requirement"
-              v-model="name"
-            ></v-text-field>
-          </v-card-text>
-
-          <v-card-actions>
-            <v-btn color="primary" @click="addNewRequirement()">
-              {{ REQUIREMENT_DETAIL_DIALOG }}
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+              <v-btn color="primary" text @click="addNewRequirement()">
+                {{ REQUIREMENT_DETAIL_DIALOG }}
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </template>
     </v-row>
   </v-container>
 </template>

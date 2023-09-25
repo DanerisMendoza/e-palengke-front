@@ -1,25 +1,18 @@
 <template>
   <v-app>
     <template v-if="$route.meta.showSideMenuBar">
-      <v-navigation-drawer
-        app
-        dark
-        v-model="drawer"
-        :style="{ backgroundColor: sidebarBackgroundColor }"
-      >
+      <v-navigation-drawer app v-model="drawer">
         <SideMenuBar />
       </v-navigation-drawer>
       <v-container>
         <v-app-bar
           app
-          dark
-          :style="{ backgroundColor: sidebarBackgroundColor }"
           elevation="0"
+          outlined
+          :style="{ backgroundColor: navbarColor }"
         >
-          <v-btn @click="toggleSidebar" elevation="0" color="black">
-            <v-icon>mdi-menu</v-icon>
-          </v-btn>
-          Name: {{ USER_DETAILS.name }}
+          <v-icon @click="toggleSidebar">mdi-menu</v-icon>
+          <label class="ml-3">Name: {{ USER_DETAILS.name }}</label>
         </v-app-bar>
       </v-container>
     </template>
@@ -39,7 +32,7 @@ export default {
   data: () => ({
     routerViewVisible: false,
     drawer: true,
-    sidebarBackgroundColor: "black",
+    navbarColor: "white",
   }),
   async created() {
     // Simulate a delay of 1 second (adjust as needed)
@@ -61,6 +54,6 @@ export default {
 
 <style>
 * {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 </style>

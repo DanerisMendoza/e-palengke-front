@@ -7,7 +7,7 @@
         </v-list-title>
       </v-list-item>
     </v-list>
-
+ 
     <v-divider></v-divider>
 
     <v-list>
@@ -72,6 +72,6 @@ export default {
 
 <style scoped>
 .epalengke-title {
-  margin: 5px 0 5px;
+  margin: 6px 0 5px;
 }
 </style>
