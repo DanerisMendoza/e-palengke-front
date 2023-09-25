@@ -49,8 +49,8 @@
                 this.$store.commit('CART',true)
             },
             home(){
-                const latitude = this.USER_DETAILS.latitude
-                const longitude = this.USER_DETAILS.longitude
+                const latitude = this.USER_DETAILS.customer_locations.latitude
+                const longitude = this.USER_DETAILS.customer_locations.longitude
                 this.$store.commit("MARKER_LAT_LNG",[0,0])  
                 this.$store.commit("CENTER",[0,0])  
                 this.$store.commit("MARKER_LAT_LNG",[latitude,longitude])  
@@ -84,8 +84,8 @@
                 }
             },
             registeredLocation(){
-                const latitude = this.USER_DETAILS.latitude
-                const longitude = this.USER_DETAILS.longitude
+                const latitude = this.USER_DETAILS.customer_locations.latitude
+                const longitude = this.USER_DETAILS.customer_locations.longitude
                 this.$store.commit("MARKER_LAT_LNG",[0,0])  
                 this.$store.commit("CENTER",[0,0])  
                 this.$store.commit("MARKER_LAT_LNG",[latitude,longitude])  
