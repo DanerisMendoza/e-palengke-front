@@ -19,8 +19,11 @@
             type="number"
             v-model="item.quantity"
             ></v-text-field>
-            <v-btn @click="addToCart(item)" class="mb-2">
+            <v-btn v-if="item.stock > 0" class="mb-2" @click="addToCart(item)">
               <v-icon>mdi-cart-plus</v-icon>
+            </v-btn>
+            <v-btn v-else>
+              <v-icon>mdi-alert-circle-outline</v-icon>
             </v-btn>
           </td>
         </tr>
@@ -51,6 +54,12 @@
       addToCart(item){
         if(item.stock - item.quantity >= 0){
           item.stock -= item.quantity
+          const payload = {
+            product_id: item.id,
+            store_id: item.store_id,
+            quantity: item.quantity
+          }
+          this.$store.dispatch('ADD_CART_PRODUCT',payload)
         }
         else{
           this.$swal.fire({
@@ -84,9 +93,6 @@
                     quantity: 1,
                   }))
                   this.$store.commit("PRODUCT",updatedProduct)
-                  
-                  
-                  console.log(this.PRODUCT)
                 })
               }
             },

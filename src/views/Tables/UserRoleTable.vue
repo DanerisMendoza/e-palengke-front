@@ -6,7 +6,7 @@
           <tr>
             <td style="text-align: center;">{{ item.name }}</td>
             <td style="text-align: center;">
-              <v-chip class='mr-1' v-for="(RequirementDetail, i) in item.RequirementDetails" :key="i">
+              <v-chip class='mr-1 mt-1 mb-1' v-for="(RequirementDetail, i) in item.RequirementDetails" :key="i">
                 <v-row class="d-flex justify-center align-center pr-3">
                   <v-col cols="12">
                     <div class="text d-flex justify-center ml-3">
@@ -17,10 +17,10 @@
               </v-chip>
             </td>
             <td style="text-align: center;">
-              <v-chip class='mr-1' v-for="(Access, i) in item.Accesses" :key="i">
+              <v-chip class='mr-1 mt-1 mb-1' v-for="(Access, i) in item.Accesses" :key="i">
                 <v-row class="d-flex justify-center align-center pr-3">
                   <v-col cols="12">
-                    <div class="text d-flex justify-center ml-3">
+                    <div class="text d-flex justify-center ml-3 ">
                       {{ Access.side_nav_name }}
                     </div>
                   </v-col>

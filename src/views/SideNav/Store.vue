@@ -10,7 +10,7 @@
                 </v-btn>
             </v-col>
         </v-row>
-        <CartDialog v-if="CART"/>
+        <CartDialog v-if="CART_DIALOG"/>
         <v-row>
             <v-col cols="6">
                 <MAP_COMPONENT />
@@ -46,7 +46,7 @@
         },  
         methods:{
             viewCart(){
-                this.$store.commit('CART',true)
+                this.$store.commit('CART_DIALOG',true)
             },
             home(){
                 const latitude = this.USER_DETAILS.customer_locations.latitude
@@ -106,7 +106,7 @@
             "STORES",
             "STORES_LAT_LNG",
             "USER_DETAILS",
-            "CART"
+            "CART_DIALOG"
         ]),
         
         },
@@ -121,7 +121,6 @@
         
         created(){
             this.$store.dispatch('GetActiveStore').then((response)=>{
-                console.log(response)
                 const latLngArr = response.map((item)=>{
                     return [item.latitude,item.longitude]
                 })
