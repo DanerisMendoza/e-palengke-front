@@ -10,6 +10,7 @@ import UserRoleDetail from '@/store/modules/UserRoleDetail'
 import ApplicantCredential from '@/store/modules/ApplicantCredential'
 import Store from '@/store/modules/Store'
 import Product from '@/store/modules/Product'
+import Cart from '@/store/modules/Cart'
 
 Vue.use(Vuex)
 
@@ -27,5 +28,6 @@ export default new Vuex.Store({
     UserRoleDetail,
     Store,
     Product,
+    Cart,
   }
 })
