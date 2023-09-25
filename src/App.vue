@@ -1,17 +1,27 @@
 <template>
   <v-app>
     <template v-if="$route.meta.showSideMenuBar">
-      <v-navigation-drawer app dark v-model="drawer">
+      <v-navigation-drawer
+        app
+        dark
+        v-model="drawer"
+        :style="{ backgroundColor: sidebarBackgroundColor }"
+      >
         <SideMenuBar />
       </v-navigation-drawer>
-      <v-app-bar app dark>
-        <v-btn @click="toggleSidebar">
-          <v-app-bar-nav-icon></v-app-bar-nav-icon>
-        </v-btn>
-        Name: {{ USER_DETAILS.name }}
-      </v-app-bar>
     </template>
     <v-main>
+      <v-container>
+        <v-app-bar
+          app
+          dark
+          :style="{ backgroundColor: sidebarBackgroundColor }"
+        >
+          <v-btn @click="toggleSidebar" elevation="0" color="black">
+            <v-icon>mdi-menu</v-icon>
+          </v-btn>
+        </v-app-bar>
+      </v-container>
       <router-view v-if="routerViewVisible" />
     </v-main>
   </v-app>
@@ -27,6 +37,7 @@ export default {
   data: () => ({
     routerViewVisible: false,
     drawer: true,
+    sidebarBackgroundColor: "black",
   }),
   async created() {
     // Simulate a delay of 1 second (adjust as needed)
