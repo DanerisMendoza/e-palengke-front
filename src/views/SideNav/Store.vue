@@ -10,7 +10,7 @@
                 </v-btn>
             </v-col>
         </v-row>
-        <CartDialog v-if="CART_DIALOG"/>
+            <CartDialog v-if="CART_DIALOG"/>
         <v-row>
             <v-col cols="6">
                 <MAP_COMPONENT />

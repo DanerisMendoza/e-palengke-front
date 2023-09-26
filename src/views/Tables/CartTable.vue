@@ -1,9 +1,10 @@
 <template>
     <v-container>
         <v-card class="mt-4 mb-4">
+
             <v-data-table :headers="headers" :items="CART">
                 <template v-slot:item="{ item }">
-                    <tr>
+                    <tr :style="{ 'background-color': item.stock < 0 ? 'grey' : '' }">
                         <td>{{ item.name }}</td>
                         <td>₱{{ item.price }}</td>
                         <td>{{ item.stock }}</td>
@@ -32,6 +33,12 @@
         </v-card>
     </v-container>
 </template>
+
+<style scoped>
+.red-background {
+    background-color: grey;
+}
+</style>
 
 <script>
 import { mapGetters } from 'vuex';
@@ -83,9 +90,12 @@ export default {
                 this.$store.commit('CART', newCart)
             })
         },
+        async getCart() {
+            await this.$store.dispatch('GET_CART')
+        }
     },
-    mounted() {
-        this.$store.dispatch('GET_CART')
+    created() {
+        this.getCart()
     },
 }
 

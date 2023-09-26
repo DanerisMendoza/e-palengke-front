@@ -5,7 +5,7 @@
         <tr>
           <td>{{ item.name }}</td>
           <td>₱{{ item.price }}</td>
-          <td>{{ item.stock }}</td>
+          <td>{{ item.stock < 0 ? 0 : item.stock }}</td>
           <td>
             <v-img contain :src="item.base64img" eager class="image-small" style="max-height: 100px; max-width: 100px;"></v-img>
           </td>

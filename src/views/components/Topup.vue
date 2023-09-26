@@ -94,6 +94,7 @@ export default {
                 this.$store.dispatch('UpdateUserBalance',payload).then((response)=>{
                     if(response === 'success'){
                         this.$refs.myForm.resetValidation();
+                        this.$store.dispatch("GetUserDetails")
                         this.topupAmount = 0
                         this.selectedPaymentMethod = ''
                         this.$swal.fire({
