@@ -74,6 +74,16 @@ export default {
             this.$store.commit('SELECTED_STORE', selectedStore)
         },
         order() {
+            if (this.USER_DETAILS.balance < this.total) {
+                this.$swal.fire({
+                    icon: 'warning', // Set a warning icon (you can choose a different icon class)
+                    title: 'Insufficient Balance', // Updated title
+                    text: 'Balance is less than Order Total Amount!', // Updated text message
+                    showConfirmButton: false, // Remove the "OK" button
+                    timer: 2000 // Auto-close the alert after 1.5 seconds (adjust as needed)
+                });
+                return
+            }
             this.CART.forEach(item => {
                 if (item.stock < 0) {
                     this.$swal.fire({
@@ -86,15 +96,21 @@ export default {
                     return
                 }
             });
-            this.$store.dispatch('ORDER',this.CART).then((response)=>{
-                if(response == 'invalid'){
+            const payload = {
+                cart: this.CART,
+                status: 'pending',
+                total: this.total,
+            }
+            this.$store.dispatch('ORDER', payload).then((response) => {
+                if (response == 'invalid') {
 
                 }
-                else if(response == 'success'){
+                else if (response == 'success') {
 
                 }
                 console.log(response)
                 this.$store.dispatch('GET_CART')
+                this.$store.dispatch("GetUserDetails")
             })
         }
     },

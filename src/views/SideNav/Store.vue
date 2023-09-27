@@ -101,7 +101,6 @@
             "ZOOM",
             "CIRCLE_RADIUS",
             "MARKER_LAT_LNG",
-            "SELECTED_REQUIREMENT",
             "SELECTED_USER_ROLE_DETAILS",
             "STORES",
             "STORES_LAT_LNG",
