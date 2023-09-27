@@ -10,7 +10,7 @@
                 </v-btn>
             </v-col>
         </v-row>
-        <CartDialog v-if="CART_DIALOG"/>
+            <CartDialog v-if="CART_DIALOG"/>
         <v-row>
             <v-col cols="6">
                 <MAP_COMPONENT />
@@ -101,7 +101,6 @@
             "ZOOM",
             "CIRCLE_RADIUS",
             "MARKER_LAT_LNG",
-            "SELECTED_REQUIREMENT",
             "SELECTED_USER_ROLE_DETAILS",
             "STORES",
             "STORES_LAT_LNG",

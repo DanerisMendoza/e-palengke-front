@@ -5,7 +5,7 @@
         <tr>
           <td>{{ item.name }}</td>
           <td>₱{{ item.price }}</td>
-          <td>{{ item.stock }}</td>
+          <td>{{ item.stock < 0 ? 0 : item.stock }}</td>
           <td>
             <v-img contain :src="item.base64img" eager class="image-small" style="max-height: 100px; max-width: 100px;"></v-img>
           </td>
@@ -13,7 +13,7 @@
             <v-icon @click="editItem(item)">mdi-pencil</v-icon>
             <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
           </td>
-          <td v-if="PRODUCT_TABLE_VIEWER === 'STORE'">
+          <td v-if="PRODUCT_TABLE_VIEWER === 'STORE' && store_id !== item.store_id">
             <v-text-field
             label="QTY"
             type="number"
@@ -26,6 +26,7 @@
               <v-icon>mdi-alert-circle-outline</v-icon>
             </v-btn>
           </td>
+          <td v-else></td>
         </tr>
       </template>
     </v-data-table>
@@ -39,7 +40,7 @@
       return {
         headers: [
           { text: "Name", value: "name", align: "center", sortable: false, width: "20%" },
-          { text: "Price (₱)", value: "price", align: "center", sortable: false, width: "15%" },
+          { text: "Price", value: "price", align: "center", sortable: false, width: "15%" },
           { text: "Stock", value: "stock", align: "center", sortable: false, width: "15%" },
           { text: "Picture", align: "center", sortable: false, width: "20%" },
           { text: "Actions", align: "center", value: "actions", sortable: false, width: "15%" },
@@ -100,8 +101,8 @@
     },
     async created() {
       this.$store.commit("PRODUCT", []);
+      await this.getStoreId();
       if(this.PRODUCT_TABLE_VIEWER === 'INVENTORY'){
-        await this.getStoreId();
         this.$store.dispatch("GET_PRODUCT_BY_ID", this.store_id);
       }
     },

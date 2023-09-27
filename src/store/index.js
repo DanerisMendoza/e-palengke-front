@@ -11,6 +11,7 @@ import ApplicantCredential from '@/store/modules/ApplicantCredential'
 import Store from '@/store/modules/Store'
 import Product from '@/store/modules/Product'
 import Cart from '@/store/modules/Cart'
+import Order from '@/store/modules/Order'
 
 Vue.use(Vuex)
 
@@ -29,5 +30,6 @@ export default new Vuex.Store({
     Store,
     Product,
     Cart,
+    Order,
   }
 })
