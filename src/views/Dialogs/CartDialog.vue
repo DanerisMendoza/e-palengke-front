@@ -104,20 +104,30 @@ export default {
             this.$store.dispatch('ORDER', payload).then((response) => {
                 if (response == 'invalid') {
                     this.$swal.fire({
-                        icon: 'warning', // Set a warning icon (you can choose a different icon class)
-                        title: 'Invalid Item', // Updated title
-                        html: 'Stock is Less than Quantity <br> Please Check your Cart!', // Updated text message
-                        showConfirmButton: false, // Remove the "OK" button
-                        timer: 2000 // Auto-close the alert after 1.5 seconds (adjust as needed)
+                        icon: 'warning',
+                        title: 'Invalid Item', 
+                        html: 'Stock is Less than Quantity <br> Please Check your Cart!', 
+                        showConfirmButton: false, 
+                        timer: 2000 
+                    });
+                }
+                //server side validation of balance and total amount of order
+                else if (response == 'insufficient balance') {
+                    this.$swal.fire({
+                        icon: 'warning', 
+                        title: 'Invalid Item', 
+                        html: 'Stock is Less than Quantity <br> Please Check your Cart!',
+                        showConfirmButton: false, 
+                        timer: 2000 
                     });
                 }
                 else if (response == 'success') {
                     this.$swal.fire({
-                        icon: 'success', // Set a warning icon (you can choose a different icon class)
-                        title: 'Order Success', // Updated title
-                        text: 'Thank you for Ordering!', // Updated text message
-                        showConfirmButton: false, // Remove the "OK" button
-                        timer: 2000 // Auto-close the alert after 1.5 seconds (adjust as needed)
+                        icon: 'success', 
+                        title: 'Order Success', 
+                        text: 'Thank you for Ordering!', 
+                        showConfirmButton: false, 
+                        timer: 2000 
                     });
                 }
                 this.$store.dispatch('GET_CART')
