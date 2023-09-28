@@ -17,6 +17,7 @@ import INVENTORY from '@/views/SideNav/Inventory.vue';
 import PROFILE from '@/views/SideNav/Profile.vue';
 import StoreTypeDetails from '@/views/SideNav/StoreTypeDetails.vue';
 import TOPUP from '@/views/SideNav/Topup.vue';
+import ORDERS from '@/views/SideNav/Orders.vue';
 
 Vue.use(VueRouter);
 
@@ -335,6 +336,28 @@ const routes = [
     path: '/TOPUP',
     name: 'TOPUP',
     component: TOPUP,
+    meta: {
+      showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
+    },
+    beforeEnter: (to, from, next) => {
+      user.authenticated().then((response)=>{
+        const shouldShowSideMenuBar = to.meta.showSideMenuBar !== false;
+        Vue.prototype.$showSideMenuBar = shouldShowSideMenuBar;
+        const hasPermission = response.data.some(permission => permission.name === to.name);
+        if (hasPermission) {
+          next();
+        } else {
+          next({ name: response.data[0].name });
+        }
+      }).catch((error)=>{
+        next({ name: 'Login' });
+      });
+    },
+  },
+  {
+    path: '/ORDERS',
+    name: 'ORDERS',
+    component: ORDERS,
     meta: {
       showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
     },
