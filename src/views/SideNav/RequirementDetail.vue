@@ -1,26 +1,29 @@
 <template>
+  <v-app>
     <v-container>
-        <RequirementDialog v-if="REQUIREMENT_DETAIL_DIALOG !== null"/>
-        <RequirementTable/>
+      <h2>REQUIREMENT DETAILS</h2>
+      <RequirementDialog v-if="REQUIREMENT_DETAIL_DIALOG !== null" />
+      <RequirementTable />
     </v-container>
+  </v-app>
 </template>
 <script>
-    import { mapGetters } from 'vuex';
-    import RequirementTable from '../Tables/RequirementTable.vue';
-    import RequirementDialog from '../Dialogs/RequirementDialog.vue';
-    import RequirementDetails from '../BottomSheet/RequirementDetails.vue';
-    // import Requirement from '../Dialogs/Requirement.vue';
-    // import RequirementEditDialog from '../Dialogs/RequirementEditDialog.vue';
+import { mapGetters } from "vuex";
+import RequirementTable from "../Tables/RequirementTable.vue";
+import RequirementDialog from "../Dialogs/RequirementDialog.vue";
+import RequirementDetails from "../BottomSheet/RequirementDetails.vue";
+// import Requirement from '../Dialogs/Requirement.vue';
+// import RequirementEditDialog from '../Dialogs/RequirementEditDialog.vue';
 
-    export default{
-        components: { RequirementTable, RequirementDialog, RequirementDetails},
-        computed: {
-            ...mapGetters([
-                'SELECTED_REQUIREMENT',
-                'SELECTED_REQUIREMENT_DETAILS',
-                'REQUIREMENT_DETAIL_BOTTOMSHEET',
-                'REQUIREMENT_DETAIL_DIALOG'
-            ])
-        },
-    }
+export default {
+  components: { RequirementTable, RequirementDialog, RequirementDetails },
+  computed: {
+    ...mapGetters([
+      "SELECTED_REQUIREMENT",
+      "SELECTED_REQUIREMENT_DETAILS",
+      "REQUIREMENT_DETAIL_BOTTOMSHEET",
+      "REQUIREMENT_DETAIL_DIALOG",
+    ]),
+  },
+};
 </script>

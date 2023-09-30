@@ -2,7 +2,7 @@
   <v-app style="background: #F5F5F5">
     <v-container>
       <v-row justify="center">
-        <v-card outlined class="text-center login-card" elevation="1">
+        <v-card outlined class="text-center login-card" elevation="2">
           <div>
             <img
               src="../../assets/sample.jpg"

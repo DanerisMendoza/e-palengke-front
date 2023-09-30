@@ -2,7 +2,7 @@
   <v-app style="background: #F5F5F5">
     <v-container>
       <v-row justify="center">
-        <v-card outlined class="text-center register-card">
+        <v-card outlined class="text-center register-card" elevation="2">
           <v-card-text>
             <v-form ref="myForm" @submit.prevent="registerUser">
               <!-- full name -->

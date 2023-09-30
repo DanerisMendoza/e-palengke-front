@@ -1,32 +1,31 @@
 <template>
-  <v-container>
-    <v-row> 
-      <v-col>
-        <v-btn @click="addNewRequirement()" color="primary">
-          ADD NEW REQUIREMENT
-        </v-btn>
-      </v-col>
-    </v-row>
+  <v-app>
+    <v-container>
+      <v-btn
+        @click="addNewRequirement()"
+        color="secondary"
+        elevation="0"
+        class="mb-5"
+      >
+        ADD NEW REQUIREMENT
+      </v-btn>
 
-    <v-row>
-      <v-col>
-        <v-card elevation="0">
-          <v-data-table :headers="headers" :items="REQUIREMENT_DETAILS">
-            <template v-slot:item="{ item }">
-              <tr>
-                <td>{{ item.name }}</td>
-                <td>
-                  <!-- <v-icon @click="viewItem(item)">mdi-eye</v-icon> -->
-                  <v-icon @click="editItem(item)">mdi-pencil</v-icon>
-                  <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
-                </td>
-              </tr>
-            </template>
-          </v-data-table>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+      <v-card elevation="0" outlined>
+        <v-data-table :headers="headers" :items="REQUIREMENT_DETAILS">
+          <template v-slot:item="{ item }">
+            <tr>
+              <td>{{ item.name }}</td>
+              <td>
+                <!-- <v-icon @click="viewItem(item)">mdi-eye</v-icon> -->
+                <v-icon @click="editItem(item)">mdi-pencil</v-icon>
+                <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+      </v-card>
+    </v-container>
+  </v-app>
 </template>
 <script>
 import { mapGetters } from "vuex";

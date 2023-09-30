@@ -1,27 +1,24 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <template>
-        <v-dialog v-model="dialog" max-width="500px">
-          <v-card>
-            <v-card-title>Requirement Details</v-card-title>
-            <v-card-text>
-              <v-text-field
-                label="Enter New Requirement"
-                v-model="name"
-              ></v-text-field>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn color="primary" text @click="closeDialog()">
-                CLOSE
-              </v-btn>
-              <v-btn color="primary" text @click="addNewRequirement()">
-                {{ REQUIREMENT_DETAIL_DIALOG }}
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </template>
+      <v-dialog v-model="dialog" max-width="500px">
+        <v-card>
+          <v-card-title>Requirement Details</v-card-title>
+          <v-card-text>
+            <v-text-field
+              label="Enter New Requirement"
+              v-model="name"
+              hide-details="auto"
+            ></v-text-field>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn color="primary" text @click="closeDialog()"> CLOSE </v-btn>
+            <v-btn color="primary" text @click="addNewRequirement()">
+              {{ REQUIREMENT_DETAIL_DIALOG }}
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-row>
   </v-container>
 </template>

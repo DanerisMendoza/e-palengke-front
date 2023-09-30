@@ -1,22 +1,15 @@
 <template>
   <v-app>
-    <template v-if="$route.meta.showSideMenuBar">
-      <v-navigation-drawer app v-model="drawer">
-        <SideMenuBar />
-      </v-navigation-drawer>
-      <v-container>
-        <v-app-bar
-          app
-          elevation="0"
-          outlined
-          :style="{ backgroundColor: navbarColor }"
-        >
+    <v-main>
+      <template v-if="$route.meta.showSideMenuBar">
+        <v-navigation-drawer app v-model="drawer" color="secondary" dark>
+          <SideMenuBar />
+        </v-navigation-drawer>
+        <v-app-bar app elevation="0" color="white">
           <v-icon @click="toggleSidebar">mdi-menu</v-icon>
           <label class="ml-3">Name: {{ USER_DETAILS.name }}</label>
         </v-app-bar>
-      </v-container>
-    </template>
-    <v-main>
+      </template>
       <router-view v-if="routerViewVisible" />
     </v-main>
   </v-app>
@@ -54,6 +47,7 @@ export default {
 
 <style>
 * {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 </style>

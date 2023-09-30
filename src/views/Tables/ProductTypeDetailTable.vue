@@ -1,24 +1,22 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col>
-        <v-card elevation="0">
-          <v-data-table :headers="headers" :items="PRODUCT_TYPE_DETAIL">
-            <template v-slot:item="{ item }">
-              <tr>
-                <td>{{ item.name }}</td>
-                <td>
-                  <!-- <v-icon @click="viewItem(item)" class="mr-2">mdi-eye</v-icon> -->
-                  <v-icon @click="editItem(item)">mdi-pencil</v-icon>
-                  <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
-                </td>
-              </tr>
-            </template>
-          </v-data-table>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-app>
+    <v-container>
+      <v-card elevation="0" outlined>
+        <v-data-table :headers="headers" :items="PRODUCT_TYPE_DETAIL">
+          <template v-slot:item="{ item }">
+            <tr>
+              <td>{{ item.name }}</td>
+              <td>
+                <!-- <v-icon @click="viewItem(item)" class="mr-2">mdi-eye</v-icon> -->
+                <v-icon @click="editItem(item)">mdi-pencil</v-icon>
+                <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+      </v-card>
+    </v-container>
+  </v-app>
 </template>
 
 <script>

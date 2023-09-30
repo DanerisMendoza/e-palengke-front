@@ -1,46 +1,44 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col>
-        <v-card elevation="0">
-          <v-data-table :headers="headers" :items="USER_ROLES">
-            <template v-slot:item="{ item }">
-              <tr>
-                <td>{{ item.name }}</td>
-                <td>
-                  <v-chip
-                    class="mr-1 mt-1"
-                    v-for="(RequirementDetail, i) in item.RequirementDetails"
-                    :key="i"
-                  >
-                    <div>
-                      {{ RequirementDetail.requirement_detailsName }}
-                    </div>
-                  </v-chip>
-                </td>
-                <td>
-                  <v-chip
-                    class="mr-1 mt-1"
-                    v-for="(Access, i) in item.Accesses"
-                    :key="i"
-                  >
-                    <div>
-                      {{ Access.side_nav_name }}
-                    </div>
-                  </v-chip>
-                </td>
-                <td>
-                  <!-- <v-icon @click="viewItem(item)" class="mr-2">mdi-eye</v-icon> -->
-                  <v-icon @click="editItem(item)">mdi-pencil</v-icon>
-                  <!-- <v-icon @click="deleteItem(item)">mdi-delete</v-icon> -->
-                </td>
-              </tr>
-            </template>
-          </v-data-table>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-app>
+    <v-container>
+      <v-card elevation="0" outlined>
+        <v-data-table :headers="headers" :items="USER_ROLES">
+          <template v-slot:item="{ item }">
+            <tr>
+              <td>{{ item.name }}</td>
+              <td>
+                <v-chip
+                  class="mr-1 mt-1"
+                  v-for="(RequirementDetail, i) in item.RequirementDetails"
+                  :key="i"
+                >
+                  <div>
+                    {{ RequirementDetail.requirement_detailsName }}
+                  </div>
+                </v-chip>
+              </td>
+              <td>
+                <v-chip
+                  class="mr-1 mt-1"
+                  v-for="(Access, i) in item.Accesses"
+                  :key="i"
+                >
+                  <div>
+                    {{ Access.side_nav_name }}
+                  </div>
+                </v-chip>
+              </td>
+              <td>
+                <!-- <v-icon @click="viewItem(item)" class="mr-2">mdi-eye</v-icon> -->
+                <v-icon @click="editItem(item)">mdi-pencil</v-icon>
+                <!-- <v-icon @click="deleteItem(item)">mdi-delete</v-icon> -->
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+      </v-card>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
