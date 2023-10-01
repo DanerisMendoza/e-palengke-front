@@ -7,7 +7,7 @@
         </v-list-title>
       </v-list-item>
     </v-list>
- 
+
     <v-divider></v-divider>
 
     <v-list>
@@ -20,6 +20,21 @@
           {{ side_nav.name }}
         </v-list-item>
       </v-list-content>
+
+      <v-list-group value="true" color="white">
+        <template v-slot:activator>
+          <v-list-item-title>DROPDOWN</v-list-item-title>
+        </template>
+        <v-list-item link>
+          <v-icon>mdi-circle-small</v-icon>
+          SUB TOPIC
+        </v-list-item>
+        <v-list-item link>
+          <v-icon>mdi-circle-small</v-icon>
+          SUB TOPIC
+        </v-list-item>
+      </v-list-group>
+
       <v-list-item @click="submitLogout()"> LOGOUT </v-list-item>
     </v-list>
   </div>
