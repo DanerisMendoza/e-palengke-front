@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-dialog v-model="dialog" max-width="500px">
+      <v-dialog v-model="dialog" max-width="500px" persistent>
         <v-card>
           <v-card-title>Requirement Details</v-card-title>
           <v-card-text>
