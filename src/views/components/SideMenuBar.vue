@@ -15,13 +15,12 @@
           :class="{ 'active-item': isParentActive(side_nav.name) }"
         >
           <v-list-item-content>
-            <router-link
+            <span
               :to="{ name: side_nav.name, params: { id: side_nav.id } }"
-              class="white--text side_nav_link"
               exact-active-class=""
             >
               {{ side_nav.name }}
-            </router-link>
+            </span>
           </v-list-item-content>
         </v-list-item>
         <v-list-item @click="submitLogout()">

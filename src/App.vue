@@ -10,6 +10,11 @@
           <label class="ml-3">Name: {{ USER_DETAILS.name }}</label>
         </v-app-bar>
       </template>
+      <template v-if="$route.meta.showNavBar">
+        <v-app-bar app dark elevation="0">
+          <NavBar />
+        </v-app-bar>
+      </template>
       <router-view v-if="routerViewVisible" />
     </v-main>
   </v-app>
@@ -17,11 +22,12 @@
 
 <script>
 import SideMenuBar from "@/views/components/SideMenuBar.vue";
+import NavBar from "@/views/components/NavBar.vue";
 import { mapGetters } from "vuex";
 
 export default {
   name: "App",
-  components: { SideMenuBar },
+  components: { SideMenuBar, NavBar },
   data: () => ({
     routerViewVisible: false,
     drawer: true,

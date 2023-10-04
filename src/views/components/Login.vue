@@ -1,5 +1,5 @@
 <template>
-  <v-app style="background: #F5F5F5">
+  <v-app style="background: #f5f5f5">
     <v-container>
       <v-row justify="center">
         <v-card outlined class="text-center login-card" elevation="2">
@@ -11,8 +11,8 @@
               width="100"
             />
           </div>
-          <v-card-title class="text--disabled card-txt"
-            >Please fill in your login details below</v-card-title
+          <span class="text--disabled"
+            >Please fill in your login details below</span
           >
           <v-card-text>
             <v-form ref="myForm" @submit.prevent>
@@ -123,9 +123,6 @@ export default {
 </script>
 
 <style scoped>
-* {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
 .e-palengke-logo {
   border-radius: 5rem;
 }
@@ -140,8 +137,5 @@ export default {
 }
 .login-btn {
   width: 100%;
-}
-.card-txt {
-  font-size: 1rem;
 }
 </style>
