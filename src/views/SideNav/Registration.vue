@@ -1,23 +1,24 @@
 <template>
-    <v-app>
-        <v-container>
-            <v-card-text>
-            <v-btn color="secondary" @click="backToLogin">Back To Login</v-btn>
-            <Registration/>
-            </v-card-text>
-        </v-container>
-    </v-app>
+  <v-app style="background: #F5F5F5">
+    <v-container>
+      <v-btn @click="backToLogin" plain text>
+        <v-icon> mdi-arrow-left </v-icon>
+        Back to Login
+      </v-btn>
+      <Registration />
+    </v-container>
+  </v-app>
 </template>
 
 <script>
-    import Registration from '../components/Registration.vue';
+import Registration from "../components/Registration.vue";
 
-    export default{
-        components: { Registration},
-        methods: {
-            backToLogin(){
-                this.$router.push('/Login');
-            }
-        }
-    }
+export default {
+  components: { Registration },
+  methods: {
+    backToLogin() {
+      this.$router.push("/Login");
+    },
+  },
+};
 </script>

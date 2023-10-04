@@ -1,10 +1,15 @@
 <template>
   <v-app>
-    <template v-if="$route.meta.showSideMenuBar">
-      <SideMenuBar />
-      <v-app-bar app dark> Toggle | Name: {{ USER_DETAILS.name }} </v-app-bar>
-    </template>
     <v-main>
+      <template v-if="$route.meta.showSideMenuBar">
+        <v-navigation-drawer app v-model="drawer" color="secondary" dark>
+          <SideMenuBar />
+        </v-navigation-drawer>
+        <v-app-bar app elevation="0" color="white">
+          <v-icon @click="toggleSidebar">mdi-menu</v-icon>
+          <label class="ml-3">Name: {{ USER_DETAILS.name }}</label>
+        </v-app-bar>
+      </template>
       <router-view v-if="routerViewVisible" />
     </v-main>
   </v-app>
@@ -19,6 +24,8 @@ export default {
   components: { SideMenuBar },
   data: () => ({
     routerViewVisible: false,
+    drawer: true,
+    navbarColor: "white",
   }),
   async created() {
     // Simulate a delay of 1 second (adjust as needed)
@@ -30,5 +37,17 @@ export default {
   computed: {
     ...mapGetters(["SIDE_NAV", "USER_DETAILS"]),
   },
+  methods: {
+    toggleSidebar() {
+      this.drawer = !this.drawer;
+    },
+  },
 };
 </script>
+
+<style>
+* {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+</style>

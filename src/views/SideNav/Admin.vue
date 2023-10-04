@@ -1,12 +1,11 @@
 <template>
+  <v-app>
     <v-container>
-        <h1>ADMIN</h1>
+      <h2>ADMIN DASHBOARD</h2>
     </v-container>
+  </v-app>
 </template>
 
 <script>
-
-    export default{
-  
-    }
+export default {};
 </script>

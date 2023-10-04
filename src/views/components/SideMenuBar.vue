@@ -1,48 +1,50 @@
 <template>
   <div>
-    <v-navigation-drawer app dark>
-      <v-app-bar>
-        <h1>E-Palengke</h1>
-      </v-app-bar>
+    <v-list dense v-model="drawer" :mini-variant="isMobile">
+      <v-list-item>
+        <v-list-title>
+          <h2 class="epalengke-title">E-PALENKE ADMIN</h2>
+        </v-list-title>
+      </v-list-item>
+    </v-list>
+ 
+    <v-divider></v-divider>
 
-      <v-list>
-        <v-list>
-          <v-list-item
-            v-for="side_nav in SIDE_NAV"
-            :key="side_nav.id"
-            @click="navigateToRoute(side_nav.name, side_nav.id)"
-          >
-            <v-list-item-content>
-              {{ side_nav.name }}
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item @click="submitLogout()">
-            <v-list-item-title> LOGOUT </v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-list>
-    </v-navigation-drawer>
+    <v-list>
+      <v-list-content
+        v-for="side_nav in SIDE_NAV"
+        :key="side_nav.id"
+        @click="navigateToRoute(side_nav.name, side_nav.id)"
+      >
+        <v-list-item :to="{ name: side_nav.name, params: { id: side_nav.id } }">
+          {{ side_nav.name }}
+        </v-list-item>
+      </v-list-content>
+      <v-list-item @click="submitLogout()"> LOGOUT </v-list-item>
+    </v-list>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+
 export default {
   data() {
-    return {};
+    return {
+      closeOnClick: false,
+      selectedItem: 1,
+      drawer: true,
+      drawer: !this.isMobile,
+    };
   },
-  data: () => ({
-    drawer: null,
-    closeOnClick: false,
-    selectedItem: 1,
-  }),
+
   methods: {
     submitLogout() {
       this.$store.dispatch("Logout").then((response) => {
         if (response === "success") {
           localStorage.removeItem("token");
           this.$store.commit("SIDE_NAV", null);
-          this.$store.commit("USER_DETAILS", { name: null });
+          this.$store.commit("USER_DETAILS", {});
           this.$router.push("/Login");
         }
       });
@@ -54,6 +56,9 @@ export default {
   },
   computed: {
     ...mapGetters(["SIDE_NAV", "USER_DETAILS"]),
+    isMobile() {
+      return this.$vuetify.breakpoint.smAndDown; // Hide the sidebar on small screens
+    },
   },
 
   mounted() {
@@ -65,4 +70,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.epalengke-title {
+  margin: 6px 0 5px;
+}
+</style>

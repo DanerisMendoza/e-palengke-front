@@ -1,13 +1,15 @@
 <template>
+  <v-app>
     <v-container>
-        <h1>PRODUCT TYPE DETAILS</h1>
-        <ProductTypeDetailTable/>
+        <h2>PRODUCT DETAILS</h2>
+      <ProductTypeDetailTable />
     </v-container>
+  </v-app>
 </template>
 
 <script>
-    import ProductTypeDetailTable from '../Tables/ProductTypeDetailTable.vue';
-    export default{
-        components: { ProductTypeDetailTable}
-    }
+import ProductTypeDetailTable from "../Tables/ProductTypeDetailTable.vue";
+export default {
+  components: { ProductTypeDetailTable },
+};
 </script>

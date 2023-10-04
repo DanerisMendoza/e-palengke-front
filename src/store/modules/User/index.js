@@ -77,32 +77,16 @@ export default {
             });
           })
         },
-        // request({commit}, payload){
-        //     return new Promise((resolve,reject)=>{
-        //     user.request(payload).then((response)=>{
-        //         resolve(response.data)
-        //       }).catch((error)=>{
-        //           reject(error)
-        //       });
-        //     })
-        //   },
-        // readUserDataTable({commit}, payload){
-        //     return new Promise((resolve,reject)=>{
-        //     user.readUserDataTable(payload).then((response)=>{
-        //         resolve(response.data)
-        //       }).catch((error)=>{
-        //           reject(error)
-        //       });
-        //     })
-        //   },
-        //   deleteUserById({commit}, payload){
-        //     return new Promise((resolve,reject)=>{
-        //     user.deleteUserById(payload).then((response)=>{
-        //         resolve(response.data)
-        //       }).catch((error)=>{
-        //           reject(error)
-        //       });
-        //     })
-        //   },
+      
+        UpdateUserBalance({commit}, payload){
+          return new Promise((resolve,reject)=>{
+          user.UpdateUserBalance(payload).then((response)=>{
+            resolve(response.data)
+            }).catch((error)=>{
+                reject(error)
+            });
+          })
+        },
+      
     }
 }
