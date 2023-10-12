@@ -2,7 +2,7 @@
   <v-container>
     <v-row justify="center">
       <template>
-        <v-dialog v-model="dialog" max-width="1000px">
+        <v-dialog v-model="dialog" max-width="1000px" persistent>
           <v-card>
             <v-card-title>
               <v-row>

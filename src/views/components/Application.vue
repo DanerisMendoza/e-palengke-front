@@ -7,7 +7,7 @@
             <td style="text-align: center;">{{ item.name }}</td>
             <td style="text-align: center;">{{ item.status }}</td>
             <td style="text-align: center;">
-              <v-btn text @click="view(item.user_role_id)">
+              <v-btn text @click="view(item)">
                 <v-icon>mdi-file-multiple</v-icon>
               </v-btn>
             </td>
@@ -90,6 +90,9 @@ export default {
     }
   },
   methods: {
+    view(item) {
+      this.$store.commit("SELECTED_CREDENTIAL", item.id);
+    },
     handleUserRoleChange(item) {
       this.$store.dispatch("GET_REQUIREMENT_DETAIL_BY_USER_ROLE_DETAILS_ID", item).then((response) => {
         this.user_role_details = response;
