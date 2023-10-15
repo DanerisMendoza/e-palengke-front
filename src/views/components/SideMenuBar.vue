@@ -1,46 +1,51 @@
 <template>
   <div>
-    <v-app-bar elevation="0" color="secondary">
-      <h1>E-PALENGKE</h1>
-    </v-app-bar>
+    <v-list dense v-model="drawer" :mini-variant="isMobile">
+      <v-list-item>
+        <v-list-item-title>
+          <h2 class="epalengke-title">E-PALENKE ADMIN</h2>
+        </v-list-item-title>
+      </v-list-item>
+    </v-list>
 
     <v-divider></v-divider>
 
-    <v-list v-model="drawer" :mini-variant="isMobile">
-      <v-list>
-        <v-list-item
-          v-for="side_nav in SIDE_NAV"
-          :key="side_nav.id"
-          @click="navigateToRoute(side_nav.name, side_nav.id)"
-          :class="{ 'active-item': isParentActive(side_nav.name) }"
-        >
-          <v-list-item-content>
-            <router-link
-              :to="{ name: side_nav.name, params: { id: side_nav.id } }"
-              class="white--text side_nav_link"
-              exact-active-class=""
-            >
+    <v-list>
+      <v-list v-for="side_nav in SIDE_NAV" :key="side_nav.id" @click="handleItemClick(side_nav)"
+        :class="{ 'active-item': isParentActive(side_nav.name) }">
+        <v-list-item v-if="!side_nav.side_nav_children || side_nav.side_nav_children.length === 0"
+          :to="{ name: side_nav.name, params: { id: side_nav.id } }">
+          {{ side_nav.name }}
+        </v-list-item>
+
+        <v-list-group v-else :value="isParentActive(side_nav.name)" color="white" active-class="my-active-class">
+          <template v-slot:activator>
+            <v-list-item-title>
               {{ side_nav.name }}
-            </router-link>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item @click="submitLogout()">
-          <v-list-item-title>LOGOUT</v-list-item-title>
-        </v-list-item>
+            </v-list-item-title>
+          </template>
+          <v-list-item v-for="child in side_nav.side_nav_children" :key="child.id" class="childSideNav"
+            :to="{ name: child.name, params: { id: child.id } }">
+            {{ child.name }}
+          </v-list-item>
+        </v-list-group>
+
       </v-list>
+
+      <v-list-item @click="submitLogout()"> LOGOUT </v-list-item>
     </v-list>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
       closeOnClick: false,
       selectedItem: 1,
       drawer: true,
-      drawer: !this.isMobile,
     };
   },
 
@@ -56,12 +61,19 @@ export default {
       });
     },
 
-    navigateToRoute(routeName, id) {
-      this.$router.push({ name: routeName, params: { id } });
+    handleItemClick(side_nav) {
+      console.log(side_nav)
+      if (!side_nav.side_nav_children || side_nav.side_nav_children.length === 0) {
+        // this.navigateToRoute(side_nav.name, side_nav.id);
+      }
+    },
+
+    navigateToRoute(child) {
+      console.log(child)
+      this.$router.push("/Customer Orders");
     },
 
     isParentActive(routeName) {
-      // Check if any child route of the given parent route is active
       return this.$route.matched.some((route) => route.name === routeName);
     },
   },
@@ -76,17 +88,27 @@ export default {
     this.$store.dispatch("GetUserDetails").then(() => {
       console.log(this.USER_DETAILS);
     });
-    this.$store.dispatch("GetSideNav");
+    this.$store.dispatch("GetSideNav").then((response) => {
+      console.log(response)
+    })
   },
 };
 </script>
 
 <style scoped>
-.side_nav_link {
-  text-decoration: none;
+.epalengke-title {
+  margin: 6px 0 5px;
 }
 
 .active-item {
-  background-color: #606060; /* Change to the color you want for the active item */
+  /* background-color: #606060; */
+  /* Change to the color you want for the active item */
+}
+
+.childSideNav {
+  /* list-style-type: disc; */
+  /* or your preferred bullet style */
+  margin-left: 20px;
+  /* adjust as needed */
 }
 </style>

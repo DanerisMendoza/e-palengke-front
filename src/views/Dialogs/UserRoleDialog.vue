@@ -19,6 +19,7 @@
               ></v-autocomplete>
               <v-autocomplete
                 v-model="selected_sidenav"
+                readonly
                 :items="ALL_SIDE_NAV"
                 item-text="name"
                 item-value="id"
