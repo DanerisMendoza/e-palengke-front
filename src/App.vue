@@ -7,7 +7,16 @@
         </v-navigation-drawer>
         <v-app-bar app elevation="0" color="white">
           <v-icon @click="toggleSidebar">mdi-menu</v-icon>
-          <label class="ml-3">Name: {{ USER_DETAILS.name }}</label>
+          <v-row align="center" justify="center">
+            <v-col cols="4">
+              <label class="ml-3">Name: {{ USER_DETAILS.name }}</label>
+            </v-col>
+            <v-col cols="8">
+              <v-card class="mx-3 pa-1"   :style="{ width: '200px', 'text-align': 'center' }">
+                <strong>{{ $route.name }}</strong>
+              </v-card>
+            </v-col>
+          </v-row>
         </v-app-bar>
       </template>
       <router-view v-if="routerViewVisible" />

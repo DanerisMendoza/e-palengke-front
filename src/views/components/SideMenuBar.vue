@@ -3,7 +3,7 @@
     <v-list dense v-model="drawer" :mini-variant="isMobile">
       <v-list-item>
         <v-list-item-title>
-          <h2 class="epalengke-title">E-PALENKE ADMIN</h2>
+          <h2 class="epalengke-title">E-PALENGKE ADMIN</h2>
         </v-list-item-title>
       </v-list-item>
     </v-list>
