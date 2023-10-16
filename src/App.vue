@@ -7,7 +7,9 @@
         </v-navigation-drawer>
         <v-app-bar app color="white" elevation="1">
           <v-icon @click="toggleSidebar">mdi-menu</v-icon>
-          <label class="ml-2">{{ $route.name }}</label>
+          <label class="ml-2">
+            {{ $route.name }} | {{ USER_DETAILS.name }}
+          </label>
         </v-app-bar>
       </template>
       <router-view v-if="routerViewVisible" />
