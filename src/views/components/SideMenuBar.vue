@@ -11,8 +11,7 @@
     <v-divider></v-divider>
 
     <v-list>
-      <v-list v-for="side_nav in SIDE_NAV" :key="side_nav.id" @click="handleItemClick(side_nav)"
-        :class="{ 'active-item': isParentActive(side_nav.name) }">
+      <v-list v-for="side_nav in SIDE_NAV" :key="side_nav.id" :class="{ 'active-item': isParentActive(side_nav.name) }">
         <v-list-item v-if="!side_nav.side_nav_children || side_nav.side_nav_children.length === 0"
           :to="{ name: side_nav.name, params: { id: side_nav.id } }">
           {{ side_nav.name }}
@@ -59,18 +58,6 @@ export default {
           this.$router.push("/Login");
         }
       });
-    },
-
-    handleItemClick(side_nav) {
-      console.log(side_nav)
-      if (!side_nav.side_nav_children || side_nav.side_nav_children.length === 0) {
-        // this.navigateToRoute(side_nav.name, side_nav.id);
-      }
-    },
-
-    navigateToRoute(child) {
-      console.log(child)
-      this.$router.push("/Customer Orders");
     },
 
     isParentActive(routeName) {
