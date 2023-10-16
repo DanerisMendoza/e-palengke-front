@@ -11,6 +11,12 @@
                         <v-btn @click="viewOrderDetails(index)">
                             <v-icon>mdi-view-list</v-icon>
                         </v-btn>
+                        <v-btn @click="viewOrderDetails(index)">
+                            <v-icon>mdi-check</v-icon>
+                        </v-btn>
+                        <v-btn @click="viewOrderDetails(index)">
+                            <v-icon>mdi-close</v-icon>
+                        </v-btn>
                     </td>
                 </tr>
             </template>
@@ -24,6 +30,9 @@
                     <td>
                         <v-btn @click="viewOrderDetails(index)">
                             <v-icon>mdi-view-list</v-icon>
+                        </v-btn>
+                        <v-btn @click="viewOrderDetails(index)">
+                            <v-icon>mdi-close</v-icon>
                         </v-btn>
                     </td>
                 </tr>
@@ -39,6 +48,12 @@
                     <td>
                         <v-btn @click="viewOrderDetails(index)">
                             <v-icon>mdi-view-list</v-icon>
+                        </v-btn>
+                        <v-btn @click="viewOrderDetails(index)">
+                            <v-icon>mdi-map-marker</v-icon>
+                        </v-btn>
+                        <v-btn @click="viewOrderDetails(index)">
+                            <v-icon>mdi-check</v-icon>
                         </v-btn>
                     </td>
                 </tr>
@@ -86,7 +101,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.ORDERS_TABLE_MODE)
         if (this.ORDERS_TABLE_MODE === 'customer') {
             const payload = { mode: 'customer' }
             this.$store.dispatch('GET_ORDERS_BY_USER_ID',payload).then(() => {
