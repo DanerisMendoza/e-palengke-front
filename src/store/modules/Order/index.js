@@ -39,9 +39,9 @@ export default {
                 });
             })
         },
-        GET_ORDERS_BY_USER_ID({ commit }) {
+        GET_ORDERS_BY_USER_ID({ commit },payload) {
             return new Promise((resolve, reject) => {
-                Order.GetOrdersByUserId().then((response) => {
+                Order.GetOrdersByUserId(payload).then((response) => {
                     commit('ORDERS', response.data)
                     resolve(response.data)
                 }).catch((error) => {

@@ -29,6 +29,21 @@
                 </tr>
             </template>
         </v-data-table>
+        <v-data-table v-else-if="ORDERS_TABLE_MODE === 'delivery'" :headers="store_headers" :items="ORDERS">
+            <template v-slot:item="{ item, index }">
+                <tr>
+                    <td>{{ item.customer_name }}</td>
+                    <td>{{ formatDate(item.created_at) }}</td>
+                    <td>{{ item.status }}</td>
+                    <td>₱{{ item.total }}</td>
+                    <td>
+                        <v-btn @click="viewOrderDetails(index)">
+                            <v-icon>mdi-view-list</v-icon>
+                        </v-btn>
+                    </td>
+                </tr>
+            </template>
+        </v-data-table>
     </v-card>
 </template>
 <script>
@@ -70,29 +85,22 @@ export default {
             console.log(this.ORDERS[index])
         }
     },
-    watch: {
-        ORDERS_TABLE_MODE: {
-            handler(val) {
-                if (val === 'customer') {
-                    this.$store.dispatch('GET_ORDERS_BY_USER_ID')
-                }
-                else if (val === 'store') {
-                    this.$store.dispatch('GET_ORDERS_BY_STORE_ID', this.store_id)
-                }
-                console.log(this.ORDERS)
-            },
-        }
-    },
     mounted() {
-        // console.log('orders table')
-        // console.log(this.ORDERS_TABLE_MODE)
+        console.log(this.ORDERS_TABLE_MODE)
         if (this.ORDERS_TABLE_MODE === 'customer') {
-            this.$store.dispatch('GET_ORDERS_BY_USER_ID', this.store_id).then(() => {
+            const payload = { mode: 'customer' }
+            this.$store.dispatch('GET_ORDERS_BY_USER_ID',payload).then(() => {
                 console.log(this.ORDERS)
             })
         }
         else if (this.ORDERS_TABLE_MODE === 'store') {
             this.$store.dispatch('GET_ORDERS_BY_STORE_ID', this.store_id).then(() => {
+                console.log(this.ORDERS)
+            })
+        }
+        else if (this.ORDERS_TABLE_MODE === 'delivery') {
+            const payload = { mode: 'delivery' }
+            this.$store.dispatch('GET_ORDERS_BY_USER_ID', payload).then(() => {
                 console.log(this.ORDERS)
             })
         }

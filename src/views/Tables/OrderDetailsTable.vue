@@ -23,6 +23,18 @@
                     </tr>
                 </template>
             </v-data-table>
+            <v-data-table v-else-if="ORDERS_TABLE_MODE === 'delivery'" :headers="customer_headers" :items="ORDERS[SELECTED_ORDER_DETAILS].order_details">
+                <template v-slot:item="{ item }">
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.store_name }}</td>
+                        <td>{{ item.address }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>₱{{ item.price }}</td>
+                        <td>₱{{ item.price * item.quantity }}</td>
+                    </tr>
+                </template>
+            </v-data-table>
         </v-card>
     </v-container>
 </template>
