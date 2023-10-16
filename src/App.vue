@@ -2,21 +2,12 @@
   <v-app>
     <v-main>
       <template v-if="$route.meta.showSideMenuBar">
-        <v-navigation-drawer app v-model="drawer" color="secondary" dark>
+        <v-navigation-drawer app v-model="drawer" dark>
           <SideMenuBar />
         </v-navigation-drawer>
-        <v-app-bar app elevation="0" color="white">
+        <v-app-bar app color="white" elevation="1">
           <v-icon @click="toggleSidebar">mdi-menu</v-icon>
-          <v-row align="center" justify="center">
-            <v-col cols="4">
-              <label class="ml-3">Name: {{ USER_DETAILS.name }}</label>
-            </v-col>
-            <v-col cols="8">
-              <v-card class="mx-3 pa-1"   :style="{ width: '200px', 'text-align': 'center' }">
-                <strong>{{ $route.name }}</strong>
-              </v-card>
-            </v-col>
-          </v-row>
+          <label class="ml-2">{{ $route.name }}</label>
         </v-app-bar>
       </template>
       <router-view v-if="routerViewVisible" />

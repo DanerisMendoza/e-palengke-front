@@ -12,8 +12,8 @@
             ></v-text-field>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="primary" text @click="closeDialog()"> CLOSE </v-btn>
-            <v-btn color="primary" text @click="addNewRequirement()">
+            <v-btn color="red" text @click="closeDialog()">close</v-btn>
+            <v-btn color="green" text @click="addNewRequirement()">
               {{ REQUIREMENT_DETAIL_DIALOG }}
             </v-btn>
           </v-card-actions>

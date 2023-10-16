@@ -1,34 +1,47 @@
 <template>
   <div>
     <v-list dense v-model="drawer" :mini-variant="isMobile">
-      <v-list-item>
-        <v-list-item-title>
-          <h2 class="epalengke-title">E-PALENGKE ADMIN</h2>
-        </v-list-item-title>
-      </v-list-item>
+      <v-list-item class="access">{{ USER_DETAILS.name }}</v-list-item>
     </v-list>
 
     <v-divider></v-divider>
 
     <v-list>
-      <v-list v-for="side_nav in SIDE_NAV" :key="side_nav.id" :class="{ 'active-item': isParentActive(side_nav.name) }">
-        <v-list-item v-if="!side_nav.side_nav_children || side_nav.side_nav_children.length === 0"
-          :to="{ name: side_nav.name, params: { id: side_nav.id } }">
+      <v-list
+        v-for="side_nav in SIDE_NAV"
+        :key="side_nav.id"
+        :class="{ 'active-item': isParentActive(side_nav.name) }"
+      >
+        <v-list-item
+          v-if="
+            !side_nav.side_nav_children ||
+            side_nav.side_nav_children.length === 0
+          "
+          :to="{ name: side_nav.name, params: { id: side_nav.id } }"
+        >
           {{ side_nav.name }}
         </v-list-item>
 
-        <v-list-group v-else :value="isParentActive(side_nav.name)" color="white" active-class="my-active-class">
+        <v-list-group
+          v-else
+          :value="isParentActive(side_nav.name)"
+          color="white"
+          active-class="my-active-class"
+        >
           <template v-slot:activator>
             <v-list-item-title>
               {{ side_nav.name }}
             </v-list-item-title>
           </template>
-          <v-list-item v-for="child in side_nav.side_nav_children" :key="child.id" class="childSideNav"
-            :to="{ name: child.name, params: { id: child.id } }">
+          <v-list-item
+            v-for="child in side_nav.side_nav_children"
+            :key="child.id"
+            class="childSideNav"
+            :to="{ name: child.name, params: { id: child.id } }"
+          >
             {{ child.name }}
           </v-list-item>
         </v-list-group>
-
       </v-list>
 
       <v-list-item @click="submitLogout()"> LOGOUT </v-list-item>
@@ -76,26 +89,19 @@ export default {
       console.log(this.USER_DETAILS);
     });
     this.$store.dispatch("GetSideNav").then((response) => {
-      console.log(response)
-    })
+      console.log(response);
+    });
   },
 };
 </script>
 
 <style scoped>
-.epalengke-title {
-  margin: 6px 0 5px;
-}
-
-.active-item {
-  /* background-color: #606060; */
-  /* Change to the color you want for the active item */
+.access {
+  font-size: 1.9rem;
+  font-weight: bold;
 }
 
 .childSideNav {
-  /* list-style-type: disc; */
-  /* or your preferred bullet style */
   margin-left: 20px;
-  /* adjust as needed */
 }
 </style>

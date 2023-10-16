@@ -1,7 +1,6 @@
 <template>
-  <v-app>
+  <v-app style="background: #f6f6f6">
     <v-container>
-        <h2>PRODUCT DETAILS</h2>
       <ProductTypeDetailTable />
     </v-container>
   </v-app>

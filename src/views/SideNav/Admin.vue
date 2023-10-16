@@ -1,7 +1,7 @@
 <template>
-  <v-app>
+  <v-app style="background: #f6f6f6">
     <v-container>
-      <h2>ADMIN DASHBOARD</h2>
+      <!-- content here -->
     </v-container>
   </v-app>
 </template>

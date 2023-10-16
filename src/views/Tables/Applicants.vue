@@ -1,7 +1,7 @@
 <template>
-  <v-app>
+  <v-app style="background: #f6f6f6">
     <v-container>
-      <v-card elevation="0" outlined>
+      <v-card elevation="1" outlined>
         <v-data-table :headers="headers" :items="APPLICANTS">
           <template v-slot:item="{ item }">
             <tr>
@@ -18,12 +18,14 @@
                   v-if="item.status === 'pending'"
                   text
                   @click="dissaprove(item.user_role_id)"
+                  color="red"
                   >mdi-close</v-icon
                 >
                 <v-icon
                   v-if="item.status === 'pending'"
                   text
                   @click="approve(item.user_role_id)"
+                  color="green"
                   >mdi-check</v-icon
                 >
               </td>
@@ -42,21 +44,21 @@ export default {
     return {
       headers: [
         {
-          text: "Name",
+          text: "NAME",
           value: "applicant_name",
           align: "center",
           sortable: false,
         },
-        { text: "Status", value: "status", align: "center", sortable: false },
+        { text: "STATUS", value: "status", align: "center", sortable: false },
         {
-          text: "Role",
+          text: "USER ROLE",
           value: "user_role_name",
           align: "center",
           sortable: false,
         },
-        { text: "Gender", value: "gender", align: "center", sortable: false },
-        { text: "Age", value: "age", align: "center", sortable: false },
-        { text: "Actions", value: "actions", align: "center", sortable: false },
+        { text: "GENDER", value: "gender", align: "center", sortable: false },
+        { text: "AGE", value: "age", align: "center", sortable: false },
+        { text: "ACTIONS", value: "actions", align: "center", sortable: false },
       ],
     };
   },
