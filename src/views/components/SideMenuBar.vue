@@ -7,38 +7,23 @@
     <v-divider></v-divider>
 
     <v-list>
-      <v-list
-        v-for="side_nav in SIDE_NAV"
-        :key="side_nav.id"
-        :class="{ 'active-item': isParentActive(side_nav.name) }"
-      >
-        <v-list-item
-          v-if="
-            !side_nav.side_nav_children ||
-            side_nav.side_nav_children.length === 0
-          "
-          :to="{ name: side_nav.name, params: { id: side_nav.id } }"
-        >
+      <v-list v-for="side_nav in SIDE_NAV" :key="side_nav.id" :class="{ 'active-item': isParentActive(side_nav.name) }">
+        <v-list-item v-if="!side_nav.side_nav_children ||
+          side_nav.side_nav_children.length === 0
+          " :to="{ name: side_nav.name, params: { id: side_nav.id } }">
+          <v-icon>{{ side_nav.mdi_icon }}</v-icon>
           {{ side_nav.name }}
         </v-list-item>
 
-        <v-list-group
-          v-else
-          :value="isParentActive(side_nav.name)"
-          color="white"
-          active-class="my-active-class"
-        >
+        <v-list-group v-else :value="isParentActive(side_nav.name)" color="white" active-class="my-active-class">
           <template v-slot:activator>
             <v-list-item-title>
               {{ side_nav.name }}
             </v-list-item-title>
           </template>
-          <v-list-item
-            v-for="child in side_nav.side_nav_children"
-            :key="child.id"
-            class="childSideNav"
-            :to="{ name: child.name, params: { id: child.id } }"
-          >
+          <v-list-item v-for="child in side_nav.side_nav_children" :key="child.id" class="childSideNav"
+            :to="{ name: child.name, params: { id: child.id } }">
+            <v-icon>{{ child.mdi_icon }}</v-icon>
             {{ child.name }}
           </v-list-item>
         </v-list-group>
