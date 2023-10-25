@@ -1,6 +1,6 @@
 {
-  "appId": "com.votingBlockhain.app",
-  "appName": "votingBlockhain",
+  "appId": "com.epalengke.app",
+  "appName": "e-palengke",
   "webDir": "dist",
   "server": {
     "androidScheme": "https"

@@ -1,4 +1,4 @@
-package com.votingBlockhain.app;
+package com.epalengke.app;
 
 import com.getcapacitor.BridgeActivity;
 

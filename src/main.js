@@ -7,6 +7,7 @@ import store from './store'
 import Swal from 'sweetalert2';
 import { LMap, LTileLayer } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
+import './registerServiceWorker'
 
 
 Vue.component('l-map', LMap);
