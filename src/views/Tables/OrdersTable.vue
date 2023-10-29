@@ -88,7 +88,7 @@ export default {
             "USER_DETAILS", "ORDERS", "ORDERS_TABLE_MODE"
         ]),
         store_id() {
-            return (this.USER_DETAILS.user_role_ids.find((item) => item.id === 3 && item.status === 'active')?.store_id);
+            return (this.USER_DETAILS.user_role_details.find((item) => item.id === 3 && item.status === 'active')?.store_details[0].store_id);
         }
     },
     methods: {

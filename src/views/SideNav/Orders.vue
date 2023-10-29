@@ -35,7 +35,7 @@ export default {
         }
     },
     created() {
-        this.switchExist = (this.USER_DETAILS.user_role_ids.some(role => role.id === 3));
+        this.switchExist = (this.USER_DETAILS.user_role_details.some(role => role.id === 3));
         if(this.switchExist){
             this.$store.commit('ORDERS_TABLE_MODE', 'store')
         }

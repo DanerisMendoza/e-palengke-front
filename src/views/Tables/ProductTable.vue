@@ -119,9 +119,9 @@ export default {
       }
     },
     getStoreId() {
-      return (this.store_id = this.USER_DETAILS.user_role_ids.find(
+      return (this.store_id = this.USER_DETAILS.user_role_details.find(
         (item) => item.id === 3 && item.status === "active"
-      )?.store_id);
+      )?.store_details[0].store_id);
     },
     editItem(item) {},
     deleteItem(item) {

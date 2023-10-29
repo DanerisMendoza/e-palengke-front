@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-btn @click="addNewProduct">Add New Product</v-btn>
+        <v-btn @click="addNewProduct" class="mb-2">Add New Product</v-btn>
         <ProductDialog v-if="PRODUCT_DIALOG !== null" />
         <ProductTable/>
     </v-container>
