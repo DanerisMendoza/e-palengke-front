@@ -6,16 +6,14 @@
             </v-btn>
         </v-row>
 
-        <!-- Display elapsed time -->
         <v-row v-if="isRunning" justify="center">
             <v-display-3>{{ formattedElapsedTime }}</v-display-3>
         </v-row>
     </v-container>
 </template>
 
-  
-  
 <script>
+import { mapGetters } from "vuex";
 export default {
     data() {
         return {
@@ -30,17 +28,23 @@ export default {
         formattedElapsedTime() {
             return this.formatTime(this.laps[this.laps.length - 1] || 0);
         },
+        ...mapGetters(["USER_DETAILS"]),
     },
     methods: {
         startStop() {
+            const payload = {
+                user_id: this.USER_DETAILS.user_id
+            }
             if (this.isRunning) {
                 // Stop the timer
                 clearInterval(this.timer);
                 this.timer = null;
+                this.$store.dispatch('MarkOffline',payload)
             } else {
                 // Start the timer
                 this.startTime = new Date().getTime();
                 this.timer = setInterval(this.updateTime, 100);
+                this.$store.dispatch('MarkOnline',payload)
             }
             this.isRunning = !this.isRunning;
         },
