@@ -79,19 +79,6 @@ export default {
     ...mapGetters(["SELECTED_ROLE", "ALL_SIDE_NAV", "REQUIREMENT_DETAILS"]),
   },
 
-  watch: {
-    // SELECTED_ROLE: {
-    //     handler(val) {
-    //         this.selected_requirement = (this.SELECTED_ROLE.RequirementDetails.map((item)=>{
-    //             return item.requirement_id
-    //         }))
-    //         this.selected_sidenav = (this.SELECTED_ROLE.Accesses.map((item)=>{
-    //             return item.sidenav_id
-    //         }));
-    //     },
-    // }
-  },
-
   mounted() {
     console.log(this.SELECTED_ROLE);
     this.GET_REQUIREMENT_DETAILS().then(() => {
