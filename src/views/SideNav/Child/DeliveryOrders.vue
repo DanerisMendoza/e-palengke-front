@@ -2,7 +2,7 @@
   <v-app>
     <v-container>
       <OrderDetailsDialog v-if="SELECTED_ORDER_DETAILS !== null" />
-      <OrdersTable />
+      <!-- <OrdersTable /> -->
     </v-container>
   </v-app>
 </template>

@@ -71,10 +71,10 @@ export default {
 
   mounted() {
     this.$store.dispatch("GetUserDetails").then(() => {
-      console.log(this.USER_DETAILS);
+      // console.log(this.USER_DETAILS);
     });
     this.$store.dispatch("GetSideNav").then((response) => {
-      console.log(response);
+      // console.log(response);
     });
   },
 };
