@@ -11,12 +11,8 @@
             <tr>
               <td>{{ item.name }}</td>
               <td>
-                <v-icon @click="editItem(item)" color="orange"
-                  >mdi-pencil</v-icon
-                >
-                <v-icon @click="deleteItem(item)" color="red"
-                  >mdi-delete</v-icon
-                >
+                <v-icon @click="editItem(item)" color="orange">mdi-pencil</v-icon>
+                <v-icon @click="deleteItem(item)" color="red">mdi-delete</v-icon>
               </td>
             </tr>
           </template>
@@ -49,7 +45,7 @@ export default {
   },
 
   methods: {
-    viewItem(item) {},
+    viewItem(item) { },
     editItem(item) {
       this.$store.commit("SELECTED_REQUIREMENT_DETAILS", item);
       this.$store.commit("REQUIREMENT_DETAIL_DIALOG", "UPDATE");
@@ -81,11 +77,7 @@ export default {
                     title: "Success!",
                     text: "Item Deleted Successfully.",
                   });
-                  this.$store.dispatch("GET_REQUIREMENTS");
-                  this.$store.dispatch(
-                    "GET_REQUIREMENT_DETAILS",
-                    this.SELECTED_REQUIREMENT_DETAILS.id
-                  );
+                  this.$store.dispatch("GET_REQUIREMENT_DETAILS",this.SELECTED_REQUIREMENT_DETAILS.id);
                 }
               });
           }
@@ -94,9 +86,7 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch("GET_REQUIREMENT_DETAILS").then(() => {
-      console.log(this.REQUIREMENT_DETAILS);
-    });
+    this.$store.dispatch("GET_REQUIREMENT_DETAILS")
   },
 };
 </script>
