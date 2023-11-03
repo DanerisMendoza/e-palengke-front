@@ -5,6 +5,7 @@
                 <template v-slot:item="{ item }">
                     <tr>
                         <td>{{ item.name }}</td>
+                        <td>{{ item.status }}</td>
                         <td>{{ item.quantity }}</td>
                         <td>₱{{ item.price }}</td>
                         <td>₱{{ item.price * item.quantity }}</td>
@@ -17,6 +18,7 @@
                         <td>{{ item.name }}</td>
                         <td>{{ item.store_name }}</td>
                         <td>{{ item.address }}</td>
+                        <td>{{ item.status }}</td>
                         <td>{{ item.quantity }}</td>
                         <td>₱{{ item.price }}</td>
                         <td>₱{{ item.price * item.quantity }}</td>
@@ -45,6 +47,7 @@ export default {
         return {
             store_headers: [
                 { text: "Product Name", align: "center", sortable: false },
+                { text: "Status ", align: "center", sortable: false },
                 { text: "Quantity ", align: "center", sortable: false },
                 { text: "Price ", align: "center", sortable: false },
                 { text: "Sub Total ", align: "center", sortable: false },
@@ -53,6 +56,7 @@ export default {
                 { text: "Product Name", align: "center", sortable: false },
                 { text: "Store Name", align: "center", sortable: false },
                 { text: "Store Address", align: "center", sortable: false },
+                { text: "Status ", align: "center", sortable: false },
                 { text: "Quantity ", align: "center", sortable: false },
                 { text: "Price ", align: "center", sortable: false },
                 { text: "Sub Total ", align: "center", sortable: false },

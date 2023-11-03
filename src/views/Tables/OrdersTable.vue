@@ -26,7 +26,6 @@
                 <tr>
                     <td>{{ formatDate(item.created_at) }}</td>
                     <td>{{ item.name }}</td>
-                    <td>{{ item.status }}</td>
                     <td>₱{{ item.total }}</td>
                     <td>
                         <v-btn @click="viewOrderDetails(index)">
@@ -79,7 +78,6 @@ export default {
             customer_headers: [
                 { text: "Date ", align: "center", sortable: false },
                 { text: "Store Name ", align: "center", sortable: false },
-                { text: "Status ", align: "center", sortable: false },
                 { text: "Total ", align: "center", sortable: false },
                 { text: "Actions", align: "center", sortable: false },
             ],
