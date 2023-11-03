@@ -16,7 +16,9 @@
                 <ProductTable/>
             </v-col>
             <v-col cols="6">
-                <MAP_COMPONENT />
+                <MAP_COMPONENT :sidenavViewer="'store'"/>
+                <br>
+                <v-slider v-model="circleRadius" thumb-label="always" class="mt-3"></v-slider>
             </v-col>
         </v-row>
     </v-container>

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <l-map class="map-container" ref="map" style="height: 700px" :center="center" :zoom="zoom" @click="handleMarkerClick">
+    <l-map class="map-container" ref="map" style="height: 300px" :center="center" :zoom="zoom" @click="handleMarkerClick">
       <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></l-tile-layer>
       <!-- current marker(dynamic icon) -->
       <l-marker v-if="MARKER_LAT_LNG !== null" :lat-lng="MARKER_LAT_LNG" :icon="computedMarker"></l-marker>
