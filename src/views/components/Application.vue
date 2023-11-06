@@ -7,7 +7,7 @@
             <td style="text-align: center;">{{ item.name }}</td>
             <td style="text-align: center;">{{ item.status }}</td>
             <td style="text-align: center;">
-              <v-btn text @click="view(item.user_role_id)">
+              <v-btn text @click="view(item)">
                 <v-icon>mdi-file-multiple</v-icon>
               </v-btn>
             </td>
@@ -19,7 +19,7 @@
     <!-- Autocomplete component -->
     <v-row>
       <v-col cols="12">
-        <v-autocomplete class="float-right" v-if="user_role.length !== 0" v-model="selected_user_role" :items="user_role"
+        <v-autocomplete class="float-right" v-if="user_role.length !== 0" v-model="selected_user_role" :items="user_role" label="Select Application"
           item-text="name" item-value="id" auto-select-first chips deletable-chips 
           @change="handleUserRoleChange"></v-autocomplete>
       </v-col>
@@ -90,6 +90,9 @@ export default {
     }
   },
   methods: {
+    view(item) {
+      this.$store.commit("SELECTED_CREDENTIAL", item.id);
+    },
     handleUserRoleChange(item) {
       this.$store.dispatch("GET_REQUIREMENT_DETAIL_BY_USER_ROLE_DETAILS_ID", item).then((response) => {
         this.user_role_details = response;
@@ -101,10 +104,10 @@ export default {
     },
     getUserRoleDetails() {
       this.$store.dispatch("GET_USER_ROLE_DETAILS").then((response) => {
-        const activatedUserRole = this.USER_DETAILS.user_role_ids.filter((item) => {
+        const activatedUserRole = this.USER_DETAILS.user_role_details.filter((item) => {
           return item.status == 'active'
         })
-        const pendingUserRole = this.USER_DETAILS.user_role_ids.filter((item) => {
+        const pendingUserRole = this.USER_DETAILS.user_role_details.filter((item) => {
           return item.status == 'pending'
         })
         this.user_role = response.filter((item) => {

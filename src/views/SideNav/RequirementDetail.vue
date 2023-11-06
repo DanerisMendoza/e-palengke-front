@@ -1,12 +1,12 @@
 <template>
-  <v-app>
+  <v-app style="background: #f6f6f6">
     <v-container>
-      <h2>REQUIREMENT DETAILS</h2>
       <RequirementDialog v-if="REQUIREMENT_DETAIL_DIALOG !== null" />
       <RequirementTable />
     </v-container>
   </v-app>
 </template>
+
 <script>
 import { mapGetters } from "vuex";
 import RequirementTable from "../Tables/RequirementTable.vue";

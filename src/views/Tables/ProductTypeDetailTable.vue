@@ -1,15 +1,19 @@
 <template>
-  <v-app>
+  <v-app style="background: #f6f6f6">
     <v-container>
-      <v-card elevation="0" outlined>
+      <v-card elevation="1" outlined>
         <v-data-table :headers="headers" :items="PRODUCT_TYPE_DETAIL">
           <template v-slot:item="{ item }">
             <tr>
               <td>{{ item.name }}</td>
               <td>
                 <!-- <v-icon @click="viewItem(item)" class="mr-2">mdi-eye</v-icon> -->
-                <v-icon @click="editItem(item)">mdi-pencil</v-icon>
-                <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
+                <v-icon @click="editItem(item)" color="orange"
+                  >mdi-pencil</v-icon
+                >
+                <v-icon @click="deleteItem(item)" color="red"
+                  >mdi-delete</v-icon
+                >
               </td>
             </tr>
           </template>
@@ -27,8 +31,8 @@ export default {
       isRaining: false,
 
       headers: [
-        { text: "Name", value: "name", align: "center", sortable: false },
-        { text: "Actions", align: "center", value: "actions", sortable: false },
+        { text: "NAME", value: "name", align: "center", sortable: false },
+        { text: "ACTIONS", align: "center", value: "actions", sortable: false },
       ],
     };
   },

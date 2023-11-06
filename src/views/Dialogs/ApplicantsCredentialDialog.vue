@@ -2,7 +2,7 @@
   <v-container>
     <v-row justify="center">
       <template>
-        <v-dialog v-model="dialog" max-width="1000px">
+        <v-dialog v-model="dialog" max-width="1000px" persistent>
           <v-card>
             <v-card-title>
               <v-row>
@@ -27,7 +27,6 @@
                   <div class="image-container">
                     <v-card-text>{{ imageData.name }}</v-card-text>
                     <v-img contain :src="imageData.base64img" class="image">
-                      <!-- You can add optional overlay content or labels here -->
                     </v-img>
                   </div>
                 </v-carousel-item>

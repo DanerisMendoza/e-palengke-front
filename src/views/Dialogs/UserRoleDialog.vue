@@ -2,32 +2,14 @@
   <v-container>
     <v-row justify="center">
       <template>
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-dialog v-model="dialog" max-width="500px" persistent>
           <v-card>
             <v-card-title>User Role: {{ SELECTED_ROLE.name }}</v-card-title>
             <v-card-text>
-              <v-autocomplete
-                v-model="selected_requirement"
-                :items="REQUIREMENT_DETAILS"
-                item-text="name"
-                item-value="id"
-                auto-select-first
-                chips
-                deletable-chips
-                multiple
-                label="Requirement"
-              ></v-autocomplete>
-              <v-autocomplete
-                v-model="selected_sidenav"
-                :items="ALL_SIDE_NAV"
-                item-text="name"
-                item-value="id"
-                auto-select-first
-                chips
-                deletable-chips
-                multiple
-                label="ACCESS"
-              ></v-autocomplete>
+              <v-autocomplete v-model="selected_requirement" :items="REQUIREMENT_DETAILS" item-text="name" item-value="id"
+                auto-select-first chips deletable-chips multiple label="Requirement"></v-autocomplete>
+              <v-autocomplete v-model="selected_sidenav" readonly :items="ALL_SIDE_NAV" item-text="name" item-value="id"
+                auto-select-first chips deletable-chips multiple label="ACCESS"></v-autocomplete>
             </v-card-text>
             <v-card-actions>
               <v-btn color="primary" text @click="closeDialog()">CLOSE</v-btn>
@@ -75,28 +57,26 @@ export default {
         .dispatch("UPDATE_USER_ROLE_BY_ID", payload)
         .then((response) => {
           if (response == "success") {
+            this.$swal.fire({
+              icon: "success", // Set the success icon
+              title: "Success", // Title of the alert
+              text: "Operation was successful!", // Text message
+              showConfirmButton: false, // Remove the "OK" button
+              timer: 1000, // Auto-close the alert after 1.5 seconds (adjust as needed)
+            });
             this.$store.dispatch(
               "GET_USER_ROLE_WITH_ACCESSESS_AND_REQUIREMENTS"
-            );
+            ).then(() => {
+              this.$store.commit("SELECTED_ROLE", null);
+              this.selected_sidenav = null;
+              this.selected_requirement = null;
+            })
           }
         });
     },
   },
   computed: {
     ...mapGetters(["SELECTED_ROLE", "ALL_SIDE_NAV", "REQUIREMENT_DETAILS"]),
-  },
-
-  watch: {
-    // SELECTED_ROLE: {
-    //     handler(val) {
-    //         this.selected_requirement = (this.SELECTED_ROLE.RequirementDetails.map((item)=>{
-    //             return item.requirement_id
-    //         }))
-    //         this.selected_sidenav = (this.SELECTED_ROLE.Accesses.map((item)=>{
-    //             return item.sidenav_id
-    //         }));
-    //     },
-    // }
   },
 
   mounted() {

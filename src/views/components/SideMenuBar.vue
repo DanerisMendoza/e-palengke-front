@@ -1,25 +1,34 @@
 <template>
   <div>
     <v-list dense v-model="drawer" :mini-variant="isMobile">
-      <v-list-item>
-        <v-list-title>
-          <h2 class="epalengke-title">E-PALENKE ADMIN</h2>
-        </v-list-title>
-      </v-list-item>
+      <v-list-item class="access">{{ USER_DETAILS.name }}</v-list-item>
     </v-list>
- 
+
     <v-divider></v-divider>
 
     <v-list>
-      <v-list-content
-        v-for="side_nav in SIDE_NAV"
-        :key="side_nav.id"
-        @click="navigateToRoute(side_nav.name, side_nav.id)"
-      >
-        <v-list-item :to="{ name: side_nav.name, params: { id: side_nav.id } }">
+      <v-list v-for="side_nav in SIDE_NAV" :key="side_nav.id" :class="{ 'active-item': isParentActive(side_nav.name) }">
+        <v-list-item v-if="!side_nav.side_nav_children ||
+          side_nav.side_nav_children.length === 0
+          " :to="{ name: side_nav.name, params: { id: side_nav.id } }">
+          <v-icon>{{ side_nav.mdi_icon }}</v-icon>
           {{ side_nav.name }}
         </v-list-item>
-      </v-list-content>
+
+        <v-list-group v-else :value="isParentActive(side_nav.name)" color="white" active-class="my-active-class">
+          <template v-slot:activator>
+            <v-list-item-title>
+              {{ side_nav.name }}
+            </v-list-item-title>
+          </template>
+          <v-list-item v-for="child in side_nav.side_nav_children" :key="child.id" class="childSideNav"
+            :to="{ name: child.name, params: { id: child.id } }">
+            <v-icon>{{ child.mdi_icon }}</v-icon>
+            {{ child.name }}
+          </v-list-item>
+        </v-list-group>
+      </v-list>
+
       <v-list-item @click="submitLogout()"> LOGOUT </v-list-item>
     </v-list>
   </div>
@@ -34,7 +43,6 @@ export default {
       closeOnClick: false,
       selectedItem: 1,
       drawer: true,
-      drawer: !this.isMobile,
     };
   },
 
@@ -50,8 +58,8 @@ export default {
       });
     },
 
-    navigateToRoute(routeName, id) {
-      this.$router.push({ name: routeName, params: { id } });
+    isParentActive(routeName) {
+      return this.$route.matched.some((route) => route.name === routeName);
     },
   },
   computed: {
@@ -65,13 +73,20 @@ export default {
     this.$store.dispatch("GetUserDetails").then(() => {
       console.log(this.USER_DETAILS);
     });
-    this.$store.dispatch("GetSideNav");
+    this.$store.dispatch("GetSideNav").then((response) => {
+      // console.log(response);
+    });
   },
 };
 </script>
 
 <style scoped>
-.epalengke-title {
-  margin: 6px 0 5px;
+.access {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.childSideNav {
+  margin-left: 20px;
 }
 </style>

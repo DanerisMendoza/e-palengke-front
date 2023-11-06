@@ -1,5 +1,6 @@
 <template>
     <v-container>
+        <ApplicantsCredentialDialog v-if="this.SELECTED_CREDENTIAL !== null" />
         <v-card class="mt-2 pl-2 pr-2">
             <v-form ref="myForm" @submit.prevent="submit">
                 <v-row>
@@ -20,7 +21,7 @@
 
                 <v-row>
                     <v-col cols="12">
-                        <MAP_COMPONENT v-if="SELECTED_USER_ROLE_DETAILS !== null" />
+                        <MAP_COMPONENT v-if="SELECTED_USER_ROLE_DETAILS !== null" :sidenavViewer="'application'"/>
                     </v-col>
                 </v-row>
 
@@ -54,9 +55,11 @@ import { mapGetters } from 'vuex';
 import Application from '../components/Application.vue';
 import MAP_COMPONENT from '../components/Map.vue';
 import SideMenuBar from '@/views/components/SideMenuBar.vue'
+import ApplicantsCredentialDialog from "../Dialogs/ApplicantsCredentialDialog.vue";
+
 
 export default {
-    components: { Application, MAP_COMPONENT, SideMenuBar },
+    components: { Application, MAP_COMPONENT, SideMenuBar,ApplicantsCredentialDialog },
     computed: {
         ...mapGetters([
             "SELECTED_REQUIREMENT",
@@ -67,6 +70,7 @@ export default {
             "REQUIREMENTS",
             "SELECTED_USER_ROLE_DETAILS",
             "USER_DETAILS",
+            "SELECTED_CREDENTIAL"
         ]),
 
         computedRole() {

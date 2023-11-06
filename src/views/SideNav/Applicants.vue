@@ -1,7 +1,6 @@
 <template>
-  <v-app>
+  <v-app style="background: #f6f6f6">
     <v-container>
-      <h2>APPLICANTS</h2>
       <Applicants />
       <ApplicantsCredentialDialog v-if="this.SELECTED_CREDENTIAL !== null" />
     </v-container>

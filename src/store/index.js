@@ -12,6 +12,7 @@ import Store from '@/store/modules/Store'
 import Product from '@/store/modules/Product'
 import Cart from '@/store/modules/Cart'
 import Order from '@/store/modules/Order'
+import Queue from '@/store/modules/Queue'
 
 Vue.use(Vuex)
 
@@ -31,5 +32,6 @@ export default new Vuex.Store({
     Product,
     Cart,
     Order,
+    Queue,
   }
 })

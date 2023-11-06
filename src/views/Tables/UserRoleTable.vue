@@ -1,7 +1,7 @@
 <template>
-  <v-app>
+  <v-app style="background: #f6f6f6">
     <v-container>
-      <v-card elevation="0" outlined>
+      <v-card elevation="1" outlined>
         <v-data-table :headers="headers" :items="USER_ROLES">
           <template v-slot:item="{ item }">
             <tr>
@@ -30,7 +30,7 @@
               </td>
               <td>
                 <!-- <v-icon @click="viewItem(item)" class="mr-2">mdi-eye</v-icon> -->
-                <v-icon @click="editItem(item)">mdi-pencil</v-icon>
+                <v-icon @click="editItem(item)" color="orange">mdi-pencil</v-icon>
                 <!-- <v-icon @click="deleteItem(item)">mdi-delete</v-icon> -->
               </td>
             </tr>
@@ -48,10 +48,10 @@ export default {
   data() {
     return {
       headers: [
-        { text: "User Role", align: "center", sortable: false },
-        { text: "Requirements", align: "center", sortable: false },
-        { text: "Access", align: "center", sortable: false },
-        { text: "Actions", align: "center", value: "actions", sortable: false },
+        { text: "USER ROLE", align: "center", sortable: false },
+        { text: "REQUIREMENTS", align: "center", sortable: false },
+        { text: "ACCESS", align: "center", sortable: false },
+        { text: "ACTIONS", align: "center", value: "actions", sortable: false },
       ],
     };
   },

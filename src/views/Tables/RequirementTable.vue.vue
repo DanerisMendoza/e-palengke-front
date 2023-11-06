@@ -1,24 +1,18 @@
 <template>
-  <v-app>
+  <v-app style="background: #f6f6f6">
     <v-container>
-      <v-btn
-        @click="addNewRequirement()"
-        color="secondary"
-        elevation="0"
-        class="mb-5"
-      >
-        ADD NEW REQUIREMENT
+      <v-btn @click="addNewRequirement()" elevation="0" class="mb-5" dark>
+        add new requirement
       </v-btn>
 
-      <v-card elevation="0" outlined>
+      <v-card elevation="1" outlined>
         <v-data-table :headers="headers" :items="REQUIREMENT_DETAILS">
           <template v-slot:item="{ item }">
             <tr>
               <td>{{ item.name }}</td>
               <td>
-                <!-- <v-icon @click="viewItem(item)">mdi-eye</v-icon> -->
-                <v-icon @click="editItem(item)">mdi-pencil</v-icon>
-                <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
+                <v-icon @click="editItem(item)" color="orange">mdi-pencil</v-icon>
+                <v-icon @click="deleteItem(item)" color="red">mdi-delete</v-icon>
               </td>
             </tr>
           </template>
@@ -27,6 +21,7 @@
     </v-container>
   </v-app>
 </template>
+
 <script>
 import { mapGetters } from "vuex";
 
@@ -34,8 +29,8 @@ export default {
   data() {
     return {
       headers: [
-        { text: "Requirement Details", align: "center", sortable: false },
-        { text: "Actions", align: "center", value: "actions", sortable: false },
+        { text: "REQUIREMENT DETAILS", align: "center", sortable: false },
+        { text: "ACTIONS", align: "center", value: "actions", sortable: false },
       ],
     };
   },
@@ -50,7 +45,7 @@ export default {
   },
 
   methods: {
-    viewItem(item) {},
+    viewItem(item) { },
     editItem(item) {
       this.$store.commit("SELECTED_REQUIREMENT_DETAILS", item);
       this.$store.commit("REQUIREMENT_DETAIL_DIALOG", "UPDATE");
@@ -82,11 +77,7 @@ export default {
                     title: "Success!",
                     text: "Item Deleted Successfully.",
                   });
-                  this.$store.dispatch("GET_REQUIREMENTS");
-                  this.$store.dispatch(
-                    "GET_REQUIREMENT_DETAILS",
-                    this.SELECTED_REQUIREMENT_DETAILS.id
-                  );
+                  this.$store.dispatch("GET_REQUIREMENT_DETAILS",this.SELECTED_REQUIREMENT_DETAILS.id);
                 }
               });
           }
@@ -95,34 +86,7 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch("GET_REQUIREMENT_DETAILS").then(() => {
-      console.log(this.REQUIREMENT_DETAILS);
-    });
-    // this.$store.dispatch("GET_REQUIREMENTS")
-    // this.$store.dispatch("GET_REQUIREMENTS_BY_ID",1).then((response) => {
-    //   console.log(response);
-    // });
-    // this.$store.dispatch("GET_REQUIREMENTS_BY_ID",1).then((response) => {
-    //   console.log(response);
-    // });
-    // const payload = {
-    //     request:{
-    //         name: 'agent2'
-    //     },
-    //     id:4
-    // }
-    // const payload = {
-    //     name: 'agent'
-    // }
-    // this.$store.dispatch("CREATE_REQUIREMENT",payload).then((response) => {
-    //   console.log(response);
-    // });
-    // this.$store.dispatch("DELETE_REQUIREMENT_BY_ID",3).then((response) => {
-    //   console.log(response);
-    // });
-    // this.$store.dispatch("UPDATE_REQUIREMENT_BY_ID",payload).then((response) => {
-    //   console.log(response);
-    // });
+    this.$store.dispatch("GET_REQUIREMENT_DETAILS")
   },
 };
 </script>
