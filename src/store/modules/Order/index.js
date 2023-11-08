@@ -50,6 +50,15 @@ export default {
                 });
             })
         },
+        ACCEPT_ORDER({ commit }, payload) {
+            return new Promise((resolve, reject) => {
+                api.post('api/ACCEPT_ORDER', payload).then((response) => {
+                    resolve(response.data)
+                }).catch((error) => {
+                    reject(error)
+                });
+            })
+        },
         GET_ORDERS_BY_STORE_ID({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 api.get(`api/GET_ORDERS_BY_STORE_ID/${payload}`).then((response) => {

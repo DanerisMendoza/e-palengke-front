@@ -11,7 +11,7 @@
                         <v-btn @click="viewOrderDetails(item)">
                             <v-icon>mdi-view-list</v-icon>
                         </v-btn>
-                        <v-btn @click="acceptOrder(item)">
+                        <v-btn @click="ACCEPT_ORDER(item)">
                             <v-icon>mdi-check</v-icon>
                         </v-btn>
                         <v-btn @click="declineOrder(item)">
@@ -95,15 +95,28 @@ export default {
     },
     methods: {
         CANCEL_ORDER(item) {
-            const payload = { item }
+            const payload = { order_id: item.order_id }
             this.$store.dispatch('CANCEL_ORDER', payload).then((response) => {
                 if (response === 'success') {
                     this.fetchTable()
+                    this.$swal.fire({
+                        icon: 'success',
+                        title: 'Order Cancel Success',
+                        timer: 2000
+                    });
                 }
             })
             console.log(item)
         },
-        acceptOrder(item) {
+        ACCEPT_ORDER(item) {
+            const payload = {
+                order_id: item.order_id
+            }
+            this.$store.dispatch('ACCEPT_ORDER', payload).then((response) => {
+                if (response === 'success') {
+                    this.fetchTable()
+                }
+            })
             console.log(item)
         },
         declineOrder(item) {

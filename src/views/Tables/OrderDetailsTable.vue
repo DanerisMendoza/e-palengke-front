@@ -89,7 +89,7 @@ export default {
                             mode: 'customer'
                         }
                     }
-                    this.$store.dispatch('GET_ORDERS_BY_USER_ID', payload2)
+                    this.$store.dispatch('GET_ORDERS', payload2)
                     this.$swal.fire({
                         icon: 'success',
                         title: 'Order Cancel Success',
