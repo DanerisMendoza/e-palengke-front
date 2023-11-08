@@ -61,9 +61,9 @@ export default {
             })
         },
 
-        GET_ORDERS_BY_USER_ID({ commit }, payload) {
+        GET_ORDERS({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                api.get('api/GET_ORDERS_BY_USER_ID', payload).then((response) => {
+                api.get('api/GET_ORDERS', payload).then((response) => {
                     commit('ORDERS', response.data)
                     resolve(response.data)
                 }).catch((error) => {

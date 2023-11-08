@@ -100,6 +100,7 @@ export default {
         }
     },
     mounted() {
+        console.log(this.SELECTED_ORDER_DETAILS)
         const payload = {
             params: {
                 order_id: this.SELECTED_ORDER_DETAILS.order_id,

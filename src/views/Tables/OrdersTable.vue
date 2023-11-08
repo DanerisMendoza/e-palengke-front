@@ -116,31 +116,16 @@ export default {
             this.$store.commit('SELECTED_ORDER_DETAILS', item)
         },
         fetchTable() {
-            if (this.ORDERS_TABLE_MODE === 'customer') {
-                const payload = {
-                    params: {
-                        mode: 'customer'
-                    }
-                }
-                this.$store.dispatch('GET_ORDERS_BY_USER_ID', payload).then(() => {
-                    // console.table(this.ORDERS)
-                })
+            const payload = { 
+                params: {
+                    mode:this.ORDERS_TABLE_MODE,
+                    store_id: this.store_id
+                } 
             }
-            else if (this.ORDERS_TABLE_MODE === 'store') {
-                this.$store.dispatch('GET_ORDERS_BY_STORE_ID', this.store_id).then(() => {
-                    // console.log(this.ORDERS)
-                })
-            }
-            else if (this.ORDERS_TABLE_MODE === 'delivery') {
-                const payload = {
-                    params: {
-                        mode: 'delivery'
-                    }
-                }
-                this.$store.dispatch('GET_ORDERS_BY_USER_ID', payload).then(() => {
-                    // console.log(this.ORDERS)
-                })
-            }
+            console.log(payload)
+            this.$store.dispatch('GET_ORDERS', payload).then(() => {
+                console.log(this.ORDERS)
+            })
         }
     },
     mounted() {
