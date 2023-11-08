@@ -110,6 +110,7 @@ export default {
         },
         ACCEPT_ORDER(item) {
             const payload = {
+                customer_id: item.customer_id,
                 order_id: item.order_id
             }
             this.$store.dispatch('ACCEPT_ORDER', payload).then((response) => {
