@@ -16,11 +16,11 @@
                 </v-row>
                 <v-row>
                     <v-col cols="12">
-                        <v-text-field outlined readonly class="float-right mr-15 mt-15">
+                        <!-- <v-text-field outlined readonly class="float-right mr-15 mt-15">
                             <template v-slot:append>
                                 Total: ₱{{ total.toFixed(2) }}
                             </template>
-                        </v-text-field>
+                        </v-text-field> -->
                     </v-col>
                 </v-row>
             </v-card>
@@ -42,7 +42,8 @@ export default {
             "ORDERS", "SELECTED_ORDER_DETAILS"
         ]),
         total() {
-            return this.ORDERS[this.SELECTED_ORDER_DETAILS].order_details.reduce((total, item) => total + (item.price * item.quantity), 0);
+            return ''
+            // return this.ORDERS[this.SELECTED_ORDER_DETAILS].order_details.reduce((total, item) => total + (item.price * item.quantity), 0);
         }
     },
     methods: {
