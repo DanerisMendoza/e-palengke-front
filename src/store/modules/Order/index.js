@@ -59,6 +59,15 @@ export default {
                 });
             })
         },
+        ORDER_TO_SHIP({ commit }, payload) {
+            return new Promise((resolve, reject) => {
+                api.post('api/ORDER_TO_SHIP', payload).then((response) => {
+                    resolve(response.data)
+                }).catch((error) => {
+                    reject(error)
+                });
+            })
+        },
         GET_ORDERS_BY_STORE_ID({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 api.get(`api/GET_ORDERS_BY_STORE_ID/${payload}`).then((response) => {

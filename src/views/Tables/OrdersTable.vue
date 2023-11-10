@@ -11,11 +11,14 @@
                         <v-btn @click="viewOrderDetails(item)">
                             <v-icon>mdi-view-list</v-icon>
                         </v-btn>
-                        <v-btn v-if="item.status != 'Preparing'" @click="ACCEPT_ORDER(item)">
+                        <v-btn v-if="item.status == 'Pending'" @click="ACCEPT_ORDER(item)">
                             <v-icon>mdi-check</v-icon>
                         </v-btn>
-                        <v-btn v-if="item.status != 'Preparing'" @click="declineOrder(item)">
+                        <v-btn v-if="item.status == 'Pending'" @click="declineOrder(item)">
                             <v-icon>mdi-close</v-icon>
+                        </v-btn>
+                        <v-btn v-if="item.status == 'Preparing'" @click="ORDER_TO_SHIP(item)">
+                            <v-icon>mdi-truck</v-icon>
                         </v-btn>
                     </td>
                 </tr>
@@ -106,7 +109,6 @@ export default {
                     });
                 }
             })
-            console.log(item)
         },
         ACCEPT_ORDER(item) {
             const payload = {
@@ -118,7 +120,17 @@ export default {
                     this.fetchTable()
                 }
             })
-            console.log(item)
+        },
+        ORDER_TO_SHIP(item){
+            const payload = {
+                customer_id: item.customer_id,
+                order_id: item.order_id
+            }
+            this.$store.dispatch('ORDER_TO_SHIP', payload).then((response) => {
+                if (response === 'success') {
+                    this.fetchTable()
+                }
+            })
         },
         declineOrder(item) {
 
