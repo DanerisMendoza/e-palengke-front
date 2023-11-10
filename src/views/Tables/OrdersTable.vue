@@ -35,7 +35,7 @@
                         <v-btn @click="viewOrderDetails(item)">
                             <v-icon>mdi-view-list</v-icon>
                         </v-btn>
-                        <v-btn v-if="item.status != 'Preparing'" @click="CANCEL_ORDER(item)">
+                        <v-btn v-if="item.status == 'Pending'" @click="CANCEL_ORDER(item)">
                             <v-icon>mdi-close</v-icon>
                         </v-btn>
                     </td>

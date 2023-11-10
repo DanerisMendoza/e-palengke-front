@@ -22,7 +22,7 @@
                         <td>₱{{ item.price }}</td>
                         <td>₱{{ item.price * item.quantity }}</td>
                         <td>
-                            <v-btn v-if="SELECTED_ORDER_DETAILS.status != 'Preparing'" @click="CANCEL_ORDER_DETAIL(item)">
+                            <v-btn v-if="SELECTED_ORDER_DETAILS.status == 'Pending'" @click="CANCEL_ORDER_DETAIL(item)">
                                 <v-icon>mdi-close</v-icon>
                             </v-btn>
                         </td>
