@@ -42,24 +42,50 @@ export default {
   methods: {
     deleteItem(item) {
       this.$store.dispatch("DELETE_STORE_TYPE_DETAIL_BY_ID", item.id);
+      this.$swal
+        .fire({
+          icon: "warning",
+          title: "Delete Item",
+          text: "Are you sure you want to delete this item?",
+          showCancelButton: true,
+          confirmButtonText: "Yes, delete it",
+          cancelButtonText: "No, cancel",
+          confirmButtonColor: "#d33",
+        })
+        then((result) => {
+          if (result.isConfirmed) {
+            this.$store
+              .dispatch("DELETE_STORE_TYPE_DETAIL_BY_ID", item.id)
+              .then((response) => {
+                if (response === "success") {
+                  this.$swal.fire({
+                    icon: "success",
+                    title: "Success!",
+                    text: "Item Deleted Successfully.",
+                  });
+                  this.$store.dispatch("GET_STORE_TYPE_DETAIL",this.STORE_TYPE_DETAIL.id);
+                }
+              });
+          }
+        });
     },
     editItem(item) {
       console.log(item);
       // this.$store.commit("SELECTED_REQUIREMENT_DETAILS", item);
       // this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET", 'UPDATE');
-      // console.log('Edit button clicked');
+      console.log('Edit button clicked');
     },
   },
 
   mounted() {
     this.$store.dispatch("GET_STORE_TYPE_DETAIL").then((response) => {
-      // console.log(response)
-      // console.log(this.STORE_TYPE_DETAIL)
+      console.log(response)
+      console.log(this.STORE_TYPE_DETAIL)
     });
-    // this.$store.commit('STORE_TYPE_DETAIL',[1,2,3])
-    // console.log(this.STORE_TYPE_DETAIL)
-    // console.log(this.headers)
-    // this.$store.dispatch("GET_USER_ROLE_WITH_ACCESSESS_AND_REQUIREMENTS")
+    this.$store.commit('STORE_TYPE_DETAIL',[1,2,3])
+    console.log(this.STORE_TYPE_DETAIL)
+    console.log(this.headers)
+    this.$store.dispatch("GET_USER_ROLE_WITH_ACCESSESS_AND_REQUIREMENTS")
   },
 };
 </script>
