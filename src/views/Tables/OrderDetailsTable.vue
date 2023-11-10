@@ -12,7 +12,7 @@
                     </tr>
                 </template>
             </v-data-table>
-            <v-data-table v-else-if="ORDERS_TABLE_MODE === 'customer'" :headers="customer_headers" :items="ORDER_DETAILS">
+            <v-data-table v-else-if="ORDERS_TABLE_MODE === 'customer'" :headers="SELECTED_ORDER_DETAILS.status != 'preparing' ? customer_headers : customer_headers2" :items="ORDER_DETAILS">
                 <template v-slot:item="{ item }">
                     <tr>
                         <td>{{ item.name }}</td>
@@ -22,7 +22,7 @@
                         <td>₱{{ item.price }}</td>
                         <td>₱{{ item.price * item.quantity }}</td>
                         <td>
-                            <v-btn @click="CANCEL_ORDER_DETAIL(item)">
+                            <v-btn v-if="SELECTED_ORDER_DETAILS.status != 'preparing'" @click="CANCEL_ORDER_DETAIL(item)">
                                 <v-icon>mdi-close</v-icon>
                             </v-btn>
                         </td>
@@ -64,6 +64,14 @@ export default {
                 { text: "Price ", align: "center", sortable: false },
                 { text: "Sub Total ", align: "center", sortable: false },
                 { text: "Actions", align: "center", sortable: false },
+            ],
+            customer_headers2: [
+                { text: "Product Name", align: "center", sortable: false },
+                { text: "Store Name", align: "center", sortable: false },
+                { text: "Store Address", align: "center", sortable: false },
+                { text: "Quantity ", align: "center", sortable: false },
+                { text: "Price ", align: "center", sortable: false },
+                { text: "Sub Total ", align: "center", sortable: false },
             ],
         }
     },

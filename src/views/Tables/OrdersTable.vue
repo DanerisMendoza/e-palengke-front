@@ -11,10 +11,10 @@
                         <v-btn @click="viewOrderDetails(item)">
                             <v-icon>mdi-view-list</v-icon>
                         </v-btn>
-                        <v-btn @click="ACCEPT_ORDER(item)">
+                        <v-btn v-if="item.status != 'preparing'" @click="ACCEPT_ORDER(item)">
                             <v-icon>mdi-check</v-icon>
                         </v-btn>
-                        <v-btn @click="declineOrder(item)">
+                        <v-btn v-if="item.status != 'preparing'" @click="declineOrder(item)">
                             <v-icon>mdi-close</v-icon>
                         </v-btn>
                     </td>
@@ -32,7 +32,7 @@
                         <v-btn @click="viewOrderDetails(item)">
                             <v-icon>mdi-view-list</v-icon>
                         </v-btn>
-                        <v-btn @click="CANCEL_ORDER(item)">
+                        <v-btn v-if="item.status != 'preparing'" @click="CANCEL_ORDER(item)">
                             <v-icon>mdi-close</v-icon>
                         </v-btn>
                     </td>
