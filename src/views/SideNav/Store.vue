@@ -18,7 +18,11 @@
             <v-col cols="6">
                 <MAP_COMPONENT :sidenavViewer="'store'"/>
                 <br>
-                <v-slider v-model="circleRadius" thumb-label="always" class="mt-3"></v-slider>
+                <v-slider v-model="circleRadius" class="mt-3" thumb-label="always">
+                    <template v-slot:thumb-label="{ value }">
+                        <div class="custom-thumb-label">{{ value }} </div>
+                    </template>
+                </v-slider>
             </v-col>
         </v-row>
     </v-container>
@@ -105,7 +109,7 @@ export default {
     watch: {
         circleRadius: {
             handler(val) {
-                this.$store.commit("CIRCLE_RADIUS", val)
+                this.$store.commit("CIRCLE_RADIUS", val*3)
             },
         }
     },
@@ -133,5 +137,11 @@ export default {
   top: 400px;
   z-index: -1;
 }
-
-/* Add styling for the ProductTable to position it absolutely */
+.custom-thumb-label {
+    max-width: 60px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: black;
+}
+</style>

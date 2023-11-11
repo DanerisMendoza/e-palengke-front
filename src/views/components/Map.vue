@@ -2,17 +2,26 @@
   <v-container>
     <l-map class="map-container" ref="map" style="height: 300px" :center="center" :zoom="zoom" @click="handleMarkerClick">
       <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></l-tile-layer>
+      
       <!-- current marker(dynamic icon) -->
       <l-marker v-if="MARKER_LAT_LNG !== null" :lat-lng="MARKER_LAT_LNG" :icon="computedMarker"></l-marker>
+     
       <!-- multiple marker(stores) -->
       <l-marker v-if="sidenavViewer === 'store'" v-for="(item, index) in storeMarkersInsideCircle" ref="markers"
         :key="index" :lat-lng="item" :icon="sellerMarker" @click="go(item)">
         <!-- stores tooltip info -->
         <l-popup :content="getTooltipContent(item)"></l-popup>
       </l-marker>
-      <l-marker v-if="sidenavViewer === 'delivery'" v-for="(item, index) in USER_INSIDE_RADIUS" ref="markers"
-        :key="index" :lat-lng="{ lat: item.latitude, lng: item.longitude}" :icon="personMarker" @click="go(item)">
+      
+      <!-- delivery -->
+      <!-- <l-marker v-if="sidenavViewer === 'delivery'" v-for="(item, index) in USER_INSIDE_RADIUS" ref="markers"
+        :key="index" :lat-lng="{ lat: item.latitude, lng: item.longitude}" :icon="personMarker" >
+      </l-marker> -->
+      <l-marker v-if="sidenavViewer === 'delivery' && TRANSACTION != null" :lat-lng="{ lat: TRANSACTION[0].latitude, lng: TRANSACTION[0].longitude}" :icon="personMarker"></l-marker>
+      <l-marker v-if="sidenavViewer === 'delivery' && TRANSACTION != null" v-for="(item, index) in ORDER_STORE_LAT_LNG" ref="markers"
+        :key="index" :lat-lng="{ lat: item.latitude, lng: item.longitude}" :icon="sellerMarker" >
       </l-marker>
+      
       <!-- radius -->
       <l-circle v-if="MARKER_LAT_LNG !== null" :lat-lng="MARKER_LAT_LNG" :radius="circleRadius" :fill="true"
         :fill-opacity="0.2" :color="'rgb(242 159 19)'" style="cursor: move"></l-circle>
@@ -117,7 +126,9 @@ export default {
       "SELECTED_USER_ROLE_DETAILS",
       "STORES_LAT_LNG",
       "STORES",
-      "USER_INSIDE_RADIUS"
+      "USER_INSIDE_RADIUS",
+      "TRANSACTION",
+      "ORDER_STORE_LAT_LNG"
     ]),
 
     computedMarker() {
@@ -158,6 +169,11 @@ export default {
       },
     },
 
+    ORDER_STORE_LAT_LNG: {
+      handler(val) {
+        console.log(val)
+      },
+    },
     CIRCLE_RADIUS: {
       handler(val) {
         this.circleRadius = val

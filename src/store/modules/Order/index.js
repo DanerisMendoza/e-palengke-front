@@ -6,7 +6,8 @@ export default {
         ORDER_DETAILS: [],
         SELECTED_ORDER_DETAILS: null,
         ORDERS_TABLE_MODE: null,
-        TRANSACTION: []
+        TRANSACTION: null,
+        ORDER_STORE_LAT_LNG: []
     },
 
     getters: {
@@ -15,6 +16,7 @@ export default {
         ORDER_DETAILS: (state) => state.ORDER_DETAILS,
         SELECTED_ORDER_DETAILS: (state) => state.SELECTED_ORDER_DETAILS,
         ORDERS_TABLE_MODE: (state) => state.ORDERS_TABLE_MODE,
+        ORDER_STORE_LAT_LNG: (state) => state.ORDER_STORE_LAT_LNG,
     },
 
     mutations: {
@@ -23,6 +25,7 @@ export default {
         ORDER_DETAILS: (state, data) => { state.ORDER_DETAILS = data },
         SELECTED_ORDER_DETAILS: (state, data) => { state.SELECTED_ORDER_DETAILS = data },
         ORDERS_TABLE_MODE: (state, data) => { state.ORDERS_TABLE_MODE = data },
+        ORDER_STORE_LAT_LNG: (state, data) => { state.ORDER_STORE_LAT_LNG = data },
     },
 
     actions: {
