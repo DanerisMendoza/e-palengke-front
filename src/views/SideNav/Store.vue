@@ -84,7 +84,6 @@ export default {
             this.$store.commit("MARKER_LAT_LNG", [latitude, longitude])
             this.$store.commit("CENTER", [latitude, longitude])
             this.$store.commit("ZOOM", 19)
-            this.$store.commit("SELECTED_USER_ROLE_DETAILS", "customerStore")
         }
     },
 

@@ -32,6 +32,15 @@ export default {
                 });
             })
         },
+        FIND_ORDER({ commit }, payload) {
+            return new Promise((resolve, reject) => {
+                api.post('api/FIND_ORDER', payload).then((response) => {
+                    resolve(response.data)
+                }).catch((error) => {
+                    reject(error)
+                });
+            })
+        },
         CANCEL_ORDER({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 api.post('api/CANCEL_ORDER', payload).then((response) => {

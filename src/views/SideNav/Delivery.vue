@@ -1,7 +1,6 @@
 <template>
     <v-container>
         <Queue/>
-        <MAP_COMPONENT :sidenavViewer="'delivery'"/>
     </v-container>
 </template>
 

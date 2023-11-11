@@ -10,10 +10,12 @@
         <!-- stores tooltip info -->
         <l-popup :content="getTooltipContent(item)"></l-popup>
       </l-marker>
+      <l-marker v-if="sidenavViewer === 'delivery'" v-for="(item, index) in USER_INSIDE_RADIUS" ref="markers"
+        :key="index" :lat-lng="{ lat: item.latitude, lng: item.longitude}" :icon="personMarker" @click="go(item)">
+      </l-marker>
       <!-- radius -->
       <l-circle v-if="MARKER_LAT_LNG !== null" :lat-lng="MARKER_LAT_LNG" :radius="circleRadius" :fill="true"
         :fill-opacity="0.2" :color="'rgb(242 159 19)'" style="cursor: move"></l-circle>
-
     </l-map>
   </v-container>
 </template>
@@ -115,6 +117,7 @@ export default {
       "SELECTED_USER_ROLE_DETAILS",
       "STORES_LAT_LNG",
       "STORES",
+      "USER_INSIDE_RADIUS"
     ]),
 
     computedMarker() {
@@ -157,7 +160,7 @@ export default {
 
     CIRCLE_RADIUS: {
       handler(val) {
-        this.circleRadius = val * 3
+        this.circleRadius = val
       },
     },
     STORES_LAT_LNG: {
