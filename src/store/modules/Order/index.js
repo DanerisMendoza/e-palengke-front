@@ -41,6 +41,15 @@ export default {
                 });
             })
         },
+        DECLINE_ORDER({ commit }, payload) {
+            return new Promise((resolve, reject) => {
+                api.post('api/DECLINE_ORDER', payload).then((response) => {
+                    resolve(response.data)
+                }).catch((error) => {
+                    reject(error)
+                });
+            })
+        },
         CANCEL_ORDER_DETAIL({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 api.post('api/CANCEL_ORDER_DETAIL', payload).then((response) => {

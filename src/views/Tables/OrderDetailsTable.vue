@@ -98,6 +98,7 @@ export default {
                         }
                     }
                     this.$store.dispatch('GET_ORDERS', payload2)
+                    this.$store.dispatch("GetUserDetails")
                     this.$swal.fire({
                         icon: 'success',
                         title: 'Order Cancel Success',

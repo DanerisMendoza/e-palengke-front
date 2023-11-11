@@ -14,7 +14,7 @@
                         <v-btn v-if="item.status == 'Pending'" @click="ACCEPT_ORDER(item)">
                             <v-icon>mdi-check</v-icon>
                         </v-btn>
-                        <v-btn v-if="item.status == 'Pending'" @click="declineOrder(item)">
+                        <v-btn v-if="item.status == 'Pending'" @click="DECLINE_ORDER(item)">
                             <v-icon>mdi-close</v-icon>
                         </v-btn>
                         <v-btn v-if="item.status == 'Preparing'" @click="ORDER_TO_SHIP(item)">
@@ -102,6 +102,7 @@ export default {
             this.$store.dispatch('CANCEL_ORDER', payload).then((response) => {
                 if (response === 'success') {
                     this.fetchTable()
+                    this.$store.dispatch("GetUserDetails")
                     this.$swal.fire({
                         icon: 'success',
                         title: 'Order Cancel Success',
@@ -118,6 +119,11 @@ export default {
             this.$store.dispatch('ACCEPT_ORDER', payload).then((response) => {
                 if (response === 'success') {
                     this.fetchTable()
+                    this.$swal.fire({
+                        icon: 'success',
+                        title: 'Order Accept Success',
+                        timer: 2000
+                    });
                 }
             })
         },
@@ -129,11 +135,29 @@ export default {
             this.$store.dispatch('ORDER_TO_SHIP', payload).then((response) => {
                 if (response === 'success') {
                     this.fetchTable()
+                    this.$swal.fire({
+                        icon: 'success',
+                        title: 'Order To Ship Success',
+                        timer: 2000
+                    });
                 }
             })
         },
-        declineOrder(item) {
-
+        DECLINE_ORDER(item) {
+            const payload = {
+                customer_id: item.customer_id,
+                order_id: item.order_id
+            }
+            this.$store.dispatch('DECLINE_ORDER', payload).then((response) => {
+                if (response === 'success') {
+                    this.fetchTable()
+                    this.$swal.fire({
+                        icon: 'success',
+                        title: 'Decline Order Success',
+                        timer: 2000
+                    });
+                }
+            })
         },
         formatDate(date) {
             return moment(date).format('hh:mm A | YYYY-MM-DD');
