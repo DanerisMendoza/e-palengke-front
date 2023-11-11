@@ -68,6 +68,22 @@
 
       </v-card-text>
     </v-card>
+    <br><br>
+    <v-card v-if="DeliveryDetails.isDelivery" class="user-info-container" elevation="10">
+      <v-card-title>Delivery Information</v-card-title>
+      <v-card-text>
+        <v-row>
+          <v-col>
+            <strong>Latitude:</strong> {{ DeliveryDetails.latitude }}
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <strong>Longitude:</strong> {{ DeliveryDetails.longitude }}
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
@@ -85,6 +101,11 @@ export default {
         name: null,
         address: null,
         store_type_details: []
+      },
+      DeliveryDetails: {
+        isDelivery: false,
+        latitude: null,
+        longitude: null,
       }
     }
   },
@@ -96,6 +117,12 @@ export default {
       this.StoreDetails.name = targetItem.store_details[0].name
       this.StoreDetails.address = targetItem.store_details[0].address
       this.StoreDetails.store_type_details = targetItem.store_details[0].store_type_details
+    }
+    targetItem = userDetails.find(item => item.id === 4 && item.status === 'active');
+    if (targetItem) {
+      this.DeliveryDetails.isDelivery = true
+      this.DeliveryDetails.latitude = targetItem.delivery_details[0].latitude
+      this.DeliveryDetails.longitude = targetItem.delivery_details[0].longitude
     }
 
   }
