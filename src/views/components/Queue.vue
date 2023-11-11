@@ -1,14 +1,11 @@
 <template>
     <v-container>
-        <v-row justify="center">
+        <v-row justify="start" class="ml-3">
             <v-btn @click="startStop" :color="isRunning ? 'red' : 'green'">
                 {{ isRunning ? 'Stop' : 'Start' }}
             </v-btn>
         </v-row>
 
-        <v-row v-if="isRunning" justify="center">
-            {{ formattedElapsedTime }}
-        </v-row>
         <v-row>
             <v-col>
                 <MAP_COMPONENT :sidenavViewer="'delivery'" />
@@ -16,11 +13,11 @@
         </v-row>
         <v-row>
             <v-col>
-                <v-slider v-model="circleRadius" class="mt-3" thumb-label="always">
+                <!-- <v-slider v-model="circleRadius" class="mt-3" thumb-label="always">
                     <template v-slot:thumb-label="{ value }">
                         <div class="custom-thumb-label">{{ value }} meters</div>
                     </template>
-                </v-slider>
+                </v-slider> -->
             </v-col>
         </v-row>
     </v-container>
@@ -44,7 +41,7 @@ export default {
     watch: {
         circleRadius: {
             handler(val) {
-                this.$store.commit("CIRCLE_RADIUS", val*3)
+                this.$store.commit("CIRCLE_RADIUS", val * 3)
                 this.FIND_NEAR_BY()
             },
         }
@@ -53,7 +50,7 @@ export default {
         formattedElapsedTime() {
             return this.formatTime(this.laps[this.laps.length - 1] || 0);
         },
-        ...mapGetters(["USER_DETAILS", "USER_INSIDE_RADIUS","CIRCLE_RADIUS"]),
+        ...mapGetters(["USER_DETAILS", "USER_INSIDE_RADIUS", "CIRCLE_RADIUS", "TRANSACTION"]),
     },
     methods: {
         registeredLocation() {
@@ -80,30 +77,28 @@ export default {
                     radius: this.CIRCLE_RADIUS,
                     user_id: this.USER_DETAILS.user_id
                 }
-                console.log(this.CIRCLE_RADIUS)
-                this.$store.dispatch('FIND_USER_WITHIN_RADIUS', payload).then(() => {
-                    console.log(this.USER_INSIDE_RADIUS)
+                this.$store.dispatch('FIND_ORDER_WITHIN_RADIUS', payload).then((response) => {
+                    console.log(response)
                 })
             }
         },
 
         startStop() {
-
+            // Stop the timer
             if (this.isRunning) {
-                // Stop the timer
                 clearInterval(this.timer);
                 this.timer = null;
                 this.isRunning = !this.isRunning;
                 // this.$store.dispatch('MarkOffline', payload)
-            } else {
-                // Start the timer
+            }
+            // Start the timer
+            else {
                 this.startTime = new Date().getTime();
                 this.timer = setInterval(this.updateTime, 100);
                 this.isRunning = !this.isRunning;
                 this.FIND_NEAR_BY()
                 // this.$store.dispatch('MarkOnline', payload)
                 // this.$store.dispatch('FIND_ORDER', payload)
-
             }
         },
         reset() {
@@ -141,11 +136,9 @@ export default {
 <style scoped>
 .custom-thumb-label {
     max-width: 60px;
-    /* Adjust the width as needed */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     color: black;
-    /* Set the font color to black */
 }
 </style>

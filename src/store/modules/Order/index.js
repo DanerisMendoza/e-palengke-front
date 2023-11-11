@@ -6,9 +6,11 @@ export default {
         ORDER_DETAILS: [],
         SELECTED_ORDER_DETAILS: null,
         ORDERS_TABLE_MODE: null,
+        TRANSACTION: []
     },
 
     getters: {
+        TRANSACTION: (state) => state.TRANSACTION,
         ORDERS: (state) => state.ORDERS,
         ORDER_DETAILS: (state) => state.ORDER_DETAILS,
         SELECTED_ORDER_DETAILS: (state) => state.SELECTED_ORDER_DETAILS,
@@ -16,6 +18,7 @@ export default {
     },
 
     mutations: {
+        TRANSACTION: (state, data) => { state.TRANSACTION = data },
         ORDERS: (state, data) => { state.ORDERS = data },
         ORDER_DETAILS: (state, data) => { state.ORDER_DETAILS = data },
         SELECTED_ORDER_DETAILS: (state, data) => { state.SELECTED_ORDER_DETAILS = data },
@@ -32,9 +35,10 @@ export default {
                 });
             })
         },
-        FIND_ORDER({ commit }, payload) {
+        FIND_ORDER_WITHIN_RADIUS({ commit }, payload) {
             return new Promise((resolve, reject) => {
-                api.post('api/FIND_ORDER', payload).then((response) => {
+                api.post('api/FIND_ORDER_WITHIN_RADIUS', payload).then((response) => {
+                    commit('TRANSACTION', response.data)
                     resolve(response.data)
                 }).catch((error) => {
                     reject(error)

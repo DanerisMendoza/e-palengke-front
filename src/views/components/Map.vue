@@ -104,7 +104,7 @@ export default {
   mounted() {
     // console.log(this.STORES)
     // console.log(this.ZOOM)
-    console.log(this.sidenavViewer)
+    // console.log(this.sidenavViewer)
   },
 
   computed: {
