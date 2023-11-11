@@ -89,10 +89,7 @@ export default {
         });
       },
     },
-    // editItem(item) {
-    //   console.log(item);
-    //   this.$store.commit("PRODUCT_TYPE_DETAILS_BOTTOMSHEET", 'UPDATE');
-    // },
+  
 
   mounted() {
     this.$store.dispatch("GET_PRODUCT_TYPE_DETAIL")
