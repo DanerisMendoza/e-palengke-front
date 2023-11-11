@@ -133,6 +133,7 @@ export default {
   watch: {
     SELECTED_STORE: {
       handler(val) {
+        console.log(val)
         if (this.PRODUCT_TABLE_VIEWER === "STORE") {
           this.$store.dispatch("GET_PRODUCT_BY_ID", val.id).then(() => {
             const updatedProduct = this.PRODUCT.map((item) => ({

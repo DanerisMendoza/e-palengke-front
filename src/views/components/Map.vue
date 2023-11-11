@@ -5,15 +5,15 @@
       <!-- current marker(dynamic icon) -->
       <l-marker v-if="MARKER_LAT_LNG !== null" :lat-lng="MARKER_LAT_LNG" :icon="computedMarker"></l-marker>
       <!-- multiple marker(stores) -->
-      <l-marker v-if="SELECTED_USER_ROLE_DETAILS === 'customerStore'" v-for="(item, index) in storeMarkersInsideCircle"
-        ref="markers" :key="index" :lat-lng="item" :icon="sellerMarker" @click="go(item)">
+      <l-marker v-if="sidenavViewer === 'store'" v-for="(item, index) in storeMarkersInsideCircle" ref="markers"
+        :key="index" :lat-lng="item" :icon="sellerMarker" @click="go(item)">
         <!-- stores tooltip info -->
         <l-popup :content="getTooltipContent(item)"></l-popup>
       </l-marker>
       <!-- radius -->
       <l-circle v-if="MARKER_LAT_LNG !== null" :lat-lng="MARKER_LAT_LNG" :radius="circleRadius" :fill="true"
         :fill-opacity="0.2" :color="'rgb(242 159 19)'" style="cursor: move"></l-circle>
-     
+
     </l-map>
   </v-container>
 </template>
@@ -29,7 +29,7 @@ import deliveryMarker from '@/assets/markers/deliveryMarker2.png';
 export default {
   methods: {
     handleMarkerClick(event) {
-      if (this.sidenavViewer != 'store') {
+      if (this.sidenavViewer == 'application' || this.sidenavViewer == 'registration') {
         const { lat, lng } = event.latlng;
         this.$store.commit("MARKER_LAT_LNG", [0, 0])
         this.$store.commit("CENTER", [0, 0])
@@ -118,17 +118,22 @@ export default {
     ]),
 
     computedMarker() {
-      if (this.SELECTED_USER_ROLE_DETAILS === 3) {
-        return this.sellerMarker
+      if (this.sidenavViewer === 'store') {
+        return this.personMarker
       }
-      else if (this.SELECTED_USER_ROLE_DETAILS === 4) {
+      else if (this.sidenavViewer === 'application') {
+        if (this.SELECTED_USER_ROLE_DETAILS === 3) {
+          return this.sellerMarker
+        }
+        else if (this.SELECTED_USER_ROLE_DETAILS === 4) {
+          return this.deliveryMarker
+        }
+      }
+      else if (this.sidenavViewer === 'registration') {
+        return this.personMarker
+      }
+      else if (this.sidenavViewer === 'delivery') {
         return this.deliveryMarker
-      }
-      else if (this.SELECTED_USER_ROLE_DETAILS === "customerStore") {
-        return this.personMarker
-      }
-      else if (this.SELECTED_USER_ROLE_DETAILS === "customerRegistration") {
-        return this.personMarker
       }
     },
 
