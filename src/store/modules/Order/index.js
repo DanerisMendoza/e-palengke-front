@@ -6,7 +6,7 @@ export default {
         ORDER_DETAILS: [],
         SELECTED_ORDER_DETAILS: null,
         ORDERS_TABLE_MODE: null,
-        TRANSACTION: null,
+        TRANSACTION: [],
         ORDER_STORE_LAT_LNG: []
     },
 

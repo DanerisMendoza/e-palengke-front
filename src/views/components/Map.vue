@@ -17,8 +17,8 @@
       <!-- <l-marker v-if="sidenavViewer === 'delivery'" v-for="(item, index) in USER_INSIDE_RADIUS" ref="markers"
         :key="index" :lat-lng="{ lat: item.latitude, lng: item.longitude}" :icon="personMarker" >
       </l-marker> -->
-      <l-marker v-if="sidenavViewer === 'delivery' && TRANSACTION != null" :lat-lng="{ lat: TRANSACTION[0].latitude, lng: TRANSACTION[0].longitude}" :icon="personMarker"></l-marker>
-      <l-marker v-if="sidenavViewer === 'delivery' && TRANSACTION != null" v-for="(item, index) in ORDER_STORE_LAT_LNG" ref="markers"
+      <l-marker v-if="sidenavViewer === 'delivery' && TRANSACTION.length != 0" :lat-lng="{ lat: TRANSACTION[0].latitude, lng: TRANSACTION[0].longitude}" :icon="personMarker"></l-marker>
+      <l-marker v-if="sidenavViewer === 'delivery' && TRANSACTION.length != 0" v-for="(item, index) in ORDER_STORE_LAT_LNG" ref="markers"
         :key="index" :lat-lng="{ lat: item.latitude, lng: item.longitude}" :icon="sellerMarker" >
       </l-marker>
       

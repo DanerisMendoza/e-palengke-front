@@ -16,7 +16,7 @@
         </v-row>
         <v-row>
             <v-col cols="6">
-                <v-card v-if="newOrder && isRunning">
+                <v-card v-if="newOrder && isRunning && TRANSACTION.length != 0 && decision !== 'accept'">
                     <v-progress-linear color="red lighten-2" buffer-value="0" stream></v-progress-linear>
                     <v-card-title>New Order Incoming</v-card-title>
                     <v-card-text>
@@ -85,7 +85,7 @@ export default {
     components: { MAP_COMPONENT },
     data() {
         return {
-            defaultCountdown: 30,
+            defaultCountdown: 8,
             decision: null,
             newOrder: false,
             isRunning: false,
@@ -105,13 +105,11 @@ export default {
         isRunning: {
             handler(val) {
                 if (val) {
-                    this.countdown = this.defaultCountdown
                     this.FIND_NEAR_BY()
                 } else {
-                    // clearInterval(this.countdownInterval)
-                    // this.countdown = 0
-                    this.$store.commit('ORDER_STORE_LAT_LNG', null)
-                    this.$store.commit('TRANSACTION', null)
+                    this.$store.commit('ORDER_STORE_LAT_LNG', [])
+                    this.$store.commit('TRANSACTION', [])
+                    this.declinedTransactions = []
                 }
             }
         }
@@ -131,8 +129,6 @@ export default {
             this.countdown = 0
         },
         decline() {
-            this.declinedTransactions.push(this.TRANSACTION[0].transaction_id)
-            this.decision = 'decline'
             this.countdown = 0
         },
         registeredLocation() {
@@ -167,49 +163,29 @@ export default {
                 }
                 else {
                     //find new order success delay 5 seconds before reflect
-                    await new Promise((resolve) => setTimeout(resolve, 5000)).then(() => {
-                        this.$store.commit('TRANSACTION', response)
-                        this.$store.commit('ORDER_STORE_LAT_LNG', this.TRANSACTION[0].orders)
-                        this.newOrder = true
-                        this.startCountdown()
-                    });
+                    await new Promise((resolve) => setTimeout(resolve, 5000));
+                    this.$store.commit('TRANSACTION', response)
+                    this.$store.commit('ORDER_STORE_LAT_LNG', this.TRANSACTION[0].orders)
+                    this.newOrder = true
+                    this.countdown = this.defaultCountdown
+                    //new order popup
+                    while (this.newOrder && this.countdown > 0 && this.decision != 'accept') {
+                        this.countdown--
+                        await new Promise((resolve) => setTimeout(resolve, 1000));
+                        //countdown finish
+                        if (this.isRunning && this.countdown <= 0) {
+                            if (this.decision != 'accept') {
+                                this.declinedTransactions.push(this.TRANSACTION[0].transaction_id)
+                                this.$store.commit('ORDER_STORE_LAT_LNG', [])
+                                this.$store.commit('TRANSACTION', [])
+                                this.FIND_NEAR_BY()
+                            }
+                        }
+                    }
                 }
             })
         },
 
-        startCountdown() {
-            // Set up an interval that decrements the countdown every second
-            this.countdownInterval = setInterval(async () => {
-                console.log(this.countdown)
-                if(this.isRunning == false){
-                    clearInterval(this.countdownInterval);
-                }
-                else if (this.countdown > 0) {
-                    this.countdown--;
-                } else {
-                    // Clear the interval when the countdown reaches 0
-                    this.newOrder = false
-                    this.countdown = this.defaultCountdown
-                    clearInterval(this.countdownInterval);
-                    if (this.decision === 'accept') {
-
-                    }
-                    else if (this.decision === 'decline') {
-                        this.$store.commit('ORDER_STORE_LAT_LNG', null)
-                        this.$store.commit('TRANSACTION', null)
-                        await new Promise((resolve) => setTimeout(resolve, 5000));
-                        this.FIND_NEAR_BY()
-                    }
-                    else if (this.isRunning) {
-                        this.declinedTransactions.push(this.TRANSACTION[0].transaction_id)
-                        this.$store.commit('ORDER_STORE_LAT_LNG', null)
-                        this.$store.commit('TRANSACTION', null)
-                        await new Promise((resolve) => setTimeout(resolve, 5000));
-                        this.FIND_NEAR_BY()
-                    }
-                }
-            }, 1000);
-        },
 
     },
     mounted() {
