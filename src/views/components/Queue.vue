@@ -113,6 +113,7 @@ export default {
                     this.$store.commit('ORDER_STORE_LAT_LNG', [])
                     this.$store.commit('TRANSACTION', [])
                     this.declinedTransactions = []
+                    this.newOrder = false
                 }
             }
         }
@@ -147,6 +148,9 @@ export default {
         },
 
         FIND_NEAR_BY() {
+            if(!this.isRunning){
+                return
+            }
             const userDetails = this.USER_DETAILS.user_role_details
             const targetItem = userDetails.find(item => item.id === 4 && item.status === 'active');
             const latitude = targetItem.delivery_details[0].latitude
@@ -159,12 +163,12 @@ export default {
                 declinedTransactions: this.declinedTransactions
             }
             this.$store.dispatch('FIND_ORDER_WITHIN_RADIUS', payload).then(async (response) => {
-                if (response.length === 0) {
+                if (response.length === 0 && this.isRunning) {
                     // if see nothing find again delay 3 seconds
                     await new Promise((resolve) => setTimeout(resolve, 3000));
                     this.FIND_NEAR_BY()
                 }
-                else {
+                else if(this.isRunning){
                     //find new order success delay 5 seconds before reflect
                     await new Promise((resolve) => setTimeout(resolve, 5000));
                     this.$store.commit('TRANSACTION', response)
