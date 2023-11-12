@@ -49,6 +49,9 @@
                 <v-card v-else-if="decision === 'accept'">
                     <v-card-title>Order</v-card-title>
                     <v-card-text>
+                        Customer Name: {{ TRANSACTION[0].customer_name }}
+                        <br>
+                        Customer Address: {{ TRANSACTION[0].customer_address }}
                         <v-row v-for="(item, index) in TRANSACTION[0].orders" :key="index">
                             <v-col>
                                 <v-divider></v-divider>
