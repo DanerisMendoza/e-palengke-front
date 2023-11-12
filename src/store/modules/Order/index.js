@@ -7,10 +7,12 @@ export default {
         SELECTED_ORDER_DETAILS: null,
         ORDERS_TABLE_MODE: null,
         TRANSACTION: [],
+        CURRENT_TRANSACTION_ID: null,
         ORDER_STORE_LAT_LNG: []
     },
 
     getters: {
+        CURRENT_TRANSACTION_ID: (state) => state.CURRENT_TRANSACTION_ID,
         TRANSACTION: (state) => state.TRANSACTION,
         ORDERS: (state) => state.ORDERS,
         ORDER_DETAILS: (state) => state.ORDER_DETAILS,
@@ -20,6 +22,7 @@ export default {
     },
 
     mutations: {
+        CURRENT_TRANSACTION_ID: (state, data) => { state.CURRENT_TRANSACTION_ID = data },
         TRANSACTION: (state, data) => { state.TRANSACTION = data },
         ORDERS: (state, data) => { state.ORDERS = data },
         ORDER_DETAILS: (state, data) => { state.ORDER_DETAILS = data },
@@ -41,6 +44,18 @@ export default {
         FIND_ORDER_WITHIN_RADIUS({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 api.post('api/FIND_ORDER_WITHIN_RADIUS', payload).then((response) => {
+                    if(response.data.length > 0){
+                        commit('CURRENT_TRANSACTION_ID', response.data[0].transaction_id)
+                    }
+                    resolve(response.data)
+                }).catch((error) => {
+                    reject(error)
+                });
+            })
+        },
+        REMOVE_TRANSACTION_DELIVERY_ID({ commit },payload) {
+            return new Promise((resolve, reject) => {
+                api.post('api/REMOVE_TRANSACTION_DELIVERY_ID', payload).then((response) => {
                     resolve(response.data)
                 }).catch((error) => {
                     reject(error)

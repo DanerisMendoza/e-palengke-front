@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-row justify="start" class="ml-3">
-            <v-switch v-model="isRunning" label="Start Shift" :readonly="decision === 'accept'">
+            <v-switch v-model="isRunning" label="Start Shift" :readonly="hasDeliver">
 
             </v-switch>
         </v-row>
@@ -16,7 +16,7 @@
         </v-row>
         <v-row>
             <v-col cols="6">
-                <v-card v-if="newOrder && isRunning && TRANSACTION.length != 0 && decision !== 'accept'">
+                <v-card v-if="newOrder && isRunning && TRANSACTION.length != 0 && !hasDeliver">
                     <v-progress-linear color="red lighten-2" buffer-value="0" stream></v-progress-linear>
                     <v-card-title>New Order Incoming</v-card-title>
                     <v-card-text>
@@ -46,7 +46,7 @@
                     {{ countdown }}
                     <v-progress-linear color="red lighten-2" buffer-value="0" stream></v-progress-linear>
                 </v-card>
-                <v-card v-else-if="decision === 'accept'">
+                <v-card v-else-if="hasDeliver">
                     <v-card-title>Order</v-card-title>
                     <v-card-text>
                         Customer Name: {{ TRANSACTION[0].customer_name }}
@@ -89,7 +89,7 @@ export default {
     data() {
         return {
             defaultCountdown: 8,
-            decision: null,
+            hasDeliver: false,
             newOrder: false,
             isRunning: false,
             circleRadius: 500,
@@ -110,6 +110,14 @@ export default {
                 if (val) {
                     this.FIND_NEAR_BY()
                 } else {
+                    if(!this.hasDeliver && this.CURRENT_TRANSACTION_ID != null){
+                        const payload = {
+                            transaction_id:this.CURRENT_TRANSACTION_ID,
+                            user_id:this.USER_DETAILS.user_id,
+                        }
+                        console.log(payload)
+                        this.$store.dispatch('REMOVE_TRANSACTION_DELIVERY_ID',payload)
+                    }
                     this.$store.commit('ORDER_STORE_LAT_LNG', [])
                     this.$store.commit('TRANSACTION', [])
                     this.declinedTransactions = []
@@ -122,14 +130,14 @@ export default {
         formattedElapsedTime() {
             return this.formatTime(this.laps[this.laps.length - 1] || 0);
         },
-        ...mapGetters(["USER_DETAILS", "USER_INSIDE_RADIUS", "CIRCLE_RADIUS", "TRANSACTION", "ORDER_STORE_LAT_LNG"]),
+        ...mapGetters(["USER_DETAILS", "USER_INSIDE_RADIUS", "CIRCLE_RADIUS", "TRANSACTION", "ORDER_STORE_LAT_LNG","CURRENT_TRANSACTION_ID"]),
     },
     methods: {
         pickup() {
 
         },
         accept() {
-            this.decision = 'accept'
+            this.hasDeliver = true
             this.countdown = 0
         },
         decline() {
@@ -148,9 +156,6 @@ export default {
         },
 
         FIND_NEAR_BY() {
-            if(!this.isRunning){
-                return
-            }
             const userDetails = this.USER_DETAILS.user_role_details
             const targetItem = userDetails.find(item => item.id === 4 && item.status === 'active');
             const latitude = targetItem.delivery_details[0].latitude
@@ -163,29 +168,33 @@ export default {
                 declinedTransactions: this.declinedTransactions
             }
             this.$store.dispatch('FIND_ORDER_WITHIN_RADIUS', payload).then(async (response) => {
-                if (response.length === 0 && this.isRunning) {
+                if (response.length === 0) {
                     // if see nothing find again delay 3 seconds
                     await new Promise((resolve) => setTimeout(resolve, 3000));
-                    this.FIND_NEAR_BY()
+                    if(this.isRunning){
+                        this.FIND_NEAR_BY()
+                    }
                 }
-                else if(this.isRunning){
+                else{
                     //find new order success delay 5 seconds before reflect
                     await new Promise((resolve) => setTimeout(resolve, 5000));
-                    this.$store.commit('TRANSACTION', response)
-                    this.$store.commit('ORDER_STORE_LAT_LNG', this.TRANSACTION[0].orders)
-                    this.newOrder = true
-                    this.countdown = this.defaultCountdown
-                    //new order popup
-                    while (this.newOrder && this.countdown > 0 && this.decision != 'accept' && this.isRunning) {
-                        this.countdown--
-                        await new Promise((resolve) => setTimeout(resolve, 1000));
-                        //countdown finish
-                        if (this.isRunning && this.countdown <= 0) {
-                            if (this.decision != 'accept') {
-                                this.declinedTransactions.push(this.TRANSACTION[0].transaction_id)
-                                this.$store.commit('ORDER_STORE_LAT_LNG', [])
-                                this.$store.commit('TRANSACTION', [])
-                                this.FIND_NEAR_BY()
+                    if(this.isRunning){
+                        this.$store.commit('TRANSACTION', response)
+                        this.$store.commit('ORDER_STORE_LAT_LNG', this.TRANSACTION[0].orders)
+                        this.newOrder = true
+                        this.countdown = this.defaultCountdown
+                        //new order popup
+                        while (this.newOrder && this.countdown > 0 && !this.hasDeliver && this.isRunning) {
+                            this.countdown--
+                            await new Promise((resolve) => setTimeout(resolve, 1000));
+                            //countdown finish
+                            if (this.isRunning && this.countdown <= 0) {
+                                if (!this.hasDeliver) {
+                                    this.declinedTransactions.push(this.TRANSACTION[0].transaction_id)
+                                    this.$store.commit('ORDER_STORE_LAT_LNG', [])
+                                    this.$store.commit('TRANSACTION', [])
+                                    this.FIND_NEAR_BY()
+                                }
                             }
                         }
                     }
