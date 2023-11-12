@@ -169,7 +169,7 @@ export default {
                     this.newOrder = true
                     this.countdown = this.defaultCountdown
                     //new order popup
-                    while (this.newOrder && this.countdown > 0 && this.decision != 'accept') {
+                    while (this.newOrder && this.countdown > 0 && this.decision != 'accept' && this.isRunning) {
                         this.countdown--
                         await new Promise((resolve) => setTimeout(resolve, 1000));
                         //countdown finish
