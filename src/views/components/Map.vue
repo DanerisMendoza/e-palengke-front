@@ -171,7 +171,7 @@ export default {
 
     ORDER_STORE_LAT_LNG: {
       handler(val) {
-        console.log(val)
+        // console.log(val)
       },
     },
     CIRCLE_RADIUS: {

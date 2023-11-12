@@ -41,7 +41,6 @@ export default {
         FIND_ORDER_WITHIN_RADIUS({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 api.post('api/FIND_ORDER_WITHIN_RADIUS', payload).then((response) => {
-                    commit('TRANSACTION', response.data)
                     resolve(response.data)
                 }).catch((error) => {
                     reject(error)
