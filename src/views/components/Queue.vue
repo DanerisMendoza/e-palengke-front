@@ -40,7 +40,7 @@
                         </v-row>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn @click="accept">Accept</v-btn>
+                        <v-btn @click="ACCEPT_TRANSACTION">Accept</v-btn>
                         <v-btn @click="decline">Decline</v-btn>
                     </v-card-actions>
                     {{ countdown }}
@@ -52,6 +52,10 @@
                         Customer Name: {{ TRANSACTION[0].customer_name }}
                         <br>
                         Customer Address: {{ TRANSACTION[0].customer_address }}
+                        <br>
+                        Status: {{ TRANSACTION[0].status }}
+                        <v-divider></v-divider>                        
+                        <br>
                         <v-row v-for="(item, index) in TRANSACTION[0].orders" :key="index">
                             <v-col>
                                 <v-divider></v-divider>
@@ -69,7 +73,8 @@
                         </v-row>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn @click="pickup">Pickup</v-btn>
+                        <v-btn v-if="TRANSACTION[0].status == 'To Pickup'" @click="PICKUP_ORDERS">Pickup</v-btn>
+                        <v-btn v-else-if="TRANSACTION[0].status == 'To Deliver'" @click="PICKUP_ORDERS">Arrived at Customer Location</v-btn>
                     </v-card-actions>
                 </v-card>
                 <v-skeleton-loader v-else class="mx-auto" max-width="300" type="card"></v-skeleton-loader>
@@ -110,13 +115,12 @@ export default {
                 if (val) {
                     this.FIND_NEAR_BY()
                 } else {
-                    if(!this.hasDeliver && this.CURRENT_TRANSACTION_ID != null){
+                    if (!this.hasDeliver && this.CURRENT_TRANSACTION_ID != null) {
                         const payload = {
-                            transaction_id:this.CURRENT_TRANSACTION_ID,
-                            user_id:this.USER_DETAILS.user_id,
+                            transaction_id: this.CURRENT_TRANSACTION_ID,
+                            user_id: this.USER_DETAILS.user_id,
                         }
-                        console.log(payload)
-                        this.$store.dispatch('REMOVE_TRANSACTION_DELIVERY_ID',payload)
+                        this.$store.dispatch('REMOVE_TRANSACTION_DELIVERY_ID', payload)
                     }
                     this.$store.commit('ORDER_STORE_LAT_LNG', [])
                     this.$store.commit('TRANSACTION', [])
@@ -130,15 +134,38 @@ export default {
         formattedElapsedTime() {
             return this.formatTime(this.laps[this.laps.length - 1] || 0);
         },
-        ...mapGetters(["USER_DETAILS", "USER_INSIDE_RADIUS", "CIRCLE_RADIUS", "TRANSACTION", "ORDER_STORE_LAT_LNG","CURRENT_TRANSACTION_ID"]),
+        ...mapGetters(["USER_DETAILS", "USER_INSIDE_RADIUS", "CIRCLE_RADIUS", "TRANSACTION", "ORDER_STORE_LAT_LNG", "CURRENT_TRANSACTION_ID"]),
     },
     methods: {
-        pickup() {
+        // GET_TRANSACTION_BY_ID() {
+        //     const payload = {
+        //         params: {
+        //             transaction_id: this.CURRENT_TRANSACTION_ID,
+        //         }
+        //     }
+        //     this.$store.dispatch('GET_TRANSACTION_BY_ID', payload)
+        // },
 
+        PICKUP_ORDERS() {
+            const payload = {
+                transaction_id: this.CURRENT_TRANSACTION_ID,
+                user_id: this.USER_DETAILS.user_id,
+            }
+            console.log('pickup')
+            this.$store.dispatch('PICKUP_ORDERS', payload).then((response) => {
+                if (response != null) {
+                    this.GET_IN_PROGRESS_TRANSACTION()
+                }
+            })
         },
-        accept() {
+        ACCEPT_TRANSACTION() {
             this.hasDeliver = true
             this.countdown = 0
+            const payload = {
+                transaction_id: this.CURRENT_TRANSACTION_ID,
+                user_id: this.USER_DETAILS.user_id,
+            }
+            this.$store.dispatch('ACCEPT_TRANSACTION', payload)
         },
         decline() {
             this.countdown = 0
@@ -171,14 +198,14 @@ export default {
                 if (response.length === 0) {
                     // if see nothing find again delay 3 seconds
                     await new Promise((resolve) => setTimeout(resolve, 3000));
-                    if(this.isRunning){
+                    if (this.isRunning && !this.hasDeliver) {
                         this.FIND_NEAR_BY()
                     }
                 }
-                else{
+                else {
                     //find new order success delay 5 seconds before reflect
                     await new Promise((resolve) => setTimeout(resolve, 5000));
-                    if(this.isRunning){
+                    if (this.isRunning && !this.hasDeliver) {
                         this.$store.commit('TRANSACTION', response)
                         this.$store.commit('ORDER_STORE_LAT_LNG', this.TRANSACTION[0].orders)
                         this.newOrder = true
@@ -202,10 +229,27 @@ export default {
             })
         },
 
+        GET_IN_PROGRESS_TRANSACTION() {
+            const payload = {
+                params: {
+                    user_id: this.USER_DETAILS.user_id,
+                }
+            }
+            this.$store.dispatch('GET_IN_PROGRESS_TRANSACTION', payload).then((response) => {
+                if (response.length > 0) {
+                    this.$store.commit('TRANSACTION', response)
+                    this.$store.commit('CURRENT_TRANSACTION_ID', response[0].transaction_id)
+                    this.$store.commit('ORDER_STORE_LAT_LNG', this.TRANSACTION[0].orders)
+                    this.isRunning = true
+                    this.hasDeliver = true
+                }
+            })
+        }
 
     },
     mounted() {
         this.registeredLocation()
+        this.GET_IN_PROGRESS_TRANSACTION()
     }
 };
 </script>

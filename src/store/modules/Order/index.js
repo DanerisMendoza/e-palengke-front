@@ -62,9 +62,49 @@ export default {
                 });
             })
         },
+        GET_IN_PROGRESS_TRANSACTION({ commit },payload) {
+            return new Promise((resolve, reject) => {
+                api.get('api/GET_IN_PROGRESS_TRANSACTION', payload).then((response) => {
+                    resolve(response.data)
+                }).catch((error) => {
+                    reject(error)
+                });
+            })
+        },
+        GET_TRANSACTION_BY_ID({ commit },payload) {
+            return new Promise((resolve, reject) => {
+                api.get('api/GET_TRANSACTION_BY_ID', payload).then((response) => {
+                    if(response.data.length > 0){
+                        commit('TRANSACTION', response)
+                        commit('ORDER_STORE_LAT_LNG', this.TRANSACTION[0].orders)
+                    }
+                    resolve(response.data)
+                }).catch((error) => {
+                    reject(error)
+                });
+            })
+        },
+        ACCEPT_TRANSACTION({ commit },payload) {
+            return new Promise((resolve, reject) => {
+                api.post('api/ACCEPT_TRANSACTION', payload).then((response) => {
+                    resolve(response.data)
+                }).catch((error) => {
+                    reject(error)
+                });
+            })
+        },
         CANCEL_ORDER({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 api.post('api/CANCEL_ORDER', payload).then((response) => {
+                    resolve(response.data)
+                }).catch((error) => {
+                    reject(error)
+                });
+            })
+        },
+        PICKUP_ORDERS({ commit }, payload) {
+            return new Promise((resolve, reject) => {
+                api.post('api/PICKUP_ORDERS', payload).then((response) => {
                     resolve(response.data)
                 }).catch((error) => {
                     reject(error)
