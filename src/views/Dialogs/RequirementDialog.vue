@@ -63,7 +63,7 @@ export default {
                     this.$swal.fire({
                       icon: "success",
                       title: "Success!",
-                      text: "Adding Requirement Successfully!.",
+                      text: "Adding Requirent Successfully!.",
                     });
                     this.$store.commit("SELECTED_REQUIREMENT_DETAILS", null);
                     this.$store.commit("REQUIREMENT_DETAIL_DIALOG", null);

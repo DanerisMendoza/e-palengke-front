@@ -1,6 +1,10 @@
 <template>
   <v-app style="background: #f6f6f6">
     <v-container>
+      <v-btn @click="addNewProductType()" elevation="0" class="mb-5" dark>
+        add new Product Type
+      </v-btn>
+
       <v-card elevation="1" outlined>
         <v-data-table :headers="headers" :items="PRODUCT_TYPE_DETAIL">
           <template v-slot:item="{ item }">
@@ -25,11 +29,10 @@
 
 <script>
 import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
-      isRaining: false,
-
       headers: [
         { text: "NAME", value: "name", align: "center", sortable: false },
         { text: "ACTIONS", align: "center", value: "actions", sortable: false },
@@ -38,26 +41,62 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["PRODUCT_TYPE_DETAIL"]),
+    ...mapGetters([
+      "PRODUCT_TYPE_DETAIL", 
+      "SELECTED_PRODUCT_TYPE_DETAILS",
+      "PRODUCT_TYPE_DETAILS_DIALOG",
+    ]),
   },
 
   methods: {
-    deleteItem(item) {
-      this.$store.dispatch("DELETE_PRODUCT_TYPE_DETAIL_BY_ID", item.id);
-    },
+    viewItem(item) { },
     editItem(item) {
-      console.log(item);
-      // this.$store.commit("SELECTED_REQUIREMENT_DETAILS", item);
-      // this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET", 'UPDATE');
-      // console.log('Edit button clicked');
+      this.$store.commit("SELECTED_PRODUCT_TYPE_DETAILS", item);
+      this.$store.commit("PRODUCT_TYPE_DETAILS_DIALOG", "UPDATE");
+      console.log(this.PRODUCT_TYPE_DETAILS_DIALOG);
     },
-  },
+    addNewProductType() {
+      this.$store.commit("PRODUCT_TYPE_DETAILS_DIALOG", "ADD");
+      console.log(this.PRODUCT_TYPE_DETAILS_DIALOG);
+    },
+    deleteItem(item) {
+      // this.$store.dispatch("DELETE_PRODUCT_TYPE_DETAIL_BY_ID", item.id);
+      this.$swal
+        .fire({
+          icon: "warning",
+          title: "Delete Item",
+          text: "Are you sure you want to delete this item?",
+          showCancelButton: true,
+          confirmButtonText: "Yes, delete it",
+          cancelButtonText: "No, cancel",
+          confirmButtonColor: "#d33",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$store
+              .dispatch("DELETE_PRODUCT_TYPE_DETAIL_BY_ID", item.id)
+              .then((response) => {
+                if (response === "success") {
+                  this.$swal.fire({
+                    icon: "success",
+                    title: "Success!",
+                    text: "Item Deleted Successfully.",
+                  });
+                  this.$store.dispatch("GET_PRODUCT_TYPE_DETAIL",this.SELECTED_PRODUCT_TYPE_DETAILS.id);
+                }
+              });
+          }
+        });
+      },
+    },
+  
 
   mounted() {
-    this.$store.dispatch("GET_PRODUCT_TYPE_DETAIL").then((response) => {
-      console.log(response);
-      console.log(this.PRODUCT_TYPE_DETAIL);
-    });
+    this.$store.dispatch("GET_PRODUCT_TYPE_DETAIL")
+    // .then((response) => {
+    //   console.log(response);
+    //   console.log(this.PRODUCT_TYPE_DETAIL);
+    // });
   },
 };
 </script>
