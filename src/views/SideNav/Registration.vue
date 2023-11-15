@@ -1,5 +1,5 @@
 <template>
-  <v-app style="background: #d0dae3">
+  <v-app>
     <Registration />
   </v-app>
 </template>
