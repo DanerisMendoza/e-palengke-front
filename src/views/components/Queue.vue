@@ -23,6 +23,12 @@
                         Customer Name: {{ TRANSACTION[0].customer_name }}
                         <br>
                         Customer Address: {{ TRANSACTION[0].customer_address }}
+                        <br>
+                        Status: {{ TRANSACTION[0].status }}
+                        <br>
+                        Contact: {{ TRANSACTION[0].phone_number }}
+                        <v-divider></v-divider> 
+                        <br>
                         <v-row v-for="(item, index) in TRANSACTION[0].orders" :key="index">
                             <v-col>
                                 <v-divider></v-divider>
@@ -54,6 +60,8 @@
                         Customer Address: {{ TRANSACTION[0].customer_address }}
                         <br>
                         Status: {{ TRANSACTION[0].status }}
+                        <br>
+                        Contact: {{ TRANSACTION[0].phone_number }}
                         <v-divider></v-divider>                        
                         <br>
                         <v-row v-for="(item, index) in TRANSACTION[0].orders" :key="index">
@@ -74,7 +82,8 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-btn v-if="TRANSACTION[0].status == 'To Pickup'" @click="PICKUP_ORDERS">Pickup</v-btn>
-                        <v-btn v-else-if="TRANSACTION[0].status == 'To Deliver'" @click="PICKUP_ORDERS">Arrived at Customer Location</v-btn>
+                        <!-- <v-btn v-else-if="TRANSACTION[0].status == 'To Deliver'" @click="PICKUP_ORDERS">Arrived at Customer Location</v-btn> -->
+                        <v-btn v-else-if="TRANSACTION[0].status == 'Picked up'" @click="DROP_OFF">Drop off</v-btn>
                     </v-card-actions>
                 </v-card>
                 <v-skeleton-loader v-else class="mx-auto" max-width="300" type="card"></v-skeleton-loader>
@@ -137,21 +146,22 @@ export default {
         ...mapGetters(["USER_DETAILS", "USER_INSIDE_RADIUS", "CIRCLE_RADIUS", "TRANSACTION", "ORDER_STORE_LAT_LNG", "CURRENT_TRANSACTION_ID"]),
     },
     methods: {
-        // GET_TRANSACTION_BY_ID() {
-        //     const payload = {
-        //         params: {
-        //             transaction_id: this.CURRENT_TRANSACTION_ID,
-        //         }
-        //     }
-        //     this.$store.dispatch('GET_TRANSACTION_BY_ID', payload)
-        // },
-
+        DROP_OFF() {
+            const payload = {
+                transaction_id: this.CURRENT_TRANSACTION_ID,
+            }
+            this.$store.dispatch('DROP_OFF', payload).then((response) => {
+                if (response == 'success') {
+                    this.isRunning = false
+                    this.hasDeliver = false
+                }
+            })
+        },
         PICKUP_ORDERS() {
             const payload = {
                 transaction_id: this.CURRENT_TRANSACTION_ID,
                 user_id: this.USER_DETAILS.user_id,
             }
-            console.log('pickup')
             this.$store.dispatch('PICKUP_ORDERS', payload).then((response) => {
                 if (response != null) {
                     this.GET_IN_PROGRESS_TRANSACTION()
@@ -165,7 +175,9 @@ export default {
                 transaction_id: this.CURRENT_TRANSACTION_ID,
                 user_id: this.USER_DETAILS.user_id,
             }
-            this.$store.dispatch('ACCEPT_TRANSACTION', payload)
+            this.$store.dispatch('ACCEPT_TRANSACTION', payload).then(()=>{
+                this.GET_IN_PROGRESS_TRANSACTION()
+            })
         },
         decline() {
             this.countdown = 0
@@ -242,6 +254,10 @@ export default {
                     this.$store.commit('ORDER_STORE_LAT_LNG', this.TRANSACTION[0].orders)
                     this.isRunning = true
                     this.hasDeliver = true
+                }
+                else{
+                    this.isRunning = false
+                    this.hasDeliver = false
                 }
             })
         }
