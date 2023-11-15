@@ -1,12 +1,13 @@
 <template>
-  <v-app style="background: #f6f6f6">
-    <v-container>
+  <v-app style="background: #d0dae3">
+    <v-card class="store-type-details">
+      <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
 
-      <v-btn @click="addNewStoreType()" elevation="0" class="mb-5" dark>
+      <v-btn @click="addNewStoreType()" color="primary" class="mb-5">
         add new Store Type
       </v-btn>
 
-      <v-card elevation="1" outlined>
+      <v-card elevation="2" outlined>
         <v-data-table :headers="headers" :items="STORE_TYPE_DETAIL">
           <template v-slot:item="{ item }">
             <tr>
@@ -24,7 +25,7 @@
           </template>
         </v-data-table>
       </v-card>
-    </v-container>
+    </v-card>
   </v-app>
 </template>
 
@@ -49,7 +50,7 @@ export default {
   },
 
   methods: {
-    viewItem(item) { },
+    viewItem(item) {},
     editItem(item) {
       this.$store.commit("SELECTED_STORE_TYPE_DETAILS", item);
       this.$store.commit("STORE_TYPE_DETAILS_DIALOG", "UPDATE");
@@ -82,20 +83,23 @@ export default {
                     title: "Success!",
                     text: "Item Deleted Successfully.",
                   });
-                  this.$store.dispatch("GET_STORE_TYPE_DETAIL",this.SELECTED_STORE_TYPE_DETAILS.id);
+                  this.$store.dispatch(
+                    "GET_STORE_TYPE_DETAIL",
+                    this.SELECTED_STORE_TYPE_DETAILS.id
+                  );
                 }
               });
           }
         });
-      },
     },
-    // editItem(item) {
-    //   console.log(item);
-    //   this.$store.commit("PRODUCT_TYPE_DETAILS_BOTTOMSHEET", 'UPDATE');
-    // },
+  },
+  // editItem(item) {
+  //   console.log(item);
+  //   this.$store.commit("PRODUCT_TYPE_DETAILS_BOTTOMSHEET", 'UPDATE');
+  // },
 
   mounted() {
-    this.$store.dispatch("GET_STORE_TYPE_DETAIL")
+    this.$store.dispatch("GET_STORE_TYPE_DETAIL");
     // .then((response) => {
     //   console.log(response);
     //   console.log(this.PRODUCT_TYPE_DETAIL);
@@ -103,3 +107,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.store-type-details {
+  border-top: 5px solid #1976d2;
+  padding: 1rem;
+}
+</style>

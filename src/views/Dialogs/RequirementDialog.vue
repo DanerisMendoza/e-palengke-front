@@ -10,7 +10,6 @@
               v-model="name"
               hide-details="auto"
               outlined
-              dense
             ></v-text-field>
           </v-card-text>
           <v-card-actions>

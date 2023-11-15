@@ -1,5 +1,5 @@
 <template>
-  <v-app style="background: #f6f6f6">
+  <v-app style="background: #d0dae3">
     <v-container>
       <StoreTypeDialog v-if="STORE_TYPE_DETAILS_DIALOG !== null" />
       <StoreTypeDetailTable />
@@ -10,7 +10,7 @@
 <script>
 import { mapGetters } from "vuex";
 import StoreTypeDetailTable from "../Tables/StoreTypeDetailTable.vue";
-import StoreTypeDialog  from "../Dialogs/StoreTypeDialog.vue";
+import StoreTypeDialog from "../Dialogs/StoreTypeDialog.vue";
 import StoreTypeDetails from "../BottomSheet/StoreTypeDetails.vue";
 
 export default {
