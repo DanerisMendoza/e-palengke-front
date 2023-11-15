@@ -5,6 +5,7 @@ export default {
         ORDERS: [],
         ORDER_DETAILS: [],
         SELECTED_ORDER_DETAILS: null,
+        SELECTED_ORDER_STATUS: null,
         ORDERS_TABLE_MODE: null,
         TRANSACTION: [],
         CURRENT_TRANSACTION_ID: null,
@@ -12,6 +13,7 @@ export default {
     },
 
     getters: {
+        SELECTED_ORDER_STATUS: (state) => state.SELECTED_ORDER_STATUS,
         CURRENT_TRANSACTION_ID: (state) => state.CURRENT_TRANSACTION_ID,
         TRANSACTION: (state) => state.TRANSACTION,
         ORDERS: (state) => state.ORDERS,
@@ -22,6 +24,7 @@ export default {
     },
 
     mutations: {
+        SELECTED_ORDER_STATUS: (state, data) => { state.SELECTED_ORDER_STATUS = data },
         CURRENT_TRANSACTION_ID: (state, data) => { state.CURRENT_TRANSACTION_ID = data },
         TRANSACTION: (state, data) => { state.TRANSACTION = data },
         ORDERS: (state, data) => { state.ORDERS = data },
@@ -44,7 +47,7 @@ export default {
         FIND_ORDER_WITHIN_RADIUS({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 api.post('api/FIND_ORDER_WITHIN_RADIUS', payload).then((response) => {
-                    if(response.data.length > 0){
+                    if (response.data.length > 0) {
                         commit('CURRENT_TRANSACTION_ID', response.data[0].transaction_id)
                     }
                     resolve(response.data)
@@ -53,7 +56,7 @@ export default {
                 });
             })
         },
-        REMOVE_TRANSACTION_DELIVERY_ID({ commit },payload) {
+        REMOVE_TRANSACTION_DELIVERY_ID({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 api.post('api/REMOVE_TRANSACTION_DELIVERY_ID', payload).then((response) => {
                     resolve(response.data)
@@ -62,7 +65,7 @@ export default {
                 });
             })
         },
-        GET_IN_PROGRESS_TRANSACTION({ commit },payload) {
+        GET_IN_PROGRESS_TRANSACTION({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 api.get('api/GET_IN_PROGRESS_TRANSACTION', payload).then((response) => {
                     resolve(response.data)
@@ -71,20 +74,17 @@ export default {
                 });
             })
         },
-        GET_TRANSACTION_BY_ID({ commit },payload) {
+        GET_TRANSACTION_BY_ID({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 api.get('api/GET_TRANSACTION_BY_ID', payload).then((response) => {
-                    if(response.data.length > 0){
-                        commit('TRANSACTION', response)
-                        commit('ORDER_STORE_LAT_LNG', this.TRANSACTION[0].orders)
-                    }
+                    commit('TRANSACTION', response.data)
                     resolve(response.data)
                 }).catch((error) => {
                     reject(error)
                 });
             })
         },
-        ACCEPT_TRANSACTION({ commit },payload) {
+        ACCEPT_TRANSACTION({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 api.post('api/ACCEPT_TRANSACTION', payload).then((response) => {
                     resolve(response.data)
@@ -105,6 +105,15 @@ export default {
         PICKUP_ORDERS({ commit }, payload) {
             return new Promise((resolve, reject) => {
                 api.post('api/PICKUP_ORDERS', payload).then((response) => {
+                    resolve(response.data)
+                }).catch((error) => {
+                    reject(error)
+                });
+            })
+        },
+        DROP_OFF({ commit }, payload) {
+            return new Promise((resolve, reject) => {
+                api.post('api/DROP_OFF', payload).then((response) => {
                     resolve(response.data)
                 }).catch((error) => {
                     reject(error)

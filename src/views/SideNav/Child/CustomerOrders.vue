@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-container>
+      <OrderStatusDialog v-if="SELECTED_ORDER_STATUS !== null" />
       <OrderDetailsDialog v-if="SELECTED_ORDER_DETAILS !== null" />
       <OrdersTable />
     </v-container>
@@ -11,17 +12,18 @@
 import { mapGetters } from 'vuex';
 import OrdersTable from '../../Tables/OrdersTable.vue';
 import OrderDetailsDialog from '../../Dialogs/OrderDetailsDialog.vue';
+import OrderStatusDialog from '../../Dialogs/OrderStatusDialog.vue';
 
 export default {
-  components: { OrdersTable, OrderDetailsDialog },
+  components: { OrdersTable, OrderDetailsDialog,OrderStatusDialog },
   computed: {
     ...mapGetters([
-      "ORDERS", "SELECTED_ORDER_DETAILS", "USER_DETAILS"
+      "ORDERS", "SELECTED_ORDER_DETAILS", "USER_DETAILS","SELECTED_ORDER_STATUS"
     ]),
   },
   created() {
     this.$store.commit('ORDERS_TABLE_MODE', 'customer')
-  }
+  },
 };
 </script>
   

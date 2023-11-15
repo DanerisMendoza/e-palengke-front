@@ -9,6 +9,17 @@
                         </v-btn>
                     </v-col>
                 </v-row>
+                <v-row v-if="SELECTED_ORDER_DETAILS.status === 'To Receive'">
+                    <v-col cols="12">
+                        <v-container>
+                            <v-card>
+                                <v-card-title>Delivery</v-card-title>
+                                <v-card-text>Name: {{ TRANSACTION.delivery_name }} </v-card-text>
+                                <v-card-text>Contact: {{ TRANSACTION.phone_number }} </v-card-text>
+                            </v-card>
+                        </v-container>
+                    </v-col>
+                </v-row>
                 <v-row>
                     <v-col cols="12">
                         <OrderDetailsTable />
@@ -39,7 +50,7 @@ export default {
     },
     computed: {
         ...mapGetters([
-            "ORDERS", "SELECTED_ORDER_DETAILS"
+            "ORDERS", "SELECTED_ORDER_DETAILS","TRANSACTION"
         ]),
         total() {
             return ''
@@ -50,8 +61,22 @@ export default {
         closeDialog() {
             this.$store.commit("SELECTED_ORDER_DETAILS", null)
         },
+        async getTransactionDetails() {
+            const payload = {
+                params: {
+                    transaction_id: this.SELECTED_ORDER_DETAILS.transaction_id,
+                }
+            }
+            await this.$store.dispatch('GET_TRANSACTION_BY_ID', payload).then(() => {
+                console.log(this.TRANSACTION)
+            })
+
+        }
     },
-    mounted(){
+    mounted() {
+        this.getTransactionDetails()
+
+        // console.log(this.SELECTED_ORDER_DETAILS)
     }
 }
 </script>

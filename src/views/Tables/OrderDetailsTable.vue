@@ -12,7 +12,9 @@
                     </tr>
                 </template>
             </v-data-table>
-            <v-data-table v-else-if="ORDERS_TABLE_MODE === 'customer'" :headers="SELECTED_ORDER_DETAILS.status != 'Preparing' ? customer_headers : customer_headers2" :items="ORDER_DETAILS">
+            <v-data-table v-else-if="ORDERS_TABLE_MODE === 'customer'"
+                :headers="SELECTED_ORDER_DETAILS.status === 'Pending' ? customer_headers : customer_headers2"
+                :items="ORDER_DETAILS">
                 <template v-slot:item="{ item }">
                     <tr>
                         <td>{{ item.name }}</td>
@@ -21,8 +23,8 @@
                         <td>{{ item.quantity }}</td>
                         <td>₱{{ item.price }}</td>
                         <td>₱{{ item.price * item.quantity }}</td>
-                        <td>
-                            <v-btn v-if="SELECTED_ORDER_DETAILS.status == 'Pending'" @click="CANCEL_ORDER_DETAIL(item)">
+                        <td v-if="SELECTED_ORDER_DETAILS.status == 'Pending'">
+                            <v-btn @click="CANCEL_ORDER_DETAIL(item)">
                                 <v-icon>mdi-close</v-icon>
                             </v-btn>
                         </td>
@@ -77,7 +79,7 @@ export default {
     },
     computed: {
         ...mapGetters([
-            "ORDERS", "SELECTED_ORDER_DETAILS", "ORDERS_TABLE_MODE", "ORDER_DETAILS"
+            "ORDERS", "SELECTED_ORDER_DETAILS", "ORDERS_TABLE_MODE", "ORDER_DETAILS","TRANSACTION"
         ]),
     },
     methods: {
@@ -106,19 +108,23 @@ export default {
                     });
                 }
             })
-        }
+        },
+        async getOrderDetails() {
+            const payload = {
+                params: {
+                    order_id: this.SELECTED_ORDER_DETAILS.order_id,
+                    store_id: this.SELECTED_ORDER_DETAILS.store_id
+                }
+            }
+            await this.$store.dispatch('GET_ORDER_DETAILS', payload).then(() => {
+                // console.log(this.ORDER_DETAILS)
+            })
+        },
+    
     },
     mounted() {
-        console.log(this.SELECTED_ORDER_DETAILS)
-        const payload = {
-            params: {
-                order_id: this.SELECTED_ORDER_DETAILS.order_id,
-                store_id: this.SELECTED_ORDER_DETAILS.store_id
-            }
-        }
-        this.$store.dispatch('GET_ORDER_DETAILS', payload).then(() => {
-            console.log(this.ORDER_DETAILS)
-        })
+        this.getOrderDetails()
+
     }
 }
 </script>
