@@ -1,27 +1,24 @@
 <template>
-  <v-app>
+  <v-app style="background: #d0dae3">
     <v-container>
       <OrderDetailsDialog v-if="SELECTED_ORDER_DETAILS !== null" />
       <OrdersTable />
     </v-container>
   </v-app>
 </template>
-  
+
 <script>
-import { mapGetters } from 'vuex';
-import OrdersTable from '../../Tables/OrdersTable.vue';
-import OrderDetailsDialog from '../../Dialogs/OrderDetailsDialog.vue';
+import { mapGetters } from "vuex";
+import OrdersTable from "../../Tables/OrdersTable.vue";
+import OrderDetailsDialog from "../../Dialogs/OrderDetailsDialog.vue";
 
 export default {
   components: { OrdersTable, OrderDetailsDialog },
   computed: {
-    ...mapGetters([
-      "ORDERS", "SELECTED_ORDER_DETAILS", "USER_DETAILS"
-    ]),
+    ...mapGetters(["ORDERS", "SELECTED_ORDER_DETAILS", "USER_DETAILS"]),
   },
   created() {
-    this.$store.commit('ORDERS_TABLE_MODE', 'store')
-  }
+    this.$store.commit("ORDERS_TABLE_MODE", "store");
+  },
 };
 </script>
-  
