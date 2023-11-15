@@ -72,51 +72,86 @@ export default {
   methods: {
     closeDialog() {
       this.$store.commit("PRODUCT_DIALOG", null)
+      this.$store.commit("SELECTED_PRODUCT_DETAILS", null);
     },
     submit() {
-      if (this.$refs.myForm.validate()) {
-        const config = {
-          headers: {
-            "content-type": "multipart/form-data",
-          },
-        };
-        const data = new FormData();
-        data.append("file", this.file);
-        data.append("data", JSON.stringify(this.form));
+  if (this.$refs.myForm.validate()) {
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    const data = new FormData();
+    data.append("file", this.file);
+    data.append("data", JSON.stringify(this.form));
 
-        const payload = {
-          params: data,
-          config: config,
-        };
+    const payload = {
+      params: data,
+      config: config,
+    };
 
-        this.$store.dispatch("STORE_PRODUCT", payload).then((response) => {
-          if (response == 'success') {
-            this.$swal.fire({
-              icon: 'success', // Set the success icon
-              title: 'Success', // Title of the alert
-              text: 'Operation was successful!', // Text message
-              showConfirmButton: false, // Remove the "OK" button
-              timer: 1000 // Auto-close the alert after 1.5 seconds (adjust as needed)
-            });
-            this.$store.commit("PRODUCT_DIALOG", null)
-            this.$store.dispatch('GET_PRODUCT_BY_ID', this.form.store_id)
-          }
-        })
-      }
+    if (this.PRODUCT_DIALOG === "UPDATE") {
+      // Update existing product
+      const updatePayload = {
+        request: {
+          name: this.form.name,
+          price: this.form.price,
+          stock: this.form.stock,
+        },
+        id: this.SELECTED_PRODUCT_DETAILS.id,
+      };
+
+      this.$store.dispatch("UPDATE_PRODUCT_BY_ID", updatePayload).then((response) => {
+        if (response === "success") {
+          this.$swal.fire({
+            icon: "success",
+            title: "Success!",
+            text: "Product Updated Successfully!.",
+          });
+          this.$store.commit("SELECTED_PRODUCT_DETAILS", null);
+          this.$store.commit("PRODUCT_DIALOG", null);
+          this.$store.dispatch("GET_PRODUCT_BY_ID", this.form.store_id);
+        }
+      });
+    } else {
+      // Store a new product
+      this.$store.dispatch("STORE_PRODUCT", payload).then((response) => {
+        if (response === 'success') {
+          this.$swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Operation was successful!',
+            showConfirmButton: false,
+            timer: 1000,
+          });
+          this.$store.commit("PRODUCT_DIALOG", null);
+          this.$store.dispatch('GET_PRODUCT_BY_ID', this.form.store_id);
+        }
+      });
     }
+  }
+},
   },
-
 
   computed: {
     ...mapGetters([
       'PRODUCT_DIALOG',
-      'USER_DETAILS'
+      'USER_DETAILS',
+      'SELECTED_PRODUCT_DETAILS',
     ])
   },
   mounted() {
-    this.form.store_id = this.USER_DETAILS.user_role_details.filter((item) => {
-      return item.id === 3 && item.status === 'active'
-    })[0].store_details[0].store_id
-  },
+  // Ensure the store_id is set when the component is mounted
+  this.form.store_id = this.USER_DETAILS.user_role_details
+    .filter((item) => item.id === 3 && item.status === 'active')
+    .map((item) => item.store_details[0].store_id)[0];
+
+  if (this.PRODUCT_DIALOG === "UPDATE") {
+    this.form.name = this.SELECTED_PRODUCT_DETAILS.name;
+    this.form.price = this.SELECTED_PRODUCT_DETAILS.price;
+    this.form.stock = this.SELECTED_PRODUCT_DETAILS.stock;
+  }
+}
+
 }
 </script>

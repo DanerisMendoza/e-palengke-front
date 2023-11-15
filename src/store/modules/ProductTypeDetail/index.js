@@ -4,7 +4,7 @@ export default {
     state: {
         PRODUCT_TYPE_DETAIL: [],
         SELECTED_PRODUCT_TYPE_DETAILS: null,
-        PRODUCT_TYPE_DETAILS_DIALOG: [],
+        PRODUCT_TYPE_DETAILS_DIALOG: null,
         
     },
     

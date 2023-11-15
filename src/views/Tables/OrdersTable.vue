@@ -90,13 +90,17 @@ export default {
     },
     computed: {
         ...mapGetters([
-            "USER_DETAILS", "ORDERS", "ORDERS_TABLE_MODE"
+            "USER_DETAILS", "ORDERS", "ORDERS_TABLE_MODE","SELECTED_ORDER_STATUS"
         ]),
         store_id() {
             return (this.USER_DETAILS.user_role_details.find((item) => item.id === 3 && item.status === 'active')?.store_details[0].store_id);
         }
     },
     methods: {
+        ORDER_STATUS(item){
+            this.$store.commit('SELECTED_ORDER_STATUS',item)
+            console.log(this.SELECTED_ORDER_STATUS)
+        },
         CANCEL_ORDER(item) {
             const payload = { order_id: item.order_id }
             this.$store.dispatch('CANCEL_ORDER', payload).then((response) => {

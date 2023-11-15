@@ -4,7 +4,7 @@ export default {
     state: {
         STORE_TYPE_DETAIL: [],
         SELECTED_STORE_TYPE_DETAILS: null,
-        STORE_TYPE_DETAILS_DIALOG: [],
+        STORE_TYPE_DETAILS_DIALOG: null,
     },
     
     getters: {
