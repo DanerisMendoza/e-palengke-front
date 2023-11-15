@@ -1,8 +1,7 @@
 <template>
   <div>
     <v-list dense v-model="drawer" :mini-variant="isMobile">
-      <!-- <v-list-item></v-list-item> -->
-      <v-list-item class="e-palengke">E-PALENGKE</v-list-item>
+      <p class="e-palengke ma-0 pa-0 ml-5">E-PALENGKE</p>
     </v-list>
 
     <v-divider></v-divider>
@@ -21,7 +20,7 @@
           "
           :to="{ name: side_nav.name, params: { id: side_nav.id } }"
         >
-          <v-icon class="mr-2">{{ side_nav.mdi_icon }}</v-icon>
+          <v-icon class="mr-3">{{ side_nav.mdi_icon }}</v-icon>
           {{ side_nav.name }}
         </v-list-item>
 
@@ -48,11 +47,6 @@
           </v-list-item>
         </v-list-group>
       </v-list>
-
-      <v-list-item @click="submitLogout()"> 
-        <v-icon class="mr-2">mdi-power</v-icon>
-        LOGOUT 
-      </v-list-item>
     </v-list>
   </div>
 </template>
@@ -70,17 +64,6 @@ export default {
   },
 
   methods: {
-    submitLogout() {
-      this.$store.dispatch("Logout").then((response) => {
-        if (response === "success") {
-          localStorage.removeItem("token");
-          this.$store.commit("SIDE_NAV", null);
-          this.$store.commit("USER_DETAILS", {});
-          this.$router.push("/Login");
-        }
-      });
-    },
-
     isParentActive(routeName) {
       return this.$route.matched.some((route) => route.name === routeName);
     },
@@ -107,9 +90,8 @@ export default {
 .childSideNav {
   margin-left: 20px;
 }
-.e-palengke{
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 4px 0 4px;
+.e-palengke {
+  font-size: 1.95rem;
+  font-weight: 800;
 }
 </style>

@@ -1,7 +1,8 @@
 <template>
-  <v-app style="background: #f6f6f6">
-    <v-container>
-      <v-card elevation="1" outlined>
+  <v-app style="background: #d0dae3">
+    <v-card class="user-role">
+      <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
+      <v-card elevation="2" outlined>
         <v-data-table :headers="headers" :items="USER_ROLES">
           <template v-slot:item="{ item }">
             <tr>
@@ -30,14 +31,16 @@
               </td>
               <td>
                 <!-- <v-icon @click="viewItem(item)" class="mr-2">mdi-eye</v-icon> -->
-                <v-icon @click="editItem(item)" color="orange">mdi-pencil</v-icon>
+                <v-icon @click="editItem(item)" color="orange"
+                  >mdi-pencil</v-icon
+                >
                 <!-- <v-icon @click="deleteItem(item)">mdi-delete</v-icon> -->
               </td>
             </tr>
           </template>
         </v-data-table>
       </v-card>
-    </v-container>
+    </v-card>
   </v-app>
 </template>
 
@@ -74,3 +77,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.user-role {
+  border-top: 5px solid #1976d2;
+  padding: 1rem;
+}
+</style>

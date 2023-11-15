@@ -1,11 +1,17 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <v-dialog v-model="dialog" max-width="500px" persistent>
+      <v-dialog v-model="dialog" max-width="30rem" persistent>
         <v-card>
           <v-card-title>Requirement Details</v-card-title>
           <v-card-text>
-            <v-text-field label="Enter New Requirement" v-model="name" hide-details="auto"></v-text-field>
+            <v-text-field
+              label="Enter New Requirement"
+              v-model="name"
+              hide-details="auto"
+              outlined
+              dense
+            ></v-text-field>
           </v-card-text>
           <v-card-actions>
             <v-btn color="red" text @click="closeDialog()">close</v-btn>
@@ -85,18 +91,20 @@ export default {
           },
           id: this.SELECTED_REQUIREMENT_DETAILS.id,
         };
-        this.$store.dispatch("UPDATE_REQUIREMENT_DETAIL_BY_ID", payload).then((response) => {
-          if (response === "success") {
-            this.$swal.fire({
-              icon: "success",
-              title: "Success!",
-              text: "Requirement Updated Successfully!.",
-            });
-            this.$store.commit("SELECTED_REQUIREMENT_DETAILS", null);
-            this.$store.commit("REQUIREMENT_DETAIL_DIALOG", null);
-            this.$store.dispatch("GET_REQUIREMENT_DETAILS");
-          }
-        });
+        this.$store
+          .dispatch("UPDATE_REQUIREMENT_DETAIL_BY_ID", payload)
+          .then((response) => {
+            if (response === "success") {
+              this.$swal.fire({
+                icon: "success",
+                title: "Success!",
+                text: "Requirement Updated Successfully!.",
+              });
+              this.$store.commit("SELECTED_REQUIREMENT_DETAILS", null);
+              this.$store.commit("REQUIREMENT_DETAIL_DIALOG", null);
+              this.$store.dispatch("GET_REQUIREMENT_DETAILS");
+            }
+          });
       }
     },
   },
