@@ -1,135 +1,171 @@
 <template>
-  <v-app style="background: #F5F5F5">
-    <v-container>
-      <v-row justify="center">
-        <v-card outlined class="text-center register-card" elevation="2">
-          <v-card-text>
-            <v-form ref="myForm" @submit.prevent="registerUser">
-              <!-- full name -->
-              <v-row>
-                <v-col cols="4">
-                  <v-text-field
-                    v-model="name.firstName"
-                    label="First Name"
-                    :rules="rules.required"
-                    hide-details="auto"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="4">
-                  <v-text-field
-                    v-model="name.middleName"
-                    label="Middle Name"
-                    :rules="rules.required"
-                    hide-details="auto"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="4">
-                  <v-text-field
-                    v-model="name.lastName"
-                    label="Last Name"
-                    :rules="rules.required"
-                    hide-details="auto"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
+  <v-container>
+    <v-app-bar app color="primary" dark elevation="2">
+      <v-spacer></v-spacer>
+      <v-btn plain @click="registration">sign up</v-btn>
+      <span class="ml-5 mr-5">|</span>
+      <v-btn plain @click="login">login</v-btn>
+    </v-app-bar>
 
-              <!-- gender -->
-              <v-row>
-                <v-col cols="6">
-                  <v-select
-                    v-model="formData.gender"
-                    :items="genders"
-                    label="Gender"
-                    :rules="rules.required"
-                    hide-details="auto"
-                  ></v-select>
-                </v-col>
-              </v-row>
+    <v-card class="text-center register-card" elevation="2" outlined>
+      <p>Register your account</p>
+      <v-form ref="myForm" @submit.prevent="registerUser">
+        <v-row>
+          <v-col cols="4">
+            <v-text-field
+              v-model="name.firstName"
+              label="First Name"
+              :rules="rules.required"
+              hide-details="auto"
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+          <v-col cols="4">
+            <v-text-field
+              v-model="name.middleName"
+              label="Middle Name"
+              :rules="rules.required"
+              hide-details="auto"
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+          <v-col cols="4">
+            <v-text-field
+              v-model="name.lastName"
+              label="Last Name"
+              :rules="rules.required"
+              hide-details="auto"
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+        </v-row>
 
-              <v-row>
-                <!-- age -->
-                <v-col cols="6">
-                  <v-text-field
-                    v-model="formData.age"
-                    label="Age"
-                    type="number"
-                    :rules="rules.required"
-                  ></v-text-field>
-                </v-col>
-                <!-- phone number -->
-                <v-col cols="6">
-                  <v-text-field
-                    v-model="formData.phone_number"
-                    label="Phone Number"
-                    :rules="rules.contact"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
+        <v-row>
+          <v-col cols="6">
+            <v-select
+              v-model="formData.gender"
+              :items="genders"
+              label="Gender"
+              :rules="rules.required"
+              hide-details="auto"
+              outlined
+              dense
+            ></v-select>
+          </v-col>
+        </v-row>
 
-              <!-- email -->
-              <v-text-field
-                v-model="formData.email"
-                label="Email"
-                :rules="rules.email"
-              ></v-text-field>
+        <v-row>
+          <v-col cols="6">
+            <v-text-field
+              v-model="formData.age"
+              label="Age"
+              type="number"
+              :rules="rules.required"
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+          <v-col cols="6">
+            <v-text-field
+              v-model="formData.phone_number"
+              label="Phone Number"
+              :rules="rules.contact"
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+        </v-row>
 
-              <!-- address -->
-              <v-text-field
-                v-model="formData.address"
-                label="Address"
-                :rules="rules.required"
-              ></v-text-field>
+        <v-text-field
+          v-model="formData.email"
+          label="Email"
+          :rules="rules.email"
+          outlined
+          dense
+        ></v-text-field>
 
-              <v-row>
-                <v-col cols="6">
-                  <!-- username -->
-                  <v-text-field
-                    v-model="formData.username"
-                    label="Username"
-                    :rules="rules.required"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="6">
-                  <!-- password -->
-                  <v-text-field
-                    v-model="formData.password"
-                    label="Password"
-                    type="password"
-                    :rules="rules.required"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
+        <v-text-field
+          v-model="formData.address"
+          label="Address"
+          :rules="rules.required"
+          outlined
+          dense
+        ></v-text-field>
 
-              <!-- input file -->
-              <v-file-input
-                v-for="(item, index) in user_role_details"
-                :rules="rules.required"
-                :key="index"
-                :label="item.name"
-                v-model="item.value"
-                accept="image/*"
-              ></v-file-input>
+        <v-row>
+          <v-col cols="4">
+            <v-text-field
+              label="Region/State"
+              outlined
+              dense
+              hide-details="auto"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="4">
+            <v-select
+              label="Province/City"
+              outlined
+              dense
+              hide-details="auto"
+            ></v-select>
+          </v-col>
+          <v-col cols="4">
+            <v-select
+              label="Barangay"
+              outlined
+              dense
+              hide-details="auto"
+            ></v-select>
+          </v-col>
+        </v-row>
 
-              <!-- map -->
-              <v-btn @click="gps" class="float-right mb-4" color="secondary">My Location</v-btn>
-              <MAP_COMPONENT :sidenavViewer="'registration'"/>
+        <v-row>
+          <v-col cols="6">
+            <v-text-field
+              v-model="formData.username"
+              label="Username"
+              :rules="rules.required"
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+          <v-col cols="6">
+            <v-text-field
+              v-model="formData.password"
+              label="Password"
+              type="password"
+              :rules="rules.required"
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+        </v-row>
 
-              <!-- submit btn -->
-              <v-btn
-                type="submit"
-                :loading="loadSubmit"
-                class="register-btn"
-                elevation="0"
-                color="primary"
-                dark
-                >SUBMIT</v-btn
-              >
-            </v-form>
-          </v-card-text>
-        </v-card>
-      </v-row>
-    </v-container>
-  </v-app>
+        <v-file-input
+          v-for="(item, index) in user_role_details"
+          :rules="rules.required"
+          :key="index"
+          :label="item.name"
+          v-model="item.value"
+          accept="image/*"
+          outlined
+          dense
+        ></v-file-input>
+
+        <v-btn @click="gps" class="float-right mb-4" color="primary">
+          my location
+        </v-btn>
+        <MAP_COMPONENT :sidenavViewer="'registration'" />
+
+        <v-btn type="submit" :loading="loadSubmit" color="primary">
+          register
+        </v-btn>
+      </v-form>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -266,6 +302,12 @@ export default {
         console.error("Geolocation is not supported in this browser.");
       }
     },
+    login() {
+      this.$router.push("/Login");
+    },
+    registration() {
+      this.$router.push("/Registration");
+    },
   },
   computed: {
     ...mapGetters(["MARKER_LAT_LNG"]),
@@ -279,11 +321,11 @@ export default {
 
 <style scoped>
 .register-card {
-  width: 60rem;
-  border-radius: 0;
-  padding: 0 1rem 0;
-}
-.register-btn {
-  width: 100%;
+  width: 50rem;
+  padding: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>
