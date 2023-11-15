@@ -1,48 +1,59 @@
 <template>
   <v-container>
     <v-card class="user-info-container" elevation="10">
-      <v-card-title>User Information</v-card-title>
-      <v-card-text>
-        <v-row>
-          <v-col>
-            <strong>Name:</strong> {{ USER_DETAILS.name }}
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <strong>Age:</strong> {{ USER_DETAILS.age }}
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <strong>Gender:</strong> {{ USER_DETAILS.gender }}
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <strong>Email:</strong> {{ USER_DETAILS.email }}
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <strong>Address:</strong> {{ USER_DETAILS.address }}
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <strong>Balance:</strong> ₱{{ USER_DETAILS.balance }}
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <strong>User Roles: </strong>
-            <v-chip v-for="role in USER_DETAILS.user_role_details" :key="role.id" class="mr-2">
-              {{ role.name }}
-            </v-chip>
-          </v-col>
-        </v-row>
-      </v-card-text>
+      <v-row>
+        <v-col>
+          <!-- User Information -->
+          <v-card-title>User Information</v-card-title>
+          <v-card-text>
+            <v-row>
+              <v-col>
+                <strong>Name:</strong> {{ USER_DETAILS.name }}
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <strong>Age:</strong> {{ USER_DETAILS.age }}
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <strong>Gender:</strong> {{ USER_DETAILS.gender }}
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <strong>Email:</strong> {{ USER_DETAILS.email }}
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <strong>Address:</strong> {{ USER_DETAILS.address }}
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <strong>Balance:</strong> ₱{{ USER_DETAILS.balance }}
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <strong>User Roles: </strong>
+                <v-chip v-for="role in USER_DETAILS.user_role_details" :key="role.id" class="mr-2">
+                  {{ role.name }}
+                </v-chip>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-col>
+
+        <!-- Profile Picture -->
+        <v-col>
+          <v-img :src="require('@/assets/profilePic.jpg')" class="mr-3 float-right" max-width="150" style="border-radius: 5rem;"></v-img>
+        </v-col>
+      </v-row>
     </v-card>
+
     <br><br>
     <v-card v-if="StoreDetails.isStoreOwner" class="user-info-container" elevation="10">
       <v-card-title>Store Information</v-card-title>

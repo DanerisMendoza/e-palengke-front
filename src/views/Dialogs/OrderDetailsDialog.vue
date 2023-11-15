@@ -13,10 +13,25 @@
                     <v-col cols="12">
                         <v-container>
                             <v-card>
-                                <v-card-title>Delivery</v-card-title>
-                                <v-card-text>Name: {{ TRANSACTION.delivery_name }} </v-card-text>
-                                <v-card-text>Contact: {{ TRANSACTION.phone_number }} </v-card-text>
+                                <v-row>
+                                    <!-- Delivery Information -->
+                                    <v-col>
+                                        <v-card-title>Delivery</v-card-title>
+                                        <v-card-text>
+                                            Name: {{ TRANSACTION.delivery_name }}
+                                            <br>
+                                            Contact: {{ TRANSACTION.phone_number }}
+                                        </v-card-text>
+                                    </v-col>
+
+                                    <!-- Profile Picture -->
+                                    <v-col>
+                                        <v-img :src="require('@/assets/profilePic.jpg')" class="mr-3 float-right"
+                                            max-width="150" style="border-radius: 5rem;"></v-img>
+                                    </v-col>
+                                </v-row>
                             </v-card>
+
                         </v-container>
                     </v-col>
                 </v-row>
@@ -50,7 +65,7 @@ export default {
     },
     computed: {
         ...mapGetters([
-            "ORDERS", "SELECTED_ORDER_DETAILS","TRANSACTION"
+            "ORDERS", "SELECTED_ORDER_DETAILS", "TRANSACTION"
         ]),
         total() {
             return ''
