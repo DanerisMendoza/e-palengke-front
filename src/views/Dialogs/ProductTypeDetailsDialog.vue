@@ -5,7 +5,7 @@
           <v-card>
             <v-card-title>Product Type Details</v-card-title>
             <v-card-text>
-              <v-text-field label="Enter New Product Type" v-model="name" hide-details="auto"></v-text-field>
+              <v-text-field label="Enter New Product Type" :rules="rules.required" v-model="name" hide-details="auto"></v-text-field>
             </v-card-text>
             <v-card-actions>
               <v-btn color="red" text @click="closeDialog()">close</v-btn>
@@ -26,12 +26,31 @@
       return {
         bottom_sheet: true,
         name: null,
-        dialog: true,
+        dialog: true, 
         headers: [
           { text: "Name", align: "center", value: "name", sortable: false },
           { text: "Actions", align: "center", value: "actions", sortable: false },
         ],
         editedItem: null,
+      rules: {
+        required: [(v) => !!v || "Field is required"],
+        min: [(v) => v.length >= 8 || "Min 8 characters"],
+        email: [
+          (v) => !!v || "E-mail is required",
+          (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+        ],
+        contact: [
+          (v) =>
+            (v !== null && v !== undefined && /^\d+$/.test(v)) ||
+            "Only numeric values are allowed",
+          (v) =>
+            (v !== null && v !== undefined && v.length >= 11) ||
+            "Min 11 characters",
+          (v) =>
+            (v !== null && v !== undefined && v.length <= 11) ||
+            "Max 11 characters",
+        ],
+      },
       };
     },
     methods: {
