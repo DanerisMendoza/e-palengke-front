@@ -96,6 +96,8 @@ export default {
       "USER_DETAILS",
       "PRODUCT_TABLE_VIEWER",
       "SELECTED_STORE",
+      "PRODUCT_DIALOG",
+      "SELECTED_PRODUCT_DETAILS",
     ]),
   },
   methods: {
@@ -123,11 +125,41 @@ export default {
         (item) => item.id === 3 && item.status === "active"
       )?.store_details[0].store_id);
     },
-    editItem(item) {},
+    editItem(item) {
+      this.$store.commit("SELECTED_PRODUCT_DETAILS", item);
+      this.$store.commit("PRODUCT_DIALOG", "UPDATE");
+      console.log(this.PRODUCT_DIALOG);
+    },
     deleteItem(item) {
       console.log(item);
-      this.$store.dispatch("DELETE_PRODUCT_BY_ID", item.id);
-      this.$store.dispatch("GET_PRODUCT_BY_ID", this.store_id);
+      this.$swal
+        .fire({
+          icon: "warning",
+          title: "Delete Item",
+          text: "Are you sure you want to delete this item?",
+          showCancelButton: true,
+          confirmButtonText: "Yes, delete it",
+          cancelButtonText: "No, cancel",
+          confirmButtonColor: "#d33",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$store
+              .dispatch("DELETE_PRODUCT_BY_ID", item.id)
+              .then((response) => {
+                if (response === "success") {
+                  this.$swal.fire({
+                    icon: "success",
+                    title: "Success!",
+                    text: "Item Deleted Successfully.",
+                  });
+                  // this.$store.dispatch("GET_PRODUCT",this.SELECTED_PRODUCT_DETAILS.id);
+                  this.$store.dispatch("GET_PRODUCT_BY_ID", this.store_id);
+
+                }
+              });
+          }
+        });
     },
   },
   watch: {
