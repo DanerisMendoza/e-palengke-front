@@ -98,8 +98,8 @@ export default {
           } else if (response.message === "not active") {
             this.$swal.fire({
               icon: "warning", // Set a warning icon (you can choose a different icon class)
-              title: "Account is Not Activated", // Updated title
-              text: "Please Wait For Activation Of Your Account", // Updated text message
+              title: "Your Account is currently being review.", // Updated title
+              text: "Please wait for Activation!", // Updated text message
               showConfirmButton: false, // Remove the "OK" button
               timer: 2000, // Auto-close the alert after 1.5 seconds (adjust as needed)
             });

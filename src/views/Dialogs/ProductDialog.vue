@@ -114,9 +114,9 @@ export default {
     ])
   },
   mounted() {
-    this.form.store_id = this.USER_DETAILS.user_role_ids.filter((item) => {
+    this.form.store_id = this.USER_DETAILS.user_role_details.filter((item) => {
       return item.id === 3 && item.status === 'active'
-    })[0].store_id
+    })[0].store_details[0].store_id
   },
 }
 </script>

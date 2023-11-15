@@ -112,7 +112,7 @@
 
               <!-- map -->
               <v-btn @click="gps" class="float-right mb-4" color="secondary">My Location</v-btn>
-              <MapComp />
+              <MAP_COMPONENT :sidenavViewer="'registration'"/>
 
               <!-- submit btn -->
               <v-btn
@@ -133,10 +133,10 @@
 </template>
 
 <script>
-import MapComp from "../components/Map.vue";
+import MAP_COMPONENT from "../components/Map.vue";
 import { mapGetters } from "vuex";
 export default {
-  components: { MapComp },
+  components: { MAP_COMPONENT },
   data() {
     return {
       user_role_details: [],

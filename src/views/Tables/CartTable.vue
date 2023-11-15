@@ -6,6 +6,7 @@
                 <template v-slot:item="{ item }">
                     <tr :style="{ 'background-color': item.stock < 0 ? 'grey' : '' }">
                         <td>{{ item.name }}</td>
+                        <td>{{ item.store_name }}</td>
                         <td>₱{{ item.price }}</td>
                         <td>{{ item.stock }}</td>
                         <td>{{ item.quantity }}</td>
@@ -47,6 +48,7 @@ export default {
         return {
             headers: [
                 { text: "Name", value: "name", align: "center", sortable: false },
+                { text: "Store Name", value: "storeName", align: "center", sortable: false },
                 { text: "Price (₱)", value: "price", align: "center", sortable: false },
                 { text: "Stock", value: "stock", align: "center", sortable: false },
                 { text: "Quantity", value: "quantity", align: "center", sortable: false },

@@ -21,7 +21,7 @@
 
                 <v-row>
                     <v-col cols="12">
-                        <MAP_COMPONENT v-if="SELECTED_USER_ROLE_DETAILS !== null" />
+                        <MAP_COMPONENT v-if="SELECTED_USER_ROLE_DETAILS !== null" :sidenavViewer="'application'"/>
                     </v-col>
                 </v-row>
 

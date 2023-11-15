@@ -33,6 +33,8 @@ import { mapGetters } from 'vuex';
             closeDialog(){
                 this.$store.commit("SELECTED_REQUIREMENT_DETAIL",null)
                 this.$store.commit("REQUIREMENT_DETAIL_BOTTOMSHEET",null)
+                this.$store.commit("PRODUCT_TYPE_DETAILS_BOTTOMSHEET",null)
+                this.$store.commit("STORE_TYPE_DETAILS_BOTTOMSHEET",null)
             },
             update(){
 

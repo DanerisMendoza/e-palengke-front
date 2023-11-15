@@ -9,14 +9,12 @@
 
 <script>
 import { mapGetters } from "vuex";
-import RequirementTable from "../Tables/RequirementTable.vue";
+import RequirementTable from "../Tables/RequirementTable.vue.vue";
 import RequirementDialog from "../Dialogs/RequirementDialog.vue";
 import RequirementDetails from "../BottomSheet/RequirementDetails.vue";
-// import Requirement from '../Dialogs/Requirement.vue';
-// import RequirementEditDialog from '../Dialogs/RequirementEditDialog.vue';
 
 export default {
-  components: { RequirementTable, RequirementDialog, RequirementDetails },
+  components: {RequirementDialog, RequirementDetails, RequirementTable, },
   computed: {
     ...mapGetters([
       "SELECTED_REQUIREMENT",

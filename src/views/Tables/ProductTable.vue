@@ -62,21 +62,21 @@ export default {
           value: "name",
           align: "center",
           sortable: false,
-          width: "20%",
+          width: "25%",
         },
         {
           text: "Price",
           value: "price",
           align: "center",
           sortable: false,
-          width: "15%",
+          width: "25%",
         },
         {
           text: "Stock",
           value: "stock",
           align: "center",
           sortable: false,
-          width: "15%",
+          width: "25%",
         },
         { text: "Picture", align: "center", sortable: false, width: "20%" },
         {
@@ -84,7 +84,7 @@ export default {
           align: "center",
           value: "actions",
           sortable: false,
-          width: "15%",
+          width: "25%",
         },
       ],
       store_id: null,
@@ -119,9 +119,9 @@ export default {
       }
     },
     getStoreId() {
-      return (this.store_id = this.USER_DETAILS.user_role_ids.find(
+      return (this.store_id = this.USER_DETAILS.user_role_details.find(
         (item) => item.id === 3 && item.status === "active"
-      )?.store_id);
+      )?.store_details[0].store_id);
     },
     editItem(item) {},
     deleteItem(item) {
@@ -133,6 +133,7 @@ export default {
   watch: {
     SELECTED_STORE: {
       handler(val) {
+        console.log(val)
         if (this.PRODUCT_TABLE_VIEWER === "STORE") {
           this.$store.dispatch("GET_PRODUCT_BY_ID", val.id).then(() => {
             const updatedProduct = this.PRODUCT.map((item) => ({

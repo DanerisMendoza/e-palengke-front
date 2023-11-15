@@ -27,7 +27,6 @@
                   <div class="image-container">
                     <v-card-text>{{ imageData.name }}</v-card-text>
                     <v-img contain :src="imageData.base64img" class="image">
-                      <!-- You can add optional overlay content or labels here -->
                     </v-img>
                   </div>
                 </v-carousel-item>

@@ -1,12 +1,12 @@
 <template>
     <v-container>
-        <ProfileTable/>
+        <Profile/>
     </v-container>
 </template>
 
 <script>
- import ProfileTable from '../Tables/ProfileTable.vue';
+ import Profile from '../components/Profile.vue';
     export default{
-        components: { ProfileTable}
+        components: { Profile}
     }
 </script>

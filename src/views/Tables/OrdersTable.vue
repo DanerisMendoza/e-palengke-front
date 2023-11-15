@@ -8,8 +8,17 @@
                     <td>{{ item.status }}</td>
                     <td>₱{{ item.total }}</td>
                     <td>
-                        <v-btn @click="viewOrderDetails(index)">
+                        <v-btn @click="viewOrderDetails(item)">
                             <v-icon>mdi-view-list</v-icon>
+                        </v-btn>
+                        <v-btn v-if="item.status == 'Pending'" @click="ACCEPT_ORDER(item)">
+                            <v-icon>mdi-check</v-icon>
+                        </v-btn>
+                        <v-btn v-if="item.status == 'Pending'" @click="DECLINE_ORDER(item)">
+                            <v-icon>mdi-close</v-icon>
+                        </v-btn>
+                        <v-btn v-if="item.status == 'Preparing'" @click="ORDER_TO_SHIP(item)">
+                            <v-icon>mdi-truck</v-icon>
                         </v-btn>
                     </td>
                 </tr>
@@ -19,11 +28,15 @@
             <template v-slot:item="{ item, index }">
                 <tr>
                     <td>{{ formatDate(item.created_at) }}</td>
+                    <td>{{ item.name }}</td>
                     <td>{{ item.status }}</td>
                     <td>₱{{ item.total }}</td>
                     <td>
-                        <v-btn @click="viewOrderDetails(index)">
+                        <v-btn @click="viewOrderDetails(item)">
                             <v-icon>mdi-view-list</v-icon>
+                        </v-btn>
+                        <v-btn v-if="item.status == 'Pending'" @click="CANCEL_ORDER(item)">
+                            <v-icon>mdi-close</v-icon>
                         </v-btn>
                     </td>
                 </tr>
@@ -37,8 +50,14 @@
                     <td>{{ item.status }}</td>
                     <td>₱{{ item.total }}</td>
                     <td>
-                        <v-btn @click="viewOrderDetails(index)">
+                        <v-btn @click="viewOrderDetails(item)">
                             <v-icon>mdi-view-list</v-icon>
+                        </v-btn>
+                        <v-btn @click="viewOrderDetails(item)">
+                            <v-icon>mdi-map-marker</v-icon>
+                        </v-btn>
+                        <v-btn @click="viewOrderDetails(item)">
+                            <v-icon>mdi-check</v-icon>
                         </v-btn>
                     </td>
                 </tr>
@@ -62,6 +81,7 @@ export default {
             ],
             customer_headers: [
                 { text: "Date ", align: "center", sortable: false },
+                { text: "Store Name ", align: "center", sortable: false },
                 { text: "Status ", align: "center", sortable: false },
                 { text: "Total ", align: "center", sortable: false },
                 { text: "Actions", align: "center", sortable: false },
@@ -73,37 +93,93 @@ export default {
             "USER_DETAILS", "ORDERS", "ORDERS_TABLE_MODE"
         ]),
         store_id() {
-            return (this.USER_DETAILS.user_role_ids.find((item) => item.id === 3 && item.status === 'active')?.store_id);
+            return (this.USER_DETAILS.user_role_details.find((item) => item.id === 3 && item.status === 'active')?.store_details[0].store_id);
         }
     },
     methods: {
+        CANCEL_ORDER(item) {
+            const payload = { order_id: item.order_id }
+            this.$store.dispatch('CANCEL_ORDER', payload).then((response) => {
+                if (response === 'success') {
+                    this.fetchTable()
+                    this.$store.dispatch("GetUserDetails")
+                    this.$swal.fire({
+                        icon: 'success',
+                        title: 'Order Cancel Success',
+                        timer: 2000
+                    });
+                }
+            })
+        },
+        ACCEPT_ORDER(item) {
+            const payload = {
+                customer_id: item.customer_id,
+                order_id: item.order_id
+            }
+            this.$store.dispatch('ACCEPT_ORDER', payload).then((response) => {
+                if (response === 'success') {
+                    this.fetchTable()
+                    this.$swal.fire({
+                        icon: 'success',
+                        title: 'Order Accept Success',
+                        timer: 2000
+                    });
+                }
+            })
+        },
+        ORDER_TO_SHIP(item){
+            const payload = {
+                customer_id: item.customer_id,
+                order_id: item.order_id
+            }
+            this.$store.dispatch('ORDER_TO_SHIP', payload).then((response) => {
+                if (response === 'success') {
+                    this.fetchTable()
+                    this.$swal.fire({
+                        icon: 'success',
+                        title: 'Order To Ship Success',
+                        timer: 2000
+                    });
+                }
+            })
+        },
+        DECLINE_ORDER(item) {
+            const payload = {
+                customer_id: item.customer_id,
+                order_id: item.order_id
+            }
+            this.$store.dispatch('DECLINE_ORDER', payload).then((response) => {
+                if (response === 'success') {
+                    this.fetchTable()
+                    this.$swal.fire({
+                        icon: 'success',
+                        title: 'Decline Order Success',
+                        timer: 2000
+                    });
+                }
+            })
+        },
         formatDate(date) {
             return moment(date).format('hh:mm A | YYYY-MM-DD');
         },
-        viewOrderDetails(index) {
-            this.$store.commit('SELECTED_ORDER_DETAILS', index)
-            console.log(this.ORDERS[index])
+        viewOrderDetails(item) {
+            this.$store.commit('SELECTED_ORDER_DETAILS', item)
+        },
+        fetchTable() {
+            const payload = { 
+                params: {
+                    mode:this.ORDERS_TABLE_MODE,
+                    store_id: this.store_id
+                } 
+            }
+            console.log(payload)
+            this.$store.dispatch('GET_ORDERS', payload).then(() => {
+                console.log(this.ORDERS)
+            })
         }
     },
     mounted() {
-        console.log(this.ORDERS_TABLE_MODE)
-        if (this.ORDERS_TABLE_MODE === 'customer') {
-            const payload = { mode: 'customer' }
-            this.$store.dispatch('GET_ORDERS_BY_USER_ID',payload).then(() => {
-                console.log(this.ORDERS)
-            })
-        }
-        else if (this.ORDERS_TABLE_MODE === 'store') {
-            this.$store.dispatch('GET_ORDERS_BY_STORE_ID', this.store_id).then(() => {
-                console.log(this.ORDERS)
-            })
-        }
-        else if (this.ORDERS_TABLE_MODE === 'delivery') {
-            const payload = { mode: 'delivery' }
-            this.$store.dispatch('GET_ORDERS_BY_USER_ID', payload).then(() => {
-                console.log(this.ORDERS)
-            })
-        }
+        this.fetchTable()
     }
 }
 </script>
