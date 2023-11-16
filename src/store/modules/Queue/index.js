@@ -2,12 +2,16 @@ import api from '@/api/index'
 
 export default {
     state: {
+        RESTART: false,
     },
 
     getters: {
+        RESTART: (state) => state.RESTART,
+
     },
 
     mutations: {
+        RESTART: (state, data) => { state.RESTART = data },
     },
 
     actions: {

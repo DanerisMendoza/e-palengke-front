@@ -7,11 +7,7 @@
         </v-row>
         <v-row>
             <v-col>
-                <v-slider v-show="isVisible" v-model="circleRadius" class="mt-3" thumb-label="always">
-                    <template v-slot:thumb-label="{ value }">
-                        <div class="custom-thumb-label">{{ value }} </div>
-                    </template>
-                </v-slider>
+
             </v-col>
         </v-row>
         <v-row>
@@ -27,7 +23,7 @@
                         Status: {{ TRANSACTION[0].status }}
                         <br>
                         Contact: {{ TRANSACTION[0].phone_number }}
-                        <v-divider></v-divider> 
+                        <v-divider></v-divider>
                         <br>
                         <v-row v-for="(item, index) in TRANSACTION[0].orders" :key="index">
                             <v-col>
@@ -62,7 +58,7 @@
                         Status: {{ TRANSACTION[0].status }}
                         <br>
                         Contact: {{ TRANSACTION[0].phone_number }}
-                        <v-divider></v-divider>                        
+                        <v-divider></v-divider>
                         <br>
                         <v-row v-for="(item, index) in TRANSACTION[0].orders" :key="index">
                             <v-col>
@@ -90,6 +86,12 @@
             </v-col>
             <v-col cols="6">
                 <MAP_COMPONENT :sidenavViewer="'delivery'" />
+                <br>
+                <v-slider v-show="isVisible" v-model="circleRadius" class="mt-3" thumb-label="always">
+                    <template v-slot:thumb-label="{ value }">
+                        <div class="custom-thumb-label">{{ value }} </div>
+                    </template>
+                </v-slider>
             </v-col>
         </v-row>
     </v-container>
@@ -102,12 +104,12 @@ export default {
     components: { MAP_COMPONENT },
     data() {
         return {
-            defaultCountdown: 8,
+            defaultCountdown: 60,
             hasDeliver: false,
             newOrder: false,
             isRunning: false,
-            circleRadius: 500,
-            isVisible: false,
+            circleRadius: 50,
+            isVisible: true,
             countdown: 0,
             declinedTransactions: []
         };
@@ -116,6 +118,7 @@ export default {
         circleRadius: {
             handler(val) {
                 this.$store.commit("CIRCLE_RADIUS", val * 3)
+                this.countdown = 0
             },
         },
         isRunning: {
@@ -134,6 +137,7 @@ export default {
                     this.$store.commit('TRANSACTION', [])
                     this.declinedTransactions = []
                     this.newOrder = false
+                    this.$store.commit('RESTART', true)
                 }
             }
         }
@@ -174,7 +178,7 @@ export default {
                 transaction_id: this.CURRENT_TRANSACTION_ID,
                 user_id: this.USER_DETAILS.user_id,
             }
-            this.$store.dispatch('ACCEPT_TRANSACTION', payload).then(()=>{
+            this.$store.dispatch('ACCEPT_TRANSACTION', payload).then(() => {
                 this.GET_IN_PROGRESS_TRANSACTION()
             })
         },
@@ -190,7 +194,7 @@ export default {
             this.$store.commit("CENTER", [0, 0])
             this.$store.commit("MARKER_LAT_LNG", [latitude, longitude])
             this.$store.commit("CENTER", [latitude, longitude])
-            this.$store.commit("ZOOM", 16)
+            this.$store.commit("ZOOM", 17)
         },
 
         FIND_NEAR_BY() {
@@ -201,7 +205,7 @@ export default {
             const payload = {
                 latitude: latitude,
                 longitude: longitude,
-                radius: this.CIRCLE_RADIUS,
+                radius: this.circleRadius*3,
                 user_id: this.USER_DETAILS.user_id,
                 declinedTransactions: this.declinedTransactions
             }
@@ -254,13 +258,26 @@ export default {
                     this.isRunning = true
                     this.hasDeliver = true
                 }
-                else{
+                else {
                     this.isRunning = false
                     this.hasDeliver = false
                 }
             })
         }
 
+    },
+    beforeDestroy() {
+        if (!this.hasDeliver && this.CURRENT_TRANSACTION_ID != null) {
+            const payload = {
+                transaction_id: this.CURRENT_TRANSACTION_ID,
+                user_id: this.USER_DETAILS.user_id,
+            }
+            this.$store.dispatch('REMOVE_TRANSACTION_DELIVERY_ID', payload)
+        }
+        this.$store.commit('ORDER_STORE_LAT_LNG', [])
+        this.$store.commit('TRANSACTION', [])
+        this.declinedTransactions = []
+        this.newOrder = false
     },
     mounted() {
         this.registeredLocation()
