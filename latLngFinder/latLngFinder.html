@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet Map with Adjustable Radius</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+    <!-- Map container -->
+    <div id="map" style="height: 400px;"></div>
+
+    <!-- Display latitude, longitude, and adjustable radius -->
+    <h1 id="coordinates">Latitude: , Longitude: </h1>
+    <h2 id="radius">Radius: </h2>
+
+    <!-- Radius slider -->
+    <label for="radiusSlider">Adjust Radius:</label>
+    <input type="range" id="radiusSlider" min="100" max="1000" step="100" value="1000">
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- Your custom script for creating the map -->
+    <script>
+        // Set default position and radius
+        var defaultPosition = [14.654167279098882, 120.96567392349245];
+        var defaultRadius = 1000; // in meters
+
+        // Initialize the map
+        var map = L.map('map').setView(defaultPosition, 13);
+
+        // Add a tile layer (you can use different tile providers)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Initialize a marker at the default position
+        var marker = L.marker(defaultPosition).addTo(map)
+            .bindPopup('A sample marker.');
+
+        // Initialize a circle with the default radius around the marker
+        var circle = L.circle(defaultPosition, {
+            radius: defaultRadius,
+            color: 'blue',
+            fillOpacity: 0.2
+        }).addTo(map);
+
+        // Update the HTML with the initial coordinates and radius
+        document.getElementById('coordinates').innerText = 'Latitude: ' + defaultPosition[0] + ', Longitude: ' + defaultPosition[1];
+        document.getElementById('radius').innerText = 'Radius: ' + defaultRadius + ' meters';
+
+        // Event listener for map click
+        map.on('click', function (e) {
+            // Get the clicked coordinates
+            var latlng = e.latlng;
+
+            // Move the marker to the clicked location
+            marker.setLatLng(latlng);
+
+            // Update the content of h1 with latitude and longitude
+            document.getElementById('coordinates').innerText = 'Latitude: ' + latlng.lat + ', Longitude: ' + latlng.lng;
+
+            // Move the circle to the clicked location
+            circle.setLatLng(latlng);
+
+            // Update the content of h2 with the adjusted radius
+            updateRadius();
+        });
+
+        // Event listener for slider change
+        document.getElementById('radiusSlider').addEventListener('input', function () {
+            // Update the radius when the slider value changes
+            updateRadius();
+        });
+
+        // Function to update the radius based on the slider value
+        function updateRadius() {
+            var sliderValue = document.getElementById('radiusSlider').value;
+
+            // Ensure the radius doesn't exceed the maximum (1000 meters)
+            var radius = Math.min(parseInt(sliderValue), 1000);
+
+            circle.setRadius(radius);
+
+            // Update the content of h2 with the adjusted radius
+            document.getElementById('radius').innerText = 'Radius: ' + radius + ' meters';
+        }
+    </script>
+</body>
+</html>

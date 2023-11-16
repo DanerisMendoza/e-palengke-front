@@ -116,7 +116,6 @@ export default {
         circleRadius: {
             handler(val) {
                 this.$store.commit("CIRCLE_RADIUS", val * 3)
-                this.countdown = 0
             },
         },
         isRunning: {
