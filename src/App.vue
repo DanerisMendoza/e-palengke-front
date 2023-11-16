@@ -26,7 +26,7 @@
             </template>
             <v-list>
               <v-list-item>
-                <v-btn text block color="error" @click="submitLogout()"
+                <v-btn plain color="error" @click="submitLogout()"
                   ><v-icon class="mr-2">mdi-power</v-icon>Logout</v-btn
                 >
               </v-list-item>

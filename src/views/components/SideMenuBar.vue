@@ -33,16 +33,17 @@
         >
           <template v-slot:activator>
             <v-list-item-title>
+              <v-icon class="mr-3">{{ side_nav.mdi_icon }}</v-icon>
               {{ side_nav.name }}
             </v-list-item-title>
           </template>
           <v-list-item
             v-for="child in side_nav.side_nav_children"
             :key="child.id"
-            class="childSideNav"
             :to="{ name: child.name, params: { id: child.id } }"
+            style="background: rgb(35, 105, 176)"
           >
-            <v-icon class="mr-2">{{ child.mdi_icon }}</v-icon>
+            <!-- <v-icon class="mr-3">{{ child.mdi_icon }}</v-icon> -->
             {{ child.name }}
           </v-list-item>
         </v-list-group>
@@ -87,9 +88,6 @@ export default {
 </script>
 
 <style scoped>
-.childSideNav {
-  margin-left: 20px;
-}
 .e-palengke {
   font-size: 1.95rem;
   font-weight: 800;
