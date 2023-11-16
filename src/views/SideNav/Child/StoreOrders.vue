@@ -1,8 +1,11 @@
 <template>
   <v-app style="background: #d0dae3">
     <v-container>
-      <OrderDetailsDialog v-if="SELECTED_ORDER_DETAILS !== null" />
-      <OrdersTable />
+      <v-card class="store-orders">
+        <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
+        <OrderDetailsDialog v-if="SELECTED_ORDER_DETAILS !== null" />
+        <OrdersTable />
+      </v-card>
     </v-container>
   </v-app>
 </template>
@@ -22,3 +25,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.store-orders {
+  border-top: 5px solid #1976d2;
+  padding: 1rem;
+}
+</style>

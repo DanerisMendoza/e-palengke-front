@@ -1,9 +1,10 @@
 <template>
   <v-app style="background: #d0dae3">
     <v-container>
-      <ApplicantsCredentialDialog v-if="this.SELECTED_CREDENTIAL !== null" />
       <v-card class="application">
         <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
+
+        <ApplicantsCredentialDialog v-if="this.SELECTED_CREDENTIAL !== null" />
 
         <v-form ref="myForm" @submit.prevent="submit">
           <Application />
@@ -67,7 +68,9 @@
 
           <v-row v-if="SELECTED_USER_ROLE_DETAILS !== null">
             <v-col cols="12" class="text-center">
-              <v-btn class="submit-btn" type="submit" color="primary">Submit</v-btn>
+              <v-btn class="submit-btn" type="submit" color="primary"
+                >Submit</v-btn
+              >
             </v-col>
           </v-row>
         </v-form>

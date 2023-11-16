@@ -1,59 +1,61 @@
 <template>
-  <v-container>
-    <v-card elevation="2" outlined class="mb-5">
-      <v-data-table :headers="headers" :items="MY_APPLICATION">
-        <template v-slot:item="{ item }">
-          <tr>
-            <td style="text-align: center">{{ item.name }}</td>
-            <td style="text-align: center">
-              <v-chip>{{ item.status }}</v-chip>
-            </td>
-            <td style="text-align: center">
-              <v-btn @click="view(item)" icon><v-icon>mdi-eye</v-icon></v-btn>
-            </td>
-          </tr>
-        </template>
-      </v-data-table>
-    </v-card>
+  <v-row>
+    <v-col>
+      <v-card elevation="2" outlined class="mb-5">
+        <v-data-table :headers="headers" :items="MY_APPLICATION">
+          <template v-slot:item="{ item }">
+            <tr>
+              <td style="text-align: center">{{ item.name }}</td>
+              <td style="text-align: center">
+                <v-chip>{{ item.status }}</v-chip>
+              </td>
+              <td style="text-align: center">
+                <v-btn @click="view(item)" icon><v-icon>mdi-eye</v-icon></v-btn>
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+      </v-card>
 
-    <!-- Autocomplete component -->
-    <v-row>
-      <v-col cols="12" sm="4">
-        <v-autocomplete
-          v-if="user_role.length !== 0"
-          v-model="selected_user_role"
-          :items="user_role"
-          label="Select Application"
-          item-text="name"
-          item-value="id"
-          auto-select-first
-          chips
-          deletable-chips
-          @change="handleUserRoleChange"
-          outlined
-          hide-details="auto"
-        ></v-autocomplete>
-      </v-col>
-    </v-row>
+      <!-- Autocomplete component -->
+      <v-row>
+        <v-col cols="12" sm="4">
+          <v-autocomplete
+            v-if="user_role.length !== 0"
+            v-model="selected_user_role"
+            :items="user_role"
+            label="Select Application"
+            item-text="name"
+            item-value="id"
+            auto-select-first
+            chips
+            deletable-chips
+            @change="handleUserRoleChange"
+            outlined
+            hide-details="auto"
+          ></v-autocomplete>
+        </v-col>
+      </v-row>
 
-    <v-row>
-      <v-col cols="12">
-        <v-file-input
-          v-for="(item, index) in user_role_details"
-          :key="index"
-          :label="item.name"
-          v-model="item.value"
-          @change="handleFileChange()"
-          accept="image/*"
-          :rules="rules.required"
-          outlined
-          hide-details="auto"
-          class="mb-3"
-          dense
-        ></v-file-input>
-      </v-col>
-    </v-row>
-  </v-container>
+      <v-row>
+        <v-col cols="12">
+          <v-file-input
+            v-for="(item, index) in user_role_details"
+            :key="index"
+            :label="item.name"
+            v-model="item.value"
+            @change="handleFileChange()"
+            accept="image/*"
+            :rules="rules.required"
+            outlined
+            hide-details="auto"
+            class="mb-3"
+            dense
+          ></v-file-input>
+        </v-col>
+      </v-row>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
