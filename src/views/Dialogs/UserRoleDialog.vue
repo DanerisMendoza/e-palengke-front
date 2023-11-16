@@ -1,23 +1,45 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <template>
-        <v-dialog v-model="dialog" max-width="500px" persistent>
-          <v-card>
-            <v-card-title>User Role: {{ SELECTED_ROLE.name }}</v-card-title>
-            <v-card-text>
-              <v-autocomplete v-model="selected_requirement" :items="REQUIREMENT_DETAILS" item-text="name" item-value="id"
-                auto-select-first chips deletable-chips multiple label="Requirement"></v-autocomplete>
-              <v-autocomplete v-model="selected_sidenav" readonly :items="ALL_SIDE_NAV" item-text="name" item-value="id"
-                auto-select-first chips deletable-chips multiple label="ACCESS"></v-autocomplete>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn color="primary" text @click="closeDialog()">CLOSE</v-btn>
-              <v-btn color="primary" text @click="update()">UPDATE</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </template>
+      <v-dialog v-model="dialog" max-width="500px" persistent>
+        <v-card>
+          <v-card-title>USER ROLE: {{ SELECTED_ROLE.name }}</v-card-title>
+          <v-card-text>
+            <v-autocomplete
+              v-model="selected_requirement"
+              :items="REQUIREMENT_DETAILS"
+              item-text="name"
+              item-value="id"
+              auto-select-first
+              chips
+              deletable-chips
+              multiple
+              label="Requirement"
+              outlined
+              hide-details="auto"
+              class="mb-5"
+            ></v-autocomplete>
+            <v-autocomplete
+              v-model="selected_sidenav"
+              readonly
+              :items="ALL_SIDE_NAV"
+              item-text="name"
+              item-value="id"
+              auto-select-first
+              chips
+              deletable-chips
+              multiple
+              label="Access"
+              outlined
+              hide-details="auto"
+            ></v-autocomplete>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn color="primary" text @click="closeDialog()">CLOSE</v-btn>
+            <v-btn color="primary" text @click="update()">UPDATE</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-row>
   </v-container>
 </template>
@@ -64,13 +86,13 @@ export default {
               showConfirmButton: false, // Remove the "OK" button
               timer: 1000, // Auto-close the alert after 1.5 seconds (adjust as needed)
             });
-            this.$store.dispatch(
-              "GET_USER_ROLE_WITH_ACCESSESS_AND_REQUIREMENTS"
-            ).then(() => {
-              this.$store.commit("SELECTED_ROLE", null);
-              this.selected_sidenav = null;
-              this.selected_requirement = null;
-            })
+            this.$store
+              .dispatch("GET_USER_ROLE_WITH_ACCESSESS_AND_REQUIREMENTS")
+              .then(() => {
+                this.$store.commit("SELECTED_ROLE", null);
+                this.selected_sidenav = null;
+                this.selected_requirement = null;
+              });
           }
         });
     },

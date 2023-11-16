@@ -1,5 +1,5 @@
 <template>
-  <v-app style="background: #f6f6f6">
+  <v-app style="background: #d0dae3">
     <v-container>
       <RequirementDialog v-if="REQUIREMENT_DETAIL_DIALOG !== null" />
       <RequirementTable />

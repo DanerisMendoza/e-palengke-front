@@ -1,53 +1,51 @@
 <template>
   <v-app>
-    <v-container>
-      <v-card elevation="0" outlined>
-        <v-data-table :headers="headers" :items="PRODUCT">
-          <template v-slot:item="{ item }">
-            <tr>
-              <td>{{ item.name }}</td>
-              <td>₱{{ item.price }}</td>
-              <td>{{ item.stock < 0 ? 0 : item.stock }}</td>
-              <td>
-                <v-img
-                  contain
-                  :src="item.base64img"
-                  eager
-                  class="image-small"
-                  style="max-height: 100px; max-width: 100px"
-                ></v-img>
-              </td>
-              <td v-if="PRODUCT_TABLE_VIEWER === 'INVENTORY'">
-                <v-icon @click="editItem(item)">mdi-pencil</v-icon>
-                <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
-              </td>
-              <td
-                v-if="
-                  PRODUCT_TABLE_VIEWER === 'STORE' && store_id !== item.store_id
-                "
+    <v-card elevation="2" outlined>
+      <v-data-table :headers="headers" :items="PRODUCT">
+        <template v-slot:item="{ item }">
+          <tr>
+            <td>{{ item.name }}</td>
+            <td>₱{{ item.price }}</td>
+            <td>{{ item.stock < 0 ? 0 : item.stock }}</td>
+            <td>
+              <v-img
+                contain
+                :src="item.base64img"
+                eager
+                class="image-small"
+                style="max-height: 100px; max-width: 100px"
+              ></v-img>
+            </td>
+            <td v-if="PRODUCT_TABLE_VIEWER === 'INVENTORY'">
+              <v-icon @click="editItem(item)">mdi-pencil</v-icon>
+              <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
+            </td>
+            <td
+              v-if="
+                PRODUCT_TABLE_VIEWER === 'STORE' && store_id !== item.store_id
+              "
+            >
+              <v-text-field
+                label="QTY"
+                type="number"
+                v-model="item.quantity"
+              ></v-text-field>
+              <v-btn
+                v-if="item.stock > 0"
+                class="mb-2"
+                @click="addToCart(item)"
               >
-                <v-text-field
-                  label="QTY"
-                  type="number"
-                  v-model="item.quantity"
-                ></v-text-field>
-                <v-btn
-                  v-if="item.stock > 0"
-                  class="mb-2"
-                  @click="addToCart(item)"
-                >
-                  <v-icon>mdi-cart-plus</v-icon>
-                </v-btn>
-                <v-btn v-else>
-                  <v-icon>mdi-alert-circle-outline</v-icon>
-                </v-btn>
-              </td>
-              <td v-else></td>
-            </tr>
-          </template>
-        </v-data-table>
-      </v-card>
-    </v-container>
+                <v-icon>mdi-cart-plus</v-icon>
+              </v-btn>
+              <v-btn v-else>
+                <v-icon>mdi-alert-circle-outline</v-icon>
+              </v-btn>
+            </td>
+            <td v-else></td>
+          </tr>
+        </template>
+      </v-data-table>
+    </v-card>
   </v-app>
 </template>
 
@@ -155,7 +153,6 @@ export default {
                   });
                   // this.$store.dispatch("GET_PRODUCT",this.SELECTED_PRODUCT_DETAILS.id);
                   this.$store.dispatch("GET_PRODUCT_BY_ID", this.store_id);
-
                 }
               });
           }
@@ -165,7 +162,7 @@ export default {
   watch: {
     SELECTED_STORE: {
       handler(val) {
-        console.log(val)
+        console.log(val);
         if (this.PRODUCT_TABLE_VIEWER === "STORE") {
           this.$store.dispatch("GET_PRODUCT_BY_ID", val.id).then(() => {
             const updatedProduct = this.PRODUCT.map((item) => ({

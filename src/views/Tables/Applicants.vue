@@ -1,7 +1,8 @@
 <template>
-  <v-app style="background: #f6f6f6">
-    <v-container>
-      <v-card elevation="1" outlined>
+  <v-app style="background: #d0dae3">
+    <v-card class="applicants">
+      <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
+      <v-card elevation="2" outlined>
         <v-data-table :headers="headers" :items="APPLICANTS">
           <template v-slot:item="{ item }">
             <tr>
@@ -33,7 +34,7 @@
           </template>
         </v-data-table>
       </v-card>
-    </v-container>
+    </v-card>
   </v-app>
 </template>
 
@@ -88,3 +89,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.applicants {
+  border-top: 5px solid #1976d2;
+  padding: 1rem;
+}
+</style>

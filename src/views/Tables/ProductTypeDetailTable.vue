@@ -1,11 +1,13 @@
 <template>
-  <v-app style="background: #f6f6f6">
-    <v-container>
-      <v-btn @click="addNewProductType()" elevation="0" class="mb-5" dark>
-        add new Product Type
+  <v-app style="background: #d0dae3">
+    <v-card class="product-type-details">
+      <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
+
+      <v-btn @click="addNewProductType()" color="primary" class="mb-5">
+        add new product type
       </v-btn>
 
-      <v-card elevation="1" outlined>
+      <v-card elevation="2" outlined>
         <v-data-table :headers="headers" :items="PRODUCT_TYPE_DETAIL">
           <template v-slot:item="{ item }">
             <tr>
@@ -23,7 +25,7 @@
           </template>
         </v-data-table>
       </v-card>
-    </v-container>
+    </v-card>
   </v-app>
 </template>
 
@@ -42,14 +44,14 @@ export default {
 
   computed: {
     ...mapGetters([
-      "PRODUCT_TYPE_DETAIL", 
+      "PRODUCT_TYPE_DETAIL",
       "SELECTED_PRODUCT_TYPE_DETAILS",
       "PRODUCT_TYPE_DETAILS_DIALOG",
     ]),
   },
 
   methods: {
-    viewItem(item) { },
+    viewItem(item) {},
     editItem(item) {
       this.$store.commit("SELECTED_PRODUCT_TYPE_DETAILS", item);
       this.$store.commit("PRODUCT_TYPE_DETAILS_DIALOG", "UPDATE");
@@ -82,17 +84,19 @@ export default {
                     title: "Success!",
                     text: "Item Deleted Successfully.",
                   });
-                  this.$store.dispatch("GET_PRODUCT_TYPE_DETAIL",this.SELECTED_PRODUCT_TYPE_DETAILS.id);
+                  this.$store.dispatch(
+                    "GET_PRODUCT_TYPE_DETAIL",
+                    this.SELECTED_PRODUCT_TYPE_DETAILS.id
+                  );
                 }
               });
           }
         });
-      },
     },
-  
+  },
 
   mounted() {
-    this.$store.dispatch("GET_PRODUCT_TYPE_DETAIL")
+    this.$store.dispatch("GET_PRODUCT_TYPE_DETAIL");
     // .then((response) => {
     //   console.log(response);
     //   console.log(this.PRODUCT_TYPE_DETAIL);
@@ -100,3 +104,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.product-type-details {
+  border-top: 5px solid #1976d2;
+  padding: 1rem;
+}
+</style>

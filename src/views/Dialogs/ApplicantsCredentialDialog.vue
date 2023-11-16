@@ -2,17 +2,13 @@
   <v-container>
     <v-row justify="center">
       <template>
-        <v-dialog v-model="dialog" max-width="1000px" persistent>
+        <v-dialog v-model="dialog" max-width="100rem" persistent>
           <v-card>
             <v-card-title>
               <v-row>
                 <v-col cols="11">Applicants Details</v-col>
                 <v-col cols="1">
-                  <v-icon
-                    text
-                    icon
-                    @click="closeDialog()"
-                    class="float-right"
+                  <v-icon text icon @click="closeDialog()" class="float-right"
                     >mdi-close</v-icon
                   >
                 </v-col>

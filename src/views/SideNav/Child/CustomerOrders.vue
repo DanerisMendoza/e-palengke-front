@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app style="background: #d0dae3">
     <v-container>
       <OrderStatusDialog v-if="SELECTED_ORDER_STATUS !== null" />
       <OrderDetailsDialog v-if="SELECTED_ORDER_DETAILS !== null" />
@@ -7,23 +7,25 @@
     </v-container>
   </v-app>
 </template>
-  
+
 <script>
-import { mapGetters } from 'vuex';
-import OrdersTable from '../../Tables/OrdersTable.vue';
-import OrderDetailsDialog from '../../Dialogs/OrderDetailsDialog.vue';
-import OrderStatusDialog from '../../Dialogs/OrderStatusDialog.vue';
+import { mapGetters } from "vuex";
+import OrdersTable from "../../Tables/OrdersTable.vue";
+import OrderDetailsDialog from "../../Dialogs/OrderDetailsDialog.vue";
+import OrderStatusDialog from "../../Dialogs/OrderStatusDialog.vue";
 
 export default {
-  components: { OrdersTable, OrderDetailsDialog,OrderStatusDialog },
+  components: { OrdersTable, OrderDetailsDialog, OrderStatusDialog },
   computed: {
     ...mapGetters([
-      "ORDERS", "SELECTED_ORDER_DETAILS", "USER_DETAILS","SELECTED_ORDER_STATUS"
+      "ORDERS",
+      "SELECTED_ORDER_DETAILS",
+      "USER_DETAILS",
+      "SELECTED_ORDER_STATUS",
     ]),
   },
   created() {
-    this.$store.commit('ORDERS_TABLE_MODE', 'customer')
+    this.$store.commit("ORDERS_TABLE_MODE", "customer");
   },
 };
 </script>
-  

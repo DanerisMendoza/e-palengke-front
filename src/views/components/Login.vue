@@ -1,48 +1,45 @@
 <template>
-  <v-app style="background: #F5F5F5">
+  <v-app style="background: #d0dae3">
     <v-container>
-      <v-row justify="center">
-        <v-card outlined class="text-center login-card" elevation="2">
-          <div>
-            <img
-              src="../../assets/sample.jpg"
-              alt="E-Palengke Logo"
-              class="e-palengke-logo"
-              width="100"
-            />
-          </div>
-          <v-card-title class="text--disabled card-txt"
-            >Please fill in your login details below</v-card-title
+      <v-app-bar app color="primary" dark elevation="2">
+        <v-spacer></v-spacer>
+        <v-btn plain @click="registration">sign up</v-btn>
+        <span class="ml-5 mr-5">|</span>
+        <v-btn plain @click="login">login</v-btn>
+      </v-app-bar>
+
+      <v-card class="text-center login-card" elevation="2" outlined>
+        <img src="../../assets/logo3.png" alt="E-Palengke Logo" />
+        <p>Log in to your account</p>
+
+        <v-form ref="myForm" @submit.prevent>
+          <v-text-field
+            v-model="username"
+            label="Username"
+            :rules="rules.required"
+            outlined
+            dense
+            hide-details="auto"
+            class="mb-3"
           >
-          <v-card-text>
-            <v-form ref="myForm" @submit.prevent>
-              <v-text-field
-                v-model="username"
-                label="Username"
-                :rules="rules.required"
-              >
-              </v-text-field>
-              <v-text-field
-                v-model="password"
-                label="Password"
-                type="password"
-                :rules="rules.required"
-              ></v-text-field>
-            </v-form>
-            <v-card-actions>
-              <v-btn
-                @click="login"
-                class="login-btn"
-                elevation="0"
-                color="primary"
-                dark
-                >Login</v-btn
-              >
-            </v-card-actions>
-            <v-btn @click="registration" plain text>Registration</v-btn>
-          </v-card-text>
-        </v-card>
-      </v-row>
+          </v-text-field>
+          <v-text-field
+            v-model="password"
+            label="Password"
+            type="password"
+            :rules="rules.required"
+            outlined
+            dense
+            hide-details="auto"
+            class="mb-4"
+          ></v-text-field>
+        </v-form>
+
+        <v-btn @click="login" color="primary" class="login-btn mb-1"
+          >Login</v-btn
+        >
+        <v-btn @click="registration" plain>Registration</v-btn>
+      </v-card>
     </v-container>
   </v-app>
 </template>
@@ -123,25 +120,15 @@ export default {
 </script>
 
 <style scoped>
-* {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-.e-palengke-logo {
-  border-radius: 5rem;
-}
-.login-card {
-  width: 25rem;
-  border-radius: 0;
-  padding: 1rem 1rem 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 .login-btn {
   width: 100%;
 }
-.card-txt {
-  font-size: 1rem;
+.login-card {
+  width: 25rem;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1rem 2rem;
 }
 </style>
