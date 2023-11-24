@@ -7,8 +7,10 @@ import store from './store'
 import Swal from 'sweetalert2';
 import { LMap, LTileLayer } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
+import VueApexCharts from 'vue-apexcharts'
 
-
+Vue.component('apexchart', VueApexCharts)
+Vue.use(VueApexCharts)
 Vue.component('l-map', LMap);
 Vue.component('l-tile-layer', LTileLayer);
 Vue.use(Vuetify);

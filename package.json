@@ -7,12 +7,14 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "apexcharts": "^3.44.0",
     "axios": "^0.21.4",
     "leaflet-dialog": "^1.0.5",
     "leaflet-geosearch": "^3.8.0",
     "moment": "^2.29.4",
     "sweetalert2": "^11.7.27",
     "vue": "^2.6.14",
+    "vue-apexcharts": "^1.6.2",
     "vue-carousel": "^0.18.0",
     "vue-router": "^2.8.1",
     "vue2-leaflet": "^2.7.1",
