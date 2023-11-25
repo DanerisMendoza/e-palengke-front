@@ -164,7 +164,7 @@ export default {
             })
         },
         formatDate(date) {
-            return moment(date).format('hh:mm A | YYYY-MM-DD');
+            return moment(date).format('MMMM D, YYYY - hh:mm A')
         },
         viewOrderDetails(item) {
             this.$store.commit('SELECTED_ORDER_DETAILS', item)

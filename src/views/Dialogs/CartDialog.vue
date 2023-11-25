@@ -21,7 +21,7 @@
                   hide-details="auto"
                 >
                   <template v-slot:prepend-inner>
-                    Date & Time: {{ currentDateTime }}
+                    {{ currentDateTime }}
                   </template>
                 </v-text-field>
               </v-col>
@@ -61,6 +61,8 @@
 <script>
 import CartTable from "../Tables/CartTable.vue";
 import { mapGetters } from "vuex";
+import moment from 'moment';
+
 export default {
   components: {
     CartTable,
@@ -68,7 +70,7 @@ export default {
   data() {
     return {
       dialog: true,
-      currentDateTime: new Date().toLocaleString(),
+      currentDateTime: moment().format('MMMM D, YYYY - hh:mm A'),    
     };
   },
   computed: {
