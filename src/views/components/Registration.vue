@@ -14,7 +14,7 @@
           <v-row>
             <v-col cols="12" sm="4">
               <v-text-field
-                v-model="name.firstName"
+                v-model="formData.first_name"
                 label="First Name"
                 :rules="rules.required"
                 hide-details="auto"
@@ -24,7 +24,7 @@
             </v-col>
             <v-col cols="12" sm="4">
               <v-text-field
-                v-model="name.middleName"
+                v-model="formData.middle_name"
                 label="Middle Name"
                 :rules="rules.required"
                 hide-details="auto"
@@ -34,7 +34,7 @@
             </v-col>
             <v-col cols="12" sm="4">
               <v-text-field
-                v-model="name.lastName"
+                v-model="formData.last_name"
                 label="Last Name"
                 :rules="rules.required"
                 hide-details="auto"
@@ -45,7 +45,7 @@
           </v-row>
 
           <v-row>
-            <v-col cols="12" sm="6">
+            <v-col cols="6">
               <v-select
                 v-model="formData.gender"
                 :items="genders"
@@ -56,10 +56,7 @@
                 dense
               ></v-select>
             </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" sm="6">
+            <!-- <v-col cols="4">
               <v-text-field
                 v-model="formData.age"
                 label="Age"
@@ -69,8 +66,8 @@
                 outlined
                 dense
               ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6">
+            </v-col> -->
+            <v-col cols="6">
               <v-text-field
                 v-model="formData.phone_number"
                 label="Phone Number"
@@ -97,7 +94,7 @@
             dense
           ></v-text-field>
 
-          <v-row>
+          <!-- <v-row>
             <v-col cols="12" sm="4">
               <v-text-field
                 label="Region/State"
@@ -122,7 +119,7 @@
                 hide-details="auto"
               ></v-select>
             </v-col>
-          </v-row>
+          </v-row> -->
 
           <v-row>
             <v-col cols="12" sm="6">
@@ -181,14 +178,11 @@ export default {
     return {
       user_role_details: [],
       loadSubmit: false,
-      name: {
-        firstName: null,
-        middleName: null,
-        lastName: null,
-      },
       formData: {
         username: null,
-        name: null,
+        first_name: null,
+        middle_name: null,
+        last_name: null,
         gender: null,
         age: null,
         phone_number: null,
@@ -225,12 +219,6 @@ export default {
     registerUser() {
       if (this.$refs.myForm.validate()) {
         this.loadSubmit = true;
-        this.formData.name =
-          this.name.firstName +
-          " " +
-          this.name.middleName +
-          " " +
-          this.name.lastName;
         this.formData.latitude = this.MARKER_LAT_LNG[0];
         this.formData.longitude = this.MARKER_LAT_LNG[1];
         const data = new FormData();
