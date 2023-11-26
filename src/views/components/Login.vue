@@ -38,6 +38,7 @@
         <v-btn @click="login" color="primary" class="login-btn mb-1"
           >Login</v-btn
         >
+        <v-btn plain>Forgot password</v-btn>
         <v-btn @click="registration" plain>Registration</v-btn>
       </v-card>
     </v-container>
