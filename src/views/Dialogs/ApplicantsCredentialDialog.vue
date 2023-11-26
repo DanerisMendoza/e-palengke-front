@@ -1,36 +1,32 @@
 <template>
   <v-container>
     <v-row justify="center">
-      <template>
-        <v-dialog v-model="dialog" max-width="100rem" persistent>
-          <v-card>
-            <v-card-title>
-              <v-row>
-                <v-col cols="11">Applicants Details</v-col>
-                <v-col cols="1">
-                  <v-icon text icon @click="closeDialog()" class="float-right"
-                    >mdi-close</v-icon
-                  >
-                </v-col>
-              </v-row>
-            </v-card-title>
-            <v-card-text>
-              <v-carousel v-model="currentCarouselIndex">
-                <v-carousel-item
-                  v-for="(imageData, index) in imagesData"
-                  :key="index"
-                >
-                  <div class="image-container">
-                    <v-card-text>{{ imageData.name }}</v-card-text>
-                    <v-img contain :src="imageData.base64img" class="image">
-                    </v-img>
-                  </div>
-                </v-carousel-item>
-              </v-carousel>
-            </v-card-text>
-          </v-card>
-        </v-dialog>
-      </template>
+      <v-dialog v-model="dialog" max-width="80rem" persistent>
+        <v-card>
+          <v-card-title>
+            Applicants
+
+            <v-btn icon @click="closeDialog" class="ml-auto">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-card-title>
+
+          <v-card-text>
+            <v-carousel v-model="currentCarouselIndex">
+              <v-carousel-item
+                v-for="(imageData, index) in imagesData"
+                :key="index"
+              >
+                <div class="image-container">
+                  <v-card-text>{{ imageData.name }}</v-card-text>
+                  <v-img contain :src="imageData.base64img" class="image">
+                  </v-img>
+                </div>
+              </v-carousel-item>
+            </v-carousel>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
     </v-row>
   </v-container>
 </template>
@@ -67,7 +63,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<!-- <style scoped>
 .image-container {
   display: flex;
   flex-direction: column;
@@ -77,4 +73,4 @@ export default {
 .image {
   flex: 8;
 }
-</style>
+</style> -->

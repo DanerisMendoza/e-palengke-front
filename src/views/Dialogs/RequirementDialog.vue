@@ -13,6 +13,7 @@
             ></v-text-field>
           </v-card-text>
           <v-card-actions>
+            <v-spacer></v-spacer>
             <v-btn color="red" text @click="closeDialog()">close</v-btn>
             <v-btn color="green" text @click="handleOperation()">
               {{ REQUIREMENT_DETAIL_DIALOG }}

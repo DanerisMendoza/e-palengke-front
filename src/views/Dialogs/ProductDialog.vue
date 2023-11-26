@@ -5,12 +5,6 @@
         <v-card>
           <v-card-title> Add New Product </v-card-title>
 
-          <!-- <v-row>
-            <v-col cols="6">
-              <h1>{{ SELECTED_REQUIREMENT.name }}</h1>
-            </v-col>
-          </v-row> -->
-
           <v-card-text>
             <v-form ref="myForm" @submit.prevent="submitForm">
               <v-row>
@@ -22,6 +16,7 @@
                     outlined
                     hide-details="auto"
                     class="mb-3"
+                    dense
                   ></v-text-field>
                   <v-text-field
                     v-model="form.price"
@@ -30,6 +25,7 @@
                     outlined
                     hide-details="auto"
                     class="mb-3"
+                    dense
                   ></v-text-field>
                   <v-text-field
                     v-model="form.stock"
@@ -38,6 +34,7 @@
                     outlined
                     hide-details="auto"
                     class="mb-3"
+                    dense
                   ></v-text-field>
                   <v-file-input
                     v-model="file"
@@ -46,12 +43,14 @@
                     :rules="rules.required"
                     outlined
                     hide-details="auto"
+                    dense
                   ></v-file-input>
                 </v-col>
               </v-row>
             </v-form>
           </v-card-text>
           <v-card-actions>
+            <v-spacer></v-spacer>
             <v-btn color="red" text @click="closeDialog()">close</v-btn>
             <v-btn color="success" text @click="submit()">{{
               PRODUCT_DIALOG

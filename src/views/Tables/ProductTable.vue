@@ -1,52 +1,46 @@
 <template>
-  <v-app>
-    <v-card elevation="2" outlined>
-      <v-data-table :headers="headers" :items="PRODUCT">
-        <template v-slot:item="{ item }">
-          <tr>
-            <td>{{ item.name }}</td>
-            <td>₱{{ item.price }}</td>
-            <td>{{ item.stock < 0 ? 0 : item.stock }}</td>
-            <td>
-              <v-img
-                contain
-                :src="item.base64img"
-                eager
-                class="image-small"
-                style="max-height: 100px; max-width: 100px"
-              ></v-img>
-            </td>
-            <td v-if="PRODUCT_TABLE_VIEWER === 'INVENTORY'">
-              <v-icon @click="editItem(item)">mdi-pencil</v-icon>
-              <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
-            </td>
-            <td
-              v-if="
-                PRODUCT_TABLE_VIEWER === 'STORE' && store_id !== item.store_id
-              "
-            >
-              <v-text-field
-                label="QTY"
-                type="number"
-                v-model="item.quantity"
-              ></v-text-field>
-              <v-btn
-                v-if="item.stock > 0"
-                class="mb-2"
-                @click="addToCart(item)"
-              >
-                <v-icon>mdi-cart-plus</v-icon>
-              </v-btn>
-              <v-btn v-else>
-                <v-icon>mdi-alert-circle-outline</v-icon>
-              </v-btn>
-            </td>
-            <td v-else></td>
-          </tr>
-        </template>
-      </v-data-table>
-    </v-card>
-  </v-app>
+  <v-card elevation="2" outlined>
+    <v-data-table :headers="headers" :items="PRODUCT">
+      <template v-slot:item="{ item }">
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>₱{{ item.price }}</td>
+          <td>{{ item.stock < 0 ? 0 : item.stock }}</td>
+          <td>
+            <v-img
+              contain
+              :src="item.base64img"
+              eager
+              class="image-small"
+              style="max-height: 100px; max-width: 100px"
+            ></v-img>
+          </td>
+          <td v-if="PRODUCT_TABLE_VIEWER === 'INVENTORY'">
+            <v-icon @click="editItem(item)" color="orange">mdi-pencil</v-icon>
+            <v-icon @click="deleteItem(item)" color="error">mdi-delete</v-icon>
+          </td>
+          <td
+            v-if="
+              PRODUCT_TABLE_VIEWER === 'STORE' && store_id !== item.store_id
+            "
+          >
+            <v-text-field
+              label="QTY"
+              type="number"
+              v-model="item.quantity"
+            ></v-text-field>
+            <v-btn v-if="item.stock > 0" class="mb-2" @click="addToCart(item)">
+              <v-icon>mdi-cart-plus</v-icon>
+            </v-btn>
+            <v-btn v-else>
+              <v-icon>mdi-alert-circle-outline</v-icon>
+            </v-btn>
+          </td>
+          <td v-else></td>
+        </tr>
+      </template>
+    </v-data-table>
+  </v-card>
 </template>
 
 <script>
@@ -56,29 +50,29 @@ export default {
     return {
       headers: [
         {
-          text: "Name",
+          text: "NAME",
           value: "name",
           align: "center",
           sortable: false,
           width: "25%",
         },
         {
-          text: "Price",
+          text: "PRICE",
           value: "price",
           align: "center",
           sortable: false,
           width: "25%",
         },
         {
-          text: "Stock",
+          text: "STOCK",
           value: "stock",
           align: "center",
           sortable: false,
           width: "25%",
         },
-        { text: "Picture", align: "center", sortable: false, width: "20%" },
+        { text: "IMAGE", align: "center", sortable: false, width: "20%" },
         {
-          text: "Actions",
+          text: "ACTIONS",
           align: "center",
           value: "actions",
           sortable: false,
