@@ -1,8 +1,9 @@
 <template>
   <v-card elevation="2" outlined class="mt-5 mb-5">
     <v-data-table :headers="headers" :items="CART">
-      <template v-slot:item="{ item }">
+      <template v-slot:item="{ item, index }">
         <tr :style="{ 'background-color': item.stock < 0 ? 'grey' : '' }">
+          <td>{{ index + 1 }}</td>
           <td>{{ item.name }}</td>
           <td>{{ item.store_name }}</td>
           <td>₱{{ item.price }}</td>
@@ -44,6 +45,7 @@ export default {
   data() {
     return {
       headers: [
+        { text: "No.", align: "center", sortable: false },
         { text: "Name", value: "name", align: "center", sortable: false },
         {
           text: "Store Name",

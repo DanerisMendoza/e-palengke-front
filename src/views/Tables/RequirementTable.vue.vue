@@ -9,16 +9,13 @@
 
       <v-card elevation="2" outlined>
         <v-data-table :headers="headers" :items="REQUIREMENT_DETAILS">
-          <template v-slot:item="{ item }">
+          <template v-slot:item="{ item, index }">
             <tr>
+              <td>{{ index + 1 }}</td>
               <td>{{ item.name }}</td>
               <td>
-                <v-icon @click="editItem(item)" color="orange"
-                  >mdi-pencil</v-icon
-                >
-                <v-icon @click="deleteItem(item)" color="red"
-                  >mdi-delete</v-icon
-                >
+                <v-icon @click="editItem(item)" color="orange">mdi-pencil</v-icon>
+                <v-icon @click="deleteItem(item)" color="red">mdi-delete</v-icon>
               </td>
             </tr>
           </template>
@@ -35,6 +32,7 @@ export default {
   data() {
     return {
       headers: [
+        { text: "No.", align: "center", sortable: false },
         { text: "REQUIREMENT DETAILS", align: "center", sortable: false },
         { text: "ACTIONS", align: "center", value: "actions", sortable: false },
       ],
@@ -51,7 +49,7 @@ export default {
   },
 
   methods: {
-    viewItem(item) {},
+    viewItem(item) { },
     editItem(item) {
       this.$store.commit("SELECTED_REQUIREMENT_DETAILS", item);
       this.$store.commit("REQUIREMENT_DETAIL_DIALOG", "UPDATE");

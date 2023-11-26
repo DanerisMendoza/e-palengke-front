@@ -3,6 +3,7 @@
         <v-data-table v-if="ORDERS_TABLE_MODE === 'store'" :headers="store_headers" :items="ORDERS">
             <template v-slot:item="{ item, index }">
                 <tr>
+                    <td>{{ index+1 }}</td>
                     <td>{{ item.customer_name }}</td>
                     <td>{{ formatDate(item.created_at) }}</td>
                     <td>{{ item.status }}</td>
@@ -27,6 +28,7 @@
         <v-data-table v-else-if="ORDERS_TABLE_MODE === 'customer'" :headers="customer_headers" :items="ORDERS">
             <template v-slot:item="{ item, index }">
                 <tr>
+                    <td>{{ index+1 }}</td>
                     <td>{{ formatDate(item.created_at) }}</td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.status }}</td>
@@ -45,6 +47,7 @@
         <v-data-table v-else-if="ORDERS_TABLE_MODE === 'delivery'" :headers="store_headers" :items="ORDERS">
             <template v-slot:item="{ item, index }">
                 <tr>
+                    <td>{{ index+1 }}</td>
                     <td>{{ item.customer_name }}</td>
                     <td>{{ formatDate(item.created_at) }}</td>
                     <td>{{ item.status }}</td>
@@ -73,6 +76,7 @@ export default {
     data() {
         return {
             store_headers: [
+                { text: "No.", align: "center", sortable: false },
                 { text: "Customer Name", align: "center", sortable: false },
                 { text: "Date ", align: "center", sortable: false },
                 { text: "Status ", align: "center", sortable: false },
@@ -80,6 +84,7 @@ export default {
                 { text: "Actions", align: "center", sortable: false },
             ],
             customer_headers: [
+                { text: "No.", align: "center", sortable: false },
                 { text: "Date ", align: "center", sortable: false },
                 { text: "Store Name ", align: "center", sortable: false },
                 { text: "Status ", align: "center", sortable: false },

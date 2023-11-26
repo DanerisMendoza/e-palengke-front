@@ -9,17 +9,14 @@
 
       <v-card elevation="2" outlined>
         <v-data-table :headers="headers" :items="STORE_TYPE_DETAIL">
-          <template v-slot:item="{ item }">
+          <template v-slot:item="{ item, index }">
             <tr>
+              <td>{{ index + 1 }}</td>
               <td>{{ item.name }}</td>
               <td>
                 <!-- <v-icon @click="viewItem(item)" class="mr-2">mdi-eye</v-icon> -->
-                <v-icon @click="editItem(item)" color="orange"
-                  >mdi-pencil</v-icon
-                >
-                <v-icon @click="deleteItem(item)" color="red"
-                  >mdi-delete</v-icon
-                >
+                <v-icon @click="editItem(item)" color="orange">mdi-pencil</v-icon>
+                <v-icon @click="deleteItem(item)" color="red">mdi-delete</v-icon>
               </td>
             </tr>
           </template>
@@ -35,6 +32,7 @@ export default {
   data() {
     return {
       headers: [
+        { text: "No.", align: "center", sortable: false },
         { text: "NAME", value: "name", align: "center", sortable: false },
         { text: "ACTIONS", align: "center", value: "actions", sortable: false },
       ],
@@ -50,7 +48,7 @@ export default {
   },
 
   methods: {
-    viewItem(item) {},
+    viewItem(item) { },
     editItem(item) {
       this.$store.commit("SELECTED_STORE_TYPE_DETAILS", item);
       this.$store.commit("STORE_TYPE_DETAILS_DIALOG", "UPDATE");

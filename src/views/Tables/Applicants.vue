@@ -4,8 +4,9 @@
       <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
       <v-card elevation="2" outlined>
         <v-data-table :headers="headers" :items="APPLICANTS">
-          <template v-slot:item="{ item }">
+          <template v-slot:item="{ item, index }">
             <tr>
+              <td>{{ index + 1 }}</td>
               <td>{{ item.applicant_name }}</td>
               <td>
                 <v-chip>{{ item.status }}</v-chip>
@@ -15,20 +16,10 @@
               <td>{{ item.age }}</td>
               <td>
                 <v-icon @click="view(item.user_role_id)">mdi-eye</v-icon>
-                <v-icon
-                  v-if="item.status === 'pending'"
-                  text
-                  @click="dissaprove(item.user_role_id)"
-                  color="red"
-                  >mdi-close</v-icon
-                >
-                <v-icon
-                  v-if="item.status === 'pending'"
-                  text
-                  @click="approve(item.user_role_id)"
-                  color="green"
-                  >mdi-check</v-icon
-                >
+                <v-icon v-if="item.status === 'pending'" text @click="dissaprove(item.user_role_id)"
+                  color="red">mdi-close</v-icon>
+                <v-icon v-if="item.status === 'pending'" text @click="approve(item.user_role_id)"
+                  color="green">mdi-check</v-icon>
               </td>
             </tr>
           </template>
@@ -44,6 +35,7 @@ export default {
   data() {
     return {
       headers: [
+        { text: "No.", align: "center", sortable: false },
         {
           text: "NAME",
           value: "applicant_name",

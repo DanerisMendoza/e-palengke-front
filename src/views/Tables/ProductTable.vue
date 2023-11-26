@@ -2,39 +2,24 @@
   <v-app>
     <v-card elevation="2" outlined>
       <v-data-table :headers="headers" :items="PRODUCT">
-        <template v-slot:item="{ item }">
+        <template v-slot:item="{ item, index }">
           <tr>
+            <td>{{ index + 1 }}</td>
             <td>{{ item.name }}</td>
             <td>₱{{ item.price }}</td>
             <td>{{ item.stock < 0 ? 0 : item.stock }}</td>
             <td>
-              <v-img
-                contain
-                :src="item.base64img"
-                eager
-                class="image-small"
-                style="max-height: 100px; max-width: 100px"
-              ></v-img>
+              <v-img contain :src="item.base64img" eager class="image-small"
+                style="max-height: 100px; max-width: 100px"></v-img>
             </td>
             <td v-if="PRODUCT_TABLE_VIEWER === 'INVENTORY'">
               <v-icon @click="editItem(item)">mdi-pencil</v-icon>
               <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
             </td>
-            <td
-              v-if="
-                PRODUCT_TABLE_VIEWER === 'STORE' && store_id !== item.store_id
-              "
-            >
-              <v-text-field
-                label="QTY"
-                type="number"
-                v-model="item.quantity"
-              ></v-text-field>
-              <v-btn
-                v-if="item.stock > 0"
-                class="mb-2"
-                @click="addToCart(item)"
-              >
+            <td v-if="PRODUCT_TABLE_VIEWER === 'STORE' && store_id !== item.store_id
+              ">
+              <v-text-field label="QTY" type="number" v-model="item.quantity"></v-text-field>
+              <v-btn v-if="item.stock > 0" class="mb-2" @click="addToCart(item)">
                 <v-icon>mdi-cart-plus</v-icon>
               </v-btn>
               <v-btn v-else>
@@ -55,6 +40,7 @@ export default {
   data() {
     return {
       headers: [
+        { text: "No.", align: "center", sortable: false },
         {
           text: "Name",
           value: "name",

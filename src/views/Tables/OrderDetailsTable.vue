@@ -2,8 +2,9 @@
     <v-container>
         <v-card>
             <v-data-table v-if="ORDERS_TABLE_MODE === 'store'" :headers="store_headers" :items="ORDER_DETAILS">
-                <template v-slot:item="{ item }">
+                <template v-slot:item="{ item, index }">
                     <tr>
+                        <td>{{ index+1 }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.status }}</td>
                         <td>{{ item.quantity }}</td>
@@ -15,8 +16,9 @@
             <v-data-table v-else-if="ORDERS_TABLE_MODE === 'customer'"
                 :headers="SELECTED_ORDER_DETAILS.status === 'Pending' ? customer_headers : customer_headers2"
                 :items="ORDER_DETAILS">
-                <template v-slot:item="{ item }">
+                <template v-slot:item="{ item, index }">
                     <tr>
+                        <td>{{ index+1 }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.store_name }}</td>
                         <td>{{ item.address }}</td>
@@ -32,8 +34,9 @@
                 </template>
             </v-data-table>
             <v-data-table v-else-if="ORDERS_TABLE_MODE === 'delivery'" :headers="customer_headers" :items="ORDER_DETAILS">
-                <template v-slot:item="{ item }">
+                <template v-slot:item="{ item, index }">
                     <tr>
+                        <td>{{ index+1 }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.store_name }}</td>
                         <td>{{ item.address }}</td>
@@ -52,6 +55,7 @@ export default {
     data() {
         return {
             store_headers: [
+                { text: "No.", align: "center", sortable: false },
                 { text: "Product Name", align: "center", sortable: false },
                 { text: "Status ", align: "center", sortable: false },
                 { text: "Quantity ", align: "center", sortable: false },
@@ -59,6 +63,7 @@ export default {
                 { text: "Sub Total ", align: "center", sortable: false },
             ],
             customer_headers: [
+                { text: "No.", align: "center", sortable: false },
                 { text: "Product Name", align: "center", sortable: false },
                 { text: "Store Name", align: "center", sortable: false },
                 { text: "Store Address", align: "center", sortable: false },
@@ -68,6 +73,7 @@ export default {
                 { text: "Actions", align: "center", sortable: false },
             ],
             customer_headers2: [
+                { text: "No.", align: "center", sortable: false },
                 { text: "Product Name", align: "center", sortable: false },
                 { text: "Store Name", align: "center", sortable: false },
                 { text: "Store Address", align: "center", sortable: false },
@@ -79,7 +85,7 @@ export default {
     },
     computed: {
         ...mapGetters([
-            "ORDERS", "SELECTED_ORDER_DETAILS", "ORDERS_TABLE_MODE", "ORDER_DETAILS","TRANSACTION"
+            "ORDERS", "SELECTED_ORDER_DETAILS", "ORDERS_TABLE_MODE", "ORDER_DETAILS", "TRANSACTION"
         ]),
     },
     methods: {
@@ -120,7 +126,7 @@ export default {
                 // console.log(this.ORDER_DETAILS)
             })
         },
-    
+
     },
     mounted() {
         this.getOrderDetails()

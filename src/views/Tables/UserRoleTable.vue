@@ -4,26 +4,19 @@
       <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
       <v-card elevation="2" outlined>
         <v-data-table :headers="headers" :items="USER_ROLES">
-          <template v-slot:item="{ item }">
+          <template v-slot:item="{ item, index }">
             <tr>
+              <td>{{ index + 1 }}</td>
               <td>{{ item.name }}</td>
               <td>
-                <v-chip
-                  class="mr-1 mt-1"
-                  v-for="(RequirementDetail, i) in item.RequirementDetails"
-                  :key="i"
-                >
+                <v-chip class="mr-1 mt-1" v-for="(RequirementDetail, i) in item.RequirementDetails" :key="i">
                   <div>
                     {{ RequirementDetail.requirement_detailsName }}
                   </div>
                 </v-chip>
               </td>
               <td>
-                <v-chip
-                  class="mr-1 mt-1"
-                  v-for="(Access, i) in item.Accesses"
-                  :key="i"
-                >
+                <v-chip class="mr-1 mt-1" v-for="(Access, i) in item.Accesses" :key="i">
                   <div>
                     {{ Access.side_nav_name }}
                   </div>
@@ -31,9 +24,7 @@
               </td>
               <td>
                 <!-- <v-icon @click="viewItem(item)" class="mr-2">mdi-eye</v-icon> -->
-                <v-icon @click="editItem(item)" color="orange"
-                  >mdi-pencil</v-icon
-                >
+                <v-icon @click="editItem(item)" color="orange">mdi-pencil</v-icon>
                 <!-- <v-icon @click="deleteItem(item)">mdi-delete</v-icon> -->
               </td>
             </tr>
@@ -51,6 +42,7 @@ export default {
   data() {
     return {
       headers: [
+        { text: "No.", align: "center", sortable: false },
         { text: "USER ROLE", align: "center", sortable: false },
         { text: "REQUIREMENTS", align: "center", sortable: false },
         { text: "ACCESS", align: "center", sortable: false },
@@ -64,12 +56,12 @@ export default {
   },
 
   methods: {
-    viewItem(item) {},
+    viewItem(item) { },
     editItem(item) {
       // console.log(item)
       this.$store.commit("SELECTED_ROLE", item);
     },
-    deleteItem(item) {},
+    deleteItem(item) { },
   },
 
   mounted() {
