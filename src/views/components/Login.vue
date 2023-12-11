@@ -2,6 +2,7 @@
   <v-app style="background: #d0dae3">
     <v-container>
       <v-app-bar app color="primary" dark elevation="2">
+        LOGIN PAGE
         <v-spacer></v-spacer>
         <v-btn plain @click="registration">sign up</v-btn>
         <span class="ml-5 mr-5">|</span>
