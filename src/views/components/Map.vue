@@ -1,27 +1,93 @@
 <template>
   <v-container>
-    <l-map class="map-container" ref="map" style="height: 300px" :center="center" :zoom="zoom" @click="handleMarkerClick">
+
+    <l-map class="map-container" ref="map" style="height: 400px;   z-index: 1;" :center="center" :zoom="zoom"
+      @click="handleMarkerClick" :options="mapOptions">
+
+      <v-navigation-drawer v-if="sidenavViewer === 'store' && drawer" class="drawer" v-model="drawer" absolute>
+        <v-row>
+          <v-col cols="12">
+            <v-btn icon @click="closeDrawer" class="float-right">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols=12>
+            <v-divider></v-divider>
+            <center>
+              <h1>STORE INFORMATION</h1>
+            </center>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col col="12">
+            <v-divider></v-divider>
+            <v-simple-table>
+              <template v-slot:default>
+                <tbody>
+                  <tr>
+                    <td class="font-weight-bold">Name:</td>
+                    <td>{{ SELECTED_STORE.name }}</td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">Address:</td>
+                    <td>{{ SELECTED_STORE.address }}</td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">Contact:</td>
+                    <td>{{ SELECTED_STORE.storeOwner.phone_number }}</td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">Store Type Details:</td>
+                    <td>
+                      <v-chip v-for="(detail, index) in SELECTED_STORE.store_type_details" :key="index" class="mr-2"
+                        style="font-size: smaller;">
+                        {{ detail.name }}
+                      </v-chip>
+                    </td>
+                  </tr>
+                  <v-divider></v-divider>
+                </tbody>
+              </template>
+            </v-simple-table>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12">
+            <center>
+              <v-btn icon @click="OpenProductTable">
+                <v-icon>mdi-store</v-icon>
+              </v-btn>
+            </center>
+          </v-col>
+        </v-row>
+      </v-navigation-drawer>
+
+      <l-control-zoom class="custom-zoom-control"></l-control-zoom>
       <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></l-tile-layer>
-      
+
       <!-- current marker(dynamic icon) -->
       <l-marker v-if="MARKER_LAT_LNG !== null" :lat-lng="MARKER_LAT_LNG" :icon="computedMarker"></l-marker>
-     
+
       <!-- multiple marker(stores) -->
       <l-marker v-if="sidenavViewer === 'store'" v-for="(item, index) in storeMarkersInsideCircle" ref="markers"
         :key="index" :lat-lng="item" :icon="sellerMarker" @click="go(item)">
         <!-- stores tooltip info -->
         <l-popup :content="getTooltipContent(item)"></l-popup>
       </l-marker>
-      
+
       <!-- delivery -->
       <!-- <l-marker v-if="sidenavViewer === 'delivery'" v-for="(item, index) in USER_INSIDE_RADIUS" ref="markers"
         :key="index" :lat-lng="{ lat: item.latitude, lng: item.longitude}" :icon="personMarker" >
       </l-marker> -->
-      <l-marker v-if="sidenavViewer === 'delivery' && TRANSACTION.length != 0" :lat-lng="{ lat: TRANSACTION[0].latitude, lng: TRANSACTION[0].longitude}" :icon="personMarker"></l-marker>
-      <l-marker v-if="sidenavViewer === 'delivery' && TRANSACTION.length != 0" v-for="(item, index) in ORDER_STORE_LAT_LNG" ref="markers"
-        :key="index" :lat-lng="{ lat: item.latitude, lng: item.longitude}" :icon="sellerMarker" >
+      <l-marker v-if="sidenavViewer === 'delivery' && TRANSACTION.length != 0"
+        :lat-lng="{ lat: TRANSACTION[0].latitude, lng: TRANSACTION[0].longitude }" :icon="personMarker"></l-marker>
+      <l-marker v-if="sidenavViewer === 'delivery' && TRANSACTION.length != 0"
+        v-for="(item, index) in ORDER_STORE_LAT_LNG" ref="markers" :key="index"
+        :lat-lng="{ lat: item.latitude, lng: item.longitude }" :icon="sellerMarker">
       </l-marker>
-      
+
       <!-- radius -->
       <l-circle v-if="MARKER_LAT_LNG !== null" :lat-lng="MARKER_LAT_LNG" :radius="circleRadius" :fill="true"
         :fill-opacity="0.2" :color="'rgb(242 159 19)'" style="cursor: move"></l-circle>
@@ -30,15 +96,23 @@
 </template>
   
 <script>
-import { LMap, LTileLayer, LMarker, LIcon, LCircle, LTooltip, LPopup } from 'vue2-leaflet';
+import { LMap, LTileLayer, LMarker, LIcon, LCircle, LTooltip, LPopup, LControlZoom } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { mapGetters } from 'vuex';
 import personMarker from '@/assets/markers/customerMarker.png';
 import sellerMarker from '@/assets/markers/sellerMarker2.png';
 import deliveryMarker from '@/assets/markers/deliveryMarker2.png';
+import ProductTable from "../Tables/ProductTable.vue";
+
 
 export default {
   methods: {
+    OpenProductTable(){
+      this.$store.commit('PRODUCT_CUSTOMER_VIEW_DIALOG',true)
+    },
+    closeDrawer() {
+      this.drawer = false
+    },
     handleMarkerClick(event) {
       if (this.sidenavViewer == 'application' || this.sidenavViewer == 'registration') {
         const { lat, lng } = event.latlng;
@@ -54,6 +128,8 @@ export default {
         return branch.latitude === item[0] && branch.longitude === item[1];
       });
       this.$store.commit('SELECTED_STORE', matchingBranch)
+      console.log(this.STORES)
+      this.drawer = true
     },
     getTooltipContent(item) {
       const matchingBranch = this.STORES.find((branch) => {
@@ -83,6 +159,10 @@ export default {
 
   data() {
     return {
+      mapOptions: {
+        zoomControl: false, // Disable the default zoom control
+      },
+      drawer: false,
       center: [14.653341002411047, 120.99472379571777],
       zoom: 7,
       circleRadius: 50 * 3,
@@ -128,7 +208,8 @@ export default {
       "STORES",
       "USER_INSIDE_RADIUS",
       "TRANSACTION",
-      "ORDER_STORE_LAT_LNG"
+      "ORDER_STORE_LAT_LNG",
+      "SELECTED_STORE",
     ]),
 
     computedMarker() {
@@ -192,7 +273,9 @@ export default {
     LMarker,
     LCircle,
     LTooltip,
-    LPopup
+    LPopup,
+    LControlZoom,
+    ProductTable,
   },
 
 };
@@ -200,17 +283,21 @@ export default {
   
 <style>
 .map-container {
-  position: relative;
-  z-index: 1;
+  /* position: absolute; */
+
   border: 1px solid #000;
   /* Add your desired border styles here */
-  border-radius: 10px;
+  /* border-radius: 10px; */
   /* Optional: Add border radius */
 }
 
 .l-tooltip-content {
   white-space: pre-line;
   /* Allow line breaks using \n */
+}
+
+.drawer {
+  z-index: 401;
 }
 </style>
   

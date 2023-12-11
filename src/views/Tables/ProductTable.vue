@@ -1,7 +1,7 @@
 <template>
-  <v-app>
-    <v-card elevation="2" outlined>
-      <v-data-table :headers="headers" :items="PRODUCT">
+  <v-container>
+    <v-card elevation="2" outlined v-if="PRODUCT_TABLE_VIEWER != 'STORE'">
+      <v-data-table :headers="headers" :items="PRODUCT" >
         <template v-slot:item="{ item, index }">
           <tr>
             <td>{{ index + 1 }}</td>
@@ -16,8 +16,7 @@
               <v-icon @click="editItem(item)">mdi-pencil</v-icon>
               <v-icon @click="deleteItem(item)">mdi-delete</v-icon>
             </td>
-            <td v-if="PRODUCT_TABLE_VIEWER === 'STORE' && store_id !== item.store_id
-              ">
+            <td v-if="PRODUCT_TABLE_VIEWER === 'STORE' && store_id !== item.store_id">
               <v-text-field label="QTY" type="number" v-model="item.quantity"></v-text-field>
               <v-btn v-if="item.stock > 0" class="mb-2" @click="addToCart(item)">
                 <v-icon>mdi-cart-plus</v-icon>
@@ -30,8 +29,41 @@
           </tr>
         </template>
       </v-data-table>
+
     </v-card>
-  </v-app>
+    <v-row v-if="PRODUCT_TABLE_VIEWER === 'STORE'">
+      <v-col v-for="(item, index) in PRODUCT" :key="index" cols="12" md="4">
+        <v-card elevation="2" outlined class="mb-3">
+          <center>
+
+            <v-img contain :src="item.base64img" eager 
+            style="max-height: 500px; max-width: 500px; height: 300px;"></v-img>
+            <h1>{{ item.name }}</h1>
+            <p>Price: ₱{{ item.price }}</p>
+            <p>Stock: {{ item.stock }}</p>
+            <!-- <v-card-subtitle>{{ item.name }}</v-card-subtitle>
+            <v-card-subtitle>Price: ₱{{ item.price }}</v-card-subtitle>
+            <v-card-text>
+              <p v-if="PRODUCT_TABLE_VIEWER === 'STORE' && store_id !== item.store_id">
+                Stock: {{ item.stock < 0 ? 0 : item.stock }} </p>
+                <p v-else>
+                  Stock: {{ item.stock }}
+                </p>
+              </v-card-text> -->
+          </center>
+          <v-card-actions>
+            <v-text-field label="QTY" type="number" v-model="item.quantity"></v-text-field>
+            <v-btn v-if="item.stock > 0" @click="addToCart(item)" icon>
+              <v-icon>mdi-cart-plus</v-icon>
+            </v-btn>
+            <v-btn v-else icon>
+              <v-icon>mdi-alert-circle-outline</v-icon>
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -82,6 +114,7 @@ export default {
       "SELECTED_STORE",
       "PRODUCT_DIALOG",
       "SELECTED_PRODUCT_DETAILS",
+      "PRODUCT_CUSTOMER_VIEW_DIALOG"
     ]),
   },
   methods: {
@@ -166,6 +199,15 @@ export default {
     await this.getStoreId();
     if (this.PRODUCT_TABLE_VIEWER === "INVENTORY") {
       this.$store.dispatch("GET_PRODUCT_BY_ID", this.store_id);
+    }
+    if (this.PRODUCT_CUSTOMER_VIEW_DIALOG) {
+      this.$store.dispatch("GET_PRODUCT_BY_ID", this.SELECTED_STORE.id).then(() => {
+        const updatedProduct = this.PRODUCT.map((item) => ({
+          ...item,
+          quantity: 1,
+        }));
+        this.$store.commit("PRODUCT", updatedProduct);
+      });
     }
   },
 };

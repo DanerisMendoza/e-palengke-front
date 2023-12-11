@@ -48,7 +48,7 @@
 
             <v-row>
               <v-col cols="12">
-                <v-btn class="float-right" @click="order" color="success">add to cart</v-btn>
+                <v-btn class="float-right" @click="order" color="success">Check out</v-btn>
               </v-col>
             </v-row>
           </v-card-text>

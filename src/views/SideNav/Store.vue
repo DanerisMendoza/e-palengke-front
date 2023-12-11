@@ -1,11 +1,14 @@
 <template>
     <v-app style="background: #d0dae3">
+
         <v-container>
             <v-card class="store">
-                <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
 
                 <v-row>
-                    <v-col cols="12">
+                    <v-col cols="2">
+                        <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
+                    </v-col>
+                    <v-col cols="10">
                         <v-btn @click="home" color="success" dark class="float-right">
                             <v-icon>mdi-home</v-icon>
                         </v-btn>
@@ -16,12 +19,13 @@
                 </v-row>
 
                 <CartDialog v-if="CART_DIALOG" />
+                <ProductCustomerViewDialog v-if="PRODUCT_CUSTOMER_VIEW_DIALOG" />
 
                 <v-row>
-                    <v-col cols="12" sm="6">
-                        <ProductTable />
-                    </v-col>
-                    <v-col cols="12" sm="6">
+                    <!-- <v-col cols="12" sm="6">
+                    <ProductTable />
+                    </v-col> -->
+                    <v-col cols="12" >
                         <MAP_COMPONENT :sidenavViewer="'store'" />
                         <br />
                         <v-slider v-model="circleRadius" class="mt-3" thumb-label="always">
@@ -40,13 +44,15 @@
 import MAP_COMPONENT from "../components/Map.vue";
 import ProductTable from "../Tables/ProductTable.vue";
 import CartDialog from "../Dialogs/CartDialog.vue";
+import ProductCustomerViewDialog from "../Dialogs/ProductCustomerViewDialog.vue";
 import { mapGetters } from "vuex";
 
 export default {
-    components: { MAP_COMPONENT, ProductTable, CartDialog },
+    components: { MAP_COMPONENT, ProductTable, CartDialog, ProductCustomerViewDialog },
     data() {
         return {
             circleRadius: 50,
+            drawer: true,
         };
     },
     methods: {
@@ -110,6 +116,7 @@ export default {
             "STORES_LAT_LNG",
             "USER_DETAILS",
             "CART_DIALOG",
+            "PRODUCT_CUSTOMER_VIEW_DIALOG",
         ]),
     },
 
@@ -156,5 +163,10 @@ export default {
 .store {
     border-top: 5px solid #1976d2;
     padding: 1rem;
+}
+
+.drawer {
+    /* position: absolute;
+    z-index: 90; */
 }
 </style>

@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <template v-if="$route.meta.showSideMenuBar">
-        <v-navigation-drawer app v-model="drawer" color="primary" dark>
+        <v-navigation-drawer app v-model="drawer" color="primary" dark >
           <SideMenuBar />
         </v-navigation-drawer>
         <v-app-bar app elevation="0" color="white">
