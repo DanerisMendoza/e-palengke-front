@@ -12,20 +12,24 @@ com.epalengke.app-savedstate-1.2.1-10 C:\Users\user\.gradle\caches\transforms-3\
 com.epalengke.app-appcompat-1.6.1-11 C:\Users\user\.gradle\caches\transforms-3\8bb8b13c1438848676861a1388a97eb3\transformed\appcompat-1.6.1\res
 com.epalengke.app-activity-1.7.0-12 C:\Users\user\.gradle\caches\transforms-3\907f6fa574a440dc09dfa52eaa88a1d2\transformed\activity-1.7.0\res
 com.epalengke.app-lifecycle-livedata-2.6.1-13 C:\Users\user\.gradle\caches\transforms-3\98bf846ebcfe2cc0bcf42d18533f7685\transformed\lifecycle-livedata-2.6.1\res
-com.epalengke.app-emoji2-views-helper-1.2.0-14 C:\Users\user\.gradle\caches\transforms-3\a2c7905026c1de9fd254addcc0df2b5f\transformed\emoji2-views-helper-1.2.0\res
-com.epalengke.app-profileinstaller-1.3.0-15 C:\Users\user\.gradle\caches\transforms-3\a916dcd0a76c646859857390ab72a1c7\transformed\profileinstaller-1.3.0\res
-com.epalengke.app-appcompat-resources-1.6.1-16 C:\Users\user\.gradle\caches\transforms-3\acb0279fa605e581f304fa8780c50bc3\transformed\appcompat-resources-1.6.1\res
-com.epalengke.app-emoji2-1.2.0-17 C:\Users\user\.gradle\caches\transforms-3\bc4e404d2e4e27a8333e074e645fe6c4\transformed\emoji2-1.2.0\res
-com.epalengke.app-annotation-experimental-1.3.0-18 C:\Users\user\.gradle\caches\transforms-3\c4eb8610416ba9fcff7203d70109fbae\transformed\annotation-experimental-1.3.0\res
-com.epalengke.app-fragment-1.5.6-19 C:\Users\user\.gradle\caches\transforms-3\caa37cc8ebbb231a68aa8267c9929f0b\transformed\fragment-1.5.6\res
-com.epalengke.app-startup-runtime-1.1.1-20 C:\Users\user\.gradle\caches\transforms-3\cbba8fa06ff627dd03ed447673f21fd8\transformed\startup-runtime-1.1.1\res
-com.epalengke.app-lifecycle-viewmodel-2.6.1-21 C:\Users\user\.gradle\caches\transforms-3\ccf067cc097e442fb96647bf9b45d0aa\transformed\lifecycle-viewmodel-2.6.1\res
-com.epalengke.app-pngs-22 D:\Github Desktop\e-palengke-front\android\app\build\generated\res\pngs\debug
-com.epalengke.app-resValues-23 D:\Github Desktop\e-palengke-front\android\app\build\generated\res\resValues\debug
-com.epalengke.app-packageDebugResources-24 D:\Github Desktop\e-palengke-front\android\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
-com.epalengke.app-packageDebugResources-25 D:\Github Desktop\e-palengke-front\android\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
-com.epalengke.app-merged_res-26 D:\Github Desktop\e-palengke-front\android\app\build\intermediates\merged_res\debug
-com.epalengke.app-debug-27 D:\Github Desktop\e-palengke-front\android\app\src\debug\res
-com.epalengke.app-main-28 D:\Github Desktop\e-palengke-front\android\app\src\main\res
-com.epalengke.app-packaged_res-29 D:\Github Desktop\e-palengke-front\android\capacitor-cordova-android-plugins\build\intermediates\packaged_res\debug
-com.epalengke.app-packaged_res-30 D:\Github Desktop\e-palengke-front\node_modules\@capacitor\android\capacitor\build\intermediates\packaged_res\debug
+com.epalengke.app-play-services-basement-18.1.0-14 C:\Users\user\.gradle\caches\transforms-3\9c93503ec2f6c0acb578d7618e52d827\transformed\play-services-basement-18.1.0\res
+com.epalengke.app-emoji2-views-helper-1.2.0-15 C:\Users\user\.gradle\caches\transforms-3\a2c7905026c1de9fd254addcc0df2b5f\transformed\emoji2-views-helper-1.2.0\res
+com.epalengke.app-profileinstaller-1.3.0-16 C:\Users\user\.gradle\caches\transforms-3\a916dcd0a76c646859857390ab72a1c7\transformed\profileinstaller-1.3.0\res
+com.epalengke.app-appcompat-resources-1.6.1-17 C:\Users\user\.gradle\caches\transforms-3\acb0279fa605e581f304fa8780c50bc3\transformed\appcompat-resources-1.6.1\res
+com.epalengke.app-play-services-base-18.1.0-18 C:\Users\user\.gradle\caches\transforms-3\b756c83fade71f41ff2019ff0d774eaa\transformed\play-services-base-18.1.0\res
+com.epalengke.app-emoji2-1.2.0-19 C:\Users\user\.gradle\caches\transforms-3\bc4e404d2e4e27a8333e074e645fe6c4\transformed\emoji2-1.2.0\res
+com.epalengke.app-annotation-experimental-1.3.0-20 C:\Users\user\.gradle\caches\transforms-3\c4eb8610416ba9fcff7203d70109fbae\transformed\annotation-experimental-1.3.0\res
+com.epalengke.app-fragment-1.5.6-21 C:\Users\user\.gradle\caches\transforms-3\caa37cc8ebbb231a68aa8267c9929f0b\transformed\fragment-1.5.6\res
+com.epalengke.app-startup-runtime-1.1.1-22 C:\Users\user\.gradle\caches\transforms-3\cbba8fa06ff627dd03ed447673f21fd8\transformed\startup-runtime-1.1.1\res
+com.epalengke.app-lifecycle-viewmodel-2.6.1-23 C:\Users\user\.gradle\caches\transforms-3\ccf067cc097e442fb96647bf9b45d0aa\transformed\lifecycle-viewmodel-2.6.1\res
+com.epalengke.app-pngs-24 D:\Github Desktop\e-palengke-front\android\app\build\generated\res\pngs\debug
+com.epalengke.app-resValues-25 D:\Github Desktop\e-palengke-front\android\app\build\generated\res\resValues\debug
+com.epalengke.app-packageDebugResources-26 D:\Github Desktop\e-palengke-front\android\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.epalengke.app-packageDebugResources-27 D:\Github Desktop\e-palengke-front\android\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.epalengke.app-merged_res-28 D:\Github Desktop\e-palengke-front\android\app\build\intermediates\merged_res\debug
+com.epalengke.app-debug-29 D:\Github Desktop\e-palengke-front\android\app\src\debug\res
+com.epalengke.app-main-30 D:\Github Desktop\e-palengke-front\android\app\src\main\res
+com.epalengke.app-packaged_res-31 D:\Github Desktop\e-palengke-front\android\capacitor-cordova-android-plugins\build\intermediates\packaged_res\debug
+com.epalengke.app-packaged_res-32 D:\Github Desktop\e-palengke-front\node_modules\@capacitor\android\capacitor\build\intermediates\packaged_res\debug
+com.epalengke.app-packaged_res-33 D:\Github Desktop\e-palengke-front\node_modules\@capacitor\geolocation\android\build\intermediates\packaged_res\debug
+com.epalengke.app-packaged_res-34 D:\Github Desktop\e-palengke-front\node_modules\@capacitor\toast\android\build\intermediates\packaged_res\debug
