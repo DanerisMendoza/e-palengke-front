@@ -15,7 +15,7 @@
               <v-btn text v-on="on">
                 <div>
                   <img
-                    :src="require('@/assets/sample.jpg')"
+                    :src="PROFILE_PATH"
                     alt="Profile Picture"
                     width="50"
                     class="mr-2 profile-picture"
@@ -59,7 +59,7 @@ export default {
     this.routerViewVisible = true;
   },
   computed: {
-    ...mapGetters(["SIDE_NAV", "USER_DETAILS"]),
+    ...mapGetters(["SIDE_NAV", "USER_DETAILS","PROFILE_PATH"]),
   },
   methods: {
     toggleSidebar() {
@@ -80,8 +80,4 @@ export default {
 </script>
 
 <style scoped>
-.profile-picture {
-  border-radius: 2rem;
-  border: 1px solid rgb(130, 128, 128);
-}
 </style>

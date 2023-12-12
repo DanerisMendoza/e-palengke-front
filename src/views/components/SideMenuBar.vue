@@ -78,6 +78,7 @@ export default {
   mounted() {
     this.$store.dispatch("GetUserDetails").then(() => {
       console.log(this.USER_DETAILS);
+      this.$store.commit('PROFILE_PATH',this.USER_DETAILS.base64img == null ?  require("../../assets/sample.jpg") : this.USER_DETAILS.base64img)
     });
     this.$store.dispatch("GetSideNav").then((response) => {
       // console.log(response);

@@ -6,28 +6,19 @@
       <v-row class="text-center">
         <v-col cols="12" sm="7">
           <v-card elevation="2" outlined class="user-info">
-            <p class="display-1 font-weight-bold">USER INFORMATION</p>
+            <p class="display-1 font-weight-bold">USER INFORMATION <v-icon @click="editProfile()">mdi-pencil</v-icon></p>
 
             <!-- user information -->
             <v-row>
-              <v-col cols="12" sm="4" class="">
-                <img
-                  src="../../assets/sample.jpg"
-                  alt="Profile Picture"
-                  class="profile-picture"
-                  width="250"
-                />
+              <v-col cols="6" sm="4">
+                <img :src="PROFILE_PATH" alt="Profile Picture" class="profile-picture" width="250" />
               </v-col>
-              <v-col cols="12" sm="8">
+              <v-col cols="6" >
                 <v-simple-table outlined>
                   <tbody>
                     <tr>
                       <td class="font-weight-bold">Name:</td>
                       <td>{{ USER_DETAILS.name }}</td>
-                    </tr>
-                    <tr>
-                      <td class="font-weight-bold">Age:</td>
-                      <td>{{ USER_DETAILS.age }}</td>
                     </tr>
                     <tr>
                       <td class="font-weight-bold">Gender:</td>
@@ -48,11 +39,7 @@
                     <tr>
                       <td class="font-weight-bold">Roles:</td>
                       <td>
-                        <v-chip
-                          v-for="role in USER_DETAILS.user_role_details"
-                          :key="role.id"
-                          class="mr-2"
-                        >
+                        <v-chip v-for="role in USER_DETAILS.user_role_details" :key="role.id" class="mr-2">
                           {{ role.name }}
                         </v-chip>
                       </td>
@@ -66,12 +53,7 @@
 
         <!-- store information -->
         <v-col cols="12" sm="5">
-          <v-card
-            elevation="2"
-            outlined
-            class="store-info"
-            v-if="StoreDetails.isStoreOwner"
-          >
+          <v-card elevation="2" outlined class="store-info" v-if="StoreDetails.isStoreOwner">
             <p class="display-1 font-weight-bold">STORE INFORMATION</p>
 
             <v-simple-table outlined>
@@ -87,11 +69,7 @@
                 <tr>
                   <td class="font-weight-bold">Store Type Details:</td>
                   <td>
-                    <v-chip
-                      v-for="(detail, index) in StoreDetails.store_type_details"
-                      :key="index"
-                      class="mr-2"
-                    >
+                    <v-chip v-for="(detail, index) in StoreDetails.store_type_details" :key="index" class="mr-2">
                       {{ detail.name }}
                     </v-chip>
                   </td>
@@ -101,12 +79,7 @@
           </v-card>
 
           <!-- delivery information -->
-          <v-card
-            elevation="2"
-            outlined
-            class="store-info"
-            v-if="DeliveryDetails.isDelivery"
-          >
+          <v-card elevation="2" outlined class="store-info" v-if="DeliveryDetails.isDelivery">
             <p class="display-1 font-weight-bold">DELIVERY INFORMATION</p>
 
             <v-simple-table outlined>
@@ -133,7 +106,7 @@ import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["USER_DETAILS"]),
+    ...mapGetters(["USER_DETAILS","PROFILE_PATH"]),
   },
   data() {
     return {
@@ -149,6 +122,11 @@ export default {
         longitude: null,
       },
     };
+  },
+  methods:{
+    editProfile(){
+      this.$store.commit("PROFILE_UPDATE", true);
+    }
   },
   mounted() {
     const userDetails = this.USER_DETAILS.user_role_details;
@@ -179,9 +157,11 @@ export default {
   border-top: 5px solid #1976d2;
   padding: 1rem;
 }
+
 .profile-picture {
   border-radius: 2rem;
 }
+
 .user-info,
 .store-info {
   padding: 1rem;
