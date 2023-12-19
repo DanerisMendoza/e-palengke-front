@@ -18,7 +18,7 @@
       </v-card>
     </div>
 
-    <v-navigation-drawer :absolute="SIDE_NAV_TOGGLE" :app="!SIDE_NAV_TOGGLE" v-if="sidenavViewer === 'store' && drawer" :class="{ 'mt-4': !SIDE_NAV_TOGGLE }" class="drawer" v-model="drawer" >
+    <v-navigation-drawer :absolute="SIDE_NAV_TOGGLE" :app="(!SIDE_NAV_TOGGLE)" v-if="sidenavViewer === 'store' && drawer" :class="{ 'mt-4': !SIDE_NAV_TOGGLE }" class="drawer" v-model="drawer" >
       <template>
         <v-navigation-drawer>
             <v-list-item>
@@ -49,7 +49,7 @@
                 <v-icon>mdi-phone</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                {{ SELECTED_STORE.address }}
+                {{ SELECTED_STORE.storeOwner.phone_number }}
               </v-list-item-content>
             </v-list-item>
 

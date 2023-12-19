@@ -9,7 +9,7 @@ export default {
     USER_INSIDE_RADIUS: [],
     PROFILE_UPDATE: null,
     PROFILE_PATH: null,
-    SIDE_NAV_TOGGLE: false
+    SIDE_NAV_TOGGLE: true
   },
 
   getters: {
