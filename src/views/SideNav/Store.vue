@@ -1,10 +1,11 @@
 <template>
-    <v-app style="background: #d0dae3">
+    <!-- <div> -->
+    <v-app>
 
-        <v-container>
-            <v-card class="store">
+        <!-- <v-container> -->
+            <!-- <v-card class="store"> -->
 
-                <v-row>
+                <!-- <v-row>
                     <v-col cols="2">
                         <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
                     </v-col>
@@ -16,28 +17,17 @@
                             <v-icon>mdi-cart</v-icon>
                         </v-btn>
                     </v-col>
-                </v-row>
+                </v-row> -->
 
                 <CartDialog v-if="CART_DIALOG" />
                 <ProductCustomerViewDialog v-if="PRODUCT_CUSTOMER_VIEW_DIALOG" />
+                <MAP_COMPONENT :sidenavViewer="'store'" />
+                <!-- <v-slider v-model="circleRadius" class="mt-3 transparent-slider" thumb-label="always"></v-slider> -->
 
-                <v-row>
-                    <!-- <v-col cols="12" sm="6">
-                    <ProductTable />
-                    </v-col> -->
-                    <v-col cols="12" >
-                        <MAP_COMPONENT :sidenavViewer="'store'" />
-                        <br />
-                        <v-slider v-model="circleRadius" class="mt-3" thumb-label="always">
-                            <template v-slot:thumb-label="{ value }">
-                                <div class="custom-thumb-label">{{ value }}</div>
-                            </template>
-                        </v-slider>
-                    </v-col>
-                </v-row>
-            </v-card>
-        </v-container>
+            <!-- </v-card> -->
+        <!-- </v-container> -->
     </v-app>
+    <!-- </div> -->
 </template>
 
 <script>
@@ -169,4 +159,5 @@ export default {
     /* position: absolute;
     z-index: 90; */
 }
+
 </style>

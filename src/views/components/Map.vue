@@ -1,98 +1,113 @@
 <template>
-  <v-container>
+  <l-map class="map-container" ref="map" :style="{ 'height': sidenavViewer === 'store' ? '90%' : '400px', 'z-index': 1 }" :center="center" :zoom="zoom"
+    @click="handleMarkerClick" :options="mapOptions">
 
-    <l-map class="map-container" ref="map" style="height: 400px;   z-index: 1;" :center="center" :zoom="zoom"
-      @click="handleMarkerClick" :options="mapOptions">
 
-      <v-navigation-drawer v-if="sidenavViewer === 'store' && drawer" class="drawer" v-model="drawer" absolute>
-        <v-row>
-          <v-col cols="12">
-            <v-btn icon @click="closeDrawer" class="float-right">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols=12>
-            <v-divider></v-divider>
-            <center>
-              <h1>STORE INFORMATION</h1>
-            </center>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col col="12">
-            <v-divider></v-divider>
-            <v-simple-table>
-              <template v-slot:default>
-                <tbody>
-                  <tr>
-                    <td class="font-weight-bold">Name:</td>
-                    <td>{{ SELECTED_STORE.name }}</td>
-                  </tr>
-                  <tr>
-                    <td class="font-weight-bold">Address:</td>
-                    <td>{{ SELECTED_STORE.address }}</td>
-                  </tr>
-                  <tr>
-                    <td class="font-weight-bold">Contact:</td>
-                    <td>{{ SELECTED_STORE.storeOwner.phone_number }}</td>
-                  </tr>
-                  <tr>
-                    <td class="font-weight-bold">Store Type Details:</td>
-                    <td>
-                      <v-chip v-for="(detail, index) in SELECTED_STORE.store_type_details" :key="index" class="mr-2"
-                        style="font-size: smaller;">
-                        {{ detail.name }}
-                      </v-chip>
-                    </td>
-                  </tr>
-                  <v-divider></v-divider>
-                </tbody>
-              </template>
-            </v-simple-table>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="12">
-            <center>
-              <v-btn icon @click="OpenProductTable">
-                <v-icon>mdi-store</v-icon>
+    <div v-if="sidenavViewer === 'store'">
+      <v-btn @click="home" color="success" dark class="float-right buttons mt-1 mr-1">
+        <v-icon>mdi-home</v-icon>
+      </v-btn>
+      <v-btn @click="viewCart" color="orange" dark class="float-right mr-2 buttons mt-1 mr-1">
+        <v-icon>mdi-cart</v-icon>
+      </v-btn>
+    </div>
+
+    <div v-if="sidenavViewer === 'store'" style="position: absolute; bottom: 0px; left: 42%; z-index: 402; opacity: 1;">
+      <v-card style="width: 200px; ">
+        <v-slider v-model="circleRadiusOrigin" thumb-label="always"  hide-details @click.stop="handleSliderClick"></v-slider>
+      </v-card>
+    </div>
+
+    <v-navigation-drawer :absolute="SIDE_NAV_TOGGLE" :app="!SIDE_NAV_TOGGLE" v-if="sidenavViewer === 'store' && drawer" :class="{ 'mt-4': !SIDE_NAV_TOGGLE }" class="drawer" v-model="drawer" >
+      <template>
+        <v-navigation-drawer>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title class="text-h7">
+                  {{ SELECTED_STORE.name }}
+                </v-list-item-title>
+              </v-list-item-content>
+              <v-btn icon @click="closeDrawer" class="float-right">
+                <v-icon>mdi-keyboard-backspace</v-icon>
               </v-btn>
-            </center>
-          </v-col>
-        </v-row>
-      </v-navigation-drawer>
+            </v-list-item>
+          <v-divider></v-divider>
 
-      <l-control-zoom class="custom-zoom-control"></l-control-zoom>
-      <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></l-tile-layer>
+          <v-list dense nav>
 
-      <!-- current marker(dynamic icon) -->
-      <l-marker v-if="MARKER_LAT_LNG !== null" :lat-lng="MARKER_LAT_LNG" :icon="computedMarker"></l-marker>
+            <v-list-item link>
+              <v-list-item-icon>
+                <v-icon>mdi-map-marker-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                {{ SELECTED_STORE.address }}
+              </v-list-item-content>
+            </v-list-item>
 
-      <!-- multiple marker(stores) -->
-      <l-marker v-if="sidenavViewer === 'store'" v-for="(item, index) in storeMarkersInsideCircle" ref="markers"
-        :key="index" :lat-lng="item" :icon="sellerMarker" @click="go(item)">
-        <!-- stores tooltip info -->
-        <l-popup :content="getTooltipContent(item)"></l-popup>
-      </l-marker>
+            <v-list-item link>
+              <v-list-item-icon>
+                <v-icon>mdi-phone</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                {{ SELECTED_STORE.address }}
+              </v-list-item-content>
+            </v-list-item>
 
-      <!-- delivery -->
-      <!-- <l-marker v-if="sidenavViewer === 'delivery'" v-for="(item, index) in USER_INSIDE_RADIUS" ref="markers"
+            <v-list-item link>
+              <v-list-item-icon>
+                <v-icon>mdi-storefront</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-chip v-for="(detail, index) in SELECTED_STORE.store_type_details" :key="index" class="mr-2"
+                  style="font-size: smaller;">
+                  {{ detail.name }}
+                </v-chip>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item link>
+              <v-list-item-content>
+                <v-btn @click="OpenProductTable" dark>
+                  View Menu
+                </v-btn>
+              </v-list-item-content>
+            </v-list-item>
+
+          </v-list>
+
+        </v-navigation-drawer>
+      </template>
+    </v-navigation-drawer>
+
+    <!-- <l-control-zoom class="custom-zoom-control"></l-control-zoom> -->
+    <l-tile-layer :url="googleStreets.url" :maxZoom="googleStreets.maxZoom"
+      :subdomains="googleStreets.subdomains"></l-tile-layer>
+    <!-- current marker(dynamic icon) -->
+    <l-marker v-if="MARKER_LAT_LNG !== null" :lat-lng="MARKER_LAT_LNG" :icon="computedMarker"></l-marker>
+
+    <!-- multiple marker(stores) -->
+    <l-marker v-if="sidenavViewer === 'store'" v-for="(item, index) in storeMarkersInsideCircle" ref="markers"
+      :key="index" :lat-lng="item" :icon="sellerMarker" @click="go(item)">
+      <!-- stores tooltip info -->
+      <l-popup :content="getTooltipContent(item)"></l-popup>
+    </l-marker>
+
+    <!-- delivery -->
+    <!-- <l-marker v-if="sidenavViewer === 'delivery'" v-for="(item, index) in USER_INSIDE_RADIUS" ref="markers"
         :key="index" :lat-lng="{ lat: item.latitude, lng: item.longitude}" :icon="personMarker" >
       </l-marker> -->
-      <l-marker v-if="sidenavViewer === 'delivery' && TRANSACTION.length != 0"
-        :lat-lng="{ lat: TRANSACTION[0].latitude, lng: TRANSACTION[0].longitude }" :icon="personMarker"></l-marker>
-      <l-marker v-if="sidenavViewer === 'delivery' && TRANSACTION.length != 0"
-        v-for="(item, index) in ORDER_STORE_LAT_LNG" ref="markers" :key="index"
-        :lat-lng="{ lat: item.latitude, lng: item.longitude }" :icon="sellerMarker">
-      </l-marker>
+    <l-marker v-if="sidenavViewer === 'delivery' && TRANSACTION.length != 0"
+      :lat-lng="{ lat: TRANSACTION[0].latitude, lng: TRANSACTION[0].longitude }" :icon="personMarker"></l-marker>
+    <l-marker v-if="sidenavViewer === 'delivery' && TRANSACTION.length != 0" v-for="(item, index) in ORDER_STORE_LAT_LNG"
+      ref="markers" :key="index" :lat-lng="{ lat: item.latitude, lng: item.longitude }" :icon="sellerMarker">
+    </l-marker>
 
-      <!-- radius -->
-      <l-circle v-if="MARKER_LAT_LNG !== null" :lat-lng="MARKER_LAT_LNG" :radius="circleRadius" :fill="true"
-        :fill-opacity="0.2" :color="'rgb(242 159 19)'" style="cursor: move"></l-circle>
-    </l-map>
-  </v-container>
+    <!-- radius -->
+    <l-circle v-if="MARKER_LAT_LNG !== null" :lat-lng="MARKER_LAT_LNG" :radius="circleRadius" :fill="true"
+      :fill-opacity="0.2" :color="'rgb(25,118,210)'" style="cursor: move"></l-circle>
+
+
+  </l-map>
 </template>
   
 <script>
@@ -104,11 +119,32 @@ import sellerMarker from '@/assets/markers/sellerMarker2.png';
 import deliveryMarker from '@/assets/markers/deliveryMarker2.png';
 import ProductTable from "../Tables/ProductTable.vue";
 
-
 export default {
+
+
   methods: {
-    OpenProductTable(){
-      this.$store.commit('PRODUCT_CUSTOMER_VIEW_DIALOG',true)
+    handleSliderClick(event) {
+      // Your slider click logic
+      console.log('Slider Clicked');
+
+      // Stop the click event propagation
+      event.stopPropagation();
+    },
+    home() {
+      const latitude = this.USER_DETAILS.customer_locations.latitude;
+      const longitude = this.USER_DETAILS.customer_locations.longitude;
+      this.$store.commit("MARKER_LAT_LNG", [0, 0]);
+      this.$store.commit("CENTER", [0, 0]);
+      this.$store.commit("MARKER_LAT_LNG", [latitude, longitude]);
+      this.$store.commit("CENTER", [latitude, longitude]);
+      this.$store.commit("ZOOM", 19);
+      this.$store.commit("SELECTED_USER_ROLE_DETAILS", "customerStore");
+    },
+    viewCart() {
+      this.$store.commit("CART_DIALOG", true);
+    },
+    OpenProductTable() {
+      this.$store.commit('PRODUCT_CUSTOMER_VIEW_DIALOG', true)
     },
     closeDrawer() {
       this.drawer = false
@@ -159,6 +195,11 @@ export default {
 
   data() {
     return {
+      googleStreets: {
+        url: 'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+      },
       mapOptions: {
         zoomControl: false, // Disable the default zoom control
       },
@@ -166,6 +207,7 @@ export default {
       center: [14.653341002411047, 120.99472379571777],
       zoom: 7,
       circleRadius: 50 * 3,
+      circleRadiusOrigin: 50,
       personMarker: L.icon({
         iconUrl: personMarker,
         iconSize: [25, 41],
@@ -198,6 +240,7 @@ export default {
 
   computed: {
     ...mapGetters([
+      "USER_DETAILS",
       "CENTER",
       "ZOOM",
       "CIRCLE_RADIUS",
@@ -210,6 +253,7 @@ export default {
       "TRANSACTION",
       "ORDER_STORE_LAT_LNG",
       "SELECTED_STORE",
+      "SIDE_NAV_TOGGLE"
     ]),
 
     computedMarker() {
@@ -260,6 +304,13 @@ export default {
         this.circleRadius = val
       },
     },
+    
+    circleRadiusOrigin: {
+      handler(val) {
+        this.$store.commit("CIRCLE_RADIUS", val * 3);
+      },
+    },
+
     STORES_LAT_LNG: {
       handler(val) {
         // console.log(this.STORES_LAT_LNG)
@@ -282,22 +333,16 @@ export default {
 </script>
   
 <style>
-.map-container {
-  /* position: absolute; */
 
-  border: 1px solid #000;
-  /* Add your desired border styles here */
-  /* border-radius: 10px; */
-  /* Optional: Add border radius */
-}
 
 .l-tooltip-content {
   white-space: pre-line;
   /* Allow line breaks using \n */
 }
 
-.drawer {
+.drawer , .buttons {
   z-index: 401;
 }
+
 </style>
   

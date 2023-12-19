@@ -9,35 +9,35 @@
     <v-list>
       <!-- SIDEBAR -->
       <v-list
-        v-for="side_nav in SIDE_NAV"
-        :key="side_nav.id"
-        :class="{ 'active-item': isParentActive(side_nav.name) }"
+        v-for="item in SIDE_NAV"
+        :key="item.id"
+        :class="{ 'active-item': isParentActive(item.name) }"
       >
         <v-list-item
           v-if="
-            !side_nav.side_nav_children ||
-            side_nav.side_nav_children.length === 0
+            !item.side_nav_children ||
+            item.side_nav_children.length === 0
           "
-          :to="{ name: side_nav.name, params: { id: side_nav.id } }"
+          :to="{ name: item.name, params: { id: item.id } }"
         >
-          <v-icon class="mr-3">{{ side_nav.mdi_icon }}</v-icon>
-          {{ side_nav.name }}
+          <v-icon class="mr-3">{{ item.mdi_icon }}</v-icon>
+          {{ item.name }}
         </v-list-item>
 
         <!-- DROPDOWN -->
         <v-list-group
           v-else
-          :value="isParentActive(side_nav.name)"
+          :value="isParentActive(item.name)"
           color="white"
           active-class="my-active-class"
         >
           <template v-slot:activator>
             <v-list-item-title>
-              {{ side_nav.name }}
+              {{ item.name }}
             </v-list-item-title>
           </template>
           <v-list-item
-            v-for="child in side_nav.side_nav_children"
+            v-for="child in item.side_nav_children"
             :key="child.id"
             class="childSideNav"
             :to="{ name: child.name, params: { id: child.id } }"
@@ -77,7 +77,6 @@ export default {
 
   mounted() {
     this.$store.dispatch("GetUserDetails").then(() => {
-      console.log(this.USER_DETAILS);
       this.$store.commit('PROFILE_PATH',this.USER_DETAILS.base64img == null ?  require("../../assets/sample.jpg") : this.USER_DETAILS.base64img)
     });
     this.$store.dispatch("GetSideNav").then((response) => {

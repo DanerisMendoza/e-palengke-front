@@ -29,10 +29,11 @@
             </v-col>
           </v-row>
 
-          <MAP_COMPONENT
-            v-if="SELECTED_USER_ROLE_DETAILS !== null"
-            :sidenavViewer="'application'"
-          />
+          <v-container  v-if="SELECTED_USER_ROLE_DETAILS !== null">
+            <MAP_COMPONENT
+              :sidenavViewer="'application'"
+            />
+          </v-container>
 
           <v-row v-if="SELECTED_USER_ROLE_DETAILS === 3">
             <v-col cols="4" class="mt-2">

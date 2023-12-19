@@ -64,6 +64,7 @@ export default {
   methods: {
     toggleSidebar() {
       this.drawer = !this.drawer;
+      this.$store.commit("SIDE_NAV_TOGGLE", this.drawer);
     },
     submitLogout() {
       this.$store.dispatch("Logout").then((response) => {

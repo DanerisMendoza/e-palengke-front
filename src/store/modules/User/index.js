@@ -9,6 +9,7 @@ export default {
     USER_INSIDE_RADIUS: [],
     PROFILE_UPDATE: null,
     PROFILE_PATH: null,
+    SIDE_NAV_TOGGLE: false
   },
 
   getters: {
@@ -18,6 +19,7 @@ export default {
     USER_INSIDE_RADIUS: (state) => state.USER_INSIDE_RADIUS,
     PROFILE_UPDATE: (state) => state.PROFILE_UPDATE,
     PROFILE_PATH: (state) => state.PROFILE_PATH,
+    SIDE_NAV_TOGGLE: (state) => state.SIDE_NAV_TOGGLE,
   },
 
   mutations: {
@@ -27,6 +29,7 @@ export default {
     USER_INSIDE_RADIUS: (state, data) => { state.USER_INSIDE_RADIUS = data },
     PROFILE_UPDATE: (state, data) => { state.PROFILE_UPDATE = data },
     PROFILE_PATH: (state, data) => { state.PROFILE_PATH = data },
+    SIDE_NAV_TOGGLE: (state, data) => { state.SIDE_NAV_TOGGLE = data },
   },
 
   actions: {
