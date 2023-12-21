@@ -380,8 +380,8 @@ const routes = [
     },
   },
   {
-    path: '/Customer%20Orders',
-    name: 'Customer Orders',
+    path: '/CUSTOMER%20ORDERS',
+    name: 'CUSTOMER ORDERS',
     component: CustomerOrders,
     meta: {
       showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
@@ -399,12 +399,11 @@ const routes = [
       }).catch((error)=>{
         next({ name: 'Login' });
       });
-      next();
     },
   },
   {
-    path: '/Store%20Orders',
-    name: 'Store Orders',
+    path: '/STORE%20ORDERS',
+    name: 'STORE ORDERS',
     component: StoreOrders,
     meta: {
       showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
@@ -422,12 +421,11 @@ const routes = [
       }).catch((error)=>{
         next({ name: 'Login' });
       });
-      next();
     },
   },
   {
-    path: '/Delivery%20Orders',
-    name: 'Delivery Orders',
+    path: '/DELIVERY%20ORDERS',
+    name: 'DELIVERY ORDERS',
     component: DeliveryOrders,
     meta: {
       showSideMenuBar: true, // Set to false to hide the SideMenuBar for the login page
@@ -445,7 +443,6 @@ const routes = [
       }).catch((error)=>{
         next({ name: 'Login' });
       });
-      next();
     },
   },
 ];
