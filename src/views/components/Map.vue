@@ -12,9 +12,9 @@
       </v-btn>
     </div>
 
-    <div v-if="sidenavViewer === 'store'" style="position: absolute; bottom: 0px; left: 42%; z-index: 402; opacity: 1;">
+    <div v-if="sidenavViewer === 'store'" style="position: absolute; bottom: 0px; left: 42%; z-index: 402; ">
       <v-card style="width: 200px; ">
-        <v-slider v-model="circleRadiusOrigin" thumb-label="always"  hide-details @click.stop="handleSliderClick"></v-slider>
+        <v-slider v-model="circleRadiusOrigin" thumb-label="always"  hide-details  @mousedown.stop></v-slider>
       </v-card>
     </div>
 
@@ -123,13 +123,6 @@ export default {
 
 
   methods: {
-    handleSliderClick(event) {
-      // Your slider click logic
-      console.log('Slider Clicked');
-
-      // Stop the click event propagation
-      event.stopPropagation();
-    },
     home() {
       const latitude = this.USER_DETAILS.customer_locations.latitude;
       const longitude = this.USER_DETAILS.customer_locations.longitude;
