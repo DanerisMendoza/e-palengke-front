@@ -1,8 +1,6 @@
 <template>
   <v-app style="background: #d0dae3">
     <v-card class="topup">
-      <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
-
       <v-card elevation="2" outlined class="amount-to-add">
         <p>Amount to Add</p>
         <v-form @submit.prevent="topup" ref="myForm">

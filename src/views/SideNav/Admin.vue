@@ -2,7 +2,6 @@
   <v-app style="background: #d0dae3">
     <v-container>
       <v-card class="admin">
-        <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
         <v-row>
           <v-col cols="6">
             <!-- First Pie Chart for USER_ROLES_ANALYSIS -->
@@ -60,4 +59,9 @@ export default {
   },
 };
 </script>
-
+<style scoped>
+.admin {
+  border-top: 5px solid #1976d2;
+  padding: 1rem;
+}
+</style>

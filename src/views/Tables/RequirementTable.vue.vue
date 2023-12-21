@@ -1,7 +1,6 @@
 <template>
   <v-app style="background: #d0dae3">
     <v-card class="requirement-details">
-      <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
 
       <v-btn @click="addNewRequirement()" color="primary" class="mb-5">
         add new requirement

@@ -1,33 +1,9 @@
 <template>
-    <!-- <div> -->
     <v-app>
-
-        <!-- <v-container> -->
-            <!-- <v-card class="store"> -->
-
-                <!-- <v-row>
-                    <v-col cols="2">
-                        <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
-                    </v-col>
-                    <v-col cols="10">
-                        <v-btn @click="home" color="success" dark class="float-right">
-                            <v-icon>mdi-home</v-icon>
-                        </v-btn>
-                        <v-btn @click="viewCart" color="orange" dark class="float-right mr-2">
-                            <v-icon>mdi-cart</v-icon>
-                        </v-btn>
-                    </v-col>
-                </v-row> -->
-
-                <CartDialog v-if="CART_DIALOG" />
-                <ProductCustomerViewDialog v-if="PRODUCT_CUSTOMER_VIEW_DIALOG" />
-                <MAP_COMPONENT :sidenavViewer="'store'" />
-                <!-- <v-slider v-model="circleRadius" class="mt-3 transparent-slider" thumb-label="always"></v-slider> -->
-
-            <!-- </v-card> -->
-        <!-- </v-container> -->
+        <CartDialog v-if="CART_DIALOG" />
+        <ProductCustomerViewDialog v-if="PRODUCT_CUSTOMER_VIEW_DIALOG" />
+        <MAP_COMPONENT :sidenavViewer="'store'" />
     </v-app>
-    <!-- </div> -->
 </template>
 
 <script>
@@ -159,5 +135,4 @@ export default {
     /* position: absolute;
     z-index: 90; */
 }
-
 </style>

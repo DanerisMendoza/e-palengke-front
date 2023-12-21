@@ -7,6 +7,7 @@
         </v-navigation-drawer>
         <v-app-bar app elevation="0" color="white">
           <v-icon @click="toggleSidebar">mdi-menu</v-icon>
+          <h3 class="font-weight-bold ml-2">{{ $route.name }}</h3>
 
           <v-spacer></v-spacer>
 

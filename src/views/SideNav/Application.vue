@@ -3,8 +3,6 @@
     <v-container>
       <ApplicantsCredentialDialog v-if="this.SELECTED_CREDENTIAL !== null" />
       <v-card class="application">
-        <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
-
         <v-form ref="myForm" @submit.prevent="submit">
           <Application />
 

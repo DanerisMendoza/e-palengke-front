@@ -1,7 +1,6 @@
 <template>
   <v-app style="background: #d0dae3">
     <v-card class="applicants">
-      <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
       <v-card elevation="2" outlined>
         <v-data-table :headers="headers" :items="APPLICANTS">
           <template v-slot:item="{ item, index }">

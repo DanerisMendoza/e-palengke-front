@@ -2,8 +2,6 @@
   <v-app style="background: #d0dae3">
     <v-container>
       <v-card class="inventory">
-        <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
-
         <v-btn @click="addNewProduct" class="mb-5" color="primary">Add New Product</v-btn>
         <ProductDialog v-if="PRODUCT_DIALOG !== null" />
         <ProductTable />

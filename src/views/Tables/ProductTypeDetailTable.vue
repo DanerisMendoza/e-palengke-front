@@ -1,8 +1,6 @@
 <template>
   <v-app style="background: #d0dae3">
     <v-card class="product-type-details">
-      <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
-
       <v-btn @click="addNewProductType()" color="primary" class="mb-5">
         add new product type
       </v-btn>

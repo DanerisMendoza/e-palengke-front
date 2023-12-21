@@ -2,7 +2,6 @@
   <v-app style="background: #d0dae3">
     <v-container>
       <v-card class="home">
-        <h2 class="font-weight-bold mb-3">{{ $route.name }}</h2>
         <v-row>
           <v-col cols="12">
             <!-- Bar Graph for ORDERS_ANALYSIS -->
