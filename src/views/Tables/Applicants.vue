@@ -12,7 +12,6 @@
               </td>
               <td>{{ item.user_role_name }}</td>
               <td>{{ item.gender }}</td>
-              <td>{{ item.age }}</td>
               <td>
                 <v-icon @click="view(item.user_role_id)">mdi-eye</v-icon>
                 <v-icon v-if="item.status === 'pending'" text @click="dissaprove(item.user_role_id)"
@@ -49,7 +48,6 @@ export default {
           sortable: false,
         },
         { text: "GENDER", value: "gender", align: "center", sortable: false },
-        { text: "AGE", value: "age", align: "center", sortable: false },
         { text: "ACTIONS", value: "actions", align: "center", sortable: false },
       ],
     };
