@@ -169,6 +169,13 @@ export default {
         return branch.latitude === item[0] && branch.longitude === item[1];
       });
       this.$store.commit('SELECTED_STORE', matchingBranch)
+      this.drawer = true
+
+      if(this.OldCoordinates == matchingBranch){
+        this.OldCoordinates = null
+        return
+      }
+
       if (this.routingControl != null) {
         this.$refs.map.mapObject.removeControl(this.routingControl);
       }
@@ -182,10 +189,9 @@ export default {
         },
         createMarker: function () { return null; }
       }).addTo(this.$refs.map.mapObject); // Assuming your map element has a ref named "map"
+      this.OldCoordinates = matchingBranch
 
 
-
-      this.drawer = true
     },
     getTooltipContent(item) {
       const matchingBranch = this.STORES.find((branch) => {
@@ -223,6 +229,7 @@ export default {
       mapOptions: {
         zoomControl: false, // Disable the default zoom control
       },
+      OldCoordinates: null,
       routingControl: null,
       drawer: false,
       center: [14.653341002411047, 120.99472379571777],
