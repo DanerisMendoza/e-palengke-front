@@ -14,48 +14,23 @@
         <v-form ref="myForm" @submit.prevent="registerUser">
           <v-row>
             <v-col cols="12" sm="4">
-              <v-text-field
-                v-model="formData.first_name"
-                label="First Name"
-                :rules="rules.required"
-                hide-details="auto"
-                outlined
-                dense
-              ></v-text-field>
+              <v-text-field v-model="formData.first_name" label="First Name" :rules="rules.required" hide-details="auto"
+                outlined dense></v-text-field>
             </v-col>
             <v-col cols="12" sm="4">
-              <v-text-field
-                v-model="formData.middle_name"
-                label="Middle Name"
-                :rules="rules.required"
-                hide-details="auto"
-                outlined
-                dense
-              ></v-text-field>
+              <v-text-field v-model="formData.middle_name" label="Middle Name" :rules="rules.required" hide-details="auto"
+                outlined dense></v-text-field>
             </v-col>
             <v-col cols="12" sm="4">
-              <v-text-field
-                v-model="formData.last_name"
-                label="Last Name"
-                :rules="rules.required"
-                hide-details="auto"
-                outlined
-                dense
-              ></v-text-field>
+              <v-text-field v-model="formData.last_name" label="Last Name" :rules="rules.required" hide-details="auto"
+                outlined dense></v-text-field>
             </v-col>
           </v-row>
 
           <v-row>
             <v-col cols="6">
-              <v-select
-                v-model="formData.gender"
-                :items="genders"
-                label="Gender"
-                :rules="rules.required"
-                hide-details="auto"
-                outlined
-                dense
-              ></v-select>
+              <v-select v-model="formData.gender" :items="genders" label="Gender" :rules="rules.required"
+                hide-details="auto" outlined dense></v-select>
             </v-col>
             <!-- <v-col cols="4">
               <v-text-field
@@ -69,31 +44,14 @@
               ></v-text-field>
             </v-col> -->
             <v-col cols="6">
-              <v-text-field
-                v-model="formData.phone_number"
-                label="Phone Number"
-                :rules="rules.contact"
-                outlined
-                dense
-              ></v-text-field>
+              <v-text-field v-model="formData.phone_number" label="Phone Number" :rules="rules.contact" outlined
+                dense></v-text-field>
             </v-col>
           </v-row>
 
-          <v-text-field
-            v-model="formData.email"
-            label="Email"
-            :rules="rules.email"
-            outlined
-            dense
-          ></v-text-field>
+          <v-text-field v-model="formData.email" label="Email" :rules="rules.email" outlined dense></v-text-field>
 
-          <v-text-field
-            v-model="formData.address"
-            label="Address"
-            :rules="rules.required"
-            outlined
-            dense
-          ></v-text-field>
+          <v-text-field v-model="formData.address" label="Address" :rules="rules.required" outlined dense></v-text-field>
 
           <!-- <v-row>
             <v-col cols="12" sm="4">
@@ -124,37 +82,17 @@
 
           <v-row>
             <v-col cols="12" sm="6">
-              <v-text-field
-                v-model="formData.username"
-                label="Username"
-                :rules="rules.required"
-                hide-details="auto"
-                outlined
-                dense
-              ></v-text-field>
+              <v-text-field v-model="formData.username" label="Username" :rules="rules.required" hide-details="auto"
+                outlined dense></v-text-field>
             </v-col>
             <v-col cols="12" sm="6">
-              <v-text-field
-                v-model="formData.password"
-                label="Password"
-                type="password"
-                :rules="rules.required"
-                outlined
-                dense
-              ></v-text-field>
+              <v-text-field v-model="formData.password" label="Password" type="password" :rules="rules.password" outlined
+                dense></v-text-field>
             </v-col>
           </v-row>
 
-          <v-file-input
-            v-for="(item, index) in user_role_details"
-            :rules="rules.required"
-            :key="index"
-            :label="item.name"
-            v-model="item.value"
-            accept="image/*"
-            outlined
-            dense
-          ></v-file-input>
+          <v-file-input v-for="(item, index) in user_role_details" :rules="rules.required" :key="index" :label="item.name"
+            v-model="item.value" accept="image/*" outlined dense></v-file-input>
 
           <v-btn @click="gps" class="float-right mb-4" color="primary">
             my location
@@ -201,6 +139,15 @@ export default {
         email: [
           (v) => !!v || "E-mail is required",
           (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+        ],
+        password: [
+          (v) => !!v || "Field is required",
+          (v) =>
+            (v !== null && v !== undefined && !/^\s*$/.test(v)) ||
+            "Field is required",
+          (v) =>
+            (v !== null && v !== undefined && v.length >= 8) ||
+            "Min 8 characters",
         ],
         contact: [
           (v) =>
@@ -255,6 +202,13 @@ export default {
               timer: 1000, // Auto-close the alert after 1.5 seconds (adjust as needed)
             });
             this.$router.push("/Login");
+          } else {
+            this.loadSubmit = false;
+            this.$swal.fire({
+              title: "Validation Error",
+              text: response,
+              icon: "warning",
+            });
           }
         });
       }
@@ -320,7 +274,8 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.register-btn{
+
+.register-btn {
   width: 10rem;
 }
 </style>
