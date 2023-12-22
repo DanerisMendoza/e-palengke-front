@@ -51,7 +51,7 @@
                 </p>
               </v-card-text> -->
           </center>
-          <v-card-actions>
+          <v-card-actions v-if="store_id !== item.store_id">
             <v-text-field label="QTY" type="number" v-model="item.quantity"></v-text-field>
             <v-btn v-if="item.stock > 0" @click="addToCart(item)" icon>
               <v-icon>mdi-cart-plus</v-icon>
