@@ -142,7 +142,7 @@ export default {
       this.$store.commit('PRODUCT_CUSTOMER_VIEW_DIALOG', true)
     },
     handlePopupClose() {
-      this.drawer = false
+      // this.drawer = false
       if (this.routingControl != null) {
         this.$refs.map.mapObject.removeControl(this.routingControl);
       }
@@ -187,7 +187,8 @@ export default {
         lineOptions: {
           styles: [{ color: 'blue', opacity: 0.7, weight: 5 }]
         },
-        createMarker: function () { return null; }
+        createMarker: function () { return null; },
+        fitSelectedRoutes: false,
       }).addTo(this.$refs.map.mapObject); // Assuming your map element has a ref named "map"
       this.OldCoordinates = matchingBranch
 
