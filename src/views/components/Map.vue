@@ -36,7 +36,7 @@
 
           <v-list dense nav>
 
-            <v-list-item link>
+            <v-list-item >
               <v-list-item-icon>
                 <v-icon>mdi-map-marker-outline</v-icon>
               </v-list-item-icon>
@@ -45,7 +45,7 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item link>
+            <v-list-item >
               <v-list-item-icon>
                 <v-icon>mdi-phone</v-icon>
               </v-list-item-icon>
@@ -54,7 +54,7 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item link>
+            <v-list-item >
               <v-list-item-icon>
                 <v-icon>mdi-storefront</v-icon>
               </v-list-item-icon>
@@ -65,6 +65,75 @@
                 </v-chip>
               </v-list-item-content>
             </v-list-item>
+
+            <v-divider></v-divider>
+            <v-list-item >
+              <v-list-item-icon>
+                <v-icon>mdi-clock-time-four-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                Store Opening and Closing
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item >
+              <v-list-item-icon>
+                <v-icon></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                Monday {{ SELECTED_STORE.monday == null ? 'unavailable' :  SELECTED_STORE.monday }}
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item >
+              <v-list-item-icon>
+                <v-icon></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                Tuesday {{ SELECTED_STORE.tuesday == null ? 'unavailable' :  SELECTED_STORE.tuesday}}
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item >
+              <v-list-item-icon>
+                <v-icon></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                Wednesday {{ SELECTED_STORE.wednesday == null ? 'unavailable' : SELECTED_STORE.wednesday}}
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item >
+              <v-list-item-icon>
+                <v-icon></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                Thursday {{ SELECTED_STORE.thursday == null ? 'unavailable' : SELECTED_STORE.thursday}}
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item >
+              <v-list-item-icon>
+                <v-icon></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                Friday {{ SELECTED_STORE.friday == null ? 'unavailable' : SELECTED_STORE.friday}}
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item >
+              <v-list-item-icon>
+                <v-icon></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                Saturday {{ SELECTED_STORE.saturday == null ? 'unavailable' : SELECTED_STORE.saturday}}
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item >
+              <v-list-item-icon>
+                <v-icon></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                Sunday {{ SELECTED_STORE.sunday == null ? 'unavailable' : SELECTED_STORE.sunday}}
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-divider></v-divider>
 
             <v-list-item link>
               <v-list-item-content>
@@ -316,6 +385,11 @@ export default {
   },
 
   watch: {
+    SELECTED_STORE: {
+      handler(val) {
+        console.log(val)
+      },
+    },
     MARKER_LAT_LNG: {
       handler(val) {
         // console.log(val)
