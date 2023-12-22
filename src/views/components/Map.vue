@@ -143,6 +143,7 @@ export default {
     },
     handlePopupClose() {
       // this.drawer = false
+      this.OldCoordinates = null
       if (this.routingControl != null) {
         this.$refs.map.mapObject.removeControl(this.routingControl);
       }
