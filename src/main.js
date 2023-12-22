@@ -7,6 +7,9 @@ import store from './store'
 import Swal from 'sweetalert2';
 import { LMap, LTileLayer } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
+import 'leaflet-routing-machine/dist/leaflet-routing-machine.css'; // Import the CSS file
+import 'leaflet-routing-machine/dist/leaflet-routing-machine'; // Import the JavaScript file
+
 import VueApexCharts from 'vue-apexcharts'
 
 Vue.component('apexchart', VueApexCharts)

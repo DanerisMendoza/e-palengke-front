@@ -1,6 +1,6 @@
 <template>
-  <l-map class="map-container" ref="map" :style="{ 'height': sidenavViewer === 'store' ? '90%' : '400px', 'z-index': 1 }" :center="center" :zoom="zoom"
-    @click="handleMarkerClick" :options="mapOptions">
+  <l-map class="map-container" ref="map" :style="{ 'height': sidenavViewer === 'store' ? '90%' : '400px', 'z-index': 1 }"
+    :center="center" :zoom="zoom" @click="handleMarkerClick" :options="mapOptions">
 
 
     <div v-if="sidenavViewer === 'store'">
@@ -14,23 +14,24 @@
 
     <div v-if="sidenavViewer === 'store'" style="position: absolute; bottom: 0px; left: 42%; z-index: 402; ">
       <v-card style="width: 200px; ">
-        <v-slider v-model="circleRadiusOrigin" thumb-label="always"  hide-details  @mousedown.stop></v-slider>
+        <v-slider v-model="circleRadiusOrigin" thumb-label="always" hide-details @mousedown.stop></v-slider>
       </v-card>
     </div>
 
-    <v-navigation-drawer :absolute="SIDE_NAV_TOGGLE" :app="(!SIDE_NAV_TOGGLE)" v-if="sidenavViewer === 'store' && drawer" :class="{ 'mt-4': !SIDE_NAV_TOGGLE }" class="drawer" v-model="drawer" >
+    <v-navigation-drawer :absolute="SIDE_NAV_TOGGLE" :app="(!SIDE_NAV_TOGGLE)" v-if="sidenavViewer === 'store' && drawer"
+      :class="{ 'mt-4': !SIDE_NAV_TOGGLE }" class="drawer" v-model="drawer">
       <template>
         <v-navigation-drawer>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title class="text-h7">
-                  {{ SELECTED_STORE.name }}
-                </v-list-item-title>
-              </v-list-item-content>
-              <v-btn icon @click="closeDrawer" class="float-right">
-                <v-icon>mdi-keyboard-backspace</v-icon>
-              </v-btn>
-            </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="text-h7">
+                {{ SELECTED_STORE.name }}
+              </v-list-item-title>
+            </v-list-item-content>
+            <v-btn icon @click="closeDrawer" class="float-right">
+              <v-icon>mdi-keyboard-backspace</v-icon>
+            </v-btn>
+          </v-list-item>
           <v-divider></v-divider>
 
           <v-list dense nav>
@@ -89,7 +90,7 @@
     <l-marker v-if="sidenavViewer === 'store'" v-for="(item, index) in storeMarkersInsideCircle" ref="markers"
       :key="index" :lat-lng="item" :icon="sellerMarker" @click="go(item)">
       <!-- stores tooltip info -->
-      <l-popup :content="getTooltipContent(item)"></l-popup>
+      <l-popup :content="getTooltipContent(item)" @remove="handlePopupClose"></l-popup>
     </l-marker>
 
     <!-- delivery -->
@@ -118,6 +119,7 @@ import personMarker from '@/assets/markers/customerMarker.png';
 import sellerMarker from '@/assets/markers/sellerMarker2.png';
 import deliveryMarker from '@/assets/markers/deliveryMarker2.png';
 import ProductTable from "../Tables/ProductTable.vue";
+import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 
 export default {
 
@@ -139,8 +141,17 @@ export default {
     OpenProductTable() {
       this.$store.commit('PRODUCT_CUSTOMER_VIEW_DIALOG', true)
     },
+    handlePopupClose() {
+      this.drawer = false
+      if (this.routingControl != null) {
+        this.$refs.map.mapObject.removeControl(this.routingControl);
+      }
+    },
     closeDrawer() {
       this.drawer = false
+      if (this.routingControl != null) {
+        this.$refs.map.mapObject.removeControl(this.routingControl);
+      }
     },
     handleMarkerClick(event) {
       if (this.sidenavViewer == 'application' || this.sidenavViewer == 'registration') {
@@ -153,11 +164,27 @@ export default {
       }
     },
     go(item) {
+
       const matchingBranch = this.STORES.find((branch) => {
         return branch.latitude === item[0] && branch.longitude === item[1];
       });
       this.$store.commit('SELECTED_STORE', matchingBranch)
-      console.log(this.STORES)
+      if (this.routingControl != null) {
+        this.$refs.map.mapObject.removeControl(this.routingControl);
+      }
+      this.routingControl = new L.Routing.control({
+        waypoints: [
+          L.latLng(this.MARKER_LAT_LNG), // Example waypoint
+          L.latLng(matchingBranch.latitude, matchingBranch.longitude), // Add more waypoints as needed
+        ],
+        lineOptions: {
+          styles: [{ color: 'blue', opacity: 0.7, weight: 5 }]
+        },
+        createMarker: function () { return null; }
+      }).addTo(this.$refs.map.mapObject); // Assuming your map element has a ref named "map"
+
+
+
       this.drawer = true
     },
     getTooltipContent(item) {
@@ -166,17 +193,17 @@ export default {
       });
       let details = `
             <div>
-            <center><strong style='color:#eb8f34;'>${matchingBranch.name}</strong></center><br>
+            <center><strong style='color:#eb8f34;'>${matchingBranch.name}</strong></center>
             <center><style='color:#eb8f34;'>
           `;
-      for (let i = 0; i < matchingBranch.store_type_details.length; i++) {
-        if (i == matchingBranch.store_type_details.length - 1) {
-          details += `${matchingBranch.store_type_details[i].name}`;
-        }
-        else {
-          details += `${matchingBranch.store_type_details[i].name},`;
-        }
-      }
+      // for (let i = 0; i < matchingBranch.store_type_details.length; i++) {
+      //   if (i == matchingBranch.store_type_details.length - 1) {
+      //     details += `${matchingBranch.store_type_details[i].name}`;
+      //   }
+      //   else {
+      //     details += `${matchingBranch.store_type_details[i].name},`;
+      //   }
+      // }
       details += `</center></div>`
       return details
     },
@@ -196,6 +223,7 @@ export default {
       mapOptions: {
         zoomControl: false, // Disable the default zoom control
       },
+      routingControl: null,
       drawer: false,
       center: [14.653341002411047, 120.99472379571777],
       zoom: 7,
@@ -226,6 +254,7 @@ export default {
   },
 
   mounted() {
+
     // console.log(this.STORES)
     // console.log(this.ZOOM)
     // console.log(this.sidenavViewer)
@@ -297,7 +326,7 @@ export default {
         this.circleRadius = val
       },
     },
-    
+
     circleRadiusOrigin: {
       handler(val) {
         this.$store.commit("CIRCLE_RADIUS", val * 3);
@@ -326,16 +355,22 @@ export default {
 </script>
   
 <style>
-
-
 .l-tooltip-content {
   white-space: pre-line;
   /* Allow line breaks using \n */
 }
 
-.drawer , .buttons {
-  z-index: 401;
+.leaflet-routing-container {
+  top: 40px;
+  /*added by me */
+
+  transition: margin-right 0.2s ease;
+  /* display: none !important; */
 }
 
+.drawer,
+.buttons {
+  z-index: 401;
+}
 </style>
   

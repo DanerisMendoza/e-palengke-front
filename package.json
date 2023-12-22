@@ -13,6 +13,7 @@
     "axios": "^0.21.4",
     "leaflet-dialog": "^1.0.5",
     "leaflet-geosearch": "^3.8.0",
+    "leaflet-routing-machine": "^3.2.12",
     "moment": "^2.29.4",
     "sweetalert2": "^11.7.27",
     "vue": "^2.6.14",
