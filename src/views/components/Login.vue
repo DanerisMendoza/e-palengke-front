@@ -14,31 +14,14 @@
         <p>Log in to your account</p>
 
         <v-form ref="myForm" @submit.prevent>
-          <v-text-field
-            v-model="username"
-            label="Username"
-            :rules="rules.required"
-            outlined
-            dense
-            hide-details="auto"
-            class="mb-3"
-          >
+          <v-text-field v-model="username" label="Username" :rules="rules.required" outlined dense hide-details="auto"
+            class="mb-3">
           </v-text-field>
-          <v-text-field
-            v-model="password"
-            label="Password"
-            type="password"
-            :rules="rules.required"
-            outlined
-            dense
-            hide-details="auto"
-            class="mb-4"
-          ></v-text-field>
+          <v-text-field v-model="password" label="Password" type="password" :rules="rules.required" outlined dense
+            hide-details="auto" class="mb-4"></v-text-field>
         </v-form>
 
-        <v-btn @click="login" color="primary" class="login-btn mb-1"
-          >Login</v-btn
-        >
+        <v-btn @click="login" color="primary" class="login-btn mb-1">Login</v-btn>
         <v-btn plain>Forgot password</v-btn>
         <v-btn @click="registration" plain>Registration</v-btn>
       </v-card>
@@ -79,6 +62,12 @@ export default {
 
   computed: {
     ...mapGetters(["SIDE_NAV"]),
+  },
+
+  created() {
+    this.$Echo.channel('channel-something').listen('something', e => {
+      console.log(e.result)
+    });
   },
 
   methods: {
@@ -125,6 +114,7 @@ export default {
 .login-btn {
   width: 100%;
 }
+
 .login-card {
   width: 25rem;
   position: absolute;

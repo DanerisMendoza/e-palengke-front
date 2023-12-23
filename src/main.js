@@ -9,8 +9,22 @@ import { LMap, LTileLayer } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css'; // Import the CSS file
 import 'leaflet-routing-machine/dist/leaflet-routing-machine'; // Import the JavaScript file
-
 import VueApexCharts from 'vue-apexcharts'
+import Echo from 'laravel-echo'
+import Pusher from 'pusher-js'
+
+window.Pusher = Pusher
+
+Vue.prototype.$Echo = new Echo({
+  broadcaster: 'pusher',
+  key: 'local',
+  wsHost: '192.168.1.6',
+  wsPort: 6001,
+  forceTLS: false,
+  disableStats: true,
+  cluster: 'mt1'
+})
+
 
 Vue.component('apexchart', VueApexCharts)
 Vue.use(VueApexCharts)
