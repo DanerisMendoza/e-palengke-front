@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaflet Map with Adjustable Radius</title>
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- Leaflet Routing Machine CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
 </head>
+
 <body>
     <!-- Map container -->
     <div id="map" style="height: 400px;"></div>
@@ -22,10 +27,15 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
+    <!-- Leaflet Routing Machine JS -->
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+    <!-- Your custom script for creating the map -->
     <!-- Your custom script for creating the map -->
     <script>
         // Set default position and radius
         var defaultPosition = [14.654167279098882, 120.96567392349245];
+        var coord2 = [14.654675890259968, 120.9613609313965];
         var defaultRadius = 1000; // in meters
 
         // Initialize the map
@@ -40,12 +50,31 @@
         var marker = L.marker(defaultPosition).addTo(map)
             .bindPopup('A sample marker.');
 
+        // Initialize a marker at coord2
+        var marker2 = L.marker(coord2).addTo(map)
+            .bindPopup('Waypoint marker.');
+
         // Initialize a circle with the default radius around the marker
         var circle = L.circle(defaultPosition, {
             radius: defaultRadius,
             color: 'blue',
             fillOpacity: 0.2
         }).addTo(map);
+
+        // Initialize routing control with lineOptions and hide details
+        var control = L.Routing.control({
+            waypoints: [
+                L.latLng(defaultPosition),
+                L.latLng(coord2)
+            ],
+            routeWhileDragging: false, // Set to false to hide turn-by-turn instructions
+            lineOptions: {
+                styles: [{ color: 'blue', opacity: 0.7, weight: 5 }]
+            },
+            show: []
+        }).addTo(map);
+
+
 
         // Update the HTML with the initial coordinates and radius
         document.getElementById('coordinates').innerText = 'Latitude: ' + defaultPosition[0] + ', Longitude: ' + defaultPosition[1];
@@ -64,6 +93,12 @@
 
             // Move the circle to the clicked location
             circle.setLatLng(latlng);
+
+            // Update the route waypoints
+            control.setWaypoints([
+                L.latLng(latlng),
+                L.latLng(coord2)
+            ]);
 
             // Update the content of h2 with the adjusted radius
             updateRadius();
@@ -88,5 +123,13 @@
             document.getElementById('radius').innerText = 'Radius: ' + radius + ' meters';
         }
     </script>
+
 </body>
+
 </html>
+
+<style>
+    .leaflet-routing-container {
+        display: none !important;
+    }
+</style>
