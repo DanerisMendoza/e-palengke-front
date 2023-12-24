@@ -47,7 +47,7 @@ export default {
   methods: {
     async fetchData() {
       await this.$store.dispatch("GET_ORDERS_ANALYSIS").then(() => {
-        console.log(this.ORDERS_ANALYSIS);
+        // console.log(this.ORDERS_ANALYSIS);
       });
       this.ordersAnalysisData = this.ORDERS_ANALYSIS;
     },

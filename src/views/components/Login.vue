@@ -65,9 +65,9 @@ export default {
   },
 
   created() {
-    this.$Echo.channel('channel-something').listen('something', e => {
-      console.log(e.result)
-    });
+    // this.$Echo.channel('channel-something').listen('something', e => {
+    //   console.log(e.result)
+    // });
   },
 
   methods: {

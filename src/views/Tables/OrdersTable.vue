@@ -3,7 +3,7 @@
         <v-data-table v-if="ORDERS_TABLE_MODE === 'store'" :headers="store_headers" :items="ORDERS">
             <template v-slot:item="{ item, index }">
                 <tr>
-                    <td>{{ index+1 }}</td>
+                    <td>{{ index + 1 }}</td>
                     <td>{{ item.customer_name }}</td>
                     <td>{{ formatDate(item.created_at) }}</td>
                     <td>{{ item.status }}</td>
@@ -28,7 +28,7 @@
         <v-data-table v-else-if="ORDERS_TABLE_MODE === 'customer'" :headers="customer_headers" :items="ORDERS">
             <template v-slot:item="{ item, index }">
                 <tr>
-                    <td>{{ index+1 }}</td>
+                    <td>{{ index + 1 }}</td>
                     <td>{{ formatDate(item.created_at) }}</td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.status }}</td>
@@ -47,7 +47,7 @@
         <v-data-table v-else-if="ORDERS_TABLE_MODE === 'delivery'" :headers="store_headers" :items="ORDERS">
             <template v-slot:item="{ item, index }">
                 <tr>
-                    <td>{{ index+1 }}</td>
+                    <td>{{ index + 1 }}</td>
                     <td>{{ item.customer_name }}</td>
                     <td>{{ formatDate(item.created_at) }}</td>
                     <td>{{ item.status }}</td>
@@ -95,15 +95,15 @@ export default {
     },
     computed: {
         ...mapGetters([
-            "USER_DETAILS", "ORDERS", "ORDERS_TABLE_MODE","SELECTED_ORDER_STATUS"
+            "USER_DETAILS", "ORDERS", "ORDERS_TABLE_MODE", "SELECTED_ORDER_STATUS"
         ]),
         store_id() {
             return (this.USER_DETAILS.user_role_details.find((item) => item.id === 3 && item.status === 'active')?.store_details[0].store_id);
         }
     },
     methods: {
-        ORDER_STATUS(item){
-            this.$store.commit('SELECTED_ORDER_STATUS',item)
+        ORDER_STATUS(item) {
+            this.$store.commit('SELECTED_ORDER_STATUS', item)
             console.log(this.SELECTED_ORDER_STATUS)
         },
         CANCEL_ORDER(item) {
@@ -136,7 +136,7 @@ export default {
                 }
             })
         },
-        ORDER_TO_SHIP(item){
+        ORDER_TO_SHIP(item) {
             const payload = {
                 customer_id: item.customer_id,
                 order_id: item.order_id
@@ -175,11 +175,11 @@ export default {
             this.$store.commit('SELECTED_ORDER_DETAILS', item)
         },
         fetchTable() {
-            const payload = { 
+            const payload = {
                 params: {
-                    mode:this.ORDERS_TABLE_MODE,
+                    mode: this.ORDERS_TABLE_MODE,
                     store_id: this.store_id
-                } 
+                }
             }
             console.log(payload)
             this.$store.dispatch('GET_ORDERS', payload).then(() => {
@@ -189,6 +189,13 @@ export default {
     },
     mounted() {
         this.fetchTable()
+        const channel = 'channel-OrderEvent' + this.USER_DETAILS.user_id
+        this.$Echo.channel(channel).listen('OrderEvent', e => {
+            if(e.result){
+                this.fetchTable()
+            }
+        });
+
     }
 }
 </script>
