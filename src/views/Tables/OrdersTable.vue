@@ -195,7 +195,6 @@ export default {
                 this.fetchTable()
             }
         });
-
     }
 }
 </script>

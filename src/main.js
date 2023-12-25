@@ -17,7 +17,7 @@ window.Pusher = Pusher
 
 Vue.prototype.$Echo = new Echo({
   broadcaster: 'pusher',
-  key: 'local',
+  key: 'e_palengke_key',
   wsHost: '192.168.1.6',
   wsPort: 6001,
   forceTLS: false,

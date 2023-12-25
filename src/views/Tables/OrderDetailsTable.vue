@@ -85,7 +85,7 @@ export default {
     },
     computed: {
         ...mapGetters([
-            "ORDERS", "SELECTED_ORDER_DETAILS", "ORDERS_TABLE_MODE", "ORDER_DETAILS", "TRANSACTION"
+            "ORDERS", "SELECTED_ORDER_DETAILS", "ORDERS_TABLE_MODE", "ORDER_DETAILS", "TRANSACTION", "USER_DETAILS"
         ]),
     },
     methods: {
@@ -130,7 +130,12 @@ export default {
     },
     mounted() {
         this.getOrderDetails()
-
+        const channel = 'channel-OrderDetailsEvent' + this.USER_DETAILS.user_id
+        this.$Echo.channel(channel).listen('OrderDetailsEvent', e => {
+            if(e.result){  
+                this.getOrderDetails()
+            }
+        });
     }
 }
 </script>
