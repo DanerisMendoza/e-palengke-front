@@ -1,8 +1,0 @@
-{
-	"appId": "com.epalengke.app",
-	"appName": "e-palengke",
-	"webDir": "dist",
-	"server": {
-		"androidScheme": "https"
-	}
-}
