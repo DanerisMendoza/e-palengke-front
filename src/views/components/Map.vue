@@ -36,7 +36,7 @@
 
           <v-list dense nav>
 
-            <v-list-item >
+            <v-list-item>
               <v-list-item-icon>
                 <v-icon>mdi-map-marker-outline</v-icon>
               </v-list-item-icon>
@@ -45,7 +45,7 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item >
+            <v-list-item>
               <v-list-item-icon>
                 <v-icon>mdi-phone</v-icon>
               </v-list-item-icon>
@@ -54,7 +54,7 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item >
+            <v-list-item>
               <v-list-item-icon>
                 <v-icon>mdi-storefront</v-icon>
               </v-list-item-icon>
@@ -67,7 +67,7 @@
             </v-list-item>
 
             <v-divider></v-divider>
-            <v-list-item >
+            <v-list-item>
               <v-list-item-icon>
                 <v-icon>mdi-clock-time-four-outline</v-icon>
               </v-list-item-icon>
@@ -76,60 +76,60 @@
               </v-list-item-content>
             </v-list-item>
 
-            <v-list-item >
+            <v-list-item>
               <v-list-item-icon>
                 <v-icon></v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                Monday {{ SELECTED_STORE.monday == null ? 'unavailable' :  SELECTED_STORE.monday }}
+                Monday {{ SELECTED_STORE.monday == null ? 'unavailable' : SELECTED_STORE.monday }}
               </v-list-item-content>
             </v-list-item>
-            <v-list-item >
+            <v-list-item>
               <v-list-item-icon>
                 <v-icon></v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                Tuesday {{ SELECTED_STORE.tuesday == null ? 'unavailable' :  SELECTED_STORE.tuesday}}
+                Tuesday {{ SELECTED_STORE.tuesday == null ? 'unavailable' : SELECTED_STORE.tuesday }}
               </v-list-item-content>
             </v-list-item>
-            <v-list-item >
+            <v-list-item>
               <v-list-item-icon>
                 <v-icon></v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                Wednesday {{ SELECTED_STORE.wednesday == null ? 'unavailable' : SELECTED_STORE.wednesday}}
+                Wednesday {{ SELECTED_STORE.wednesday == null ? 'unavailable' : SELECTED_STORE.wednesday }}
               </v-list-item-content>
             </v-list-item>
-            <v-list-item >
+            <v-list-item>
               <v-list-item-icon>
                 <v-icon></v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                Thursday {{ SELECTED_STORE.thursday == null ? 'unavailable' : SELECTED_STORE.thursday}}
+                Thursday {{ SELECTED_STORE.thursday == null ? 'unavailable' : SELECTED_STORE.thursday }}
               </v-list-item-content>
             </v-list-item>
-            <v-list-item >
+            <v-list-item>
               <v-list-item-icon>
                 <v-icon></v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                Friday {{ SELECTED_STORE.friday == null ? 'unavailable' : SELECTED_STORE.friday}}
+                Friday {{ SELECTED_STORE.friday == null ? 'unavailable' : SELECTED_STORE.friday }}
               </v-list-item-content>
             </v-list-item>
-            <v-list-item >
+            <v-list-item>
               <v-list-item-icon>
                 <v-icon></v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                Saturday {{ SELECTED_STORE.saturday == null ? 'unavailable' : SELECTED_STORE.saturday}}
+                Saturday {{ SELECTED_STORE.saturday == null ? 'unavailable' : SELECTED_STORE.saturday }}
               </v-list-item-content>
             </v-list-item>
-            <v-list-item >
+            <v-list-item>
               <v-list-item-icon>
                 <v-icon></v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                Sunday {{ SELECTED_STORE.sunday == null ? 'unavailable' : SELECTED_STORE.sunday}}
+                Sunday {{ SELECTED_STORE.sunday == null ? 'unavailable' : SELECTED_STORE.sunday }}
               </v-list-item-content>
             </v-list-item>
 
@@ -157,9 +157,7 @@
 
     <!-- multiple marker(stores) -->
     <l-marker v-if="sidenavViewer === 'store'" v-for="(item, index) in storeMarkersInsideCircle" ref="markers"
-      :key="index" :lat-lng="item" :icon="sellerMarker" @click="go(item)">
-      <!-- stores tooltip info -->
-      <l-popup :content="getTooltipContent(item)" @remove="handlePopupClose"></l-popup>
+      :key="index" :lat-lng="item" :icon="isMarkerSelected(item)" @click="go(item)">
     </l-marker>
 
     <!-- delivery -->
@@ -184,6 +182,7 @@
 import { LMap, LTileLayer, LMarker, LIcon, LCircle, LTooltip, LPopup, LControlZoom } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { mapGetters } from 'vuex';
+import selectedMarker from '@/assets/markers/selectedMarker.png';
 import personMarker from '@/assets/markers/customerMarker.png';
 import sellerMarker from '@/assets/markers/sellerMarker2.png';
 import deliveryMarker from '@/assets/markers/deliveryMarker2.png';
@@ -194,6 +193,10 @@ export default {
 
 
   methods: {
+    isMarkerSelected(marker) {
+      return marker === this.pin ? this.selectedMarker : this.sellerMarker;
+    },
+
     home() {
       const latitude = this.USER_DETAILS.customer_locations.latitude;
       const longitude = this.USER_DETAILS.customer_locations.longitude;
@@ -234,14 +237,14 @@ export default {
       }
     },
     go(item) {
-
+      this.pin = item;
       const matchingBranch = this.STORES.find((branch) => {
         return branch.latitude === item[0] && branch.longitude === item[1];
       });
       this.$store.commit('SELECTED_STORE', matchingBranch)
       this.drawer = true
 
-      if(this.OldCoordinates == matchingBranch){
+      if (this.OldCoordinates == matchingBranch) {
         this.OldCoordinates = null
         return
       }
@@ -292,6 +295,7 @@ export default {
 
   data() {
     return {
+      pin: null,
       googleStreets: {
         url: 'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
         maxZoom: 20,
@@ -307,6 +311,13 @@ export default {
       zoom: 7,
       circleRadius: 50 * 3,
       circleRadiusOrigin: 50,
+      selectedMarker: L.icon({
+        iconUrl: selectedMarker,
+        iconSize: [25, 41],
+        iconAnchor: [10, 41],
+        popupAnchor: [1, -34],
+        tooltipAnchor: [16, -28],
+      }),
       personMarker: L.icon({
         iconUrl: personMarker,
         iconSize: [25, 41],
@@ -355,6 +366,7 @@ export default {
       "SELECTED_STORE",
       "SIDE_NAV_TOGGLE"
     ]),
+
 
     computedMarker() {
       if (this.sidenavViewer === 'store') {
