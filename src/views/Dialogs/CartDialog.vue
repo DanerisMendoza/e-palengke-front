@@ -48,7 +48,7 @@
 
             <v-row>
               <v-col cols="12">
-                <v-btn class="float-right" @click="order" color="success">Check out</v-btn>
+                <v-btn class="float-right" @click="order" color="success" :loading="isOrdering">Check out</v-btn>
               </v-col>
             </v-row>
           </v-card-text>
@@ -69,6 +69,7 @@ export default {
   },
   data() {
     return {
+      isOrdering:false,
       dialog: true,
       currentDateTime: moment().format('MMMM D, YYYY - hh:mm A'),    
     };
@@ -90,6 +91,7 @@ export default {
       this.$store.commit("SELECTED_STORE", selectedStore);
     },
     order() {
+      this.isOrdering = true
       if (this.USER_DETAILS.balance < this.total) {
         this.$swal.fire({
           icon: "warning", // Set a warning icon (you can choose a different icon class)
@@ -98,6 +100,7 @@ export default {
           showConfirmButton: false, // Remove the "OK" button
           timer: 2000, // Auto-close the alert after 1.5 seconds (adjust as needed)
         });
+        this.isOrdering = false
         return;
       }
       this.CART.forEach((item) => {
@@ -109,6 +112,7 @@ export default {
             showConfirmButton: false, // Remove the "OK" button
             timer: 2000, // Auto-close the alert after 1.5 seconds (adjust as needed)
           });
+          this.isOrdering = false
           return;
         }
       });
@@ -145,6 +149,7 @@ export default {
             timer: 2000,
           });
         }
+        this.isOrdering = false
         this.$store.dispatch("GET_CART");
         this.$store.dispatch("GetUserDetails");
       });
