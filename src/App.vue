@@ -14,6 +14,7 @@
           <v-menu offset-y>
             <template v-slot:activator="{ on }">
               <v-btn text v-on="on">
+                {{ USER_DETAILS.name }}
                 <div>
                   <img
                     :src="PROFILE_PATH"
@@ -22,7 +23,6 @@
                     class="mr-2 profile-picture"
                   />
                 </div>
-                {{ USER_DETAILS.name }}
               </v-btn>
             </template>
             <v-list>
