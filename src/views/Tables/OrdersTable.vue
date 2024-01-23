@@ -71,6 +71,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import moment from 'moment';
+import Pusher from 'pusher-js'
 
 export default {
     data() {
@@ -189,11 +190,20 @@ export default {
     },
     mounted() {
         this.fetchTable()
-        const channel = 'channel-OrderEvent' + this.USER_DETAILS.user_id
-        this.$Echo.channel(channel).listen('OrderEvent', e => {
-            if(e.result){
-                this.fetchTable()
-            }
+        // localhost
+        // const channel = 'channel-OrderEvent' + this.USER_DETAILS.user_id
+        // this.$Echo.channel(channel).listen('OrderEvent', e => {
+        //     if(e.result){
+        //         this.fetchTable()
+        //     }
+        // });
+
+        // pusher only
+        // Pusher.logToConsole = true;  // Enable pusher logging - don't include this in production
+        var pusher = this.$Pusher;
+        var channel = pusher.subscribe('channel-OrderEvent' + this.USER_DETAILS.user_id);
+        channel.bind('OrderEvent', (data) => {
+            this.fetchTable()
         });
     }
 }

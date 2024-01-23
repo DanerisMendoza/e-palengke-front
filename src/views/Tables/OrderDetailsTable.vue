@@ -4,7 +4,7 @@
             <v-data-table v-if="ORDERS_TABLE_MODE === 'store'" :headers="store_headers" :items="ORDER_DETAILS">
                 <template v-slot:item="{ item, index }">
                     <tr>
-                        <td>{{ index+1 }}</td>
+                        <td>{{ index + 1 }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.status }}</td>
                         <td>{{ item.quantity }}</td>
@@ -18,7 +18,7 @@
                 :items="ORDER_DETAILS">
                 <template v-slot:item="{ item, index }">
                     <tr>
-                        <td>{{ index+1 }}</td>
+                        <td>{{ index + 1 }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.store_name }}</td>
                         <td>{{ item.address }}</td>
@@ -36,7 +36,7 @@
             <v-data-table v-else-if="ORDERS_TABLE_MODE === 'delivery'" :headers="customer_headers" :items="ORDER_DETAILS">
                 <template v-slot:item="{ item, index }">
                     <tr>
-                        <td>{{ index+1 }}</td>
+                        <td>{{ index + 1 }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.store_name }}</td>
                         <td>{{ item.address }}</td>
@@ -130,11 +130,19 @@ export default {
     },
     mounted() {
         this.getOrderDetails()
-        const channel = 'channel-OrderDetailsEvent' + this.USER_DETAILS.user_id
-        this.$Echo.channel(channel).listen('OrderDetailsEvent', e => {
-            if(e.result){  
-                this.getOrderDetails()
-            }
+        // localhost
+        // const channel = 'channel-OrderDetailsEvent' + this.USER_DETAILS.user_id
+        // this.$Echo.channel(channel).listen('OrderDetailsEvent', e => {
+        //     if(e.result){  
+        //         this.getOrderDetails()
+        //     }
+        // });
+
+        // pusher only
+        var pusher = this.$Pusher;
+        var channel = pusher.subscribe('channel-OrderDetailsEvent' + this.USER_DETAILS.user_id);
+        channel.bind('OrderDetailsEvent', (data) => {
+            this.getOrderDetails()
         });
     }
 }

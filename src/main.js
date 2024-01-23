@@ -13,17 +13,19 @@ import VueApexCharts from 'vue-apexcharts'
 import Echo from 'laravel-echo'
 import Pusher from 'pusher-js'
 
-window.Pusher = Pusher
+// pusher only
+Vue.prototype.$Pusher = new Pusher('352de43b53541443acec', { cluster: 'ap1' });
 
-Vue.prototype.$Echo = new Echo({
-  broadcaster: 'pusher',
-  key: 'e_palengke_key',
-  wsHost: '192.168.1.6',
-  wsPort: 6001,
-  forceTLS: false,
-  disableStats: true,
-  cluster: 'mt1'
-})
+// localhost websockets
+// Vue.prototype.$Echo = new Echo({
+//   broadcaster: 'pusher',
+//   key: 'e_palengke_key',
+//   wsHost: '192.168.1.4',
+//   wsPort: 6001,
+//   forceTLS: false,
+//   disableStats: true,
+//   cluster: 'mt1'
+// })
 
 
 Vue.component('apexchart', VueApexCharts)
