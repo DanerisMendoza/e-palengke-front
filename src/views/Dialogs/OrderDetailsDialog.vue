@@ -9,7 +9,7 @@
                         </v-btn>
                     </v-col>
                 </v-row>
-                <v-row v-if="SELECTED_ORDER_DETAILS.status === 'To Receive' || SELECTED_ORDER_DETAILS.transactions_status === 'To Pickup'">
+                <v-row v-if="SELECTED_ORDER_DETAILS.status === 'To Receive' || SELECTED_ORDER_DETAILS.transactions_status === 'To Pickup' || SELECTED_ORDER_DETAILS.transactions_status === 'Dropped off'">
                     <v-col cols="12">
                         <v-container>
                             <v-card>
