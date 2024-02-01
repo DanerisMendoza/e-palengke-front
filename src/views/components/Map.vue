@@ -467,5 +467,8 @@ export default {
 .buttons {
   z-index: 401;
 }
+.leaflet-control-attribution.leaflet-control {
+    display: none;
+}
 </style>
   
