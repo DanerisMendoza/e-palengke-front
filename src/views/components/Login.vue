@@ -1,29 +1,50 @@
 <template>
-  <v-app style="background: #d0dae3">
+  <v-app style="background: #0a3862">
     <v-container>
-      <v-app-bar app color="primary" dark elevation="2">
+      <!-- <v-app-bar app color="primary" dark elevation="2">
         LOGIN PAGE
         <v-spacer></v-spacer>
         <v-btn plain @click="registration">sign up</v-btn>
         <span class="ml-5 mr-5">|</span>
         <v-btn plain @click="login">login</v-btn>
-      </v-app-bar>
+      </v-app-bar> -->
 
-      <v-card class="text-center login-card" elevation="2" outlined>
-        <img src="../../assets/logo3.png" alt="E-Palengke Logo" />
-        <p>Log in to your account</p>
+      <v-card class="login-card" elevation="5">
+        <div class="text-center">
+          <img src="../../assets/e-palengke-logo.png" alt="E-Palengke Logo" />
+          <p class="login-text">Log in to your account</p>
+        </div>
 
         <v-form ref="myForm" @submit.prevent>
-          <v-text-field v-model="username" label="Username" :rules="rules.required" outlined dense hide-details="auto"
-            class="mb-3">
+          <v-text-field
+            v-model="username"
+            label="Username"
+            :rules="rules.required"
+            outlined
+            dense
+            hide-details="auto"
+            class="mb-3"
+          >
           </v-text-field>
-          <v-text-field v-model="password" label="Password" type="password" :rules="rules.required" outlined dense
-            hide-details="auto" class="mb-4"></v-text-field>
+          <v-text-field
+            v-model="password"
+            label="Password"
+            type="password"
+            :rules="rules.required"
+            outlined
+            dense
+            hide-details="auto"
+            class="mb-4"
+          ></v-text-field>
         </v-form>
 
-        <v-btn @click="login" color="primary" class="login-btn mb-1">Login</v-btn>
-        <v-btn plain>Forgot password</v-btn>
-        <v-btn @click="registration" plain>Registration</v-btn>
+        <v-btn plain class="mb-3">Forgot password</v-btn>
+        <v-btn @click="login" color="#0A3862" dark class="login-btn">
+          Login
+        </v-btn>
+        <div class="text-center">
+          <v-btn @click="registration" plain class="mt-3">Registration</v-btn>
+        </div>
       </v-card>
     </v-container>
   </v-app>
@@ -114,13 +135,15 @@ export default {
 .login-btn {
   width: 100%;
 }
-
 .login-card {
-  width: 25rem;
   position: absolute;
-  top: 45%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 1rem 2rem;
+  width: 30rem;
+  padding: 2rem;
+}
+.login-text {
+  margin: 0.5rem 0 2rem;
 }
 </style>
