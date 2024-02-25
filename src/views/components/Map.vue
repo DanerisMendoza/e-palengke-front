@@ -227,8 +227,10 @@ export default {
       }
     },
     handleMarkerClick(event) {
+      const { lat, lng } = event.latlng;
+      console.log(lat)
+      console.log(lng)
       if (this.sidenavViewer == 'application' || this.sidenavViewer == 'registration') {
-        const { lat, lng } = event.latlng;
         this.$store.commit("MARKER_LAT_LNG", [0, 0])
         this.$store.commit("CENTER", [0, 0])
         this.$store.commit("MARKER_LAT_LNG", [lat, lng])
