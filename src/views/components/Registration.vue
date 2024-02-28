@@ -7,6 +7,8 @@
         <v-btn plain @click="registration">sign up</v-btn>
         <span class="ml-5 mr-5">|</span>
         <v-btn plain @click="login">login</v-btn>
+        <span class="ml-5 mr-5">|</span>
+        <v-btn plain @click="mobile">mobile (apk)</v-btn>
       </v-app-bar>
 
       <v-card class="text-center register-card" elevation="2" outlined>
@@ -255,6 +257,9 @@ export default {
     registration() {
       this.$router.push("/Registration");
     },
+    mobile(){
+      this.$router.push("/Mobile");
+    }
   },
   computed: {
     ...mapGetters(["MARKER_LAT_LNG"]),

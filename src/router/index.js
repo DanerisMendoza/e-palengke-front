@@ -4,6 +4,7 @@ import Login from '@/views/SideNav/Login.vue';
 import RequirementDetail from '@/views/SideNav/RequirementDetail.vue';
 import Application from '@/views/SideNav/Application.vue';
 import Registration from '@/views/SideNav/Registration.vue';
+import Mobile from '@/views/SideNav/Mobile.vue';
 import HOME from '@/views/SideNav/Home.vue';
 import Admin from '@/views/SideNav/Admin.vue';
 import UserRole from '@/views/SideNav/UserRole.vue';
@@ -118,6 +119,23 @@ const routes = [
     path: '/Registration',
     name: 'Registration',
     component: Registration,
+    meta: {
+      showSideMenuBar: false, // Set to false to hide the SideMenuBar for the login page
+    },
+    beforeEnter: (to, from, next) => {
+      const shouldShowSideMenuBar = to.meta.showSideMenuBar !== false;
+      Vue.prototype.$showSideMenuBar = shouldShowSideMenuBar;
+      user.authenticated().then((response)=>{
+        next({ name: response.data[0].name });
+      }).catch((error)=>{
+        next();
+      });
+    },
+  },
+  {
+    path: '/Mobile',
+    name: 'Mobile',
+    component: Mobile,
     meta: {
       showSideMenuBar: false, // Set to false to hide the SideMenuBar for the login page
     },
