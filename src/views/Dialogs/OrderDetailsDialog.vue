@@ -9,7 +9,8 @@
                         </v-btn>
                     </v-col>
                 </v-row>
-                <v-row v-if="SELECTED_ORDER_DETAILS.status === 'To Receive' || SELECTED_ORDER_DETAILS.transactions_status === 'To Pickup' || SELECTED_ORDER_DETAILS.transactions_status === 'Dropped off'">
+                <v-row
+                    v-if="SELECTED_ORDER_DETAILS.status === 'To Receive' || SELECTED_ORDER_DETAILS.transactions_status === 'To Pickup' || SELECTED_ORDER_DETAILS.transactions_status === 'Dropped off'">
                     <v-col cols="12">
                         <v-container>
                             <v-card>
@@ -26,8 +27,10 @@
 
                                     <!-- Profile Picture -->
                                     <v-col>
-                                        <v-img :src="require('@/assets/profilePic.jpg')" class="mr-3 float-right"
+                                        <v-img v-if="TRANSACTION.profile_pic_path == null" :src="require('@/assets/profilePic.jpg')" class="mr-3 float-right"
                                             max-width="150" style="border-radius: 5rem;"></v-img>
+                                        <v-img v-else :src="TRANSACTION.base64img" class="mr-3 float-right" max-width="150"
+                                            style="border-radius: 5rem;"></v-img>
                                     </v-col>
                                 </v-row>
                             </v-card>
@@ -46,7 +49,7 @@
                             <template v-slot:append>
                                 Total: ₱{{ total.toFixed(2) }}
                             </template>
-                        </v-text-field> -->
+</v-text-field> -->
                     </v-col>
                 </v-row>
             </v-card>
