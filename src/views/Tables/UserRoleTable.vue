@@ -1,5 +1,5 @@
 <template>
-  <v-app style="background: #d0dae3">
+  <v-app style="background: #c8e0f6">
     <v-card class="user-role">
       <v-card elevation="2" outlined>
         <v-data-table :headers="headers" :items="USER_ROLES">
@@ -8,14 +8,24 @@
               <td>{{ index + 1 }}</td>
               <td>{{ item.name }}</td>
               <td>
-                <v-chip class="mr-1 mt-1" v-for="(RequirementDetail, i) in item.RequirementDetails" :key="i">
+                <v-chip
+                  class="mr-1 mt-1"
+                  v-for="(RequirementDetail, i) in item.RequirementDetails"
+                  :key="i"
+                  color="primary"
+                >
                   <div>
                     {{ RequirementDetail.requirement_detailsName }}
                   </div>
                 </v-chip>
               </td>
               <td>
-                <v-chip class="mr-1 mt-1" v-for="(Access, i) in item.Accesses" :key="i">
+                <v-chip
+                  class="mr-1 mt-1"
+                  v-for="(Access, i) in item.Accesses"
+                  :key="i"
+                  color="primary"
+                >
                   <div>
                     {{ Access.side_nav_name }}
                   </div>
@@ -23,7 +33,9 @@
               </td>
               <td>
                 <!-- <v-icon @click="viewItem(item)" class="mr-2">mdi-eye</v-icon> -->
-                <v-icon @click="editItem(item)" color="orange">mdi-pencil</v-icon>
+                <v-icon @click="editItem(item)" color="orange"
+                  >mdi-pencil</v-icon
+                >
                 <!-- <v-icon @click="deleteItem(item)">mdi-delete</v-icon> -->
               </td>
             </tr>
@@ -55,12 +67,12 @@ export default {
   },
 
   methods: {
-    viewItem(item) { },
+    viewItem(item) {},
     editItem(item) {
       // console.log(item)
       this.$store.commit("SELECTED_ROLE", item);
     },
-    deleteItem(item) { },
+    deleteItem(item) {},
   },
 
   mounted() {
@@ -68,10 +80,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.user-role {
-  border-top: 5px solid #1976d2;
-  padding: 1rem;
-}
-</style>

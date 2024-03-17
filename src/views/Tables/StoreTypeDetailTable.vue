@@ -1,25 +1,25 @@
 <template>
-  <v-app style="background: #d0dae3">
-    <v-card class="store-type-details">
+  <v-app style="background: #c8e0f6">
+    <div>
       <v-btn @click="addNewStoreType()" color="primary" class="mb-5">
-        add new Store Type
+        add store type
       </v-btn>
+    </div>
 
-      <v-card elevation="2" outlined>
-        <v-data-table :headers="headers" :items="STORE_TYPE_DETAIL">
-          <template v-slot:item="{ item, index }">
-            <tr>
-              <td>{{ index + 1 }}</td>
-              <td>{{ item.name }}</td>
-              <td>
-                <!-- <v-icon @click="viewItem(item)" class="mr-2">mdi-eye</v-icon> -->
-                <v-icon @click="editItem(item)" color="orange">mdi-pencil</v-icon>
-                <v-icon @click="deleteItem(item)" color="red">mdi-delete</v-icon>
-              </td>
-            </tr>
-          </template>
-        </v-data-table>
-      </v-card>
+    <v-card elevation="2" outlined>
+      <v-data-table :headers="headers" :items="STORE_TYPE_DETAIL">
+        <template v-slot:item="{ item, index }">
+          <tr>
+            <td>{{ index + 1 }}</td>
+            <td>{{ item.name }}</td>
+            <td>
+              <!-- <v-icon @click="viewItem(item)" class="mr-2">mdi-eye</v-icon> -->
+              <v-icon @click="editItem(item)" color="orange">mdi-pencil</v-icon>
+              <v-icon @click="deleteItem(item)" color="red">mdi-delete</v-icon>
+            </td>
+          </tr>
+        </template>
+      </v-data-table>
     </v-card>
   </v-app>
 </template>
@@ -46,7 +46,7 @@ export default {
   },
 
   methods: {
-    viewItem(item) { },
+    viewItem(item) {},
     editItem(item) {
       this.$store.commit("SELECTED_STORE_TYPE_DETAILS", item);
       this.$store.commit("STORE_TYPE_DETAILS_DIALOG", "UPDATE");

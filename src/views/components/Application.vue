@@ -1,12 +1,12 @@
 <template>
-  <v-container>
+  <div>
     <v-card elevation="2" outlined class="mb-5">
       <v-data-table :headers="headers" :items="MY_APPLICATION">
         <template v-slot:item="{ item }">
           <tr>
             <td style="text-align: center">{{ item.name }}</td>
             <td style="text-align: center">
-              <v-chip>{{ item.status }}</v-chip>
+              <v-chip color="primary">{{ item.status }}</v-chip>
             </td>
             <td style="text-align: center">
               <v-btn @click="view(item)" icon><v-icon>mdi-eye</v-icon></v-btn>
@@ -18,7 +18,7 @@
 
     <!-- Autocomplete component -->
     <v-row>
-      <v-col cols="12" sm="4">
+      <v-col cols="12" md="4">
         <v-autocomplete
           v-if="user_role.length !== 0"
           v-model="selected_user_role"
@@ -49,11 +49,10 @@
           outlined
           hide-details="auto"
           class="mb-3"
-          dense
         ></v-file-input>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>

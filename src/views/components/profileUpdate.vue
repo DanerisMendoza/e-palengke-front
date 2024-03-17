@@ -1,114 +1,116 @@
 <template>
-  <v-form ref="form" @submit.prevent="submit">
-    <v-card outlined class="profile-update">
-      <p class="font-weight-bold">Profile Update</p>
-      <v-row>
-        <v-col cols="4"  class="text-center">
-          <div>
-            <img :src="imageUrl" alt="Profile Picture" width="300" />
-          </div>
-          <v-file-input
-            v-model="file"
-            @change="handleFileChange"
-            :rules="rules.file"
-            label="Profile Picture Upload"
-            accept="image/*"
-            outlined
-            hide-details="auto"
-          ></v-file-input>
-        </v-col>
+  <v-card class="card">
+    <v-card-title class="card-title">Edit Information</v-card-title>
+    <v-form ref="form" @submit.prevent="submit">
+      <v-card-text>
+        <v-row>
+          <v-col cols="12" md="4" class="text-center">
+            <div>
+              <img :src="imageUrl" alt="Profile Picture" width="280" />
+            </div>
+            <v-file-input
+              v-model="file"
+              @change="handleFileChange"
+              :rules="rules.file"
+              label="Profile Picture Upload"
+              accept="image/*"
+              outlined
+              hide-details="auto"
+            ></v-file-input>
+          </v-col>
 
-        <v-col cols="8">
-          <v-row>
-            <v-col cols="12" sm="4">
-              <v-text-field
-                v-model="form.first_name"
-                :rules="rules.required"
-                outlined
-                label="First Name"
-                hide-details="auto"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-text-field
-                v-model="form.middle_name"
-                outlined
-                label="Middle Name"
-                hide-details="auto"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-text-field
-                v-model="form.last_name"
-                :rules="rules.required"
-                outlined
-                label="Last Name"
-                hide-details="auto"
-              ></v-text-field>
-            </v-col>
-          </v-row>
+          <v-col cols="12" md="8">
+            <v-row>
+              <v-col cols="12" sm="4">
+                <v-text-field
+                  v-model="form.first_name"
+                  :rules="rules.required"
+                  outlined
+                  label="First Name"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="4">
+                <v-text-field
+                  v-model="form.middle_name"
+                  outlined
+                  label="Middle Name"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="4">
+                <v-text-field
+                  v-model="form.last_name"
+                  :rules="rules.required"
+                  outlined
+                  label="Last Name"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+            </v-row>
 
-          <v-row>
-            <v-col cols="12">
-              <v-text-field
-                v-model="form.email"
-                :rules="rules.email"
-                outlined
-                label="Email"
-                hide-details="auto"
-              ></v-text-field>
-            </v-col>
-          </v-row>
+            <v-row>
+              <v-col cols="12" sm="4">
+                <v-autocomplete
+                  v-model="form.gender"
+                  :items="genders"
+                  item-text="name"
+                  item-value="name"
+                  :rules="rules.required"
+                  auto-select-first
+                  chips
+                  outlined
+                  label="Gender"
+                  hide-details="auto"
+                ></v-autocomplete>
+              </v-col>
+            </v-row>
 
-          <v-row>
-            <v-col cols="12" sm="4">
-              <v-autocomplete
-                v-model="form.gender"
-                :items="genders"
-                item-text="name"
-                item-value="name"
-                :rules="rules.required"
-                auto-select-first
-                chips
-                outlined
-                label="Gender"
-                hide-details="auto"
-              ></v-autocomplete>
-            </v-col>
-          </v-row>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="form.email"
+                  :rules="rules.email"
+                  outlined
+                  label="Email"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+            </v-row>
 
-          <v-row>
-            <v-col cols="12">
-              <v-text-field
-                v-model="form.address"
-                :rules="rules.required"
-                outlined
-                label="Address"
-                hide-details="auto"
-              ></v-text-field>
-            </v-col>
-          </v-row>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  v-model="form.address"
+                  :rules="rules.required"
+                  outlined
+                  label="Address"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+            </v-row>
 
-          <v-row class="mb-1">
-            <v-col cols="4">
-              <v-text-field
-                v-model="form.username"
-                :rules="rules.required"
-                outlined
-                label="Username"
-                hide-details="auto"
-              ></v-text-field>
-            </v-col>
-          </v-row>
-
-          <v-btn @click="cancel" color="#820909" dark class="mr-1"
-            >Cancel</v-btn
-          >
-          <v-btn type="submit" color="#002147" dark>Submit</v-btn>
-        </v-col>
-      </v-row>
-    </v-card>
-  </v-form>
+            <v-row class="mb-1">
+              <v-col cols="4">
+                <v-text-field
+                  v-model="form.username"
+                  :rules="rules.required"
+                  outlined
+                  label="Username"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn type="submit" color="#0c3a68" dark text>Submit</v-btn>
+        <v-btn @click="cancel" color="red" dark text>Cancel</v-btn>
+      </v-card-actions>
+    </v-form>
+  </v-card>
 </template>
 
 <script>
@@ -268,7 +270,13 @@ export default {
 </script>
 
 <style scoped>
-.profile-update {
-  padding: 1rem;
+.card {
+  padding: 0.5rem;
+}
+.card-title {
+  color: #0c3a68;
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
 }
 </style>

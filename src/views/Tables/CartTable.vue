@@ -12,16 +12,21 @@
           <td>
             <v-row>
               <v-col cols="12">
-                <v-btn v-if="item.stock > 0" @click="increaseItem(item)">
+                <v-btn
+                  v-if="item.stock > 0"
+                  @click="increaseItem(item)"
+                  icon
+                  color="green"
+                >
                   <v-icon>mdi-plus</v-icon>
                 </v-btn>
-                <v-btn v-else>
+                <v-btn v-else icon color="orange">
                   <v-icon>mdi-alert-circle-outline</v-icon>
                 </v-btn>
-                <v-btn @click="decreaseItem(item)">
+                <v-btn @click="decreaseItem(item)" icon color="red">
                   <v-icon>mdi-minus</v-icon>
                 </v-btn>
-                <v-btn @click="removeItem(item)">
+                <v-btn @click="removeItem(item)" icon color="black">
                   <v-icon>mdi-cart-off</v-icon>
                 </v-btn>
               </v-col>

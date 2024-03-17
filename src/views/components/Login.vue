@@ -1,7 +1,7 @@
 <template>
-  <v-app style="background: #d0dae3">
+  <v-app style="background: #0c3a68">
     <v-container>
-      <v-app-bar app color="primary" dark elevation="2">
+      <!-- <v-app-bar app color="primary" dark elevation="2">
         LOGIN PAGE
         <v-spacer></v-spacer>
         <v-btn plain @click="registration">sign up</v-btn>
@@ -9,23 +9,59 @@
         <v-btn plain @click="login">login</v-btn>
         <span class="ml-5 mr-5">|</span>
         <v-btn plain @click="mobile">mobile (apk)</v-btn>
-      </v-app-bar>
+      </v-app-bar> -->
 
-      <v-card class="text-center login-card" elevation="2" outlined>
-        <img src="../../assets/logo3.png" alt="E-Palengke Logo" />
+      <v-btn plain color="primary" @click="landingPage">
+        <v-icon class="mr-2">mdi-arrow-left</v-icon>
+        Back to Home
+      </v-btn>
+
+      <v-card class="login-card text-center">
+        <div>
+          <img
+            src="../../assets/ep-only.png"
+            alt="E-Palengke Logo"
+            width="150"
+          />
+        </div>
         <p>Log in to your account</p>
 
         <v-form ref="myForm" @submit.prevent>
-          <v-text-field v-model="username" label="Username" :rules="rules.required" outlined dense hide-details="auto"
-            class="mb-3">
+          <v-text-field
+            v-model="username"
+            label="Username"
+            :rules="rules.required"
+            outlined
+            hide-details="auto"
+            class="mb-4"
+          >
           </v-text-field>
-          <v-text-field v-model="password" label="Password" type="password" :rules="rules.required" outlined dense
-            hide-details="auto" class="mb-4"></v-text-field>
+          <v-text-field
+            v-model="password"
+            label="Password"
+            type="password"
+            :rules="rules.required"
+            outlined
+            hide-details="auto"
+          ></v-text-field>
         </v-form>
 
-        <v-btn @click="login" color="primary" class="login-btn mb-1">Login</v-btn>
-        <v-btn plain>Forgot password</v-btn>
+        <v-btn plain class="mt-2">Forgot password</v-btn>
+
+        <div class="mt-2 mb-2">
+          <v-btn @click="login" color="#0c3a68" dark class="login-btn" large
+            >Login</v-btn
+          >
+        </div>
+
         <v-btn @click="registration" plain>Registration</v-btn>
+
+        <v-divider class="mt-2 mb-2"></v-divider>
+
+        <v-btn @click="mobile" color="primary" plain>
+          <v-icon class="mr-2">mdi-qrcode</v-icon>
+          Download Mobile APK
+        </v-btn>
       </v-card>
     </v-container>
   </v-app>
@@ -108,24 +144,26 @@ export default {
     registration() {
       this.$router.push("/Registration");
     },
-    mobile(){
+    mobile() {
       this.$router.push("/Mobile");
-    }
+    },
+    landingPage() {
+      this.$router.push("/LandingPage");
+    },
   },
 };
 </script>
 
 <style scoped>
-.login-btn {
-  width: 100%;
-}
-
 .login-card {
   width: 25rem;
   position: absolute;
-  top: 45%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 1rem 2rem;
+}
+.login-btn {
+  width: 100%;
 }
 </style>
