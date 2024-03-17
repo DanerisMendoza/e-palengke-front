@@ -1,210 +1,263 @@
 <template>
-    <v-card>
-        <v-data-table v-if="ORDERS_TABLE_MODE === 'store'" :headers="store_headers" :items="ORDERS">
-            <template v-slot:item="{ item, index }">
-                <tr>
-                    <td>{{ index + 1 }}</td>
-                    <td>{{ item.customer_name }}</td>
-                    <td>{{ formatDate(item.created_at) }}</td>
-                    <td>{{ item.status }}</td>
-                    <td>₱{{ item.total }}</td>
-                    <td>
-                        <v-btn @click="viewOrderDetails(item)">
-                            <v-icon>mdi-view-list</v-icon>
-                        </v-btn>
-                        <v-btn v-if="item.status == 'Pending'" @click="ACCEPT_ORDER(item)">
-                            <v-icon>mdi-check</v-icon>
-                        </v-btn>
-                        <v-btn v-if="item.status == 'Pending'" @click="DECLINE_ORDER(item)">
-                            <v-icon>mdi-close</v-icon>
-                        </v-btn>
-                        <v-btn v-if="item.status == 'Preparing'" @click="ORDER_TO_SHIP(item)">
-                            <v-icon>mdi-truck</v-icon>
-                        </v-btn>
-                    </td>
-                </tr>
-            </template>
-        </v-data-table>
-        <v-data-table v-else-if="ORDERS_TABLE_MODE === 'customer'" :headers="customer_headers" :items="ORDERS">
-            <template v-slot:item="{ item, index }">
-                <tr>
-                    <td>{{ index + 1 }}</td>
-                    <td>{{ formatDate(item.created_at) }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.status }}</td>
-                    <td>₱{{ item.total }}</td>
-                    <td>
-                        <v-btn @click="viewOrderDetails(item)">
-                            <v-icon>mdi-view-list</v-icon>
-                        </v-btn>
-                        <v-btn v-if="item.status == 'Pending'" @click="CANCEL_ORDER(item)">
-                            <v-icon>mdi-close</v-icon>
-                        </v-btn>
-                    </td>
-                </tr>
-            </template>
-        </v-data-table>
-        <v-data-table v-else-if="ORDERS_TABLE_MODE === 'delivery'" :headers="store_headers" :items="ORDERS">
-            <template v-slot:item="{ item, index }">
-                <tr>
-                    <td>{{ index + 1 }}</td>
-                    <td>{{ item.customer_name }}</td>
-                    <td>{{ formatDate(item.created_at) }}</td>
-                    <td>{{ item.status }}</td>
-                    <td>₱{{ item.total }}</td>
-                    <td>
-                        <v-btn @click="viewOrderDetails(item)">
-                            <v-icon>mdi-view-list</v-icon>
-                        </v-btn>
-                        <v-btn @click="viewOrderDetails(item)">
-                            <v-icon>mdi-map-marker</v-icon>
-                        </v-btn>
-                        <v-btn @click="viewOrderDetails(item)">
-                            <v-icon>mdi-check</v-icon>
-                        </v-btn>
-                    </td>
-                </tr>
-            </template>
-        </v-data-table>
-    </v-card>
+  <v-card>
+    <v-data-table
+      v-if="ORDERS_TABLE_MODE === 'store'"
+      :headers="store_headers"
+      :items="ORDERS"
+    >
+      <template v-slot:item="{ item, index }">
+        <tr>
+          <td>{{ index + 1 }}</td>
+          <td>{{ item.customer_name }}</td>
+          <td>{{ formatDate(item.created_at) }}</td>
+          <td>
+            <v-chip color="#0c3a68" dark>{{ item.status }}</v-chip>
+          </td>
+          <td>
+            <v-chip color="green" dark>₱{{ item.total }}</v-chip>
+          </td>
+          <td>
+            <v-btn @click="viewOrderDetails(item)" icon>
+              <v-icon>mdi-eye</v-icon>
+            </v-btn>
+            <v-btn
+              v-if="item.status == 'Pending'"
+              @click="ACCEPT_ORDER(item)"
+              icon
+              color="green"
+            >
+              <v-icon>mdi-check</v-icon>
+            </v-btn>
+            <v-btn
+              v-if="item.status == 'Pending'"
+              @click="DECLINE_ORDER(item)"
+              icon
+              color="red"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+            <v-btn
+              v-if="item.status == 'Preparing'"
+              @click="ORDER_TO_SHIP(item)"
+              icon
+              color="orange"
+            >
+              <v-icon>mdi-truck</v-icon>
+            </v-btn>
+          </td>
+        </tr>
+      </template>
+    </v-data-table>
+
+    <v-data-table
+      v-else-if="ORDERS_TABLE_MODE === 'customer'"
+      :headers="customer_headers"
+      :items="ORDERS"
+    >
+      <template v-slot:item="{ item, index }">
+        <tr>
+          <td>{{ index + 1 }}</td>
+          <td>{{ formatDate(item.created_at) }}</td>
+          <td>{{ item.name }}</td>
+          <td>
+            <v-chip color="#0c3a68" dark>{{ item.status }}</v-chip>
+          </td>
+          <td>
+            <v-chip color="green" dark>₱{{ item.total }}</v-chip>
+          </td>
+          <td>
+            <v-btn @click="viewOrderDetails(item)" icon>
+              <v-icon>mdi-eye</v-icon>
+            </v-btn>
+            <v-btn
+              v-if="item.status == 'Pending'"
+              @click="CANCEL_ORDER(item)"
+              icon
+              color="red"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </td>
+        </tr>
+      </template>
+    </v-data-table>
+
+    <v-data-table
+      v-else-if="ORDERS_TABLE_MODE === 'delivery'"
+      :headers="store_headers"
+      :items="ORDERS"
+    >
+      <template v-slot:item="{ item, index }">
+        <tr>
+          <td>{{ index + 1 }}</td>
+          <td>{{ item.customer_name }}</td>
+          <td>{{ formatDate(item.created_at) }}</td>
+          <td>
+            <v-chip color="#0c3a68" dark>{{ item.status }}</v-chip>
+          </td>
+          <td>
+            <v-chip color="green" dark>₱{{ item.total }}</v-chip>
+          </td>
+          <td>
+            <v-btn @click="viewOrderDetails(item)" icon>
+              <v-icon>mdi-eye</v-icon>
+            </v-btn>
+            <v-btn @click="viewOrderDetails(item)" icon color="red">
+              <v-icon>mdi-map-marker</v-icon>
+            </v-btn>
+            <v-btn @click="viewOrderDetails(item)" icon color="green">
+              <v-icon>mdi-check</v-icon>
+            </v-btn>
+          </td>
+        </tr>
+      </template>
+    </v-data-table>
+  </v-card>
 </template>
 <script>
-import { mapGetters } from 'vuex';
-import moment from 'moment';
-import Pusher from 'pusher-js'
+import { mapGetters } from "vuex";
+import moment from "moment";
+import Pusher from "pusher-js";
 
 export default {
-    data() {
-        return {
-            store_headers: [
-                { text: "No.", align: "center", sortable: false },
-                { text: "Customer Name", align: "center", sortable: false },
-                { text: "Date ", align: "center", sortable: false },
-                { text: "Status ", align: "center", sortable: false },
-                { text: "Total ", align: "center", sortable: false },
-                { text: "Actions", align: "center", sortable: false },
-            ],
-            customer_headers: [
-                { text: "No.", align: "center", sortable: false },
-                { text: "Date ", align: "center", sortable: false },
-                { text: "Store Name ", align: "center", sortable: false },
-                { text: "Status ", align: "center", sortable: false },
-                { text: "Total ", align: "center", sortable: false },
-                { text: "Actions", align: "center", sortable: false },
-            ],
-        }
+  data() {
+    return {
+      store_headers: [
+        { text: "No.", align: "center", sortable: false },
+        { text: "Customer Name", align: "center", sortable: false },
+        { text: "Date ", align: "center", sortable: false },
+        { text: "Status ", align: "center", sortable: false },
+        { text: "Total ", align: "center", sortable: false },
+        { text: "Actions", align: "center", sortable: false },
+      ],
+      customer_headers: [
+        { text: "No.", align: "center", sortable: false },
+        { text: "Date ", align: "center", sortable: false },
+        { text: "Store Name ", align: "center", sortable: false },
+        { text: "Status ", align: "center", sortable: false },
+        { text: "Total ", align: "center", sortable: false },
+        { text: "Actions", align: "center", sortable: false },
+      ],
+    };
+  },
+  computed: {
+    ...mapGetters([
+      "USER_DETAILS",
+      "ORDERS",
+      "ORDERS_TABLE_MODE",
+      "SELECTED_ORDER_STATUS",
+    ]),
+    store_id() {
+      return this.USER_DETAILS.user_role_details.find(
+        (item) => item.id === 3 && item.status === "active"
+      )?.store_details[0].store_id;
     },
-    computed: {
-        ...mapGetters([
-            "USER_DETAILS", "ORDERS", "ORDERS_TABLE_MODE", "SELECTED_ORDER_STATUS"
-        ]),
-        store_id() {
-            return (this.USER_DETAILS.user_role_details.find((item) => item.id === 3 && item.status === 'active')?.store_details[0].store_id);
-        }
+  },
+  methods: {
+    ORDER_STATUS(item) {
+      this.$store.commit("SELECTED_ORDER_STATUS", item);
+      console.log(this.SELECTED_ORDER_STATUS);
     },
-    methods: {
-        ORDER_STATUS(item) {
-            this.$store.commit('SELECTED_ORDER_STATUS', item)
-            console.log(this.SELECTED_ORDER_STATUS)
-        },
-        CANCEL_ORDER(item) {
-            const payload = { order_id: item.order_id }
-            this.$store.dispatch('CANCEL_ORDER', payload).then((response) => {
-                if (response === 'success') {
-                    this.fetchTable()
-                    this.$store.dispatch("GetUserDetails")
-                    this.$swal.fire({
-                        icon: 'success',
-                        title: 'Order Cancel Success',
-                        timer: 2000
-                    });
-                }
-            })
-        },
-        ACCEPT_ORDER(item) {
-            const payload = {
-                customer_id: item.customer_id,
-                order_id: item.order_id
-            }
-            this.$store.dispatch('ACCEPT_ORDER', payload).then((response) => {
-                if (response === 'success') {
-                    this.fetchTable()
-                    this.$swal.fire({
-                        icon: 'success',
-                        title: 'Order Accept Success',
-                        timer: 2000
-                    });
-                }
-            })
-        },
-        ORDER_TO_SHIP(item) {
-            const payload = {
-                customer_id: item.customer_id,
-                order_id: item.order_id
-            }
-            this.$store.dispatch('ORDER_TO_SHIP', payload).then((response) => {
-                if (response === 'success') {
-                    this.fetchTable()
-                    this.$swal.fire({
-                        icon: 'success',
-                        title: 'Order To Ship Success',
-                        timer: 2000
-                    });
-                }
-            })
-        },
-        DECLINE_ORDER(item) {
-            const payload = {
-                customer_id: item.customer_id,
-                order_id: item.order_id
-            }
-            this.$store.dispatch('DECLINE_ORDER', payload).then((response) => {
-                if (response === 'success') {
-                    this.fetchTable()
-                    this.$swal.fire({
-                        icon: 'success',
-                        title: 'Decline Order Success',
-                        timer: 2000
-                    });
-                }
-            })
-        },
-        formatDate(date) {
-            return moment(date).format('MMMM D, YYYY - hh:mm A')
-        },
-        viewOrderDetails(item) {
-            this.$store.commit('SELECTED_ORDER_DETAILS', item)
-        },
-        fetchTable() {
-            const payload = {
-                params: {
-                    mode: this.ORDERS_TABLE_MODE,
-                    store_id: this.store_id
-                }
-            }
-            console.log(payload)
-            this.$store.dispatch('GET_ORDERS', payload).then(() => {
-                console.log(this.ORDERS)
-            })
+    CANCEL_ORDER(item) {
+      const payload = { order_id: item.order_id };
+      this.$store.dispatch("CANCEL_ORDER", payload).then((response) => {
+        if (response === "success") {
+          this.fetchTable();
+          this.$store.dispatch("GetUserDetails");
+          this.$swal.fire({
+            icon: "success",
+            title: "Order Cancel Success",
+            timer: 2000,
+          });
         }
+      });
     },
-    mounted() {
-        this.fetchTable()
-        // localhost
-        // const channel = 'channel-OrderEvent' + this.USER_DETAILS.user_id
-        // this.$Echo.channel(channel).listen('OrderEvent', e => {
-        //     if(e.result){
-        //         this.fetchTable()
-        //     }
-        // });
+    ACCEPT_ORDER(item) {
+      const payload = {
+        customer_id: item.customer_id,
+        order_id: item.order_id,
+      };
+      this.$store.dispatch("ACCEPT_ORDER", payload).then((response) => {
+        if (response === "success") {
+          this.fetchTable();
+          this.$swal.fire({
+            icon: "success",
+            title: "Order Accept Success",
+            timer: 2000,
+          });
+        }
+      });
+    },
+    ORDER_TO_SHIP(item) {
+      const payload = {
+        customer_id: item.customer_id,
+        order_id: item.order_id,
+      };
+      this.$store.dispatch("ORDER_TO_SHIP", payload).then((response) => {
+        if (response === "success") {
+          this.fetchTable();
+          this.$swal.fire({
+            icon: "success",
+            title: "Order To Ship Success",
+            timer: 2000,
+          });
+        }
+      });
+    },
+    DECLINE_ORDER(item) {
+      const payload = {
+        customer_id: item.customer_id,
+        order_id: item.order_id,
+      };
+      this.$store.dispatch("DECLINE_ORDER", payload).then((response) => {
+        if (response === "success") {
+          this.fetchTable();
+          this.$swal.fire({
+            icon: "success",
+            title: "Decline Order Success",
+            timer: 2000,
+          });
+        }
+      });
+    },
+    formatDate(date) {
+      return moment(date).format("MMMM D, YYYY - hh:mm A");
+    },
+    viewOrderDetails(item) {
+      this.$store.commit("SELECTED_ORDER_DETAILS", item);
+    },
+    fetchTable() {
+      const payload = {
+        params: {
+          mode: this.ORDERS_TABLE_MODE,
+          store_id: this.store_id,
+        },
+      };
+      console.log(payload);
+      this.$store.dispatch("GET_ORDERS", payload).then(() => {
+        console.log(this.ORDERS);
+      });
+    },
+  },
+  mounted() {
+    this.fetchTable();
+    // localhost
+    // const channel = 'channel-OrderEvent' + this.USER_DETAILS.user_id
+    // this.$Echo.channel(channel).listen('OrderEvent', e => {
+    //     if(e.result){
+    //         this.fetchTable()
+    //     }
+    // });
 
-        // pusher only
-        // Pusher.logToConsole = true;  // Enable pusher logging - don't include this in production
-        var pusher = this.$Pusher;
-        var channel = pusher.subscribe('channel-OrderEvent' + this.USER_DETAILS.user_id);
-        channel.bind('OrderEvent', (data) => {
-            this.fetchTable()
-        });
-    }
-}
+    // pusher only
+    // Pusher.logToConsole = true;  // Enable pusher logging - don't include this in production
+    var pusher = this.$Pusher;
+    var channel = pusher.subscribe(
+      "channel-OrderEvent" + this.USER_DETAILS.user_id
+    );
+    channel.bind("OrderEvent", (data) => {
+      this.fetchTable();
+    });
+  },
+};
 </script>

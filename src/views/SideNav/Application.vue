@@ -1,54 +1,59 @@
 <template>
-  <v-app style="background: #d0dae3">
-    <v-container>
+  <v-app style="background: #c8e0f6">
+    <v-container class="container">
+      <div class="page-title">
+        <p class="text-h4">Application</p>
+      </div>
+
       <ApplicantsCredentialDialog v-if="this.SELECTED_CREDENTIAL !== null" />
-      <v-card class="application">
+      <v-card elevation="2" outlined class="application">
         <v-form ref="myForm" @submit.prevent="submit">
           <Application />
 
-          <v-row>
-            <v-col cols="12">
-              <v-btn
-                v-if="SELECTED_USER_ROLE_DETAILS !== null"
-                @click="home"
-                color="success"
-                class="float-right mr-3"
-              >
-                <v-icon>mdi-home</v-icon></v-btn
-              >
-              <v-btn
-                v-if="SELECTED_USER_ROLE_DETAILS !== null"
-                @click="gps"
-                color="error"
-                class="float-right mr-2"
-              >
-                <v-icon>mdi-map-marker</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
+          <div class="float-right mb-3">
+            <v-btn
+              v-if="SELECTED_USER_ROLE_DETAILS !== null"
+              @click="home"
+              color="#0c3a68"
+              class="mr-2"
+              dark
+            >
+              <v-icon>mdi-home</v-icon></v-btn
+            >
+            <v-btn
+              v-if="SELECTED_USER_ROLE_DETAILS !== null"
+              @click="gps"
+              color="#0c3a68"
+              dark
+            >
+              <v-icon>mdi-map-marker</v-icon>
+            </v-btn>
+          </div>
 
-          <v-container  v-if="SELECTED_USER_ROLE_DETAILS !== null">
-            <MAP_COMPONENT
-              :sidenavViewer="'application'"
-            />
-          </v-container>
+          <div v-if="SELECTED_USER_ROLE_DETAILS !== null" class="mb-3">
+            <MAP_COMPONENT :sidenavViewer="'application'" />
+          </div>
 
           <v-row v-if="SELECTED_USER_ROLE_DETAILS === 3">
-            <v-col cols="4" class="mt-2">
+            <v-col cols="12" md="4">
               <v-text-field
                 v-model="storeName"
-                label="Enter Your Store Name:"
+                label="Enter Your Store Name"
                 :rules="rules.required"
+                outlined
+                hide-details="auto"
               ></v-text-field>
             </v-col>
-            <v-col cols="4" class="mt-2">
+            <v-col cols="12" md="4">
               <v-text-field
                 v-model="storeAddress"
-                label="Enter Your Store Address:"
+                label="Enter Your Store Address"
                 :rules="rules.required"
+                outlined
+                hide-details="auto"
               ></v-text-field>
             </v-col>
-            <v-col cols="4">
+            <v-col cols="12" md="4">
               <v-autocomplete
                 v-model="selected_store_type_detail"
                 :items="STORE_TYPE_DETAIL"
@@ -60,13 +65,17 @@
                 multiple
                 :rules="rules.required"
                 deletable-chips
+                outlined
+                hide-details="auto"
               ></v-autocomplete>
             </v-col>
           </v-row>
 
           <v-row v-if="SELECTED_USER_ROLE_DETAILS !== null">
             <v-col cols="12" class="text-center">
-              <v-btn class="submit-btn" type="submit" color="primary">Submit</v-btn>
+              <v-btn class="submit-btn" type="submit" color="#0c3a68" dark
+                >Submit</v-btn
+              >
             </v-col>
           </v-row>
         </v-form>
@@ -321,8 +330,14 @@ export default {
 </script>
 
 <style scoped>
+.page-title p {
+  margin-bottom: 1rem;
+  color: #0c3a68;
+}
+.container {
+  padding: 0 2.5rem 0;
+}
 .application {
-  border-top: 5px solid #1976d2;
   padding: 1rem;
 }
 .submit-btn {

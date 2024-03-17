@@ -1,66 +1,63 @@
 <template>
-  <v-container>
-    <v-row justify="center">
-      <v-dialog v-model="dialog" max-width="30rem" persistent>
-        <v-card>
-          <v-card-title> Add New Product </v-card-title>
+  <v-dialog v-model="dialog" width="500" persistent>
+    <v-card class="card">
+      <v-card-title class="card-title">Product</v-card-title>
 
-          <!-- <v-row>
+      <!-- <v-row>
             <v-col cols="6">
               <h1>{{ SELECTED_REQUIREMENT.name }}</h1>
             </v-col>
           </v-row> -->
 
-          <v-card-text>
-            <v-form ref="myForm" @submit.prevent="submitForm">
-              <v-row>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="form.name"
-                    label="Enter Product Name"
-                    :rules="rules.required"
-                    outlined
-                    hide-details="auto"
-                    class="mb-3"
-                  ></v-text-field>
-                  <v-text-field
-                    v-model="form.price"
-                    label="Enter Product Price"
-                    :rules="rules.required"
-                    outlined
-                    hide-details="auto"
-                    class="mb-3"
-                  ></v-text-field>
-                  <v-text-field
-                    v-model="form.stock"
-                    label="Enter Product Stock"
-                    :rules="rules.required"
-                    outlined
-                    hide-details="auto"
-                    class="mb-3"
-                  ></v-text-field>
-                  <v-file-input
-                    v-model="file"
-                    label="Input Image"
-                    accept="image/*"
-                    :rules="rules.required"
-                    outlined
-                    hide-details="auto"
-                  ></v-file-input>
-                </v-col>
-              </v-row>
-            </v-form>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn color="red" text @click="closeDialog()">close</v-btn>
-            <v-btn color="success" text @click="submit()">{{
-              PRODUCT_DIALOG
-            }}</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-row>
-  </v-container>
+      <v-card-text>
+        <v-form ref="myForm" @submit.prevent="submitForm">
+          <v-row>
+            <v-col cols="12">
+              <v-text-field
+                v-model="form.name"
+                label="Enter Product Name"
+                :rules="rules.required"
+                outlined
+                hide-details="auto"
+                class="mb-3"
+              ></v-text-field>
+              <v-text-field
+                v-model="form.price"
+                label="Enter Product Price"
+                :rules="rules.required"
+                outlined
+                hide-details="auto"
+                class="mb-3"
+              ></v-text-field>
+              <v-text-field
+                v-model="form.stock"
+                label="Enter Product Stock"
+                :rules="rules.required"
+                outlined
+                hide-details="auto"
+                class="mb-3"
+              ></v-text-field>
+              <v-file-input
+                v-model="file"
+                label="Input Image"
+                accept="image/*"
+                :rules="rules.required"
+                outlined
+                hide-details="auto"
+              ></v-file-input>
+            </v-col>
+          </v-row>
+        </v-form>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="#0c3a68" text @click="submit()">{{
+          PRODUCT_DIALOG
+        }}</v-btn>
+        <v-btn color="red" text @click="closeDialog()">close</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
@@ -186,3 +183,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.card {
+  padding: 0.5rem;
+}
+.card-title {
+  color: #0c3a68;
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+</style>

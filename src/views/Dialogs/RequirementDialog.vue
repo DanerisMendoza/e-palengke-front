@@ -1,27 +1,24 @@
 <template>
-  <v-container>
-    <v-row justify="center">
-      <v-dialog v-model="dialog" max-width="30rem" persistent>
-        <v-card>
-          <v-card-title>Requirement Details</v-card-title>
-          <v-card-text>
-            <v-text-field
-              label="Enter New Requirement"
-              v-model="name"
-              hide-details="auto"
-              outlined
-            ></v-text-field>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn color="red" text @click="closeDialog()">close</v-btn>
-            <v-btn color="green" text @click="handleOperation()">
-              {{ REQUIREMENT_DETAIL_DIALOG }}
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-row>
-  </v-container>
+  <v-dialog v-model="dialog" width="500" persistent>
+    <v-card class="card">
+      <v-card-title class="card-title">Requirement Details</v-card-title>
+      <v-card-text>
+        <v-text-field
+          label="Enter New Requirement"
+          v-model="name"
+          hide-details="auto"
+          outlined
+        ></v-text-field>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="#0c3a68" text @click="handleOperation()">
+          {{ REQUIREMENT_DETAIL_DIALOG }}
+        </v-btn>
+        <v-btn color="red" text @click="closeDialog()">close</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
@@ -120,3 +117,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.card {
+  padding: 0.5rem;
+}
+.card-title {
+  color: #0c3a68;
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+</style>

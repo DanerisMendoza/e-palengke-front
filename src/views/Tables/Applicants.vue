@@ -1,28 +1,36 @@
 <template>
-  <v-app style="background: #d0dae3">
-    <v-card class="applicants">
-      <v-card elevation="2" outlined>
-        <v-data-table :headers="headers" :items="APPLICANTS">
-          <template v-slot:item="{ item, index }">
-            <tr>
-              <td>{{ index + 1 }}</td>
-              <td>{{ item.applicant_name }}</td>
-              <td>
-                <v-chip>{{ item.status }}</v-chip>
-              </td>
-              <td>{{ item.user_role_name }}</td>
-              <td>{{ item.gender }}</td>
-              <td>
-                <v-icon @click="view(item.user_role_id)">mdi-eye</v-icon>
-                <v-icon v-if="item.status === 'pending'" text @click="dissaprove(item.user_role_id)"
-                  color="red">mdi-close</v-icon>
-                <v-icon v-if="item.status === 'pending'" text @click="approve(item.user_role_id)"
-                  color="green">mdi-check</v-icon>
-              </td>
-            </tr>
-          </template>
-        </v-data-table>
-      </v-card>
+  <v-app style="background: #c8e0f6">
+    <v-card elevation="2" outlined>
+      <v-data-table :headers="headers" :items="APPLICANTS">
+        <template v-slot:item="{ item, index }">
+          <tr>
+            <td>{{ index + 1 }}</td>
+            <td>{{ item.applicant_name }}</td>
+            <td>
+              <v-chip color="primary">{{ item.status }}</v-chip>
+            </td>
+            <td>{{ item.user_role_name }}</td>
+            <td>{{ item.gender }}</td>
+            <td>
+              <v-icon @click="view(item.user_role_id)">mdi-eye</v-icon>
+              <v-icon
+                v-if="item.status === 'pending'"
+                text
+                @click="dissaprove(item.user_role_id)"
+                color="red"
+                >mdi-close</v-icon
+              >
+              <v-icon
+                v-if="item.status === 'pending'"
+                text
+                @click="approve(item.user_role_id)"
+                color="green"
+                >mdi-check</v-icon
+              >
+            </td>
+          </tr>
+        </template>
+      </v-data-table>
     </v-card>
   </v-app>
 </template>
@@ -78,10 +86,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.applicants {
-  border-top: 5px solid #1976d2;
-  padding: 1rem;
-}
-</style>

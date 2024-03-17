@@ -1,46 +1,49 @@
 <template>
-  <v-app style="background: #d0dae3">
-    <v-card class="topup">
-      <v-card elevation="2" outlined class="amount-to-add">
-        <p>Amount to Add</p>
+  <v-app style="background: #c8e0f6">
+    <v-card class="card">
+      <v-card-title class="card-title">Amount to Add</v-card-title>
+      <v-card-text>
         <v-form @submit.prevent="topup" ref="myForm">
           <v-text-field
             outlined
             v-model="topupAmount"
-            label="Amount"
+            label="Enter Amount"
             type="number"
+            hide-details="auto"
           ></v-text-field>
-          <v-card-title>Add Payment Method</v-card-title>
+
+          <h2 class="mt-5">Add Payment Method</h2>
           <v-radio-group
             v-model="selectedPaymentMethod"
             :rules="rules.required"
           >
             <v-row>
-              <v-col cols="11">
+              <v-col>
                 <div class="payment-info">
-                  <v-card-subtitle>Debit or Credit Card</v-card-subtitle>
+                  <v-card-title>Debit or Credit Card</v-card-title>
                   <img
                     :src="require('@/assets/payments_pic/visa.png')"
                     alt="Visa Logo"
-                    width="50"
+                    width="100"
                     height="50"
                   />
                   <img
                     :src="require('@/assets/payments_pic/masterCard.png')"
                     alt="Visa Logo"
-                    width="50"
+                    width="100"
                     height="50"
                   />
                 </div>
               </v-col>
-              <v-col cols="1">
+              <v-col>
                 <v-radio value="visa" class="float-right mr-5"></v-radio>
               </v-col>
             </v-row>
+
             <v-row>
-              <v-col cols="11">
+              <v-col>
                 <div class="payment-info">
-                  <v-card-subtitle>PayMaya Wallet</v-card-subtitle>
+                  <v-card-title>PayMaya Wallet</v-card-title>
                   <img
                     :src="require('@/assets/payments_pic/paymaya.png')"
                     alt="PayMaya Logo"
@@ -49,14 +52,15 @@
                   />
                 </div>
               </v-col>
-              <v-col cols="1">
+              <v-col>
                 <v-radio value="paymaya" class="float-right mr-5"></v-radio>
               </v-col>
             </v-row>
+
             <v-row>
-              <v-col cols="11">
+              <v-col>
                 <div class="payment-info">
-                  <v-card-subtitle>GCash</v-card-subtitle>
+                  <v-card-title>GCash</v-card-title>
                   <img
                     :src="require('@/assets/payments_pic/gcash.png')"
                     alt="GCash Logo"
@@ -65,20 +69,21 @@
                   />
                 </div>
               </v-col>
-              <v-col cols="1">
+              <v-col>
                 <v-radio value="gcash" class="float-right mr-5"></v-radio>
               </v-col>
             </v-row>
+
+            <v-row>
+              <v-col>
+                <v-btn @click="topup" color="#0c3a68" dark class="float-right"
+                  >Next</v-btn
+                >
+              </v-col>
+            </v-row>
           </v-radio-group>
-          <v-row>
-            <v-col cols="12">
-              <v-btn @click="topup" color="primary" class="float-right mr-4"
-                >Next</v-btn
-              >
-            </v-col>
-          </v-row>
         </v-form>
-      </v-card>
+      </v-card-text>
     </v-card>
   </v-app>
 </template>
@@ -130,11 +135,13 @@ export default {
 </script>
 
 <style scoped>
-.topup {
-  border-top: 5px solid #1976d2;
+.card {
+  padding: 0.5rem;
 }
-.topup,
-.amount-to-add {
-  padding: 1rem;
+.card-title {
+  color: #0c3a68;
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
 }
 </style>
