@@ -14,7 +14,7 @@
       :class="{ 'active-item': isParentActive(item.name) }"
     >
       <v-list-item
-        v-if="!item.side_nav_children || item.side_nav_children.length === 0"
+        v-if="(!item.side_nav_children || item.side_nav_children.length === 0) "
         :to="{ name: item.name, params: { id: item.id } }"
       >
         <v-icon class="ml-3 mr-3">{{ item.mdi_icon }}</v-icon>
