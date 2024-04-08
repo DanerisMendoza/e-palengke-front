@@ -46,7 +46,7 @@
           ></v-text-field>
         </v-form>
 
-        <v-btn plain class="mt-2">Forgot password</v-btn>
+        <v-btn plain class="mt-2" @click="openDialogForgot()">Forgot password</v-btn>
 
         <div class="mt-2 mb-2">
           <v-btn @click="login" color="#0c3a68" dark class="login-btn" large
@@ -63,13 +63,17 @@
           Download Mobile APK
         </v-btn>
       </v-card>
+      <forgotDialog v-if="GET_DIALOG_VAL_FORGOT == true"/>
     </v-container>
   </v-app>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import forgotDialog from "../Dialogs/Forgot_Pass_dialog.vue";
+
 export default {
+  components: { forgotDialog },
   data() {
     return {
       username: null,
@@ -99,7 +103,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["SIDE_NAV"]),
+    ...mapGetters(["SIDE_NAV","GET_DIALOG_VAL_FORGOT","GET_DIALOG_MODE_FORGOT",]),
   },
 
   created() {
@@ -109,6 +113,10 @@ export default {
   },
 
   methods: {
+    openDialogForgot() {
+      this.$store.commit("SET_DIALOG_VAL_FORGOT", true); // mutation name
+      this.$store.commit("SET_DIALOG_MODE_FORGOT", "Forgot Password"); // mutation name
+    },
     login() {
       if (this.$refs.myForm.validate()) {
         const payload = {
