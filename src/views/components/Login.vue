@@ -11,7 +11,7 @@
         <v-btn plain @click="mobile">mobile (apk)</v-btn>
       </v-app-bar> -->
 
-      <v-btn plain color="primary" @click="landingPage">
+      <v-btn plain color="#FFFFFF" @click="landingPage">
         <v-icon class="mr-2">mdi-arrow-left</v-icon>
         Back to Home
       </v-btn>
