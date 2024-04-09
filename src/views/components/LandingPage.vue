@@ -211,11 +211,10 @@ export default {
 @media (max-width: 640px) {
 
   .section1 img{
-    max-width: 22rem;
+    max-width: 21rem;
   }
   .section4 img {
-    max-height: 22rem;
-    max-width: 22rem;
+    max-width: 21rem;
   }
 
   .section1 div p:nth-child(1) {
