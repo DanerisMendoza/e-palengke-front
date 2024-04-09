@@ -14,7 +14,7 @@
       :class="{ 'active-item': isParentActive(item.name) }"
     >
       <v-list-item
-        v-if="(!item.side_nav_children || item.side_nav_children.length === 0) "
+        v-if="(!item.side_nav_children || item.side_nav_children.length === 0) && item.name != 'DELIVERY'"
         :to="{ name: item.name, params: { id: item.id } }"
       >
         <v-icon class="ml-3 mr-3">{{ item.mdi_icon }}</v-icon>
@@ -23,7 +23,7 @@
 
       <!-- DROPDOWN -->
       <v-list-group
-        v-else
+        v-else-if="item.name != 'DELIVERY'"
         :value="isParentActive(item.name)"
         color="white"
         active-class="my-active-class"
@@ -35,6 +35,7 @@
         </template>
         <v-list-item
           v-for="child in item.side_nav_children"
+          v-if="child.name != 'DELIVERY ORDERS'"
           :key="child.id"
           class="childSideNav"
           :to="{ name: child.name, params: { id: child.id } }"
