@@ -1,7 +1,7 @@
 <template>
   <v-app style="background: #c8e0f6">
     <div class="page-title">
-      <p class="text-h4">Requirement Details</p>
+      <p class="text-h4">Store</p>
     </div>
 
     <CartDialog v-if="CART_DIALOG" />
