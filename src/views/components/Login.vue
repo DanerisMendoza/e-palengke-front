@@ -1,21 +1,13 @@
 <template>
-  <v-app style="background: #0c3a68">
-    <v-container>
-      <!-- <v-app-bar app color="primary" dark elevation="2">
-        LOGIN PAGE
-        <v-spacer></v-spacer>
-        <v-btn plain @click="registration">sign up</v-btn>
-        <span class="ml-5 mr-5">|</span>
-        <v-btn plain @click="login">login</v-btn>
-        <span class="ml-5 mr-5">|</span>
-        <v-btn plain @click="mobile">mobile (apk)</v-btn>
-      </v-app-bar> -->
-
+  <v-app class="app_container">
+    <div>
       <v-btn plain color="#FFFFFF" @click="landingPage">
-        <v-icon class="mr-2">mdi-arrow-left</v-icon>
+        <v-icon>mdi-arrow-left</v-icon>
         Back to Home
       </v-btn>
+    </div>
 
+    <v-container>
       <v-card class="login-card text-center">
         <div>
           <img
@@ -46,7 +38,9 @@
           ></v-text-field>
         </v-form>
 
-        <v-btn plain class="mt-2" @click="openDialogForgot()">Forgot password</v-btn>
+        <v-btn plain class="mt-2" @click="openDialogForgot()"
+          >Forgot password</v-btn
+        >
 
         <div class="mt-2 mb-2">
           <v-btn @click="login" color="#0c3a68" dark class="login-btn" large
@@ -63,7 +57,7 @@
           Download Mobile APK
         </v-btn>
       </v-card>
-      <forgotDialog v-if="GET_DIALOG_VAL_FORGOT == true"/>
+      <forgotDialog v-if="GET_DIALOG_VAL_FORGOT == true" />
     </v-container>
   </v-app>
 </template>
@@ -103,7 +97,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["SIDE_NAV","GET_DIALOG_VAL_FORGOT","GET_DIALOG_MODE_FORGOT",]),
+    ...mapGetters([
+      "SIDE_NAV",
+      "GET_DIALOG_VAL_FORGOT",
+      "GET_DIALOG_MODE_FORGOT",
+    ]),
   },
 
   created() {
@@ -163,15 +161,38 @@ export default {
 </script>
 
 <style scoped>
-.login-card {
-  width: 25rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 1rem 2rem;
+.app_container {
+  background-image: url(../../assets/bg-custom2.svg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
-.login-btn {
-  width: 100%;
+
+/* mobile */
+@media (max-width: 640px) {
+  .login-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem 2rem;
+  }
+  .login-btn {
+    width: 100%;
+  }
+}
+/* higer width than mobile */
+@media (min-width: 640px) {
+  .login-card {
+    width: 25rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem 2rem;
+  }
+  .login-btn {
+    width: 100%;
+  }
 }
 </style>
