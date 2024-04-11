@@ -1,113 +1,90 @@
 <template>
-  <v-app style="background: #0c3a68;">
-    <v-app-bar color="#0c3a68" dark app height="90" elevation="0">
-      <div class="navbar">
-        <v-toolbar-title>
-          <img
-            src="../../assets/white-ep-3.png"
-            alt="E-Palengke Logo"
-            width="70"
-          />
-        </v-toolbar-title>
-        <div style="flex-grow: 1"></div>
-        <div>
-          <v-btn text @click="registration">Sign Up</v-btn>
-          <label>|</label>
-          <v-btn text @click="login">Login</v-btn>
-        </div>
+  <div class="parent">
+    <div class="navbar">
+      <v-toolbar-title>
+        <img
+          src="../../assets/white-ep-3.png"
+          alt="E-Palengke Logo"
+          width="70"
+        />
+      </v-toolbar-title>
+      <div style="flex-grow: 1"></div>
+      <div>
+        <v-btn color="primary" text @click="registration">Sign Up</v-btn>
+        <label>|</label>
+        <v-btn color="primary" text @click="login">Login</v-btn>
       </div>
-    </v-app-bar>
-      <v-container>
-        <div class="main">    
-            <section class="section1">
-              <img src="../../assets/shopping.png" alt="Illustration" />
-              <div></div>
-              <div class="p_group">
-                <p>Online Shopping</p>
-                <p>Unleash the power of convenience</p>
-                <p>
-                  The E-Palengke System is its commitment to community empowerment
-                  and socioeconomic development. By offering employment
-                  opportunities to local residents as delivery personnel, the
-                  platform not only provides a valuable service to customers but
-                  also contributes to income generation and economic growth within
-                  communities.
-                </p>
-                <v-btn
-                  style="width: 30%"
-                  color="primary"
-                  class="shop-btn"
-                  @click="login"
-                  >Shop Now</v-btn
-                >
-              </div>
-            </section>
-            <section class="section2">
-              <p class="text-h4">CATEGORY</p>
-              <div class="chip-group">
-                <v-chip color="#c8e0f6">Fresh Produce</v-chip>
-                <v-chip color="#c8e0f6">Dairy Products</v-chip>
-                <v-chip color="#c8e0f6">Meat and Poultry</v-chip>
-                <v-chip color="#c8e0f6">Seafood</v-chip>
-                <v-chip color="#c8e0f6">Bakery Items</v-chip>
-                <v-chip color="#c8e0f6">Beverages</v-chip>
-                <v-chip color="#c8e0f6">Snacks</v-chip>
-                <v-chip color="#c8e0f6">Canned Goods</v-chip>
-                <v-chip color="#c8e0f6">Frozen Foods</v-chip>
-                <v-chip color="#c8e0f6">Condiments and Sauces</v-chip>
-                <v-chip color="#c8e0f6">Breakfast Cereals and Grains</v-chip>
-              </div>
-            </section>
-            <section class="section3">
-              <p class="text-h4">PRODUCTS</p>
-              <div class="card-group">
-                <v-card class="card text-center">
-                  <v-icon color="#0c3a68" x-large class="mb-2">mdi-food</v-icon>
-                  <p>Foods</p>
-                  <v-btn color="primary" class="mt-2" @click="login"
-                    >Shop Now</v-btn
-                  >
-                </v-card>
-                <v-card class="card text-center">
-                  <v-icon color="#0c3a68" x-large class="mb-2"
-                    >mdi-tshirt-crew</v-icon
-                  >
-                  <p>Apparel</p>
-                  <v-btn color="primary" class="mt-2" @click="login"
-                    >Shop Now</v-btn
-                  >
-                </v-card>
-                <v-card class="card text-center">
-                  <v-icon color="#0c3a68" x-large class="mb-2">mdi-home</v-icon>
-                  <p>Home Appliance</p>
-                  <v-btn color="primary" class="mt-2" @click="login"
-                    >Shop Now</v-btn
-                  >
-                </v-card>
-                <v-card class="card text-center">
-                  <v-icon color="#0c3a68" x-large class="mb-2">mdi-pinwheel</v-icon>
-                  <p>Toys and Games</p>
-                  <v-btn color="primary" class="mt-2" @click="login"
-                    >Shop Now</v-btn
-                  >
-                </v-card>
-                <v-card class="card text-center">
-                  <v-icon color="#0c3a68" x-large class="mb-2">mdi-paw</v-icon>
-                  <p>Pet Supplies</p>
-                  <v-btn color="primary" class="mt-2" @click="login"
-                    >Shop Now</v-btn
-                  >
-                </v-card>
-                <v-card class="card text-center">
-                  <v-icon color="#0c3a68" x-large class="mb-2">mdi-pill</v-icon>
-                  <p>Pharmaceutical</p>
-                  <v-btn color="primary" class="mt-2" @click="login"
-                    >Shop Now</v-btn
-                  >
-                </v-card>
-              </div>
-            </section>
-            <section class="section4">
+    </div>
+    <div class="section_parent">
+      <section class="section1">
+        <img src="../../assets/shopping.png" alt="Illustration" />
+        <div>
+          <p>Online Shopping</p>
+          <p>Unleash the power of convenience</p>
+          <p>
+            The E-Palengke System is its commitment to community empowerment and
+            socioeconomic development. By offering employment opportunities to
+            local residents as delivery personnel, the platform not only
+            provides a valuable service to customers but also contributes to
+            income generation and economic growth within communities.
+          </p>
+          <v-btn color="primary" @click="login">Shop Now</v-btn>
+        </div>
+      </section>
+      <section class="section2">
+        <p class="text-h4">CATEGORY</p>
+        <div class="chip-group">
+          <v-chip color="#c8e0f6">Fresh Produce</v-chip>
+          <v-chip color="#c8e0f6">Dairy Products</v-chip>
+          <v-chip color="#c8e0f6">Meat and Poultry</v-chip>
+          <v-chip color="#c8e0f6">Seafood</v-chip>
+          <v-chip color="#c8e0f6">Bakery Items</v-chip>
+          <v-chip color="#c8e0f6">Beverages</v-chip>
+          <v-chip color="#c8e0f6">Snacks</v-chip>
+          <v-chip color="#c8e0f6">Canned Goods</v-chip>
+          <v-chip color="#c8e0f6">Frozen Foods</v-chip>
+          <v-chip color="#c8e0f6">Condiments and Sauces</v-chip>
+          <v-chip color="#c8e0f6">Breakfast Cereals and Grains</v-chip>
+        </div>
+      </section>
+      <section class="section3">
+        <p class="text-h4">PRODUCTS</p>
+        <div class="card-group">
+          <v-card class="card text-center">
+            <v-icon color="#0c3a68" x-large class="mb-2">mdi-food</v-icon>
+            <p>Foods</p>
+            <v-btn color="primary" class="mt-2" @click="login">Shop Now</v-btn>
+          </v-card>
+          <v-card class="card text-center">
+            <v-icon color="#0c3a68" x-large class="mb-2"
+              >mdi-tshirt-crew</v-icon
+            >
+            <p>Apparel</p>
+            <v-btn color="primary" class="mt-2" @click="login">Shop Now</v-btn>
+          </v-card>
+          <v-card class="card text-center">
+            <v-icon color="#0c3a68" x-large class="mb-2">mdi-home</v-icon>
+            <p>Home Appliance</p>
+            <v-btn color="primary" class="mt-2" @click="login">Shop Now</v-btn>
+          </v-card>
+          <v-card class="card text-center">
+            <v-icon color="#0c3a68" x-large class="mb-2">mdi-pinwheel</v-icon>
+            <p>Toys and Games</p>
+            <v-btn color="primary" class="mt-2" @click="login">Shop Now</v-btn>
+          </v-card>
+          <v-card class="card text-center">
+            <v-icon color="#0c3a68" x-large class="mb-2">mdi-paw</v-icon>
+            <p>Pet Supplies</p>
+            <v-btn color="primary" class="mt-2" @click="login">Shop Now</v-btn>
+          </v-card>
+          <v-card class="card text-center">
+            <v-icon color="#0c3a68" x-large class="mb-2">mdi-pill</v-icon>
+            <p>Pharmaceutical</p>
+            <v-btn color="primary" class="mt-2" @click="login">Shop Now</v-btn>
+          </v-card>
+        </div>
+      </section>
+          <section class="section4">
               <p class="text-h4">ABOUT US</p>
               <div>
                 <img src="../../assets/about.png" alt="About Picture" />
@@ -141,12 +118,8 @@
                 </p>
               </div>
             </section>
-  
-        </div>
-
-  </v-container>
-
-  </v-app>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -163,7 +136,6 @@ export default {
 </script>
 
 <style scoped>
-
 .navbar {
   width: 100%;
   display: flex;
@@ -171,14 +143,25 @@ export default {
   align-items: center;
   justify-content: start;
 }
-.main {
-  color: white;
+
+.parent {
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  /* overflow-x: hidden; */
-  gap: 5rem;
-  width: 100%;
+  background: #0c3a68;
+  color: white;
+  padding: 1rem;
+}
+
+.section_parent {
+  height: 100%;
+  width: 90%;
+  margin: auto;
+}
+
+.section_parent > section{
+  margin-bottom: 3rem;
 }
 
 .chip-group {
@@ -199,7 +182,7 @@ export default {
   width: 9rem;
   display: flex;
   flex-direction: column;
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .card-group p {
@@ -209,12 +192,11 @@ export default {
 
 /* mobile */
 @media (max-width: 640px) {
-
-  .section1 img{
-    max-width: 21rem;
-  }
-  .section4 img {
-    max-width: 21rem;
+  .section1 {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
   }
 
   .section1 div p:nth-child(1) {
@@ -226,51 +208,32 @@ export default {
   .section1 div p:nth-child(3) {
     font-size: 1rem;
   }
+
+   .section4 {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+  }
+
+   .section4 img{
+    height: 100%;
+    width: 100%;
+  }
 }
 
 /* higer width than mobile */
 @media (min-width: 640px) {
-
-  /* parent */
-  .section1{
+  .section1 {
     display: flex;
     flex-direction: row-reverse;
+    justify-content: stretch;
+    align-items: center;
   }
-
-  .section4 div{
-    display: flex;
-    flex-direction: row;
+  .section1 img {
+    height: 70%;
+    width: 50%;
   }
-  /* child */
-  .section1 div:nth-child(1){
-    flex-grow: 1;
-  }
-  .section1 .p_group{
-    /* max-width: 25rem; */
-  }
-
-  .section1 img{
-    max-width: 40rem;
-  }
-
-  .section4 img{
-    max-height: 40rem;
-    max-width: 40rem;
-  }
-
-  .section4 div div{
-     flex-grow: 1;
-  }
-  
-  .section4 div p{
-    max-width: 60rem;
-  }
-
-  .section4 div img{
-    height: 33rem;
-    width: 40rem;
-  }
- 
   .section1 div p:nth-child(1) {
     font-size: 3rem;
   }
@@ -281,5 +244,15 @@ export default {
     font-size: 1.25rem;
   }
 
+  .section4 div{
+    display: flex;
+    flex-direction: row;
+    overflow-x: hidden;
+  }
+
+   .section4 img{
+    height: 70%;
+    width: 50%;
+  }
 }
 </style>
