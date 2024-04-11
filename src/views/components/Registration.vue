@@ -327,23 +327,36 @@ export default {
     flex-direction: column;
     gap: 1rem;
   }
+  .form_field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
   .map {
     /* width: 100%; */
   }
-  .name_group,
+  .name_group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
   .contact_group {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.3rem;
   }
-
+  .credential_group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
   .form_label {
     padding-top: 1rem;
   }
 }
 /* higer width than mobile */
 @media (min-width: 640px) {
-  .card{
+  .card {
     height: 100%;
     width: 100%;
   }
