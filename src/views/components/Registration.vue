@@ -1,5 +1,6 @@
 <template>
   <v-app class="app_container">
+    <!-- v-container limit width -->
     <v-container>
       <v-card class="card">
         <v-btn @click="login" plain color="primary">
@@ -29,103 +30,107 @@
                 >(Allow or Pin Location)</span
               >
             </p>
-            <div class="name_group">
-              <v-text-field
-                class="child_field"
-                v-model="formData.first_name"
-                label="First Name"
-                hide-details="auto"
+            <div class="form_field">
+              <div class="name_group">
+                <v-text-field
+                  class="child_field"
+                  v-model="formData.first_name"
+                  label="First Name"
+                  hide-details="auto"
+                  :rules="rules.required"
+                  outlined
+                  full-width
+                ></v-text-field>
+                <v-text-field
+                  class="child_field"
+                  v-model="formData.middle_name"
+                  label="Middle Name"
+                  hide-details="auto"
+                  :rules="rules.required"
+                  outlined
+                  full-width
+                ></v-text-field>
+                <v-text-field
+                  class="child_field"
+                  v-model="formData.last_name"
+                  label="Last Name"
+                  hide-details="auto"
+                  :rules="rules.required"
+                  outlined
+                  full-width
+                ></v-text-field>
+              </div>
+              <div class="contact_group">
+                <v-select
+                  class="child_field"
+                  v-model="formData.gender"
+                  label="Gender"
+                  hide-details="auto"
+                  :items="genders"
+                  :rules="rules.required"
+                  outlined
+                ></v-select>
+                <v-text-field
+                  class="child_field"
+                  v-model="formData.phone_number"
+                  label="Phone Number"
+                  hide-details="auto"
+                  :rules="rules.contact"
+                  outlined
+                ></v-text-field>
+                <v-text-field
+                  class="child_field"
+                  v-model="formData.email"
+                  label="Email"
+                  hide-details="auto"
+                  :rules="rules.email"
+                  outlined
+                ></v-text-field>
+              </div>
+              <div class="credential_group">
+                <v-text-field
+                  v-model="formData.address"
+                  label="Address"
+                  hide-details="auto"
+                  :rules="rules.required"
+                  outlined
+                ></v-text-field>
+                <v-text-field
+                  v-model="formData.username"
+                  label="Username"
+                  :rules="rules.required"
+                  hide-details="auto"
+                  outlined
+                ></v-text-field>
+                <v-text-field
+                  v-model="formData.password"
+                  label="Password"
+                  type="password"
+                  :rules="rules.password"
+                  hide-details="auto"
+                  outlined
+                ></v-text-field>
+              </div>
+              <v-file-input
+                v-for="(item, index) in user_role_details"
                 :rules="rules.required"
-                outlined
-                full-width
-              ></v-text-field>
-              <v-text-field
-                class="child_field"
-                v-model="formData.middle_name"
-                label="Middle Name"
+                :key="index"
+                :label="item.name"
+                v-model="item.value"
+                accept="image/*"
                 hide-details="auto"
-                :rules="rules.required"
                 outlined
-                full-width
-              ></v-text-field>
-              <v-text-field
-                class="child_field"
-                v-model="formData.last_name"
-                label="Last Name"
-                hide-details="auto"
-                :rules="rules.required"
-                outlined
-                full-width
-              ></v-text-field>
+              ></v-file-input>
+              <v-btn
+                type="submit"
+                :loading="loadSubmit"
+                color="#0c3a68"
+                dark
+                class="register-btn"
+              >
+                register
+              </v-btn>
             </div>
-            <div class="contact_group">
-              <v-select
-                class="child_field"
-                v-model="formData.gender"
-                label="Gender"
-                hide-details="auto"
-                :items="genders"
-                :rules="rules.required"
-                outlined
-              ></v-select>
-              <v-text-field
-                class="child_field"
-                v-model="formData.phone_number"
-                label="Phone Number"
-                hide-details="auto"
-                :rules="rules.contact"
-                outlined
-              ></v-text-field>
-              <v-text-field
-                class="child_field"
-                v-model="formData.email"
-                label="Email"
-                hide-details="auto"
-                :rules="rules.email"
-                outlined
-              ></v-text-field>
-            </div>
-            <v-text-field
-              v-model="formData.address"
-              label="Address"
-              hide-details="auto"
-              :rules="rules.required"
-              outlined
-            ></v-text-field>
-            <v-text-field
-              v-model="formData.username"
-              label="Username"
-              :rules="rules.required"
-              hide-details="auto"
-              outlined
-            ></v-text-field>
-            <v-text-field
-              v-model="formData.password"
-              label="Password"
-              type="password"
-              :rules="rules.password"
-              hide-details="auto"
-              outlined
-            ></v-text-field>
-            <v-file-input
-              v-for="(item, index) in user_role_details"
-              :rules="rules.required"
-              :key="index"
-              :label="item.name"
-              v-model="item.value"
-              accept="image/*"
-              hide-details="auto"
-              outlined
-            ></v-file-input>
-            <v-btn
-              type="submit"
-              :loading="loadSubmit"
-              color="#0c3a68"
-              dark
-              class="register-btn"
-            >
-              register
-            </v-btn>
           </v-form>
         </div>
       </v-card>
@@ -338,17 +343,31 @@ export default {
 }
 /* higer width than mobile */
 @media (min-width: 640px) {
+  .card{
+    height: 100%;
+    width: 100%;
+  }
   .dynamic_container {
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: row;
+    /* justify-content: stretch; */
     gap: 1rem;
+  }
+  .map {
+    flex-grow: 1;
+    width: 100%;
   }
   .form {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+  }
+  .form_field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
   }
   .name_group {
     display: flex;
@@ -360,10 +379,16 @@ export default {
     flex-direction: row;
     gap: 0.3rem;
   }
+  .credential_group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
   .gps_button {
     align-self: end;
     width: 3rem;
   }
+  /* make children have even width */
   .name_group > *,
   .contact_group > * {
     width: 30%;
