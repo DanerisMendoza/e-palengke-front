@@ -10,9 +10,9 @@
       </v-toolbar-title>
       <div style="flex-grow: 1"></div>
       <div>
-        <v-btn color="primary" text @click="registration">Sign Up</v-btn>
+        <v-btn color="#FFFFFF" text @click="registration">Sign Up</v-btn>
         <label>|</label>
-        <v-btn color="primary" text @click="login">Login</v-btn>
+        <v-btn color="#FFFFFF" text @click="login">Login</v-btn>
       </div>
     </div>
     <div class="section_parent">
