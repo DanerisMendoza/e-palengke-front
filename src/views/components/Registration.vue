@@ -1,188 +1,133 @@
 <template>
-  <v-app style="background: #0c3a68">
+  <v-app class="app_container">
     <v-container>
-      <!-- <v-app-bar app color="primary" dark elevation="2">
-        REGISTRATION PAGE
-        <v-spacer></v-spacer>
-        <v-btn plain @click="registration">sign up</v-btn>
-        <span class="ml-5 mr-5">|</span>
-        <v-btn plain @click="login">login</v-btn>
-        <span class="ml-5 mr-5">|</span>
-        <v-btn plain @click="mobile">mobile (apk)</v-btn>
-      </v-app-bar> -->
-
-      <v-card class="register-card text-center">
-        <v-row>
-          <v-col cols="12" md="6">
-            <v-btn @click="login" class="float-left" plain color="primary">
-              <v-icon class="mr-2">mdi-arrow-left</v-icon>Back to Login
-            </v-btn>
-
-            <v-btn @click="gps" class="float-right mb-4" color="#0c3a68" dark>
+      <v-card class="card">
+        <v-btn @click="login" plain color="primary">
+          <v-icon>mdi-arrow-left</v-icon>Back to Login
+        </v-btn>
+        <div class="dynamic_container">
+          <!-- map group -->
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: 0.5rem;
+              height: 100%;
+              width: 100%;
+            "
+          >
+            <v-btn @click="gps" class="gps_button" color="#0c3a68" dark>
               <v-icon>mdi-map-marker</v-icon>
             </v-btn>
-            <MAP_COMPONENT :sidenavViewer="'registration'" />
-          </v-col>
-          <v-col cols="12" md="6">
-            <p>Create your own account</p>
-            <v-form ref="myForm" @submit.prevent="registerUser">
-              <v-row>
-                <v-col cols="12" md="4">
-                  <v-text-field
-                    v-model="formData.first_name"
-                    label="First Name"
-                    :rules="rules.required"
-                    hide-details="auto"
-                    outlined
-                    dense
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4">
-                  <v-text-field
-                    v-model="formData.middle_name"
-                    label="Middle Name"
-                    :rules="rules.required"
-                    hide-details="auto"
-                    outlined
-                    dense
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4">
-                  <v-text-field
-                    v-model="formData.last_name"
-                    label="Last Name"
-                    :rules="rules.required"
-                    hide-details="auto"
-                    outlined
-                    dense
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-
-              <v-row>
-                <v-col cols="12" md="4">
-                  <v-select
-                    v-model="formData.gender"
-                    :items="genders"
-                    label="Gender"
-                    :rules="rules.required"
-                    hide-details="auto"
-                    outlined
-                    dense
-                  ></v-select>
-                </v-col>
-                <!-- <v-col cols="4">
+            <MAP_COMPONENT class="map" :sidenavViewer="'registration'" />
+          </div>
+          <!-- form -->
+          <v-form ref="myForm" class="form" @submit.prevent="registerUser">
+            <p class="form_label">
+              Create your own account
+              <span style="color: grey; font-size: 0.7rem"
+                >(Allow or Pin Location)</span
+              >
+            </p>
+            <div class="name_group">
               <v-text-field
-                v-model="formData.age"
-                label="Age"
-                type="number"
-                :rules="rules.required"
+                class="child_field"
+                v-model="formData.first_name"
+                label="First Name"
                 hide-details="auto"
+                :rules="rules.required"
                 outlined
-                dense
+                full-width
               ></v-text-field>
-            </v-col> -->
-                <v-col cols="12" md="4">
-                  <v-text-field
-                    v-model="formData.phone_number"
-                    label="Phone Number"
-                    :rules="rules.contact"
-                    outlined
-                    dense
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-
               <v-text-field
+                class="child_field"
+                v-model="formData.middle_name"
+                label="Middle Name"
+                hide-details="auto"
+                :rules="rules.required"
+                outlined
+                full-width
+              ></v-text-field>
+              <v-text-field
+                class="child_field"
+                v-model="formData.last_name"
+                label="Last Name"
+                hide-details="auto"
+                :rules="rules.required"
+                outlined
+                full-width
+              ></v-text-field>
+            </div>
+            <div class="contact_group">
+              <v-select
+                class="child_field"
+                v-model="formData.gender"
+                label="Gender"
+                hide-details="auto"
+                :items="genders"
+                :rules="rules.required"
+                outlined
+              ></v-select>
+              <v-text-field
+                class="child_field"
+                v-model="formData.phone_number"
+                label="Phone Number"
+                hide-details="auto"
+                :rules="rules.contact"
+                outlined
+              ></v-text-field>
+              <v-text-field
+                class="child_field"
                 v-model="formData.email"
                 label="Email"
+                hide-details="auto"
                 :rules="rules.email"
                 outlined
-                dense
               ></v-text-field>
-
-              <v-textarea
-                v-model="formData.address"
-                label="Address"
-                :rules="rules.required"
-                outlined
-                dense
-                rows="2"
-              ></v-textarea>
-
-              <!-- <v-row>
-            <v-col cols="12" sm="4">
-              <v-text-field
-                label="Region/State"
-                outlined
-                dense
-                hide-details="auto"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-select
-                label="Province/City"
-                outlined
-                dense
-                hide-details="auto"
-              ></v-select>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-select
-                label="Barangay"
-                outlined
-                dense
-                hide-details="auto"
-              ></v-select>
-            </v-col>
-          </v-row> -->
-
-              <v-row>
-                <v-col cols="12" md="4">
-                  <v-text-field
-                    v-model="formData.username"
-                    label="Username"
-                    :rules="rules.required"
-                    hide-details="auto"
-                    outlined
-                    dense
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" md="4">
-                  <v-text-field
-                    v-model="formData.password"
-                    label="Password"
-                    type="password"
-                    :rules="rules.password"
-                    outlined
-                    dense
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-
-              <v-file-input
-                v-for="(item, index) in user_role_details"
-                :rules="rules.required"
-                :key="index"
-                :label="item.name"
-                v-model="item.value"
-                accept="image/*"
-                outlined
-                dense
-              ></v-file-input>
-
-              <v-btn
-                type="submit"
-                :loading="loadSubmit"
-                color="#0c3a68"
-                dark
-                class="register-btn"
-              >
-                register
-              </v-btn>
-            </v-form>
-          </v-col>
-        </v-row>
+            </div>
+            <v-text-field
+              v-model="formData.address"
+              label="Address"
+              hide-details="auto"
+              :rules="rules.required"
+              outlined
+            ></v-text-field>
+            <v-text-field
+              v-model="formData.username"
+              label="Username"
+              :rules="rules.required"
+              hide-details="auto"
+              outlined
+            ></v-text-field>
+            <v-text-field
+              v-model="formData.password"
+              label="Password"
+              type="password"
+              :rules="rules.password"
+              hide-details="auto"
+              outlined
+            ></v-text-field>
+            <v-file-input
+              v-for="(item, index) in user_role_details"
+              :rules="rules.required"
+              :key="index"
+              :label="item.name"
+              v-model="item.value"
+              accept="image/*"
+              hide-details="auto"
+              outlined
+            ></v-file-input>
+            <v-btn
+              type="submit"
+              :loading="loadSubmit"
+              color="#0c3a68"
+              dark
+              class="register-btn"
+            >
+              register
+            </v-btn>
+          </v-form>
+        </div>
       </v-card>
     </v-container>
   </v-app>
@@ -350,26 +295,78 @@ export default {
 </script>
 
 <style scoped>
-/* .register-card {
-  width: 50rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 1rem 2rem;
+.app_container {
+  background-image: url(../../assets/bg-custom2.svg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
-.login-btn {
-  width: 100%;
-} */
-.register-card {
-  width: 80rem;
-  padding: 1rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 }
-.register-btn {
-  width: 10rem;
+.form_label {
+  align-self: center;
+}
+
+/* mobile */
+@media (max-width: 640px) {
+  .dynamic_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .map {
+    /* width: 100%; */
+  }
+  .name_group,
+  .contact_group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form_label {
+    padding-top: 1rem;
+  }
+}
+/* higer width than mobile */
+@media (min-width: 640px) {
+  .dynamic_container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+  .form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .name_group {
+    display: flex;
+    flex-direction: row;
+    gap: 0.3rem;
+  }
+  .contact_group {
+    display: flex;
+    flex-direction: row;
+    gap: 0.3rem;
+  }
+  .gps_button {
+    align-self: end;
+    width: 3rem;
+  }
+  .name_group > *,
+  .contact_group > * {
+    width: 30%;
+  }
 }
 </style>
