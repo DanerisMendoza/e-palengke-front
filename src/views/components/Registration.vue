@@ -310,6 +310,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: start;
+  margin-top: 3%;
 }
 .form_label {
   align-self: center;
