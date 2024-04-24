@@ -1,18 +1,32 @@
 <template>
-  <v-app style="background: #d0dae3">
-    <v-container>
-      <v-card class="admin">
-        <v-row>
-          <v-col cols="6">
-            <!-- First Pie Chart for USER_ROLES_ANALYSIS -->
-            <apexchart type="pie" :options="chartOptionsRoles" :series="seriesRoles" />
-          </v-col>
-          <v-col cols="6">
-            <!-- Second Pie Chart for USER_ROLES_STATUS_ANALYSIS -->
-            <apexchart type="pie" :options="chartOptionsStatus" :series="seriesStatus" />
-          </v-col>
-        </v-row>
-      </v-card>
+  <v-app style="background: #c8e0f6">
+    <v-container class="container">
+      <div class="page-title">
+        <p class="text-h4">Admin</p>
+      </div>
+
+      <v-row>
+        <v-col cols="12" md="6">
+          <!-- First Pie Chart for USER_ROLES_ANALYSIS -->
+          <v-card>
+            <apexchart
+              type="pie"
+              :options="chartOptionsRoles"
+              :series="seriesRoles"
+            />
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="6">
+          <!-- Second Pie Chart for USER_ROLES_STATUS_ANALYSIS -->
+          <v-card>
+            <apexchart
+              type="pie"
+              :options="chartOptionsStatus"
+              :series="seriesStatus"
+            />
+          </v-card>
+        </v-col>
+      </v-row>
     </v-container>
   </v-app>
 </template>
@@ -30,6 +44,13 @@ export default {
     ...mapGetters(["USER_ROLES_ANALYSIS", "USER_ROLES_STATUS_ANALYSIS"]),
     chartOptionsRoles() {
       return {
+        title: {
+          text: "User Role Type",
+          align: "center",
+        },
+        chart: {
+          height: 400, 
+        },
         labels: this.userRolesAnalysisData.map((item) => item.name),
       };
     },
@@ -38,7 +59,16 @@ export default {
     },
     chartOptionsStatus() {
       return {
-        labels: this.userRolesStatusAnalysisData.map((item) => item.status.toUpperCase()),
+        chart: {
+          height: 400, 
+        },
+        title: {
+          text: "User Role Status",
+          align: "center",
+        },
+        labels: this.userRolesStatusAnalysisData.map((item) =>
+          item.status.toUpperCase()
+        ),
       };
     },
     seriesStatus() {
@@ -59,9 +89,13 @@ export default {
   },
 };
 </script>
+
 <style scoped>
-.admin {
-  border-top: 5px solid #1976d2;
-  padding: 1rem;
+.page-title p {
+  margin-bottom: 1rem;
+  color: #0c3a68;
+}
+.container {
+  padding: 0 2.5rem 0;
 }
 </style>

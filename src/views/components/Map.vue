@@ -1,25 +1,47 @@
 <template>
-  <l-map class="map-container" ref="map" :style="{ 'height': sidenavViewer === 'store' ? '90%' : '400px', 'z-index': 1 }"
-    :center="center" :zoom="zoom" @click="handleMarkerClick" :options="mapOptions">
-
-
-    <div v-if="sidenavViewer === 'store'">
-      <v-btn @click="home" color="success" dark class="float-right buttons mt-1 mr-1">
+  <l-map
+    class="map-container"
+    ref="map"
+    :style="{
+      height: sidenavViewer === 'store' ? '90%' : '400px',
+      'z-index': 1,
+    }"
+    :center="center"
+    :zoom="zoom"
+    @click="handleMarkerClick"
+    :options="mapOptions"
+  >
+    <div v-if="sidenavViewer === 'store'" class="float-right mt-2">
+      <v-btn @click="home" color="#0c3a68" dark class="buttons mr-1">
         <v-icon>mdi-home</v-icon>
       </v-btn>
-      <v-btn @click="viewCart" color="orange" dark class="float-right mr-2 buttons mt-1 mr-1">
+      <v-btn @click="viewCart" color="#0c3a68" dark class="buttons mr-2">
         <v-icon>mdi-cart</v-icon>
       </v-btn>
     </div>
 
-    <div v-if="sidenavViewer === 'store'" style="position: absolute; bottom: 0px; left: 42%; z-index: 402; ">
-      <v-card style="width: 200px; ">
-        <v-slider v-model="circleRadiusOrigin" thumb-label="always" hide-details @mousedown.stop></v-slider>
+    <div
+      v-if="sidenavViewer === 'store'"
+      style="position: absolute; bottom: 0px; left: 42%; z-index: 402"
+    >
+      <v-card style="width: 200px">
+        <v-slider
+          v-model="circleRadiusOrigin"
+          thumb-label="always"
+          hide-details
+          @mousedown.stop
+        ></v-slider>
       </v-card>
     </div>
 
-    <v-navigation-drawer :absolute="SIDE_NAV_TOGGLE" :app="(!SIDE_NAV_TOGGLE)" v-if="sidenavViewer === 'store' && drawer"
-      :class="{ 'mt-4': !SIDE_NAV_TOGGLE }" class="drawer" v-model="drawer">
+    <v-navigation-drawer
+      :absolute="SIDE_NAV_TOGGLE"
+      :app="!SIDE_NAV_TOGGLE"
+      v-if="sidenavViewer === 'store' && drawer"
+      :class="{ 'mt-4': !SIDE_NAV_TOGGLE }"
+      class="drawer"
+      v-model="drawer"
+    >
       <template>
         <v-navigation-drawer>
           <v-list-item>
@@ -35,7 +57,6 @@
           <v-divider></v-divider>
 
           <v-list dense nav>
-
             <v-list-item>
               <v-list-item-icon>
                 <v-icon>mdi-map-marker-outline</v-icon>
@@ -59,8 +80,12 @@
                 <v-icon>mdi-storefront</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-chip v-for="(detail, index) in SELECTED_STORE.store_type_details" :key="index" class="mr-2"
-                  style="font-size: smaller;">
+                <v-chip
+                  v-for="(detail, index) in SELECTED_STORE.store_type_details"
+                  :key="index"
+                  class="mr-2"
+                  style="font-size: smaller"
+                >
                   {{ detail.name }}
                 </v-chip>
               </v-list-item-content>
@@ -81,7 +106,12 @@
                 <v-icon></v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                Monday {{ SELECTED_STORE.monday == null ? 'unavailable' : SELECTED_STORE.monday }}
+                Monday
+                {{
+                  SELECTED_STORE.monday == null
+                    ? "unavailable"
+                    : SELECTED_STORE.monday
+                }}
               </v-list-item-content>
             </v-list-item>
             <v-list-item>
@@ -89,7 +119,12 @@
                 <v-icon></v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                Tuesday {{ SELECTED_STORE.tuesday == null ? 'unavailable' : SELECTED_STORE.tuesday }}
+                Tuesday
+                {{
+                  SELECTED_STORE.tuesday == null
+                    ? "unavailable"
+                    : SELECTED_STORE.tuesday
+                }}
               </v-list-item-content>
             </v-list-item>
             <v-list-item>
@@ -97,7 +132,12 @@
                 <v-icon></v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                Wednesday {{ SELECTED_STORE.wednesday == null ? 'unavailable' : SELECTED_STORE.wednesday }}
+                Wednesday
+                {{
+                  SELECTED_STORE.wednesday == null
+                    ? "unavailable"
+                    : SELECTED_STORE.wednesday
+                }}
               </v-list-item-content>
             </v-list-item>
             <v-list-item>
@@ -105,7 +145,12 @@
                 <v-icon></v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                Thursday {{ SELECTED_STORE.thursday == null ? 'unavailable' : SELECTED_STORE.thursday }}
+                Thursday
+                {{
+                  SELECTED_STORE.thursday == null
+                    ? "unavailable"
+                    : SELECTED_STORE.thursday
+                }}
               </v-list-item-content>
             </v-list-item>
             <v-list-item>
@@ -113,7 +158,12 @@
                 <v-icon></v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                Friday {{ SELECTED_STORE.friday == null ? 'unavailable' : SELECTED_STORE.friday }}
+                Friday
+                {{
+                  SELECTED_STORE.friday == null
+                    ? "unavailable"
+                    : SELECTED_STORE.friday
+                }}
               </v-list-item-content>
             </v-list-item>
             <v-list-item>
@@ -121,7 +171,12 @@
                 <v-icon></v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                Saturday {{ SELECTED_STORE.saturday == null ? 'unavailable' : SELECTED_STORE.saturday }}
+                Saturday
+                {{
+                  SELECTED_STORE.saturday == null
+                    ? "unavailable"
+                    : SELECTED_STORE.saturday
+                }}
               </v-list-item-content>
             </v-list-item>
             <v-list-item>
@@ -129,7 +184,12 @@
                 <v-icon></v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                Sunday {{ SELECTED_STORE.sunday == null ? 'unavailable' : SELECTED_STORE.sunday }}
+                Sunday
+                {{
+                  SELECTED_STORE.sunday == null
+                    ? "unavailable"
+                    : SELECTED_STORE.sunday
+                }}
               </v-list-item-content>
             </v-list-item>
 
@@ -137,61 +197,92 @@
 
             <v-list-item link>
               <v-list-item-content>
-                <v-btn @click="OpenProductTable" dark>
-                  View Menu
-                </v-btn>
+                <v-btn @click="OpenProductTable" dark> View Menu </v-btn>
               </v-list-item-content>
             </v-list-item>
-
           </v-list>
-
         </v-navigation-drawer>
       </template>
     </v-navigation-drawer>
 
     <!-- <l-control-zoom class="custom-zoom-control"></l-control-zoom> -->
-    <l-tile-layer :url="googleStreets.url" :maxZoom="googleStreets.maxZoom"
-      :subdomains="googleStreets.subdomains"></l-tile-layer>
+    <l-tile-layer
+      :url="googleStreets.url"
+      :maxZoom="googleStreets.maxZoom"
+      :subdomains="googleStreets.subdomains"
+    ></l-tile-layer>
     <!-- current marker(dynamic icon) -->
-    <l-marker v-if="MARKER_LAT_LNG !== null" :lat-lng="MARKER_LAT_LNG" :icon="computedMarker"></l-marker>
+    <l-marker
+      v-if="MARKER_LAT_LNG !== null"
+      :lat-lng="MARKER_LAT_LNG"
+      :icon="computedMarker"
+    ></l-marker>
 
     <!-- multiple marker(stores) -->
-    <l-marker v-if="sidenavViewer === 'store'" v-for="(item, index) in storeMarkersInsideCircle" ref="markers"
-      :key="index" :lat-lng="item" :icon="isMarkerSelected(item)" @click="go(item)">
+    <l-marker
+      v-if="sidenavViewer === 'store'"
+      v-for="(item, index) in storeMarkersInsideCircle"
+      ref="markers"
+      :key="index"
+      :lat-lng="item"
+      :icon="isMarkerSelected(item)"
+      @click="go(item)"
+    >
     </l-marker>
 
     <!-- delivery -->
     <!-- <l-marker v-if="sidenavViewer === 'delivery'" v-for="(item, index) in USER_INSIDE_RADIUS" ref="markers"
         :key="index" :lat-lng="{ lat: item.latitude, lng: item.longitude}" :icon="personMarker" >
       </l-marker> -->
-    <l-marker v-if="sidenavViewer === 'delivery' && TRANSACTION.length != 0"
-      :lat-lng="{ lat: TRANSACTION[0].latitude, lng: TRANSACTION[0].longitude }" :icon="personMarker"></l-marker>
-    <l-marker v-if="sidenavViewer === 'delivery' && TRANSACTION.length != 0" v-for="(item, index) in ORDER_STORE_LAT_LNG"
-      ref="markers" :key="index" :lat-lng="{ lat: item.latitude, lng: item.longitude }" :icon="sellerMarker">
+    <l-marker
+      v-if="sidenavViewer === 'delivery' && TRANSACTION.length != 0"
+      :lat-lng="{ lat: TRANSACTION[0].latitude, lng: TRANSACTION[0].longitude }"
+      :icon="personMarker"
+    ></l-marker>
+    <l-marker
+      v-if="sidenavViewer === 'delivery' && TRANSACTION.length != 0"
+      v-for="(item, index) in ORDER_STORE_LAT_LNG"
+      ref="markers"
+      :key="index"
+      :lat-lng="{ lat: item.latitude, lng: item.longitude }"
+      :icon="sellerMarker"
+    >
     </l-marker>
 
     <!-- radius -->
-    <l-circle v-if="MARKER_LAT_LNG !== null" :lat-lng="MARKER_LAT_LNG" :radius="circleRadius" :fill="true"
-      :fill-opacity="0.2" :color="'rgb(25,118,210)'" style="cursor: move"></l-circle>
-
-
+    <l-circle
+      v-if="MARKER_LAT_LNG !== null"
+      :lat-lng="MARKER_LAT_LNG"
+      :radius="circleRadius"
+      :fill="true"
+      :fill-opacity="0.2"
+      :color="'rgb(25,118,210)'"
+      style="cursor: move"
+    ></l-circle>
   </l-map>
 </template>
-  
+
 <script>
-import { LMap, LTileLayer, LMarker, LIcon, LCircle, LTooltip, LPopup, LControlZoom } from 'vue2-leaflet';
-import 'leaflet/dist/leaflet.css';
-import { mapGetters } from 'vuex';
-import selectedMarker from '@/assets/markers/selectedMarker.png';
-import personMarker from '@/assets/markers/customerMarker.png';
-import sellerMarker from '@/assets/markers/sellerMarker2.png';
-import deliveryMarker from '@/assets/markers/deliveryMarker2.png';
+import {
+  LMap,
+  LTileLayer,
+  LMarker,
+  LIcon,
+  LCircle,
+  LTooltip,
+  LPopup,
+  LControlZoom,
+} from "vue2-leaflet";
+import "leaflet/dist/leaflet.css";
+import { mapGetters } from "vuex";
+import selectedMarker from "@/assets/markers/selectedMarker.png";
+import personMarker from "@/assets/markers/customerMarker.png";
+import sellerMarker from "@/assets/markers/sellerMarker2.png";
+import deliveryMarker from "@/assets/markers/deliveryMarker2.png";
 import ProductTable from "../Tables/ProductTable.vue";
-import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
+import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 
 export default {
-
-
   methods: {
     isMarkerSelected(marker) {
       return marker === this.pin ? this.selectedMarker : this.sellerMarker;
@@ -211,31 +302,34 @@ export default {
       this.$store.commit("CART_DIALOG", true);
     },
     OpenProductTable() {
-      this.$store.commit('PRODUCT_CUSTOMER_VIEW_DIALOG', true)
+      this.$store.commit("PRODUCT_CUSTOMER_VIEW_DIALOG", true);
     },
     handlePopupClose() {
       // this.drawer = false
-      this.OldCoordinates = null
+      this.OldCoordinates = null;
       if (this.routingControl != null) {
         this.$refs.map.mapObject.removeControl(this.routingControl);
       }
     },
     closeDrawer() {
-      this.drawer = false
+      this.drawer = false;
       if (this.routingControl != null) {
         this.$refs.map.mapObject.removeControl(this.routingControl);
       }
     },
     handleMarkerClick(event) {
       const { lat, lng } = event.latlng;
-      console.log(lat)
-      console.log(lng)
-      if (this.sidenavViewer == 'application' || this.sidenavViewer == 'registration') {
-        this.$store.commit("MARKER_LAT_LNG", [0, 0])
-        this.$store.commit("CENTER", [0, 0])
-        this.$store.commit("MARKER_LAT_LNG", [lat, lng])
-        this.$store.commit("CENTER", [lat, lng])
-        this.$store.commit("ZOOM", 19)
+      console.log(lat);
+      console.log(lng);
+      if (
+        this.sidenavViewer == "application" ||
+        this.sidenavViewer == "registration"
+      ) {
+        this.$store.commit("MARKER_LAT_LNG", [0, 0]);
+        this.$store.commit("CENTER", [0, 0]);
+        this.$store.commit("MARKER_LAT_LNG", [lat, lng]);
+        this.$store.commit("CENTER", [lat, lng]);
+        this.$store.commit("ZOOM", 19);
       }
     },
     go(item) {
@@ -243,12 +337,12 @@ export default {
       const matchingBranch = this.STORES.find((branch) => {
         return branch.latitude === item[0] && branch.longitude === item[1];
       });
-      this.$store.commit('SELECTED_STORE', matchingBranch)
-      this.drawer = true
+      this.$store.commit("SELECTED_STORE", matchingBranch);
+      this.drawer = true;
 
       if (this.OldCoordinates == matchingBranch) {
-        this.OldCoordinates = null
-        return
+        this.OldCoordinates = null;
+        return;
       }
 
       if (this.routingControl != null) {
@@ -260,14 +354,14 @@ export default {
           L.latLng(matchingBranch.latitude, matchingBranch.longitude), // Add more waypoints as needed
         ],
         lineOptions: {
-          styles: [{ color: 'blue', opacity: 0.7, weight: 5 }]
+          styles: [{ color: "blue", opacity: 0.7, weight: 5 }],
         },
-        createMarker: function () { return null; },
+        createMarker: function () {
+          return null;
+        },
         fitSelectedRoutes: false,
       }).addTo(this.$refs.map.mapObject); // Assuming your map element has a ref named "map"
-      this.OldCoordinates = matchingBranch
-
-
+      this.OldCoordinates = matchingBranch;
     },
     getTooltipContent(item) {
       const matchingBranch = this.STORES.find((branch) => {
@@ -286,22 +380,22 @@ export default {
       //     details += `${matchingBranch.store_type_details[i].name},`;
       //   }
       // }
-      details += `</center></div>`
-      return details
+      details += `</center></div>`;
+      return details;
     },
   },
 
   props: {
-    sidenavViewer: String
+    sidenavViewer: String,
   },
 
   data() {
     return {
       pin: null,
       googleStreets: {
-        url: 'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+        url: "http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
         maxZoom: 20,
-        subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+        subdomains: ["mt0", "mt1", "mt2", "mt3"],
       },
       mapOptions: {
         zoomControl: false, // Disable the default zoom control
@@ -345,7 +439,6 @@ export default {
   },
 
   mounted() {
-
     // console.log(this.STORES)
     // console.log(this.ZOOM)
     // console.log(this.sidenavViewer)
@@ -366,33 +459,30 @@ export default {
       "TRANSACTION",
       "ORDER_STORE_LAT_LNG",
       "SELECTED_STORE",
-      "SIDE_NAV_TOGGLE"
+      "SIDE_NAV_TOGGLE",
     ]),
 
-
     computedMarker() {
-      if (this.sidenavViewer === 'store') {
-        return this.personMarker
-      }
-      else if (this.sidenavViewer === 'application') {
+      if (this.sidenavViewer === "store") {
+        return this.personMarker;
+      } else if (this.sidenavViewer === "application") {
         if (this.SELECTED_USER_ROLE_DETAILS === 3) {
-          return this.sellerMarker
+          return this.sellerMarker;
+        } else if (this.SELECTED_USER_ROLE_DETAILS === 4) {
+          return this.deliveryMarker;
         }
-        else if (this.SELECTED_USER_ROLE_DETAILS === 4) {
-          return this.deliveryMarker
-        }
-      }
-      else if (this.sidenavViewer === 'registration') {
-        return this.personMarker
-      }
-      else if (this.sidenavViewer === 'delivery') {
-        return this.deliveryMarker
+      } else if (this.sidenavViewer === "registration") {
+        return this.personMarker;
+      } else if (this.sidenavViewer === "delivery") {
+        return this.deliveryMarker;
       }
     },
 
     storeMarkersInsideCircle() {
-      return this.STORES_LAT_LNG.filter(marker => {
-        const distance = L.latLng(marker).distanceTo(L.latLng(this.MARKER_LAT_LNG));
+      return this.STORES_LAT_LNG.filter((marker) => {
+        const distance = L.latLng(marker).distanceTo(
+          L.latLng(this.MARKER_LAT_LNG)
+        );
         return distance <= this.circleRadius;
       });
     },
@@ -401,7 +491,7 @@ export default {
   watch: {
     SELECTED_STORE: {
       handler(val) {
-        console.log(val)
+        console.log(val);
       },
     },
     MARKER_LAT_LNG: {
@@ -420,7 +510,7 @@ export default {
     },
     CIRCLE_RADIUS: {
       handler(val) {
-        this.circleRadius = val
+        this.circleRadius = val;
       },
     },
 
@@ -434,7 +524,7 @@ export default {
       handler(val) {
         // console.log(this.STORES_LAT_LNG)
       },
-    }
+    },
   },
 
   components: {
@@ -447,10 +537,9 @@ export default {
     LControlZoom,
     ProductTable,
   },
-
 };
 </script>
-  
+
 <style>
 .l-tooltip-content {
   white-space: pre-line;
@@ -470,7 +559,6 @@ export default {
   z-index: 401;
 }
 .leaflet-control-attribution.leaflet-control {
-    display: none;
+  display: none;
 }
 </style>
-  

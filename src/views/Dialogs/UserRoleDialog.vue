@@ -1,47 +1,44 @@
 <template>
-  <v-container>
-    <v-row justify="center">
-      <v-dialog v-model="dialog" max-width="500px" persistent>
-        <v-card>
-          <v-card-title>USER ROLE: {{ SELECTED_ROLE.name }}</v-card-title>
-          <v-card-text>
-            <v-autocomplete
-              v-model="selected_requirement"
-              :items="REQUIREMENT_DETAILS"
-              item-text="name"
-              item-value="id"
-              auto-select-first
-              chips
-              deletable-chips
-              multiple
-              label="Requirement"
-              outlined
-              hide-details="auto"
-              class="mb-5"
-            ></v-autocomplete>
-            <v-autocomplete
-              v-model="selected_sidenav"
-              readonly
-              :items="ALL_SIDE_NAV"
-              item-text="name"
-              item-value="id"
-              auto-select-first
-              chips
-              deletable-chips
-              multiple
-              label="Access"
-              outlined
-              hide-details="auto"
-            ></v-autocomplete>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn color="primary" text @click="closeDialog()">CLOSE</v-btn>
-            <v-btn color="primary" text @click="update()">UPDATE</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-row>
-  </v-container>
+  <v-dialog v-model="dialog" width="500" persistent>
+    <v-card class="card">
+      <v-card-title class="card-title"
+        >USER ROLE: {{ SELECTED_ROLE.name }}</v-card-title
+      >
+      <v-card-text>
+        <v-autocomplete
+          v-model="selected_requirement"
+          :items="REQUIREMENT_DETAILS"
+          item-text="name"
+          item-value="id"
+          auto-select-first
+          chips
+          deletable-chips
+          multiple
+          label="Requirement"
+          outlined
+        ></v-autocomplete>
+        <v-autocomplete
+          v-model="selected_sidenav"
+          readonly
+          :items="ALL_SIDE_NAV"
+          item-text="name"
+          item-value="id"
+          auto-select-first
+          chips
+          deletable-chips
+          multiple
+          label="Access"
+          outlined
+          hide-details="auto"
+        ></v-autocomplete>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="#0c3a68" text @click="update()">Update</v-btn>
+        <v-btn color="red" text @click="closeDialog()">Close</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
@@ -118,3 +115,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.card {
+  padding: 0.5rem;
+}
+.card-title {
+  color: #0c3a68;
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+</style>

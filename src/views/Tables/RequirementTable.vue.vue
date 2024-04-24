@@ -1,25 +1,24 @@
 <template>
-  <v-app style="background: #d0dae3">
-    <v-card class="requirement-details">
-
+  <v-app style="background: #c8e0f6">
+    <div>
       <v-btn @click="addNewRequirement()" color="primary" class="mb-5">
-        add new requirement
+        add requirement
       </v-btn>
+    </div>
 
-      <v-card elevation="2" outlined>
-        <v-data-table :headers="headers" :items="REQUIREMENT_DETAILS">
-          <template v-slot:item="{ item, index }">
-            <tr>
-              <td>{{ index + 1 }}</td>
-              <td>{{ item.name }}</td>
-              <td>
-                <v-icon @click="editItem(item)" color="orange">mdi-pencil</v-icon>
-                <v-icon @click="deleteItem(item)" color="red">mdi-delete</v-icon>
-              </td>
-            </tr>
-          </template>
-        </v-data-table>
-      </v-card>
+    <v-card elevation="2" outlined>
+      <v-data-table :headers="headers" :items="REQUIREMENT_DETAILS">
+        <template v-slot:item="{ item, index }">
+          <tr>
+            <td>{{ index + 1 }}</td>
+            <td>{{ item.name }}</td>
+            <td>
+              <v-icon @click="editItem(item)" color="orange">mdi-pencil</v-icon>
+              <v-icon @click="deleteItem(item)" color="red">mdi-delete</v-icon>
+            </td>
+          </tr>
+        </template>
+      </v-data-table>
     </v-card>
   </v-app>
 </template>
@@ -48,7 +47,7 @@ export default {
   },
 
   methods: {
-    viewItem(item) { },
+    viewItem(item) {},
     editItem(item) {
       this.$store.commit("SELECTED_REQUIREMENT_DETAILS", item);
       this.$store.commit("REQUIREMENT_DETAIL_DIALOG", "UPDATE");
@@ -96,10 +95,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.requirement-details {
-  border-top: 5px solid #1976d2;
-  padding: 1rem;
-}
-</style>

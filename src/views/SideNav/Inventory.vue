@@ -1,11 +1,16 @@
 <template>
-  <v-app style="background: #d0dae3">
-    <v-container>
-      <v-card class="inventory">
-        <v-btn @click="addNewProduct" class="mb-5" color="primary">Add New Product</v-btn>
-        <ProductDialog v-if="PRODUCT_DIALOG !== null" />
-        <ProductTable />
-      </v-card>
+  <v-app style="background: #c8e0f6">
+    <v-container class="container">
+      <div class="page-title">
+        <p class="text-h4">Inventory</p>
+      </div>
+
+      <v-btn @click="addNewProduct" class="mb-5" color="primary"
+        >Add Product</v-btn
+      >
+
+      <ProductDialog v-if="PRODUCT_DIALOG !== null" />
+      <ProductTable />
     </v-container>
   </v-app>
 </template>
@@ -37,9 +42,20 @@ export default {
 };
 </script>
 
-<style scoped>
+<!-- <style scoped>
 .inventory {
   border-top: 5px solid #1976d2;
   padding: 1rem;
+}
+</style>
+ -->
+
+<style scoped>
+.page-title p {
+  margin-bottom: 1rem;
+  color: #0c3a68;
+}
+.container {
+  padding: 0 2.5rem 0;
 }
 </style>

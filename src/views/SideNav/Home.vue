@@ -1,14 +1,22 @@
 <template>
-  <v-app style="background: #d0dae3">
-    <v-container>
-      <v-card class="home">
-        <v-row>
-          <v-col cols="12">
-            <!-- Bar Graph for ORDERS_ANALYSIS -->
-            <apexchart type="bar" :options="chartOptionsOrders" :series="seriesOrders" />
-          </v-col>
-        </v-row>
-      </v-card>
+  <v-app style="background: #c8e0f6">
+    <v-container class="container">
+      <div class="page-title">
+        <p class="text-h4">Home</p>
+      </div>
+
+      <v-row>
+        <v-col cols="12">
+          <!-- Bar Graph for ORDERS_ANALYSIS -->
+          <v-card>
+            <apexchart
+              type="bar"
+              :options="chartOptionsOrders"
+              :series="seriesOrders"
+            />
+          </v-card>
+        </v-col>
+      </v-row>
     </v-container>
   </v-app>
 </template>
@@ -31,17 +39,22 @@ export default {
         xaxis: {
           categories: this.ordersAnalysisData.map((item) => item.name),
         },
+          title: {
+          text: "Trending Products",
+          align: "center",
+        },
         chart: {
-          height: chartHeight + 'px', // Set the chart height
-          type: 'bar',
+          height: 400, // Set the chart height
         },
       };
     },
     seriesOrders() {
-      return [{
-        name: 'Orders',
-        data: this.ordersAnalysisData.map((item) => item.count),
-      }];
+      return [
+        {
+          name: "Orders",
+          data: this.ordersAnalysisData.map((item) => item.count),
+        },
+      ];
     },
   },
   methods: {
@@ -59,8 +72,11 @@ export default {
 </script>
 
 <style scoped>
-.home {
-  border-top: 5px solid #1976d2;
-  padding: 1rem;
+.page-title p {
+  margin-bottom: 1rem;
+  color: #0c3a68;
+}
+.container {
+  padding: 0 2.5rem 0;
 }
 </style>

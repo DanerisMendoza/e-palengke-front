@@ -1,67 +1,58 @@
 <template>
-  <v-container>
-    <v-row justify="center">
-      <v-dialog v-model="dialog" max-width="80rem" persistent>
-        <v-card>
-          <v-card-title>
-            Cart
+  <v-dialog v-model="dialog" width="1000" persistent>
+    <v-card class="card">
+      <v-card-title class="card-title">Cart</v-card-title>
 
-            <v-btn icon @click="closeDialog" class="ml-auto">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </v-card-title>
+      <v-card-text>
+        <v-row>
+          <v-col cols="12" md="6">
+            <v-text-field
+              readonly
+              outlined
+              class="float-left"
+              hide-details="auto"
+            >
+              <template v-slot:prepend-inner>
+                {{ currentDateTime }}
+              </template>
+            </v-text-field>
+          </v-col>
+        </v-row>
 
-          <v-card-text>
-            <v-row>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  readonly
-                  outlined
-                  class="float-left"
-                  hide-details="auto"
-                >
-                  <template v-slot:prepend-inner>
-                    {{ currentDateTime }}
-                  </template>
-                </v-text-field>
-              </v-col>
-            </v-row>
+        <CartTable />
 
-            <CartTable />
-
-            <v-row>
-              <v-col cols="12" sm="6">
-                <v-text-field outlined readonly hide-details="auto">
-                  <template v-slot:append>
-                    Balance: ₱{{ USER_DETAILS.balance }}
-                  </template>
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-text-field outlined readonly hide-details="auto">
-                  <template v-slot:append>
-                    Total: ₱{{ total.toFixed(2) }}
-                  </template>
-                </v-text-field>
-              </v-col>
-            </v-row>
-
-            <v-row>
-              <v-col cols="12">
-                <v-btn class="float-right" @click="order" color="success" :loading="isOrdering">Check out</v-btn>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </v-dialog>
-    </v-row>
-  </v-container>
+        <v-row>
+          <v-col cols="12" sm="6">
+            <v-text-field outlined readonly hide-details="auto">
+              <template v-slot:append>
+                Balance: ₱{{ USER_DETAILS.balance }}
+              </template>
+            </v-text-field>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <v-text-field outlined readonly hide-details="auto">
+              <template v-slot:append>
+                Total: ₱{{ total.toFixed(2) }}
+              </template>
+            </v-text-field>
+          </v-col>
+        </v-row>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn @click="order" color="#0c3a68" :loading="isOrdering" dark text
+          >Check out</v-btn
+        >
+        <v-btn @click="closeDialog()" color="red" dark text>Close</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
 import CartTable from "../Tables/CartTable.vue";
 import { mapGetters } from "vuex";
-import moment from 'moment';
+import moment from "moment";
 
 export default {
   components: {
@@ -69,9 +60,9 @@ export default {
   },
   data() {
     return {
-      isOrdering:false,
+      isOrdering: false,
       dialog: true,
-      currentDateTime: moment().format('MMMM D, YYYY - hh:mm A'),    
+      currentDateTime: moment().format("MMMM D, YYYY - hh:mm A"),
     };
   },
   computed: {
@@ -91,7 +82,7 @@ export default {
       this.$store.commit("SELECTED_STORE", selectedStore);
     },
     order() {
-      this.isOrdering = true
+      this.isOrdering = true;
       if (this.USER_DETAILS.balance < this.total) {
         this.$swal.fire({
           icon: "warning", // Set a warning icon (you can choose a different icon class)
@@ -100,7 +91,7 @@ export default {
           showConfirmButton: false, // Remove the "OK" button
           timer: 2000, // Auto-close the alert after 1.5 seconds (adjust as needed)
         });
-        this.isOrdering = false
+        this.isOrdering = false;
         return;
       }
       this.CART.forEach((item) => {
@@ -112,7 +103,7 @@ export default {
             showConfirmButton: false, // Remove the "OK" button
             timer: 2000, // Auto-close the alert after 1.5 seconds (adjust as needed)
           });
-          this.isOrdering = false
+          this.isOrdering = false;
           return;
         }
       });
@@ -149,7 +140,7 @@ export default {
             timer: 2000,
           });
         }
-        this.isOrdering = false
+        this.isOrdering = false;
         this.$store.dispatch("GET_CART");
         this.$store.dispatch("GetUserDetails");
       });
@@ -157,3 +148,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.card {
+  padding: 0.5rem;
+}
+.card-title {
+  color: #0c3a68;
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+</style>

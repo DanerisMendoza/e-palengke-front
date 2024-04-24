@@ -9,7 +9,12 @@ export default {
     USER_INSIDE_RADIUS: [],
     PROFILE_UPDATE: null,
     PROFILE_PATH: null,
-    SIDE_NAV_TOGGLE: true
+    SIDE_NAV_TOGGLE: true,
+    dialog_forgot:
+    {
+      value: false,
+      mode: null
+    }
   },
 
   getters: {
@@ -20,6 +25,8 @@ export default {
     PROFILE_UPDATE: (state) => state.PROFILE_UPDATE,
     PROFILE_PATH: (state) => state.PROFILE_PATH,
     SIDE_NAV_TOGGLE: (state) => state.SIDE_NAV_TOGGLE,
+    GET_DIALOG_VAL_FORGOT: (state) => state.dialog_forgot.value,
+    GET_DIALOG_MODE_FORGOT: (state) => state.dialog_forgot.mode,
   },
 
   mutations: {
@@ -30,9 +37,39 @@ export default {
     PROFILE_UPDATE: (state, data) => { state.PROFILE_UPDATE = data },
     PROFILE_PATH: (state, data) => { state.PROFILE_PATH = data },
     SIDE_NAV_TOGGLE: (state, data) => { state.SIDE_NAV_TOGGLE = data },
+    SET_DIALOG_VAL_FORGOT: (state, data) => { state.dialog_forgot.value = data },
+    SET_DIALOG_MODE_FORGOT: (state, data) => { state.dialog_forgot.mode = data },
   },
 
   actions: {
+    sendCode({ commit }, payload) {
+      return new Promise((resolve, reject) => {
+        api.post('api/sendResetCode', payload).then((response) => {
+          resolve(response.data);
+        }).catch((error) => {
+          reject(error);
+        });
+      });
+    },
+    checkCode({ commit }, payload) {
+      return new Promise((resolve, reject) => {
+        api.post('api/checkVerificationCode', payload).then((response) => {
+          resolve(response.data);
+        }).catch((error) => {
+          reject(error);
+        });
+      });
+    },
+    changePass({ commit }, payload) {
+      // console.log(payload)
+      return new Promise((resolve, reject) => {
+        api.post('api/changePassword', payload).then((response) => {
+          resolve(response.data);
+        }).catch((error) => {
+          reject(error);
+        });
+      });
+    },
     UpdateUser({ commit }, payload) {
       return new Promise((resolve, reject) => {
         api.put('api/UpdateUser', payload).then((response) => {

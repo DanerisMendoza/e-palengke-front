@@ -1,37 +1,73 @@
 <template>
-  <v-app style="background: #d0dae3">
-    <v-container>
-      <v-app-bar app color="primary" dark elevation="2">
-        LOGIN PAGE
-        <v-spacer></v-spacer>
-        <v-btn plain @click="registration">sign up</v-btn>
-        <span class="ml-5 mr-5">|</span>
-        <v-btn plain @click="login">login</v-btn>
-      </v-app-bar>
+  <v-app class="app_container">
+    <div>
+      <v-btn plain color="#FFFFFF" @click="landingPage">
+        <v-icon>mdi-arrow-left</v-icon>
+        Back to Home
+      </v-btn>
+    </div>
 
-      <v-card class="text-center login-card" elevation="2" outlined>
-        <img src="../../assets/logo3.png" alt="E-Palengke Logo" />
+    <v-container>
+      <v-card class="login-card text-center">
+        <div>
+          <img
+            src="../../assets/ep-only.png"
+            alt="E-Palengke Logo"
+            width="150"
+          />
+        </div>
         <p>Log in to your account</p>
 
         <v-form ref="myForm" @submit.prevent>
-          <v-text-field v-model="username" label="Username" :rules="rules.required" outlined dense hide-details="auto"
-            class="mb-3">
+          <v-text-field
+            v-model="username"
+            label="Username"
+            :rules="rules.required"
+            outlined
+            hide-details="auto"
+            class="mb-4"
+          >
           </v-text-field>
-          <v-text-field v-model="password" label="Password" type="password" :rules="rules.required" outlined dense
-            hide-details="auto" class="mb-4"></v-text-field>
+          <v-text-field
+            v-model="password"
+            label="Password"
+            type="password"
+            :rules="rules.required"
+            outlined
+            hide-details="auto"
+          ></v-text-field>
         </v-form>
 
-        <v-btn @click="login" color="primary" class="login-btn mb-1">Login</v-btn>
-        <v-btn plain>Forgot password</v-btn>
+        <v-btn plain class="mt-2" @click="openDialogForgot()"
+          >Forgot password</v-btn
+        >
+
+        <div class="mt-2 mb-2">
+          <v-btn @click="login" color="#0c3a68" dark class="login-btn" large
+            >Login</v-btn
+          >
+        </div>
+
         <v-btn @click="registration" plain>Registration</v-btn>
+
+        <v-divider class="mt-2 mb-2"></v-divider>
+
+        <v-btn @click="mobile" color="primary" plain>
+          <v-icon class="mr-2">mdi-qrcode</v-icon>
+          Download Mobile APK
+        </v-btn>
       </v-card>
+      <forgotDialog v-if="GET_DIALOG_VAL_FORGOT == true" />
     </v-container>
   </v-app>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import forgotDialog from "../Dialogs/Forgot_Pass_dialog.vue";
+
 export default {
+  components: { forgotDialog },
   data() {
     return {
       username: null,
@@ -61,7 +97,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["SIDE_NAV"]),
+    ...mapGetters([
+      "SIDE_NAV",
+      "GET_DIALOG_VAL_FORGOT",
+      "GET_DIALOG_MODE_FORGOT",
+    ]),
   },
 
   created() {
@@ -71,6 +111,10 @@ export default {
   },
 
   methods: {
+    openDialogForgot() {
+      this.$store.commit("SET_DIALOG_VAL_FORGOT", true); // mutation name
+      this.$store.commit("SET_DIALOG_MODE_FORGOT", "Forgot Password"); // mutation name
+    },
     login() {
       if (this.$refs.myForm.validate()) {
         const payload = {
@@ -106,21 +150,49 @@ export default {
     registration() {
       this.$router.push("/Registration");
     },
+    mobile() {
+      this.$router.push("/Mobile");
+    },
+    landingPage() {
+      this.$router.push("/LandingPage");
+    },
   },
 };
 </script>
 
 <style scoped>
-.login-btn {
-  width: 100%;
+.app_container {
+  background-image: url(../../assets/bg-custom2.svg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.login-card {
-  width: 25rem;
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 1rem 2rem;
+/* mobile */
+@media (max-width: 640px) {
+  .login-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem 2rem;
+  }
+  .login-btn {
+    width: 100%;
+  }
+}
+/* higer width than mobile */
+@media (min-width: 640px) {
+  .login-card {
+    width: 25rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem 2rem;
+  }
+  .login-btn {
+    width: 100%;
+  }
 }
 </style>

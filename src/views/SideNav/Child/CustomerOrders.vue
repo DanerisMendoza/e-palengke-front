@@ -1,6 +1,10 @@
 <template>
-  <v-app style="background: #d0dae3">
-    <v-container>
+  <v-app style="background: #c8e0f6">
+    <v-container class="container">
+      <div class="page-title">
+        <p class="text-h4">Customer Orders</p>
+      </div>
+
       <OrderStatusDialog v-if="SELECTED_ORDER_STATUS !== null" />
       <OrderDetailsDialog v-if="SELECTED_ORDER_DETAILS !== null" />
       <OrdersTable />
@@ -29,3 +33,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.page-title p {
+  margin-bottom: 1rem;
+  color: #0c3a68;
+}
+.container {
+  padding: 0 2.5rem 0;
+}
+</style>
