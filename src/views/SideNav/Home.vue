@@ -39,9 +39,12 @@ export default {
         xaxis: {
           categories: this.ordersAnalysisData.map((item) => item.name),
         },
+          title: {
+          text: "Trending Products",
+          align: "center",
+        },
         chart: {
-          height: chartHeight + "px", // Set the chart height
-          type: "bar",
+          height: 400, // Set the chart height
         },
       };
     },

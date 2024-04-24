@@ -44,6 +44,13 @@ export default {
     ...mapGetters(["USER_ROLES_ANALYSIS", "USER_ROLES_STATUS_ANALYSIS"]),
     chartOptionsRoles() {
       return {
+        title: {
+          text: "User Role Type",
+          align: "center",
+        },
+        chart: {
+          height: 400, 
+        },
         labels: this.userRolesAnalysisData.map((item) => item.name),
       };
     },
@@ -52,6 +59,13 @@ export default {
     },
     chartOptionsStatus() {
       return {
+        chart: {
+          height: 400, 
+        },
+        title: {
+          text: "User Role Status",
+          align: "center",
+        },
         labels: this.userRolesStatusAnalysisData.map((item) =>
           item.status.toUpperCase()
         ),

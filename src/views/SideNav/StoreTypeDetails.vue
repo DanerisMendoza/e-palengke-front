@@ -2,7 +2,7 @@
   <v-app style="background: #c8e0f6">
     <v-container class="container">
       <div class="page-title">
-        <p class="text-h4">Requirement Details</p>
+        <p class="text-h4">Store Type Details</p>
       </div>
 
       <StoreTypeDialog v-if="STORE_TYPE_DETAILS_DIALOG !== null" />
